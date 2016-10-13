@@ -8,7 +8,7 @@ An implementation of leaflet map library for Ontimize Web Ng2.
 ## Installation
 First you need to install the npm module:
 ```sh
-npm install git+http://37.139.121.79:8082/gitbucket/git/daniel.grana/npm-ontimize-web-ng2-map.git --save
+npm install ontimize-web-ng2-map --save
 ```
 
 
