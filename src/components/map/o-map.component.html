@@ -1,0 +1,33 @@
+<md-sidenav-layout layout="row" layout-fill>
+  <md-sidenav id="layers" name="layers" #sidenav mode="side" layout="column" layout-align="space-between stretch">
+    <md-toolbar class="md-theme-indigo">
+      <div layout="row" layout-align="center center">
+        <h2 class="md-toolbar-tools">Capas</h2>
+        <span flex></span>
+        <button md-icon-button (click)="toggleSidenav()" aria-label="Close">
+          <md-icon>chevron_left</md-icon>
+        </button>
+
+      </div>
+    </md-toolbar>
+    <md-content flex layout="column" layout-align="space-between stretch">
+      <o-map-layer-group #mainLayerGroup class="group-ref" ></o-map-layer-group>
+      <ng-content></ng-content>
+      <o-map-workspace #oMapWorkspace flex></o-map-workspace>
+    </md-content>
+  </md-sidenav>
+
+  <md-content layout-fill>
+    <div layout="column" layout-fill layout-align="top center">
+      <div id="map">
+        <div layout="row" layout-align="center center">
+          <button md-mini-fab (click)="toggleSidenav()" *ngIf="!sidenav.opened" aria-label="Open">
+            <md-icon class="md-24">layers</md-icon>
+          </button>
+          <navigator *ngIf="searchControl"></navigator>
+        </div>
+      </div>
+    </div>
+  </md-content>
+</md-sidenav-layout>
+

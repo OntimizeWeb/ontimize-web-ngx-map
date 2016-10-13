@@ -1,0 +1,46 @@
+#map {
+    position:absolute;
+    top:0px;
+    bottom:0;
+    width:100%;
+
+    .sidenav-toggle-btn {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+    }
+}
+
+md-sidenav#layers{
+  top: 0px;
+  bottom: 0px;
+  position: absolute !important;
+  width: 350px;
+
+  md-toolbar{
+    min-height: 40px;
+    height: 40px;
+    border-bottom: 2px solid #ccc;
+  }
+}
+
+.md-pushed-closed {
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  padding-left: 0px !important;
+}
+
+.md-sidenav-left.md-open, md-sidenav.md-open {
+    transform: translate3d(0%, 0, 0);
+}
+
+md-sidenav.md-open {
+    visibility: initial;
+    transition: transform 0.2s ease-in;
+}
+
+button[md-mini-fab]{
+  background: #009688;
+  z-index: 400;
+}
+
+

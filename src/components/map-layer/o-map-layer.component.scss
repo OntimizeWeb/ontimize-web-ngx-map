@@ -1,0 +1,16 @@
+.o-map-layer-item{
+  cursor: pointer;
+  visibility: initial;
+}
+
+md-content.o-map-layer-item{
+  font-size: 0.8em;
+}
+
+.layer-icon{
+    height: 24px;
+    width: 24px;
+    margin: 15px;
+    margin-left: 0;
+    margin-right: 4px;
+}

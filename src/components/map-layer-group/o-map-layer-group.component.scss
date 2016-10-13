@@ -1,0 +1,32 @@
+o-map-layer-group {
+    overflow: auto;
+}
+md-content {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+md-content button md-icon {
+    transition: all 0.35s cubic-bezier(0.55, 0, 0.55, 1);
+    transform: rotate(180deg);
+}
+md-content.collapsed button md-icon {
+    transform: rotate(0deg);
+}
+
+div {
+    transition: max-height 0.35s cubic-bezier(0.55, 0, 0.55, 1);
+    max-height: 1000px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+div.collapsed {
+    transition: max-height 0.35s cubic-bezier(0.55, 0, 0.55, 1);
+    max-height: 0px;
+}
+div.expanded {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+

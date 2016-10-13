@@ -1,0 +1,9 @@
+<button md-button id="add-marker" class="md-icon-button md-primary on-map-absolute" [disabled]="removing" [ngClass]="{'btn-default': !editing, 'btn-primary': editing}"
+        title="Add Marker" (click)="toggleEditing()" ><!--btnCheckbox-->
+    <i class="material-icons">add_location</i>
+</button>
+
+<button md-button id="remove-marker" class="md-icon-button md-primary on-map-absolute" [disabled]="editing" [ngClass]="{'btn-default': !removing, 'btn-primary': removing}"
+        title="Remove Marker" (click)="toggleRemoving()" ><!--btnCheckbox-->
+    <i class="material-icons">delete</i>
+</button>
