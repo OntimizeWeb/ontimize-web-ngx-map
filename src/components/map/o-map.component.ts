@@ -197,7 +197,7 @@ export class OMapComponent implements OnInit {
     return [];
   }
 
-  public getWorksapceSelectedMapLayer(): OMapLayerComponent {
+  public getWorkspaceSelectedMapLayer(): OMapLayerComponent {
     if (this.mapWorkspace) {
       return this.mapWorkspace.getSelectedMapLayer();
     }

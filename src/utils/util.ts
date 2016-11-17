@@ -42,7 +42,7 @@ export class Util {
 
   static isBlank(value: any): boolean {
     let isBlank = false;
-    if (!value || value.length === 0) {
+    if (value === undefined || value === null || value.length === 0) {
       isBlank = true;
     }
     return isBlank;
