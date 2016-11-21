@@ -1,14 +1,11 @@
 <div layout="row" layout-padding layout-wrap ng-cloak>
-  <md-whiteframe class="md-whiteframe-2dp" class="search-panel on-map md-whiteframe-5dp" layout="row" layout-align="left center">
-    <input id="place-input" class="on-map" type="text" flex="100" placeholder="Enter a place to go..."
-      [(ngModel)]="address" (keyup.enter)="goto()">
-
-    <button md-button id="goto" class="md-button md-primary" href="#" title="Goto Place" (click)="goto()">
+  <md-whiteframe class="search-panel on-map md-whiteframe-2dp" layout="row" layout-align="left center">
+    <button md-button class="md-button" (click)="toggleSidenav()">
+        <i class="material-icons">menu</i>
+    </button>
+    <input class="on-map" id="place-input" type="text" flex placeholder="Enter a place to go..." [(ngModel)]="address" (keyup.enter)="goto()">
+    <button md-button class="md-button md-primary" id="goto" title="Goto Place" href="#" (click)="goto()">
         <i class="material-icons">directions</i>
     </button>
   </md-whiteframe>
 </div>
-
-
-
-

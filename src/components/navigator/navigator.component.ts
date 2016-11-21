@@ -1,10 +1,14 @@
 import {
     Component,
-    Inject
+    Inject,
+    forwardRef
 } from '@angular/core';
 import {
     Map
 } from 'leaflet';
+import {
+    OMapComponent
+} from '../../components';
 import {
     MapService,
     GeocodingService
@@ -23,8 +27,11 @@ export class NavigatorComponent {
     private map: Map;
     private mapService: MapService;
 
-    constructor(@Inject(MapService) mapService: MapService,
-      @Inject(GeocodingService) geocoder: GeocodingService) {
+    constructor(
+        @Inject(MapService) mapService: MapService,
+        @Inject(GeocodingService) geocoder: GeocodingService,
+        @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
+    ) {
         this.address = '';
         this.geocoder = geocoder;
         this.mapService = mapService;
@@ -37,12 +44,16 @@ export class NavigatorComponent {
     }
 
     goto() {
-        if (!this.address) { return;}
+        if (!this.address) { return; }
 
         this.geocoder.geocode(this.address)
-        .subscribe(location => {
-            this.map.panTo([location.latitude, location.longitude]);
-            this.address = location.address;
-        }, error => console.error(error));
+            .subscribe(location => {
+                this.map.panTo([location.latitude, location.longitude]);
+                this.address = location.address;
+            }, error => console.error(error));
+    }
+
+    toggleSidenav() {
+        this.oMap.toggleSidenav();
     }
 }

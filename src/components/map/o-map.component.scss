@@ -38,9 +38,21 @@ md-sidenav.md-open {
     transition: transform 0.2s ease-in;
 }
 
-button[md-mini-fab]{
-  background: #009688;
-  z-index: 400;
+md-toolbar {
+  padding: 0;
+
+  button {
+    min-width: 54px;
+    height: 48px;
+    
+    md-icon {
+      line-height: 48px;
+    }
+  }
+
+  .md-toolbar-tools {
+    padding-left: 16px; 
+  }
 }
 
 
