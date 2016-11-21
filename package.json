@@ -3,7 +3,8 @@
   "version": "1.0.0-rc.0",
   "description": "An implementation of leaflet map for Ontimize Web Ng2",
   "scripts": {
-    "test": "tsc"
+    "test": "tsc",
+    "typings-install": "typings install"
   },
   "keywords": [
     "angular2",

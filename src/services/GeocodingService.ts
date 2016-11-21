@@ -1,24 +1,24 @@
-import {Http, Response} from '@angular/http';
-import {Inject, forwardRef} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
+import { Inject, forwardRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-import {Location} from '../core/location.class';
+import { Location } from '../core/Location.class';
 
 export class GeocodingService {
     http: Http;
 
-    constructor(@Inject(forwardRef(() => Http)) http: Http) {
+    constructor( @Inject(forwardRef(() => Http)) http: Http) {
         this.http = http;
     }
 
-    geocode(address: string) :Observable<any> {
+    geocode(address: string): Observable<any> {
         return this.http
             .get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address))
             .map(res => res.json())
             .map(result => {
-                if(result.status !== 'OK') { throw new Error('unable to geocode address'); }
+                if (result.status !== 'OK') { throw new Error('unable to geocode address'); }
 
                 var location = new Location();
                 location.address = result.results[0].formatted_address;
@@ -29,7 +29,7 @@ export class GeocodingService {
             });
     }
 
-    getCurrentLocation() : Observable<any> {
+    getCurrentLocation(): Observable<any> {
         return this.http
             .get('http://ipv4.myexternalip.com/json')
             .map(res => res.json().ip)

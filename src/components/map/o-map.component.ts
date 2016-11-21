@@ -215,9 +215,15 @@ export class OMapComponent implements OnInit {
   public toggleSidenav() {
     if (this.sideNavCmp) {
       if (this.isSidenavVisible) {
-        setTimeout(() => this.sideNavCmp.close(), 0);
+        setTimeout(() => {
+          this.sideNavCmp.close();
+          this.getMapService().map.invalidateSize(true);
+        }, 0);
       } else {
-        setTimeout(() => this.sideNavCmp.open(), 0);
+        setTimeout(() => {
+          this.sideNavCmp.open();
+          this.getMapService().map.invalidateSize(true);
+        }, 0);
       }
     }
     this.isSidenavVisible = !this.isSidenavVisible;

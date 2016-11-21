@@ -74,8 +74,9 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy {
   }
 
   private updateMapLayersPosition() {
+    var zMax = this.wsMapLayers.length;
     this.wsMapLayers.forEach((l, i) => {
-      l.setZIndex(i + 2);
+      l.setZIndex(zMax - i + 2);
     });
   }
 

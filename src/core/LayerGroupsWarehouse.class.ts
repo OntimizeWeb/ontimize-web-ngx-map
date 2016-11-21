@@ -29,8 +29,15 @@ export class OMapLayerGroupsWarehouse {
       this.all.push(g);
     } else {
       g.mapLayers = g.mapLayers.concat(this.all[p].mapLayers);
+      g.layerGroupsWarehouse.concat(this.all[p].layerGroupsWarehouse);
       this.all[p] = g;
     }
+  }
+
+  public concat(gw: OMapLayerGroupsWarehouse) {
+    gw.all.forEach(lgw => {
+      this.push(lgw);
+    });
   }
 
 }
