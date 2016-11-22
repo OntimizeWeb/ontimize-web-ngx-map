@@ -2,6 +2,13 @@ button {
     color: rgba(255,255,255,1);
     transition: 350ms ease-in-out;
     opacity: 0.38;
+    min-width: 44px;
+    height: 38px;
+    padding: 0;
+    
+    md-icon {
+      line-height: 38px;
+    }
 }
 
 button.active {

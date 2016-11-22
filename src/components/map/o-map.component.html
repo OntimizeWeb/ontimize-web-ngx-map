@@ -1,6 +1,7 @@
 <md-sidenav-layout layout="row" layout-fill>
-  <md-sidenav id="layers" name="layers" #sidenav mode="side" layout="column" layout-align="space-between stretch">
 
+  <md-sidenav id="layers" name="layers" #sidenav mode="side" layout="column" layout-align="start stretch">
+  
     <md-toolbar class="md-theme-indigo">
       <div layout="row" layout-align="center center">
         <span class="md-toolbar-tools" flex>Capas</span>
@@ -10,12 +11,17 @@
       </div>
     </md-toolbar>
 
-    <md-content flex layout="column" layout-align="space-between stretch">
-      <o-map-layer-group #mainLayerGroup class="group-ref"></o-map-layer-group>
+    <o-map-layer-group #mainLayerGroup class="group-ref">
       <ng-content></ng-content>
-      <o-map-workspace #oMapWorkspace flex></o-map-workspace>
-    </md-content>
+    </o-map-layer-group>
 
+    <md-toolbar class="md-theme-indigo">
+      <div layout="row" layout-align="center center">
+        <span class="md-toolbar-tools" flex>Espacio de trabajo</span>
+      </div>
+    </md-toolbar>
+
+    <o-map-workspace #oMapWorkspace flex></o-map-workspace>
   </md-sidenav>
 
   <md-content layout-fill>
@@ -27,5 +33,4 @@
       </div>
     </div>
   </md-content>
-
 </md-sidenav-layout>

@@ -14,7 +14,8 @@ import {
     'iconDark: icon-dark',
     'iconName: icon-name',
     'bgColor: bg-color',
-    'clickable'
+    'clickable',
+    'noInk: no-ink'
   ],
   templateUrl: '/toggle-icon-button/o-toggle-icon-button.component.html',
   styleUrls: ['/toggle-icon-button/o-toggle-icon-button.component.css']
@@ -25,10 +26,13 @@ export class OToggleIconButtonComponent {
   public iconName     : string;
   public bgColor      : string;
   public clickable    : boolean;
+  public noInk        : boolean = false;
 
   ngOnInit() {
 
     this.clickable = Util.parseBoolean(this.clickable ? this.clickable.toString() : 'yes', true);
+    this.noInk = Util.parseBoolean(this.noInk ? this.noInk.toString() : 'yes', true);
+    this.noInk = !this.clickable? true : this.noInk;
     if (this.iconDark === undefined || this.iconDark === null) {
       if (!!this.bgColor) {
         let rgb = this.bgColor.replace(/rgb.*\(/g,'').replace(/[\)\s]/g,'').split(',');

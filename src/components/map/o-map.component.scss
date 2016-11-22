@@ -55,4 +55,13 @@ md-toolbar {
   }
 }
 
+$layerHeight: 50%;
 
+o-map-layer-group {
+  max-height: $layerHeight;
+  min-height: $layerHeight / 4;
+  overflow: auto;
+}
+o-map-workspace {
+  overflow: auto;
+}

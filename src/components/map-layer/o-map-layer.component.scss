@@ -1,10 +1,11 @@
-.o-map-layer-item{
-  cursor: pointer;
-  visibility: initial;
-}
-
-md-content.o-map-layer-item{
+button.o-map-layer-item{
   font-size: 0.8em;
+  visibility: initial;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  line-height: normal;
+  overflow: hidden;
 }
 
 .layer-icon{

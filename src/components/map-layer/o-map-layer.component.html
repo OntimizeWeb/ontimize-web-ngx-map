@@ -1,5 +1,5 @@
-<md-content #layer layout="row" flex layout-align="left center" md-ink class="o-map-layer-item" (click)="toggleInWS()">
+<button md-button #layer layout="row" layout-align="space-around center" md-ink class="o-map-layer-item" (click)="toggleInWS()">
   <!--<img class="layer-icon" *ngIf="icon && icon.length>0" [src]="icon">-->
   <o-toggle-icon-button icon-dark="true" [icon-name]="icon && icon.length>0? icon : 'layers'" [button-active]="inWS"></o-toggle-icon-button>
   <div flex layout="column" layout-align="center start">{{menuLabel || layerId}}<small *ngIf="menuLabelSecondary">{{menuLabelSecondary}}</small></div>
-</md-content>
+</button>
