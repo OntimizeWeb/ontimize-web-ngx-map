@@ -5,12 +5,14 @@ import {
 } from '../utils';
 
 import * as L from 'leaflet';
-import {Map} from 'leaflet';
+import { Map } from 'leaflet';
+//import { MarkerCluster } from 'leaflet.markercluster';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
 @Injectable()
 export class MapService {
+  static BASE_PANE: string = 'basePane';
   map: Map;
   layers: Object = {};
   controls: Object = {};
@@ -124,6 +126,7 @@ export class MapService {
         }
         this.layers[id] = menuLabel;
         this.overlayMaps[menuLabel] = layer;
+        layer.options.pane = MapService.BASE_PANE;
         if (this.controls[LAYERS_CONTROL_ID]) {
           this.controls[LAYERS_CONTROL_ID].addOverlay(layer, menuLabel);
         } else {
@@ -692,7 +695,7 @@ export class MapService {
     }
 
     var geoJson = L.geoJson(d, {
-      pointToLayer: function(feature, latlng) {
+      pointToLayer: function (feature, latlng) {
         if (customIcon) {
           return L.marker(latlng, {
             icon: customIcon
@@ -702,7 +705,7 @@ export class MapService {
           return L.marker(latlng);
         }
       },
-      onEachFeature: function(feature, layer) {
+      onEachFeature: function (feature, layer) {
         if (popup && Object.keys(feature.properties).length > 0
           /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
@@ -718,6 +721,11 @@ export class MapService {
 
     // Add GeoJSON layer to map
     this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
+
+    /*/ Add MarkerCluster to layer
+    let markers = (<any> L).markerClusterGroup();
+    markers.addLayer(geoJson);
+    this.map.addLayer(markers);*/
 
     return geoJson;
   }

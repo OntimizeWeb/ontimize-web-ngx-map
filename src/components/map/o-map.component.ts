@@ -9,11 +9,11 @@ import {
   ApplicationRef,
   EventEmitter
 } from '@angular/core';
-import {MdButton} from '@angular2-material/button/button';
-import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {MdSidenav} from '@angular2-material/sidenav';
+import { MdButton } from '@angular2-material/button/button';
+import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
+import { MdSidenav } from '@angular2-material/sidenav';
 
-import {TranslatePipe} from 'ng2-translate/ng2-translate';
+import { TranslatePipe } from 'ng2-translate/ng2-translate';
 
 import * as L from 'leaflet';
 //TODO import {Control} from 'leaflet-draw';
@@ -67,10 +67,10 @@ const DEFAULT_CENTER = new Center(42.167602, -8.682654);
 })
 export class OMapComponent implements OnInit {
 
-  @ViewChild(MarkerComponent)   markerComponent : MarkerComponent;
+  @ViewChild(MarkerComponent) markerComponent: MarkerComponent;
   @ViewChild('sidenav') sideNavCmp: MdSidenav;
-  @ViewChild('mainLayerGroup')  mapLayerGroup   : OMapLayerGroupComponent;
-  @ViewChild('oMapWorkspace')   mapWorkspace    : OMapWorkspaceComponent;
+  @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroupComponent;
+  @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspaceComponent;
 
   public sCenter: string;
   public sZoom: string;
@@ -88,7 +88,7 @@ export class OMapComponent implements OnInit {
   public searchControl: boolean = true;
   public drawControl: boolean = false;
 
-  public featureInfo : Array<Feature> = new Array<Feature>();
+  public featureInfo: Array<Feature> = new Array<Feature>();
 
   private mapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
   private mLayerGroupsWarehouse: OMapLayerGroupsWarehouse = new OMapLayerGroupsWarehouse();
@@ -96,7 +96,7 @@ export class OMapComponent implements OnInit {
   private mapService: MapService;
   private geocoder: GeocodingService;
 
-  private isSidenavVisible : boolean = false;
+  private isSidenavVisible: boolean = false;
 
   private _clickEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _dragEvtEmitter: EventEmitter<any> = new EventEmitter();
@@ -153,7 +153,7 @@ export class OMapComponent implements OnInit {
       if (layerGroup.idParent) {
         this.auxLayerGroupWarehouse.get(layerGroup.idParent).layerGroupsWarehouse.push(layerGroup);
       } else {
-         this.mapLayerGroup.mLayerGroupsWarehouse.push(layerGroup);
+        this.mapLayerGroup.mLayerGroupsWarehouse.push(layerGroup);
       }
     }
   }
@@ -256,6 +256,8 @@ export class OMapComponent implements OnInit {
     };
 
     var map = new L.Map('map', mapOptions);
+    (<any> map).createPane(MapService.BASE_PANE);
+    (<any> map).getPane(MapService.BASE_PANE).style.zIndex = 450;
     L.control.layers(this.mapService.baseMaps).addTo(map);
     L.control.scale().addTo(map);
 
@@ -263,7 +265,7 @@ export class OMapComponent implements OnInit {
       L.control.zoom({ position: 'bottomright' }).addTo(map);
     }
     if (this.drawControl) {
-     //TODO  this.configureDrawControl(map);
+      //TODO  this.configureDrawControl(map);
     }
 
     this.mapService.map = map;
@@ -290,7 +292,7 @@ export class OMapComponent implements OnInit {
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
-    map.on('draw:created', function(e) {
+    map.on('draw:created', function (e) {
       //TODO editableLayers.addLayer(e.layer);
     });
   }
@@ -298,19 +300,19 @@ export class OMapComponent implements OnInit {
   bindMapEvents(): void {
     let map = this.getMapService().map;
     var self = this;
-    map.on('click', function(evt : L.LeafletLocationEvent) {
-        self._clickEvtEmitter.emit(evt);
+    map.on('click', function (evt: L.LeafletLocationEvent) {
+      self._clickEvtEmitter.emit(evt);
     });
-    map.on('drag', function(evt) {
+    map.on('drag', function (evt) {
       self._dragEvtEmitter.emit(evt);
     });
-    map.on('move', function(evt) {
+    map.on('move', function (evt) {
       self._moveEvtEmitter.emit(evt);
     });
-    map.on('moveend', function(evt) {
+    map.on('moveend', function (evt) {
       self._moveEndEvtEmitter.emit(evt);
     });
-    map.on('zoomlevelschange', function(evt) {
+    map.on('zoomlevelschange', function (evt) {
       self._zoomLevelEvtEmitter.emit(evt);
     });
 
