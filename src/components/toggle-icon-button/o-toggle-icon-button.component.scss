@@ -26,3 +26,7 @@ button.dark {
 button.dark:hover::after {
     background-color: rgba(0, 0, 0, 0.12);
 }
+
+button.md-no-ink:hover::after {
+    background: transparent !important;
+}

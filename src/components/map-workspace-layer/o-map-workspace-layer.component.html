@@ -9,7 +9,7 @@
   <div flex>{{menuLabel}}<small *ngIf="menuLabelSecondary"><br>{{menuLabelSecondary}}</small></div>
   <o-toggle-icon-button
     icon-dark="true"
-    [icon-name]="visible? 'visibility_off' : 'visibility'"
+    [icon-name]="visible? 'visibility' : 'visibility_off'"
     [button-active]="visible"
     (click)="toggleVisible(undefined, $event)"
   ></o-toggle-icon-button>

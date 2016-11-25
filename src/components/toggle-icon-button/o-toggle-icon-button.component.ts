@@ -31,7 +31,7 @@ export class OToggleIconButtonComponent {
   ngOnInit() {
 
     this.clickable = Util.parseBoolean(this.clickable ? this.clickable.toString() : 'yes', true);
-    this.noInk = Util.parseBoolean(this.noInk ? this.noInk.toString() : 'yes', true);
+    this.noInk = Util.parseBoolean(this.noInk ? this.noInk.toString() : 'no', false);
     this.noInk = !this.clickable? true : this.noInk;
     if (this.iconDark === undefined || this.iconDark === null) {
       if (!!this.bgColor) {

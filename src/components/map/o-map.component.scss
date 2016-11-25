@@ -21,6 +21,21 @@ md-sidenav#layers{
     min-height: 40px;
     height: 40px;
     border-bottom: 2px solid #ccc;
+    padding: 0;
+
+    button {
+      min-width: 54px;
+      height: 40px;
+      
+      md-icon {
+        line-height: 40px;
+      }
+    }
+
+    .md-toolbar-tools {
+      padding-left: 16px;
+      line-height: 40px;
+    }
   }
 }
 
@@ -36,23 +51,6 @@ md-sidenav#layers{
 md-sidenav.md-open {
     visibility: initial;
     transition: transform 0.2s ease-in;
-}
-
-md-toolbar {
-  padding: 0;
-
-  button {
-    min-width: 54px;
-    height: 48px;
-    
-    md-icon {
-      line-height: 48px;
-    }
-  }
-
-  .md-toolbar-tools {
-    padding-left: 16px; 
-  }
 }
 
 $layerHeight: 50%;
