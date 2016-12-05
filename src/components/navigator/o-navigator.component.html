@@ -1,0 +1,16 @@
+<div layout="row" layout-padding layout-wrap ng-cloak>
+  <md-whiteframe class="search-panel on-map md-whiteframe-2dp" layout="row" layout-align="left center">
+    <button md-button class="md-button" (click)="toggleSidenav()">
+        <i class="material-icons">menu</i>
+    </button>
+    <input class="on-map" id="place-input" type="text" flex placeholder="Enter a place to go..." [(ngModel)]="address" (keyup)="search()">
+    <button md-button class="md-button md-primary" id="goto" title="Goto Place" href="#" (click)="goto()">
+        <i class="material-icons">directions</i>
+    </button>
+  </md-whiteframe>
+</div>
+<div *ngIf="searchResults.length > 0" layout="row" layout-padding layout-wrap ng-cloak>
+  <md-whiteframe class="search-results on-map md-whiteframe-2dp" layout="column" layout-align="left center" flex>
+    <o-navigator-item *ngFor="let item of searchResults" [search-result]="item.oSearchResult"></o-navigator-item>
+  </md-whiteframe>
+</div>

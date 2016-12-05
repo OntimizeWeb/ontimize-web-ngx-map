@@ -6,7 +6,8 @@ import {
   Injector,
   EventEmitter,
   forwardRef,
-  ReflectiveInjector
+  ReflectiveInjector,
+  TemplateRef
 } from '@angular/core';
 import {
   Http,
@@ -32,7 +33,9 @@ import {
 import {OMapLayerFactory} from './o-map-layer.factory';
 import {
   ILayerService,
-  IGeoJSONLayerService
+  IGeoJSONLayerService,
+  OSearchable,
+  OSearchResult
 } from '../../interfaces';
 
 @Component({
@@ -63,7 +66,7 @@ import {
   templateUrl: '/map-layer/o-map-layer.component.html',
   styleUrls: ['/map-layer/o-map-layer.component.css']
 })
-export class OMapLayerComponent implements OnInit {
+export class OMapLayerComponent implements OnInit, OSearchable {
 
   sCenter   : string;
   sPoints   : string;
@@ -93,6 +96,8 @@ export class OMapLayerComponent implements OnInit {
   public icon: string;
   public options: Object;
 
+  public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
+
   layer: L.ILayer;
   protected layerConf: LayerConfiguration;
 
@@ -113,7 +118,8 @@ export class OMapLayerComponent implements OnInit {
 
   constructor(
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
-    protected injector: Injector) {
+    protected injector: Injector
+  ) {
   }
 
   ngOnInit() {
@@ -123,6 +129,18 @@ export class OMapLayerComponent implements OnInit {
 
   ngAfterViewInit() {
     this.updateStatus();
+  }
+
+  get oSearchResult(): OSearchResult {
+    return {
+      label: this.menuLabel,
+      sublabel: this.menuLabelSecondary,
+      icon: this.icon || 'layers',
+      buttons: [{
+        icon: 'check_box_outline_blank',
+        callback: () => this.toggleInWS()
+      }]
+    };
   }
 
   getMapService(): MapService {

@@ -5,6 +5,8 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import {
   DragulaService
 } from 'ng2-dragula/ng2-dragula';
@@ -13,6 +15,10 @@ import {
   OMapLayerComponent,
   OMapLayerGroupComponent
 } from '../../components';
+import {
+  OSearcher,
+  OSearchable
+} from '../../interfaces';
 
 
 @Component({
@@ -23,7 +29,7 @@ import {
   templateUrl: '/map-workspace/o-map-workspace.component.html',
   styleUrls: ['/map-workspace/o-map-workspace.component.css']
 })
-export class OMapWorkspaceComponent implements OnInit, OnDestroy {
+export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
   public wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
 
   constructor(
@@ -34,6 +40,9 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.dragulaService.find('layer-bag')) {
+      this.dragulaService.destroy('layer-bag');
+    }
     this.dragulaService.setOptions('layer-bag', {
       moves: function (el, container, handle) {
         let iconClicked = handle.tagName === 'MD-ICON' && handle.parentNode.parentNode.classList.contains('drag-handle');
@@ -45,6 +54,21 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.dragulaService.destroy('layer-bag');
+  }
+
+  getSearchableCollection(): Array<OMapLayerComponent> {
+    return this.wsMapLayers;
+  }
+
+  getSearcherCollection(): Array<OSearcher> {
+    return [];
+  }
+
+  search(oSearchValue: string): Observable<Array<OSearchable>> {
+    let subject = new Subject<Array<OSearchable>>();
+    setTimeout(() => subject.next(this.getSearchableCollection()), 1);
+    this.getSearcherCollection().forEach(s => s.search(oSearchValue).subscribe(r => r.length > 0 && subject.next(r)));
+    return subject.asObservable();
   }
 
   public updateMapLayer(l: OMapLayerComponent) {

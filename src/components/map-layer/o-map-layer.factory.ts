@@ -1,4 +1,3 @@
-
 import { MapService } from '../../services/MapService';
 import { LayerConfiguration } from '../../core/LayerConfiguration.class';
 import { ILayerService, IGeoJSONLayerService } from '../../interfaces';
@@ -11,18 +10,18 @@ export class OMapLayerFactory {
     // nothing to do
   }
 
-  public createMapLayer( layerConf: LayerConfiguration, mapService: MapService ): L.ILayer {
+  public createMapLayer(layerConf: LayerConfiguration, mapService: MapService): L.ILayer {
 
     let layer;
     switch (layerConf.type) {
       case 'marker':
-        layer = this.createMarker( layerConf, mapService );
+        layer = this.createMarker(layerConf, mapService);
         break;
       case 'geoJSON':
-        layer = this.createGeoJSON( layerConf, mapService );
+        layer = this.createGeoJSON(layerConf, mapService);
         break;
       case 'WMS':
-        layer = this.createWMS( layerConf, mapService );
+        layer = this.createWMS(layerConf, mapService);
         break;
       // case 'image':
       //   this.createImageOverlay(mapService);
@@ -51,7 +50,7 @@ export class OMapLayerFactory {
    *          Reference to map service responsible of interact with leaflet map object.
    * @return L.Marker layer.
    */
-  public createMarker(layerConf: LayerConfiguration, mapService: MapService ): L.Marker {
+  public createMarker(layerConf: LayerConfiguration, mapService: MapService): L.Marker {
     // Get id
     var id = null;
     if (layerConf.layerId) {
@@ -94,6 +93,7 @@ export class OMapLayerFactory {
 
     return layer;
   }
+
   /**
    * Creates WMS layer and adds it to map.
    * @param  {LayerConfiguration} layerConf
@@ -102,7 +102,7 @@ export class OMapLayerFactory {
    *          Reference to map service responsible of interact with leaflet map object.
    * @returns L.TileLayer.WMS layer
    */
-  public createWMS( layerConf: LayerConfiguration, mapService: MapService ): L.TileLayer.WMS {
+  public createWMS(layerConf: LayerConfiguration, mapService: MapService): L.TileLayer.WMS {
     var id = null;
     if (layerConf.layerId) {
       id = layerConf.layerId;

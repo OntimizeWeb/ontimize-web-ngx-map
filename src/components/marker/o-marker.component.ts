@@ -9,12 +9,12 @@ import {
 } from '../../services';
 
 @Component({
-    selector: 'marker',
+    selector: 'o-marker',
     moduleId: module.id,
-    templateUrl: '/marker/marker.component.html',
-    styleUrls: ['/marker/marker.component.css']
+    templateUrl: '/marker/o-marker.component.html',
+    styleUrls: ['/marker/o-marker.component.css']
 })
-export class MarkerComponent {
+export class OMarkerComponent {
     editing: boolean;
     removing: boolean;
     markerCount: number;
