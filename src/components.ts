@@ -1,4 +1,5 @@
 export * from './components/map/o-map.component';
+export * from './components/map-base-layer/o-map-base-layer.component';
 export * from './components/map-layer/o-map-layer.component';
 export * from './components/map-layer-group/o-map-layer-group.component';
 export * from './components/map-workspace/o-map-workspace.component';

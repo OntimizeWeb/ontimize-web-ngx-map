@@ -9,6 +9,7 @@ import {
 import { DragulaDirective, DragulaModule } from 'ng2-dragula/ng2-dragula';
 import {
   OMapComponent,
+  OMapBaseLayerComponent,
   OMapLayerComponent,
   OMapLayerGroupComponent,
   OMapWorkspaceComponent,
@@ -36,6 +37,7 @@ export * from './src/core';
 
 const OMAP_DIRECTIVES: any[] = [
   OMapComponent,
+  OMapBaseLayerComponent,
   OMapLayerComponent,
   OMapLayerGroupComponent,
   OMapWorkspaceComponent,
@@ -49,7 +51,7 @@ const OMAP_DIRECTIVES: any[] = [
 @NgModule({
   imports: [CommonModule, FormsModule, MdIconModule, MdSidenavModule, DragulaModule],
   declarations: OMAP_DIRECTIVES,
-  exports: [OMapComponent, OMapLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent, OMapWorkspaceLayerComponent, OToggleIconButtonComponent, DragulaDirective],
+  exports: [OMapComponent, OMapBaseLayerComponent, OMapLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent, OMapWorkspaceLayerComponent, OToggleIconButtonComponent, DragulaDirective],
   providers: [MdIconRegistry],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

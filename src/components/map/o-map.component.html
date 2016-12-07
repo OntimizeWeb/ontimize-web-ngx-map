@@ -4,13 +4,29 @@
   
     <md-toolbar class="md-theme-indigo">
       <div layout="row" layout-align="center center">
-        <span class="md-toolbar-tools" flex>Capas</span>
+        <span class="md-toolbar-tools" flex>Capas base</span>
         <button md-button (click)="toggleSidenav()" aria-label="Close">
           <md-icon>navigate_before</md-icon>
         </button>
       </div>
     </md-toolbar>
 
+    <!--TODO replace this div with o-grid if it goes into the framework -->
+    <div class="o-map-base-layer-group">
+      <o-map-base-layer *ngFor="let baseLayer of baseLayers"
+        [layer-id]="baseLayer.id"
+        [title]="baseLayer.name"
+        [src]="baseLayer.urlTemplate"
+      ></o-map-base-layer>
+    </div>
+
+    <md-toolbar class="md-theme-indigo">
+      <div layout="row" layout-align="center center">
+        <span class="md-toolbar-tools" flex>Capas</span>
+      </div>
+    </md-toolbar>
+
+    <!--TODO replace this div with o-tree-list if it goes into the framework -->
     <o-map-layer-group #mainLayerGroup class="group-ref">
       <ng-content></ng-content>
     </o-map-layer-group>
@@ -21,6 +37,7 @@
       </div>
     </md-toolbar>
 
+    <!--TODO replace this div with o-list if it goes into the framework -->
     <o-map-workspace #oMapWorkspace flex></o-map-workspace>
   </md-sidenav>
 
@@ -28,8 +45,8 @@
     <div layout="column" layout-fill layout-align="top center">
       <div id="map">
       </div>
-      <div layout="row" layout-align="center center">
-        <navigator *ngIf="searchControl"></navigator>
+      <div *ngIf="searchControl" layout="row" layout-align="left center">
+        <o-navigator></o-navigator>
       </div>
     </div>
   </md-content>

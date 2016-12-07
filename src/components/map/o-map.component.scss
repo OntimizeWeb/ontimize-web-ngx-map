@@ -1,37 +1,32 @@
 #map {
-    position:absolute;
-    top:0px;
-    bottom:0;
-    width:100%;
-
-    .sidenav-toggle-btn {
-      position: absolute;
-      left: 8px;
-      top: 8px;
-    }
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  width: 100%;
+  .sidenav-toggle-btn {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+  }
 }
 
-md-sidenav#layers{
+md-sidenav#layers {
   top: 0px;
   bottom: 0px;
   position: absolute !important;
   width: 350px;
-
-  md-toolbar{
+  md-toolbar {
     min-height: 40px;
     height: 40px;
     border-bottom: 2px solid #ccc;
     padding: 0;
-
     button {
       min-width: 54px;
       height: 40px;
-      
       md-icon {
         line-height: 40px;
       }
     }
-
     .md-toolbar-tools {
       padding-left: 16px;
       line-height: 40px;
@@ -44,22 +39,36 @@ md-sidenav#layers{
   padding-left: 0px !important;
 }
 
-.md-sidenav-left.md-open, md-sidenav.md-open {
-    transform: translate3d(0%, 0, 0);
+.md-sidenav-left.md-open,
+md-sidenav.md-open {
+  transform: translate3d(0%, 0, 0);
 }
 
 md-sidenav.md-open {
-    visibility: initial;
-    transition: transform 0.2s ease-in;
+  visibility: initial;
+  transition: transform 0.2s ease-in;
 }
 
-$layerHeight: 50%;
+$layerHeight: 30%;
+.o-map-base-layer-group {
+  max-height: $layerHeight;
+  min-height: 0;
+  overflow: auto;
+  column-count: 3;
+  column-gap: 0px;
+  column-rule-width: 0px;
+}
 
 o-map-layer-group {
   max-height: $layerHeight;
-  min-height: $layerHeight / 4;
+  min-height: 0;
   overflow: auto;
 }
+
 o-map-workspace {
   overflow: auto;
+}
+
+.leaflet-control-layers.leaflet-control {
+  display: none;
 }

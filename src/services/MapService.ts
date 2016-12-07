@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import {
   Util
 } from '../utils';
+import {
+  BaseLayerDefault,
+  BaseLayerCollection
+} from '../core';
 
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
@@ -13,28 +17,25 @@ const LAYERS_CONTROL_ID: string = 'layers';
 @Injectable()
 export class MapService {
   static BASE_PANE: string = 'basePane';
+  static DEFAULT_BASE_MAP: string = 'OpenStreetMap';
   map: Map;
   layers: Object = {};
   controls: Object = {};
-  baseMaps: Object = {};
+  baseLayers: BaseLayerCollection = new BaseLayerCollection();
   overlayMaps: Object = {};
   iconTypes: Object = {};
 
   constructor() {
-    this.baseMaps = {
-      OpenStreetMap: new L.TileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>,'
-        + 'Tiles courtesy of <a href="http://hot.openstreetmap.org/" target= "_blank" > Humanitarian OpenStreetMap Team< /a>'
-      }),
-      Esri: new L.TileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase,'
-        + ' Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-      }),
-      CartoDB: new L.TileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy;'
-        + ' <a href="http://cartodb.com/attributions">CartoDB</a>'
+    this.baseLayers.addLayer(
+      MapService.DEFAULT_BASE_MAP,
+      new BaseLayerDefault({
+        name: MapService.DEFAULT_BASE_MAP,
+        urlTemplate: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+        options: {
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target= "_blank" > Humanitarian OpenStreetMap Team< /a>'
+        }
       })
-    };
+    );
   }
 
   disableMouseEvent(tag: string) {
@@ -43,6 +44,18 @@ export class MapService {
     L.DomEvent.disableClickPropagation(html);
     L.DomEvent.on(html, 'mousewheel', L.DomEvent.stopPropagation);
   };
+
+  /**
+   * Gets or creates the map
+   * @param  {string} id Id of the map
+   * @param  {L.Map.MapOptions} options Leaflet option for the map
+   */
+  getMap(id?: string, options?: L.Map.MapOptions): Map {
+    if (!!id && !this.map) {
+      this.map = new L.Map(id, options);
+    }
+    return this.map;
+  }
 
   /**
    * Sets center of map.
@@ -107,15 +120,15 @@ export class MapService {
     switch (showInMenu) {
       case 'base':
         // Base layer (radio button)
-        if (this.controls[LAYERS_CONTROL_ID] && this.baseMaps[menuLabel]) {
-          this.controls[LAYERS_CONTROL_ID].removeLayer(this.baseMaps[menuLabel]);
+        if (this.controls[LAYERS_CONTROL_ID] && this.baseLayers.contains(menuLabel)) {
+          this.controls[LAYERS_CONTROL_ID].removeLayer(this.baseLayers.getTileLayer(menuLabel));
         }
         this.layers[id] = menuLabel;
-        this.baseMaps[menuLabel] = layer;
+        this.baseLayers.addLayer(menuLabel, layer);
         if (this.controls[LAYERS_CONTROL_ID]) {
           this.controls[LAYERS_CONTROL_ID].addBaseLayer(layer, menuLabel);
         } else {
-          this.controls[LAYERS_CONTROL_ID] = L.control.layers(this.baseMaps).addTo(this.map);
+          this.controls[LAYERS_CONTROL_ID] = L.control.layers(this.baseLayers.getLayersMap()).addTo(this.map);
         }
         break;
 
@@ -147,29 +160,61 @@ export class MapService {
   }
 
   /**
+   * Selects a layer by adding it again to the map
+   * @param id Unique identifier 
+   */
+  selectBaseLayer(id: string) {
+    let l = this.getLayer(id);
+    if (!!l) {
+      this.clearBaseLayers();
+      l.addTo(this.getMap());
+    }
+  }
+
+  /**
+   * Upload base layers in the map
+   */
+  uploadBaseLayers() {
+    let lM = this.baseLayers.getLayersMap();
+    this.clearBaseLayers();
+    this.controls[LAYERS_CONTROL_ID] = L.control.layers(lM).addTo(this.getMap());
+  }
+
+  /**
+   * Deletes all base layers.
+   */
+  clearBaseLayers(): void {
+    let lM = this.baseLayers.getLayersMap();
+    for (var layerId in lM) {
+      if (lM.hasOwnProperty(layerId)) {
+        this.removeLayer(layerId);
+      }
+    }
+  }
+
+  /**
    * Removes a layer (tiles, marker, circle, polygon...) from the map.
    * @param id
    *          Unique identifier.
    * @return True if success, else false.
    */
   removeLayer(id: string): boolean {
-    var success = (typeof (this.layers[id]) !== 'undefined');
-    if (success) {
-      var layer = this.layers[id];
-      if ((typeof (this.layers[id]) === 'string') && this.controls[LAYERS_CONTROL_ID]) {
+    var success = false; //(typeof (this.layers[id]) !== 'undefined') || this.baseLayers.contains(id);
+    var layer;
+    if (this.controls[LAYERS_CONTROL_ID]) {
+      if ((typeof (this.layers[id]) === 'string')) {
         var menuLabel = this.layers[id];
-        if (this.baseMaps[menuLabel]) {
-          layer = this.baseMaps[menuLabel];
-          this.controls[LAYERS_CONTROL_ID].removeLayer(layer);
-        } else if (this.overlayMaps[menuLabel]) {
+        if (this.overlayMaps[menuLabel]) {
           layer = this.overlayMaps[menuLabel];
-          this.controls[LAYERS_CONTROL_ID].removeLayer(layer);
-        } else {
-          success = false;
         }
+      } else if (this.baseLayers.contains(id)) {
+        layer = this.baseLayers.getTileLayer(id);
       }
-      if (success) {
+
+      if (!!layer) {
+        this.controls[LAYERS_CONTROL_ID].removeLayer(layer);
         this.map.removeLayer(layer);
+        success = true;
       }
       delete this.layers[id];
     }
@@ -182,18 +227,7 @@ export class MapService {
   clearLayers(): void {
     for (var layerId in this.layers) {
       if (this.layers.hasOwnProperty(layerId)) {
-        var layer = this.layers[layerId];
-        if ((typeof (layer) === 'string') && this.controls[LAYERS_CONTROL_ID]) {
-          var menuLabel = layer;
-          if (this.baseMaps[menuLabel]) {
-            layer = this.baseMaps[menuLabel];
-            this.controls[LAYERS_CONTROL_ID].removeLayer(layer);
-          } else if (this.overlayMaps[menuLabel]) {
-            layer = this.overlayMaps[menuLabel];
-            this.controls[LAYERS_CONTROL_ID].removeLayer(layer);
-          }
-        }
-        this.map.removeLayer(layer);
+        this.removeLayer(layerId);
       }
     }
     this.layers = {};
@@ -206,16 +240,14 @@ export class MapService {
    * @return Layer object if exists, else undefined.
    */
   getLayer(id: string) {
-    var layer = this.layers[id];
+    let layer;
     if ((typeof (this.layers[id]) === 'string') && this.controls[LAYERS_CONTROL_ID]) {
-      var menuLabel = this.layers[id];
-      if (this.baseMaps[menuLabel]) {
-        layer = this.baseMaps[menuLabel];
-      } else if (this.overlayMaps[menuLabel]) {
-        layer = this.overlayMaps[menuLabel];
-      } else {
-        layer = undefined;
-      }
+      let menuLabel = this.layers[id];
+      layer = this.overlayMaps[menuLabel] || undefined;
+    } else if (this.baseLayers.contains(id) && this.controls[LAYERS_CONTROL_ID]) {
+      layer = this.baseLayers.getTileLayer(id);
+    } else {
+      layer = this.layers[id];
     }
     return layer;
   }
