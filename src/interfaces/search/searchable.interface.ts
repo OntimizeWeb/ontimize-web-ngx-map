@@ -1,7 +1,8 @@
 // Configuration for the search results
 export interface OSearchResultAction {
-    icon: string;
-    callback: Function;
+    icon: Array<string>;
+    status: () => boolean;
+    callback: () => boolean;
 }
 
 export interface OSearchResult {

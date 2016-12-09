@@ -50,25 +50,17 @@ md-sidenav.md-open {
 }
 
 $layerHeight: 30%;
-.o-map-base-layer-group {
+.group-ref {
   max-height: $layerHeight;
-  min-height: 0;
+  min-height: 120px;
   overflow: auto;
+}
+.o-map-base-layer-group {
   column-count: 3;
   column-gap: 0px;
   column-rule-width: 0px;
 }
 
-o-map-layer-group {
-  max-height: $layerHeight;
-  min-height: 0;
-  overflow: auto;
-}
-
 o-map-workspace {
   overflow: auto;
-}
-
-.leaflet-control-layers.leaflet-control {
-  display: none;
 }

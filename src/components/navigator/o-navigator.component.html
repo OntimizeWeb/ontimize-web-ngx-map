@@ -4,9 +4,6 @@
         <i class="material-icons">menu</i>
     </button>
     <input class="on-map" id="place-input" type="text" flex placeholder="Enter a place to go..." [(ngModel)]="address" (keyup)="search()">
-    <button md-button class="md-button md-primary" id="goto" title="Goto Place" href="#" (click)="goto()">
-        <i class="material-icons">directions</i>
-    </button>
   </md-whiteframe>
 </div>
 <div *ngIf="searchResults.length > 0" layout="row" layout-padding layout-wrap ng-cloak>

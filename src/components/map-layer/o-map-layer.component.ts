@@ -13,7 +13,7 @@ import {
   Http,
   Headers
 } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import * as leaflet from 'leaflet';
 
@@ -30,7 +30,7 @@ import {
 import {
   OMapComponent
 } from '../../components';
-import {OMapLayerFactory} from './o-map-layer.factory';
+import { OMapLayerFactory } from './o-map-layer.factory';
 import {
   ILayerService,
   IGeoJSONLayerService,
@@ -43,42 +43,42 @@ import {
   moduleId: module.id,
   providers: [MapService],
   inputs: [
-               'sCenter : layer-center',
-               'sPoints : layer-points',
-               'sRadius : layer-radius',
-               'sBounds : layer-bounds',
-              'sService : layer-service',
-              'baseUrl  : layer-base-url',
-              'selected : layer-selected',
-               'visible : layer-visible',
-                  'inWS : layer-in-ws',
-                'inMenu : layer-in-menu',
-               'layerId : layer-id',
-          'layerGroupId : layer-group-id',
-                  'type : layer-type',
-                 'popup : layer-popup',
-              'popupUrl : layer-popup-url',
-             'menuLabel : layer-menu-label',
+    'sCenter : layer-center',
+    'sPoints : layer-points',
+    'sRadius : layer-radius',
+    'sBounds : layer-bounds',
+    'sService : layer-service',
+    'baseUrl  : layer-base-url',
+    'selected : layer-selected',
+    'visible : layer-visible',
+    'inWS : layer-in-ws',
+    'inMenu : layer-in-menu',
+    'layerId : layer-id',
+    'layerGroupId : layer-group-id',
+    'type : layer-type',
+    'popup : layer-popup',
+    'popupUrl : layer-popup-url',
+    'menuLabel : layer-menu-label',
     'menuLabelSecondary : layer-menu-label-secondary',
-                  'icon : layer-icon',
-               'options : layer-options'
+    'icon : layer-icon',
+    'options : layer-options'
   ],
   templateUrl: '/map-layer/o-map-layer.component.html',
   styleUrls: ['/map-layer/o-map-layer.component.css']
 })
 export class OMapLayerComponent implements OnInit, OSearchable {
 
-  sCenter   : string;
-  sPoints   : string;
-  sRadius   : string;
-  sBounds   : string;
-  sService  : string;
+  sCenter: string;
+  sPoints: string;
+  sRadius: string;
+  sBounds: string;
+  sService: string;
 
   // Status of the label
-  public selected : boolean = false;
-  public visible  : boolean = false;
-  public inWS     : boolean = false;
-  public inMenu   : string;
+  public selected: boolean = false;
+  public visible: boolean = false;
+  public inWS: boolean = false;
+  public inMenu: string;
 
   public layerId: string;
   public layerGroupId: string;
@@ -137,8 +137,13 @@ export class OMapLayerComponent implements OnInit, OSearchable {
       sublabel: this.menuLabelSecondary,
       icon: this.icon || 'layers',
       buttons: [{
-        icon: 'check_box_outline_blank',
+        icon: ['check_box', 'check_box_outline_blank'],
+        status: () => this.inWS,
         callback: () => this.toggleInWS()
+      }, {
+        icon: ['visibility', 'visibility_off'],
+        status: () => this.visible,
+        callback: () => this.toggleVisible()
       }]
     };
   }
@@ -151,7 +156,7 @@ export class OMapLayerComponent implements OnInit, OSearchable {
     return new OMapLayerFactory();
   }
 
-  getLayerConfiguration():LayerConfiguration {
+  getLayerConfiguration(): LayerConfiguration {
     let layerConf = new LayerConfiguration();
     layerConf.layerId = this.layerId;
     layerConf.type = this.type;
@@ -191,15 +196,15 @@ export class OMapLayerComponent implements OnInit, OSearchable {
       this.loadPopupTpl().subscribe(data => {
         self.popup = data;
         self.layerConf.popup = data;
-        self.createMapLayer(this.layerConf );
+        self.createMapLayer(this.layerConf);
       }, error => {
         console.log('Could not load popup template.');
         self.popup = '';
         self.layerConf.popup = '';
-        self.createMapLayer(this.layerConf );
+        self.createMapLayer(this.layerConf);
       });
     } else {
-      this.createMapLayer(this.layerConf );
+      this.createMapLayer(this.layerConf);
     }
 
   }
@@ -209,49 +214,49 @@ export class OMapLayerComponent implements OnInit, OSearchable {
     this.layer = this.getMapLayerFactory().createMapLayer(layerConf, mapService);
 
     if (Util.isLayerService(this.service) &&
-        Util.isGeoJSONLayer(this.layer)) {
+      Util.isGeoJSONLayer(this.layer)) {
       (<ILayerService>this.service).load([layerConf])
-      .subscribe(resp => {
-        (<L.GeoJSON>this.layer).addData(resp);
-      }, err => {
-        console.log(err);
-      });
+        .subscribe(resp => {
+          (<L.GeoJSON>this.layer).addData(resp);
+        }, err => {
+          console.log(err);
+        });
     }
 
     this.bindLayerEvents();
   }
 
-  public setSelected (status : boolean) {
+  public setSelected(status: boolean) {
     return this.toggleSelected(status);
   }
 
-  public toggleSelected (status ?: boolean) {
+  public toggleSelected(status?: boolean) {
     this.selected = !Util.isBlank(status) ? status : !this.selected;
     this.updateStatus();
     return this.selected;
   }
 
-  public setInWS (status : boolean) {
+  public setInWS(status: boolean) {
     return this.toggleInWS(status);
   }
 
-  public toggleInWS (status ?: boolean) {
+  public toggleInWS(status?: boolean) {
     this.inWS = !Util.isBlank(status) ? status : !this.inWS;
     this.updateStatus();
     return this.inWS;
   }
 
-  public setVisible(status : boolean) {
+  public setVisible(status: boolean) {
     return this.toggleVisible(status);
   }
 
-  public toggleVisible(status ?: boolean) {
+  public toggleVisible(status?: boolean) {
     this.visible = !Util.isBlank(status) ? status : !this.visible;
     this.updateStatus();
     return this.visible;
   }
 
-  public setZIndex(i : number) {
+  public setZIndex(i: number) {
     if (Util.isTileLayer(this.layer)) {
       this.layer.setZIndex(i);
     }

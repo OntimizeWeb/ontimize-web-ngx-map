@@ -18,9 +18,21 @@ import {
 export class ONavigatorItemComponent {
     searchResult: OSearchResult;
 
-    callback() {
-        console.log('yey');
-        // console.log(button);
-        // button.callback();
+    private actionButtons: Array<OSearchResultAction> = new Array<OSearchResultAction>();
+
+    get actions() {
+        if (this.actionButtons.length !== this.searchResult.buttons.length) {
+            this.actionButtons = this.searchResult.buttons;
+        }
+        return this.actionButtons;
+    }
+
+    trueStatusIcon(button: OSearchResultAction): string {
+        // The first string in the array
+        return (!button.icon || !button.icon.length)? '' : button.icon.slice(0, 1)[0];
+    }
+    falseStatusIcon(button: OSearchResultAction): string {
+        // The last string in the array
+        return (!button.icon || !button.icon.length)? '' : button.icon.slice(-1, button.icon.length)[0];
     }
 }

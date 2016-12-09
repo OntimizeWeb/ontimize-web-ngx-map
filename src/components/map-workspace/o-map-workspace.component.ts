@@ -32,6 +32,8 @@ import {
 export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
   public wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
 
+  public oSearchTitle: string = 'Capas del Espacio de Trabajo';
+
   constructor(
     @Inject(forwardRef(() => OMapComponent)) private map: OMapComponent,
     private dragulaService: DragulaService) {

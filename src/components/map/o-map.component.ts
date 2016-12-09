@@ -3,16 +3,17 @@ import {
   Injector,
   ElementRef,
   OnInit,
-  ViewChild
+  ViewChild,
+  ViewChildren
 } from '@angular/core';
 import { MdIconRegistry, MdSidenav } from '@angular/material';
 import { TranslatePipe } from 'ng2-translate/ng2-translate';
-import { OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
+import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { MapService, GeocodingService } from '../../services';
 import { Feature } from '../../core';
 import { Util } from '../../utils';
-import { OMapWBaseLayer } from './o-map-w-baselayer.class';
+import { OMapWSearch } from './o-map-w-search.class';
 
 import * as L from 'leaflet';
 //TODO import {Control} from 'leaflet-draw';
@@ -33,9 +34,10 @@ import * as L from 'leaflet';
   templateUrl: '/map/o-map.component.html',
   styleUrls: ['/map/o-map.component.css']
 })
-export class OMapComponent extends OMapWBaseLayer implements OnInit {
+export class OMapComponent extends OMapWSearch implements OnInit {
   @ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
   @ViewChild('sidenav') sideNavCmp: MdSidenav;
+  @ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
   @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroupComponent;
   @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspaceComponent;
 
@@ -77,7 +79,8 @@ export class OMapComponent extends OMapWBaseLayer implements OnInit {
 
   ngAfterViewInit() {
     this.toggleSidenav();
-    this.mapSearchers = [this.mapWorkspace];
+    // Enable search on workspace?
+    //this.mapSearchers.push(this.mapWorkspace);
   }
 
   protected configureMap() {

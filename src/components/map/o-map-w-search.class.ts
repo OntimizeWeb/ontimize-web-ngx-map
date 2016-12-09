@@ -5,15 +5,55 @@ import {
     OSearchable
 } from '../../interfaces';
 import {
-    OMapWEvents
-} from './o-map-w-events.class';
+    OMapWBaseLayer
+} from './o-map-w-baselayer.class';
 
-export class OMapWSearch extends OMapWEvents implements OSearcher {
+class DefaultSearcher implements OSearcher {
+    public oSearchTitle: string = '';
+    private collection: () => Array<OSearchable>;
+
+    constructor(title?: string, collection?: () => Array<OSearchable>) {
+        if (!!title) {
+            this.oSearchTitle = title;
+        }
+        this.setSearchableCollection(collection);
+    }
+
+    setSearchableCollection(collection: () => Array<OSearchable>) {
+        return this.collection = collection;
+    }
+    getSearchableCollection(): Array<OSearchable> {
+        return this.collection();
+    }
+
+    getSearcherCollection(): Array<OSearcher> {
+        return [];
+    }
+
+    search(oSearchValue: string): Observable<Array<OSearchable>> {
+        let subject = new Subject<Array<OSearchable>>();
+        setTimeout(() => subject.next(this.getSearchableCollection().filter(sc => {
+            let r = false;
+            sc.oSearchKeys.forEach(k => {
+                r = r || (sc[k] ? sc[k].toString() : '').indexOf(oSearchValue) > -1;
+            });
+            return r;
+        })), 1);
+        return subject.asObservable();
+    }
+}
+
+export class OMapWSearch extends OMapWBaseLayer implements OSearcher {
     public searchControl: boolean = true;
-    public mapSearchers: Array<OSearcher>;
+    public mapSearchers: Array<OSearcher> = [
+        new DefaultSearcher('Capas Base', () => this.mapBaseLayerGroup),
+        new DefaultSearcher('Capas', () => this.mapLayers)
+    ];
+
+    public oSearchTitle: string = '';
 
     getSearchableCollection(): Array<OSearchable> {
-        return this.mapLayers;
+        return [];
     }
 
     getSearcherCollection(): Array<OSearcher> {

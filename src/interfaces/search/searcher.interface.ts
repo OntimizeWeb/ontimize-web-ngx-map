@@ -3,6 +3,8 @@ import { OSearchable } from './searchable.interface';
 
 export interface OSearcher {
 
+    oSearchTitle: string;
+
     /**
      * Collection to make the search over it
      */

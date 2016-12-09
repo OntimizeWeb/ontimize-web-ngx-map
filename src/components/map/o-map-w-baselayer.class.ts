@@ -30,7 +30,7 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
     }
 
     unselectBaseLayers() {
-        this.baseLayersGroup.forEach(bL => bL.active = false);
+        this.mapBaseLayerGroup.forEach(bL => bL.active = false);
     }
 
     private buildBaseLayerUrl(bL: BaseLayer): BaseLayer {

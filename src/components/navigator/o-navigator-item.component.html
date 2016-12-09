@@ -4,7 +4,11 @@
         <span *ngIf="searchResult.label">{{searchResult.label}}</span>
         <span class="sub-label" *ngIf="searchResult.sublabel">{{searchResult.sublabel}}</span>
     </div>
-    <button *ngFor="let button of searchResult.buttons" md-button class="md-button md-primary" (click)="button.callback()">
-        <i class="material-icons">{{button.icon}}</i>
-    </button>
+    <o-toggle-icon-button *ngFor="let button of actions"
+        icon-dark="true"
+        [icon-name]="button.status()? trueStatusIcon(button) : falseStatusIcon(button)"
+        [button-active]="button.status()"
+        clickable="false"
+        (click)="button.callback()"
+    ></o-toggle-icon-button>
 </div>

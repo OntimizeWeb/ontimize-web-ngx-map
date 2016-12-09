@@ -48,7 +48,7 @@ export class ONavigatorComponent {
     }
 
     ngOnInit() {
-        this.mapService.disableMouseEvent('goto');
+        //this.mapService.disableMouseEvent('goto');
         this.mapService.disableMouseEvent('place-input');
         this.map = this.mapService.map;
     }
@@ -75,6 +75,20 @@ export class ONavigatorComponent {
         if (Util.isBlank(this.address)) {
             return;
         }
+
+        // Add default result
+        this.searchResults = [{
+            oSearchKeys: [],
+            oSearchResult: {
+                label: this.address,
+                icon: 'location_on',
+                buttons: [{
+                    icon: ['directions'],
+                    status: () => true,
+                    callback: () => (this.goto(), true)
+                }]
+            }
+        }];
 
         // Search
         this.searchObserver = this.oMap.search(this.address).subscribe(a => this.searchResults = this.searchResults.concat(a));

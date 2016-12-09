@@ -2,10 +2,10 @@ import {
     MdSidenav
 } from '@angular/material';
 import {
-    OMapWSearch
-} from './o-map-w-search.class';
+    OMapWEvents
+} from './o-map-w-events.class';
 
-export class OMapWSidenav extends OMapWSearch {
+export class OMapWSidenav extends OMapWEvents {
     sideNavCmp: MdSidenav;
 
     private isSidenavVisible: boolean = false;

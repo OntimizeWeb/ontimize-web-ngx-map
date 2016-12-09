@@ -2,6 +2,7 @@ import {
     EventEmitter
 } from '@angular/core';
 import {
+    OMapBaseLayerComponent,
     OMapLayerComponent
 } from '../../components';
 import {
@@ -21,6 +22,7 @@ export class OMapBase {
     public minZoom: number;
     public maxZoom: number;
     public zoomControl: boolean = true;
+    protected mapBaseLayerGroup: Array<OMapBaseLayerComponent> = new Array<OMapBaseLayerComponent>();
     protected mapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
     protected mapService: MapService;
     protected mapConfiguration: EventEmitter<any> = new EventEmitter();

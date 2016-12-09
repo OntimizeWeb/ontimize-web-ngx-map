@@ -12,8 +12,8 @@
     </md-toolbar>
 
     <!--TODO replace this div with o-grid if it goes into the framework -->
-    <div class="o-map-base-layer-group">
-      <o-map-base-layer *ngFor="let baseLayer of baseLayers"
+    <div class="o-map-base-layer-group group-ref">
+      <o-map-base-layer #mainBaseLayerGroup *ngFor="let baseLayer of baseLayers"
         [layer-id]="baseLayer.id"
         [title]="baseLayer.name"
         [src]="baseLayer.urlTemplate"
