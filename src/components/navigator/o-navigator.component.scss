@@ -27,4 +27,13 @@ button {
   padding: 0;
   background: white;
   border-radius: 4px;
+  max-height: 0;
+  overflow: hidden;
+  transition: 350ms;
+  transition-timing-function: ease-in-out;
+}
+
+.search-results.rendered {
+  max-height: 70vh;
+  overflow: auto;
 }

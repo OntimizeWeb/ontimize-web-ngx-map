@@ -37,6 +37,8 @@ export class ONavigatorComponent {
     private searchObserver: Subscription;
     private searchResults: Array<OSearchable> = new Array<OSearchable>();
 
+    private rendered: boolean = false;
+
     constructor(
         @Inject(MapService) mapService: MapService,
         @Inject(GeocodingService) geocoder: GeocodingService,
@@ -65,11 +67,7 @@ export class ONavigatorComponent {
 
     search() {
         // Interrupt last search result
-        this.searchResults.splice(0, this.searchResults.length);
-        if (!!this.searchObserver) {
-            this.searchObserver.unsubscribe();
-            this.searchObserver.closed = true;
-        }
+        this.closeSearch();
 
         // Check if empty
         if (Util.isBlank(this.address)) {
@@ -89,6 +87,7 @@ export class ONavigatorComponent {
                 }]
             }
         }];
+        this.rendered = true;
 
         // Search
         this.searchObserver = this.oMap.search(this.address).subscribe(a => this.searchResults = this.searchResults.concat(a));
@@ -96,5 +95,29 @@ export class ONavigatorComponent {
 
     toggleSidenav() {
         this.oMap.toggleSidenav();
+    }
+
+    closeSearch() {
+        // Interrupt last search result
+        this.searchResults.splice(0, this.searchResults.length);
+        if (!!this.searchObserver) {
+            this.searchObserver.unsubscribe();
+            this.searchObserver.closed = true;
+        }
+    }
+
+    private onBlur() {
+        this.rendered = false;
+        setTimeout(() => {
+            if (this.rendered === false) {
+                this.closeSearch();
+            }
+        }, 350);
+    }
+
+    private onFocus() {
+        if (this.rendered === false) {
+            this.search();
+        }
     }
 }
