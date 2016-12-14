@@ -1,26 +1,22 @@
-import {
-    OMapLayerComponent,
-    OMapWorkspaceComponent
-} from '../../components';
-import {
-    OMapWLayers
-} from './o-map-w-layers.class';
+import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
+import { OMapWLayers } from './o-map-w-layers.class';
 
 export class OMapWWorkspace extends OMapWLayers {
-    mapWorkspace: OMapWorkspaceComponent = undefined;
+	mapWorkspace: OMapWorkspaceComponent = undefined;
 
-    getWorkspaceMapLayers(): Array<OMapLayerComponent> {
-        if (this.mapWorkspace) {
-            return this.mapWorkspace.getMapLayers();
-        }
-        return [];
-    }
+	/**
+	 * Get Workspace Layers List
+	 */
+	getWorkspaceMapLayers(): Array<OMapLayerComponent> {
+		if (!this.mapWorkspace) return [];
+		return this.mapWorkspace.getMapLayers();
+	}
 
-    getWorkspaceSelectedMapLayer(): OMapLayerComponent {
-        if (this.mapWorkspace) {
-            return this.mapWorkspace.getSelectedMapLayer();
-        }
-        return undefined;
-    }
-
+	/**
+	 * Get Workspace Layer selected on Layers List
+	 */
+	getWorkspaceSelectedMapLayer(): OMapLayerComponent {
+		if (!this.mapWorkspace) return undefined;
+		return this.mapWorkspace.getSelectedMapLayer();
+	}
 }

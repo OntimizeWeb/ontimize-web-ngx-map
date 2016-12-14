@@ -1,14 +1,14 @@
 <div class="search-result" layout="row">
-    <i class="material-icons" *ngIf="searchResult.icon">{{searchResult.icon}}</i>
-    <div flex layout="column" layout-align="center start">
-        <span *ngIf="searchResult.label">{{searchResult.label}}</span>
-        <span class="sub-label" *ngIf="searchResult.sublabel">{{searchResult.sublabel}}</span>
-    </div>
-    <o-toggle-icon-button *ngFor="let button of actions"
-        icon-dark="true"
-        [icon-name]="button.status()? trueStatusIcon(button) : falseStatusIcon(button)"
-        [button-active]="button.status()"
-        clickable="false"
-        (click)="button.callback()"
-    ></o-toggle-icon-button>
+	<i class="material-icons" *ngIf="searchResult.icon">{{searchResult.icon}}</i>
+	<div flex layout="column" layout-align="center start">
+		<span *ngIf="searchResult.label">{{searchResult.label}}</span>
+		<span class="sub-label" *ngIf="searchResult.sublabel">{{searchResult.sublabel}}</span>
+	</div>
+	<o-toggle-icon-button *ngFor="let button of actions"
+		icon-dark="true"
+		[icon-name]="button.status()? trueStatusIcon(button) : falseStatusIcon(button)"
+		[button-active]="button.status()"
+		clickable="false"
+		(click)="button.callback()">
+	</o-toggle-icon-button>
 </div>

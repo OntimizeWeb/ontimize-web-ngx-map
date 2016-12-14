@@ -1,11 +1,11 @@
 <!--<md-content class="workspace-controls">##Controles</md-content>-->
 <md-content [dragula]='"layer-bag"' [dragulaModel]='wsMapLayers'>
-    <o-map-workspace-layer *ngFor="let layer of wsMapLayers"
-        [layer-selected]="layer.selected"
-        [layer-visible]="layer.visible"
-        [layer-in-ws]="layer.inWS"
-        [layer-menu-label]="layer.menuLabel"
-        [layer-menu-label-secondary]="layer.menuLabelSecondary"
-        [layer-ref]="layer"
-    ></o-map-workspace-layer>
+	<o-map-workspace-layer *ngFor="let layer of wsMapLayers"
+		[layer-selected]				= "layer.selected"
+		[layer-visible]					= "layer.visible"
+		[layer-in-ws]					= "layer.inWS"
+		[layer-menu-label]				= "layer.menuLabel"
+		[layer-menu-label-secondary]	= "layer.menuLabelSecondary"
+		[layer-ref]						= "layer">
+	</o-map-workspace-layer>
 </md-content>
