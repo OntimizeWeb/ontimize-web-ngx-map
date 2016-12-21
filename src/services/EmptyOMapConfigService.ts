@@ -1,16 +1,15 @@
-import {IOMapConfigService} from '../interfaces';
+import { IOMapConfigService } from '../interfaces';
 
 export class EmptyOMapConfigService implements IOMapConfigService {
-    getConfig(param : string) : string {
-        return undefined;
-    }
+	getConfig(param: string): string {
+		return undefined;
+	}
 
-    getService(param : string) : any {
-        return undefined;
-    }
+	getService(param: string): any {
+		return undefined;
+	}
 
-    getRoute(param : string) : string {
-        return undefined;
-    }
-
+	getRoute(param: string): string {
+		return undefined;
+	}
 }

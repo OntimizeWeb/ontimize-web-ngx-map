@@ -1,33 +1,77 @@
+<!--
+	TODO replace this div with o-frame if it goes into the framework
+	Frame to create the sidebar
+-->
 <md-sidenav-layout layout="row" layout-fill>
-  <md-sidenav id="layers" name="layers" #sidenav mode="side" layout="column" layout-align="space-between stretch">
-    <md-toolbar class="md-theme-indigo">
-      <div layout="row" layout-align="center center">
-        <h2 class="md-toolbar-tools">Capas</h2>
-        <span flex></span>
-        <button md-icon-button (click)="toggleSidenav()" aria-label="Close">
-          <md-icon>chevron_left</md-icon>
-        </button>
-
-      </div>
-    </md-toolbar>
-    <md-content flex layout="column" layout-align="space-between stretch">
-      <o-map-layer-group #mainLayerGroup class="group-ref" ></o-map-layer-group>
-      <ng-content></ng-content>
-      <o-map-workspace #oMapWorkspace flex></o-map-workspace>
-    </md-content>
-  </md-sidenav>
-
-  <md-content layout-fill>
-    <div layout="column" layout-fill layout-align="top center">
-      <div id="map">
-        <div layout="row" layout-align="center center">
-          <button md-mini-fab (click)="toggleSidenav()" *ngIf="!sidenav.opened" aria-label="Open">
-            <md-icon class="md-24">layers</md-icon>
-          </button>
-          <navigator *ngIf="searchControl"></navigator>
-        </div>
-      </div>
-    </div>
-  </md-content>
+	<md-sidenav #sidenav id="layers" name="layers" mode="side"
+		layout="column" layout-align="start stretch">
+		<!--
+			Header for Layer Base
+		-->
+		<md-toolbar class="md-theme-indigo">
+			<div layout="row" layout-align="center center">
+				<span class="md-toolbar-tools" flex>Capas base</span>
+				<button md-button aria-label="Close" (click)="toggleSidenav()">
+					<md-icon>navigate_before</md-icon>
+				</button>
+			</div>
+		</md-toolbar>
+		<!--
+			TODO replace this div with o-grid if it goes into the framework
+			Block with a grid of Base Layers
+		-->
+		<div class="o-map-base-layer-group group-ref">
+			<o-map-base-layer #mainBaseLayerGroup *ngFor="let baseLayer of baseLayers"
+				[layer-id]="baseLayer.id"
+				[title]="baseLayer.name"
+				[src]="baseLayer.urlTemplate"
+			></o-map-base-layer>
+		</div>
+		<!--
+			Header for Layers
+		-->
+		<md-toolbar class="md-theme-indigo">
+			<div layout="row" layout-align="center center">
+				<span class="md-toolbar-tools" flex>Capas</span>
+			</div>
+		</md-toolbar>
+		<!--
+			TODO replace this div with o-tree-list if it goes into the framework
+			Block with a hierarquical list of Layers and LayerGroups
+		-->
+		<o-map-layer-group #mainLayerGroup class="group-ref">
+			<ng-content></ng-content>
+		</o-map-layer-group>
+		<!--
+			Header for Workspace
+		-->
+		<md-toolbar class="md-theme-indigo">
+			<div layout="row" layout-align="center center">
+				<span class="md-toolbar-tools" flex>Espacio de trabajo</span>
+			</div>
+		</md-toolbar>
+		<!--
+			TODO replace this div with o-list if it goes into the framework
+			Block with a simple list of WorkspaceLayers
+		-->
+		<o-map-workspace #oMapWorkspace flex></o-map-workspace>
+	</md-sidenav>
+	<!--
+		TODO o-frame sidebar container
+		Map Section
+	-->
+	<md-content layout-fill>
+		<div layout="column" layout-align="top center" layout-fill>
+			<!--
+				Map container for Leaflet
+			-->
+			<div id="map"></div>
+			<!--
+				Omnibar o-navigator
+			-->
+			<div *ngIf="searchControl" layout="row" layout-align="left center">
+				<o-navigator></o-navigator>
+			</div>
+		</div>
+	</md-content>
 </md-sidenav-layout>
-

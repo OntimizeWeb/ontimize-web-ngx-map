@@ -1,32 +1,37 @@
 o-map-layer-group {
-    overflow: auto;
-}
-md-content {
-    overflow: hidden;
-    cursor: pointer;
+	overflow: auto;
 }
 
-md-content button md-icon {
-    transition: all 0.35s cubic-bezier(0.55, 0, 0.55, 1);
-    transform: rotate(180deg);
-}
-md-content.collapsed button md-icon {
-    transform: rotate(0deg);
-}
-
-div {
-    transition: max-height 0.35s cubic-bezier(0.55, 0, 0.55, 1);
-    max-height: 1000px;
-    padding-left: 10px;
-    overflow: hidden;
-}
-div.collapsed {
-    transition: max-height 0.35s cubic-bezier(0.55, 0, 0.55, 1);
-    max-height: 0px;
-}
-div.expanded {
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+button {
+	width: 100%;
+	padding: 0;
+	display: flex;
+	line-height: normal;
+	overflow: hidden;
 }
 
+button [icon-name="keyboard_arrow_down"] {
+	transition: all 0.35s cubic-bezier(0.55, 0, 0.55, 1);
+	transform: rotate(180deg);
+}
 
+button.collapsed [icon-name="keyboard_arrow_down"] {
+	transform: rotate(0deg);
+}
+
+.group-list {
+	transition: max-height 0.35s cubic-bezier(0.55, 0, 0.55, 1);
+	max-height: 1000px;
+	padding-left: 10px;
+	overflow: hidden;
+}
+
+.group-list.collapsed {
+	transition: max-height 0.35s cubic-bezier(0.55, 0, 0.55, 1);
+	max-height: 0px;
+}
+
+.group-list.expanded {
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
