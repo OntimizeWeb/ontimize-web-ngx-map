@@ -45,8 +45,8 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 
 	// Status of the label
 	public selected: boolean = false;
-	public visible: boolean = false;
-	public inWS: boolean = false;
+	public visible: boolean = true;
+	public inWS: boolean = true;
 	public inMenu: string;
 
 	public layerId: string;
@@ -138,6 +138,7 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 		layerConf.service = this.sService;
 		layerConf.baseUrl = this.baseUrl;
 		layerConf.showInMenu = this.inMenu;
+		layerConf.options = this.options;
 
 		return layerConf;
 	}
@@ -164,15 +165,15 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 			this.loadPopupTpl().subscribe(data => {
 				self.popup = data;
 				self.layerConf.popup = data;
-				self.createMapLayer(this.layerConf);
+				self.createMapLayer(self.layerConf);
 			}, error => {
 				console.log('Could not load popup template.');
 				self.popup = '';
 				self.layerConf.popup = '';
-				self.createMapLayer(this.layerConf);
+				self.createMapLayer(self.layerConf);
 			});
 		} else {
-			this.createMapLayer(this.layerConf);
+			self.createMapLayer(self.layerConf);
 		}
 	}
 
@@ -182,9 +183,10 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 
 		if (Util.isLayerService(this.service) &&
 			Util.isGeoJSONLayer(this.layer)) {
+			var self = this;
 			(<ILayerService>this.service).load([layerConf])
 				.subscribe(resp => {
-					(<L.GeoJSON>this.layer).addData(resp);
+					(<L.GeoJSON>self.layer).addData(resp);
 				}, err => {
 					console.log(err);
 				});
@@ -257,7 +259,6 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 		var self = this;
 		if (Util.isTileLayer(this.layer)) {
 			this.layer.on('click', function (evt) {
-				console.log('clickLayer', this);
 				self._clickEvtEmitter.emit(evt);
 			});
 			this.layer.on('dblclick', function (evt) {
@@ -300,7 +301,6 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 	}
 
 	onClickEvent(onNext: (value: any) => void): Object {
-		console.log('clickLayer', this);
 		return this._clickEvtEmitter.subscribe(onNext);
 	}
 

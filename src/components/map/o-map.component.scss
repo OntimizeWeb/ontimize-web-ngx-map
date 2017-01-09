@@ -1,4 +1,4 @@
-#map {
+.leaflet-map-container {
 	position: absolute;
 	top: 0px;
 	bottom: 0;
@@ -50,7 +50,7 @@ md-sidenav.md-sidenav-opened {
 $layerHeight: 30%;
 .group-ref {
 	max-height: $layerHeight;
-	min-height: 120px;
+	/* min-height: 120px;*/
 	overflow: auto;
 }
 

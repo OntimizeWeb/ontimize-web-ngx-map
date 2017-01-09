@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { OSearcher, OSearchable } from '../../interfaces';
 import { OMapComponent } from '../../components';
-import { GeocodingService } from '../../services';
+import { GeocodingService, TranslateMapService } from '../../services';
 import { SearcherDefault, Location } from '../../core';
 import { Util } from '../../utils';
 import { LocationResult } from './o-navigator-location-result.interface';
@@ -15,6 +15,7 @@ export class ONavigatorDefault {
 
 	constructor(
 		protected geocoder: GeocodingService,
+		protected translateMapService: TranslateMapService,
 		protected oMap: OMapComponent
 	) {
 		// Register location searcher on OMap as first searcher

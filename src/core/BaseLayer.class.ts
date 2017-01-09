@@ -7,12 +7,13 @@ export class BaseLayerDefault implements BaseLayer {
 	public name: string;
 	public urlTemplate: string;
 	public options: L.TileLayerOptions;
+	public active: boolean;
 
 	public events: BaseLayerEvents = {
 		onUpdate: new EventEmitter<any>()
 	};
 
-	private tileLayer: L.TileLayer;
+	public tileLayer: L.TileLayer;
 
 	constructor(baseLayer?: BaseLayer) {
 		if (!!baseLayer) {
@@ -32,5 +33,7 @@ export class BaseLayerDefault implements BaseLayer {
 		this.options = baseLayer.options;
 		(<any>this.options).pane = 'tilePane';
 		this.urlTemplate = baseLayer.urlTemplate;
+		this.active = baseLayer.active;
+		this.tileLayer = baseLayer.tileLayer;
 	}
 }

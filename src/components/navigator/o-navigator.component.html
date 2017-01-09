@@ -7,7 +7,7 @@
 			<i class="material-icons">menu</i>
 		</button>
 		<input id="place-input" class="on-map" type="text" flex
-			placeholder="Enter a place to go..."
+			[placeholder]="getText('SEARCH_PLACEHOLDER')"
 			[(ngModel)]="address"
 			(blur)="onBlur()" (click)="onFocus()">
 	</md-whiteframe>

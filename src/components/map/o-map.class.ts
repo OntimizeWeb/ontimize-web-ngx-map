@@ -4,11 +4,13 @@ import { OMapBaseLayerComponent, OMapLayerComponent } from '../../components';
 import { MapService } from '../../services';
 import { Center } from '../../core';
 import { Util } from '../../utils';
+import { TranslateMapService } from '../../services';
 
 const DEFAULT_CENTER = new Center(42.2274519, -8.7236805);
 
 export class OMapBase {
 	public zoom: Zoom = { control: true };
+	protected translateMapService: TranslateMapService;
 	protected mapBaseLayerGroup: Array<OMapBaseLayerComponent> = new Array<OMapBaseLayerComponent>();
 	protected mapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
 	protected mapService: MapService;
@@ -17,14 +19,14 @@ export class OMapBase {
 
 	/**
 	 * Get individual layer
-	 * @param {string} layerId - Id of the layer to find 
+	 * @param {string} layerId - Id of the layer to find
 	 */
 	public getOMapLayer(layerId: string): OMapLayerComponent {
 		return this.mapLayers.filter(layer => layer.layerId === layerId).shift();
 	}
 
 	/**
-	 * Get all the layers 
+	 * Get all the layers
 	 */
 	public getOMapLayers(): Array<OMapLayerComponent> {
 		return this.mapLayers;
@@ -48,6 +50,13 @@ export class OMapBase {
 	}
 
 	/**
+	 * Get Leaflet map reference
+	 **/
+	public getLMap(): L.Map {
+		return this.getMapService().map;
+	}
+
+	/**
 	 * Get current center
 	 */
 	public getCenter(): Center {
@@ -57,16 +66,19 @@ export class OMapBase {
 	/**
 	 * Set center from a coma separated coordinates 'latitude, longitude' string.
 	 * Accepted ',' and ';'
-	 * @param {string} sCenter - 'latitude, longitude' string  
+	 * @param {string} sCenter - 'latitude, longitude' string
 	 */
 	public setCenter(sCenter: string) {
 		if (Util.isBlank(sCenter)) {
 			this.center = DEFAULT_CENTER;
 		} else {
 			let coordinates = sCenter.split(/,|;/);
-			if (coordinates.length > 2) {
-				let [latitude, longitude] = coordinates.map(c => parseFloat(c));
+			if (coordinates.length === 2) {
+				let latitude = parseFloat(coordinates[0]);
+				let longitude = parseFloat(coordinates[1]);
 				this.center = new Center(latitude, longitude);
+			} else {
+				this.center = DEFAULT_CENTER;
 			}
 		}
 

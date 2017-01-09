@@ -1,3 +1,3 @@
 export * from './services/MapService';
 export * from './services/GeocodingService';
-export * from './services/EmptyOMapConfigService';
+export * from './services/TranslateMapService';

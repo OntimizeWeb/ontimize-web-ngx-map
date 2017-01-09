@@ -12,4 +12,5 @@ export interface BaseLayer {
 	urlTemplate?: string;
 	options?: L.TileLayerOptions;
 	events?: BaseLayerEvents;
+	tileLayer?: L.TileLayer;
 }

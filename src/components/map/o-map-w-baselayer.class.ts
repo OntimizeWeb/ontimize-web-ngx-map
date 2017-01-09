@@ -13,9 +13,12 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
 		 * - adds baseLayers to map
 		 */
 		this.mapConfiguration.subscribe(() => {
-			(<any>this.getMapService().map).createPane(MapService.BASE_PANE);
-			(<any>this.getMapService().map).getPane(MapService.BASE_PANE).style.zIndex = 450;
 			this.getMapService().uploadBaseLayers();
+			let bLayers = this.getMapService().baseLayers.getBaseLayers();
+			if (bLayers && bLayers.length > 0) {
+				let layerId = bLayers[0].id;
+				this.getMapService().selectBaseLayer(layerId);
+			}
 		});
 	}
 
@@ -44,11 +47,18 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
 	 * @return {BaseLayer}
 	 */
 	private buildBaseLayerUrl(bL: BaseLayer): BaseLayer {
+		let url = bL.urlTemplate.replace('{s}', 'b').replace('{x}', '974').replace('{y}', '758').replace('{z}', '11');
+		if (url && url.indexOf('//') === 0) {
+			url = 'http:' + url;
+		}
+		if (url.indexOf('{variant}') > -1) {
+			url = url.replace('{variant}', bL.options['variant']);
+		}
 		return {
 			id: bL.id,
-			active: false,
+			active: bL.active,
 			name: bL.name,
-			urlTemplate: bL.urlTemplate.replace('{s}', 'b').replace('{x}', '974').replace('{y}', '758').replace('{z}', '11')
+			urlTemplate: url
 		};
 	}
 }

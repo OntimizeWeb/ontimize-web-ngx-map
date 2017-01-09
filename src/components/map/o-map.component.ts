@@ -1,9 +1,8 @@
 import { Component, Injector, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { MdIconRegistry, MdSidenav } from '@angular/material';
-import { TranslatePipe } from 'ng2-translate/ng2-translate';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
-import { MapService, GeocodingService } from '../../services';
+import { MapService, GeocodingService, TranslateMapService } from '../../services';
 import { Feature } from '../../core';
 import { Util } from '../../utils';
 import { OMapWSearch } from './o-map-w-search.class';
@@ -11,23 +10,37 @@ import { OMapWSearch } from './o-map-w-search.class';
 import * as L from 'leaflet';
 //TODO import {Control} from 'leaflet-draw';
 
+
+const DEFAULT_INPUTS = [
+	'sAttr: attr',
+	'sCenter: center',
+	'sZoom: zoom',
+	'sMinZoom: min-zoom',
+	'sMaxZoom: max-zoom',
+	'sZoomControl: zoom-control',
+	'sSearchControl: search-control',
+	'sDrawControl: draw-control',
+	'sLayerPanelVisible: layer-panel-visible',
+
+	// Array of provider Id's separated by ';'. The providers are extracted from
+	// https://github.com/leaflet-extras/leaflet-providers#providers
+	'sBaseLayerIds: base-layer-ids'
+];
+
 @Component({
 	selector: 'o-map',
 	moduleId: module.id,
 	providers: [MapService, GeocodingService, MdIconRegistry],
 	inputs: [
-		'sCenter: center',
-		'sZoom: zoom',
-		'sMinZoom: min-zoom',
-		'sMaxZoom: max-zoom',
-		'sZoomControl: zoom-control',
-		'sSearchControl: search-control',
-		'sDrawControl: draw-control'
+		...OMapComponent.DEFAULT_INPUTS
 	],
 	templateUrl: '/map/o-map.component.html',
 	styleUrls: ['/map/o-map.component.css']
 })
 export class OMapComponent extends OMapWSearch implements OnInit {
+
+	public static DEFAULT_INPUTS = DEFAULT_INPUTS;
+
 	@ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
 	@ViewChild('sidenav') sideNavCmp: MdSidenav;
 	@ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
@@ -37,12 +50,18 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 	public set sCenter(center: string) {
 		this.setCenter(center);
 	}
+	public sAttr: string;
 	public sZoom: string;
 	public sMinZoom: string;
 	public sMaxZoom: string;
 	public sZoomControl: string;
 	public sSearchControl: string;
 	public sDrawControl: string;
+	public sLayerPanelVisible: string;
+	public sBaseLayerIds: string;
+
+	protected mapId: string;
+	protected baseLayerIds: Array<string>;
 
 	constructor(
 		protected elRef: ElementRef,
@@ -50,6 +69,7 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 	) {
 		super();
 		this.mapService = this.injector.get(MapService);
+		this.translateMapService = this.injector.get(TranslateMapService);
 	}
 
 	public getInjector(): Injector {
@@ -57,6 +77,8 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 	}
 
 	ngOnInit() {
+		this.mapId = this.sAttr ? this.sAttr : 'map_' + new Date().getTime();
+		this.elRef.nativeElement.querySelector('.leaflet-map-container').setAttribute('id', this.mapId);
 		this.zoom = {
 			current: parseInt(this.sZoom),
 			min: parseInt(this.sMinZoom),
@@ -65,6 +87,10 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 		};
 		this.searchControl = Util.parseBoolean(this.sSearchControl, true);
 		this.drawControl = Util.parseBoolean(this.sDrawControl, false);
+		this.isSidenavVisible = Util.parseBoolean(this.sLayerPanelVisible, false);
+
+		this.baseLayerIds = Util.parseArray(this.sBaseLayerIds);
+		this.mapService.configureBaseLayers(this.baseLayerIds);
 
 		if (!this.mapService.map) {
 			console.debug('Initializing map...');
@@ -73,9 +99,16 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 	}
 
 	ngAfterViewInit() {
-		this.toggleSidenav();
+		// this.toggleSidenav();
 		// Enable search on workspace?
 		//this.mapSearchers.push(this.mapWorkspace);
+	}
+
+	protected getText(text: string): string {
+		if (this.translateMapService) {
+			return this.translateMapService.get(text);
+		}
+		return text;
 	}
 
 	protected configureMap() {
@@ -87,11 +120,11 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 			zoom: this.zoom.current || 12,
 			minZoom: this.zoom.min || 4,
 			maxZoom: this.zoom.max || 19,
-			layers: [this.mapService.baseLayers.getTileLayer(MapService.DEFAULT_BASE_MAP)],
+			layers: this.mapService.baseLayers.getLayersArray(),
 			drawControl: false
 		};
 
-		let map = this.mapService.getMap('map', mapOptions);
+		let map = this.mapService.getMap(this.mapId, mapOptions);
 
 		L.control.scale().addTo(map);
 		if (this.zoom.control) {

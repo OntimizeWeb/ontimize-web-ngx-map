@@ -3,14 +3,14 @@
 	Frame to create the sidebar
 -->
 <md-sidenav-layout layout="row" layout-fill>
-	<md-sidenav #sidenav id="layers" name="layers" mode="side"
+	<md-sidenav #sidenav id="layers" name="layers" mode="side" [opened]="isSidenavVisible"
 		layout="column" layout-align="start stretch">
 		<!--
 			Header for Layer Base
 		-->
 		<md-toolbar class="md-theme-indigo">
 			<div layout="row" layout-align="center center">
-				<span class="md-toolbar-tools" flex>Capas base</span>
+				<span class="md-toolbar-tools" flex>{{ getText('MAP_BASE_LAYERS') }}</span>
 				<button md-button aria-label="Close" (click)="toggleSidenav()">
 					<md-icon>navigate_before</md-icon>
 				</button>
@@ -25,6 +25,7 @@
 				[layer-id]="baseLayer.id"
 				[title]="baseLayer.name"
 				[src]="baseLayer.urlTemplate"
+				[active]="baseLayer.active"
 			></o-map-base-layer>
 		</div>
 		<!--
@@ -32,22 +33,24 @@
 		-->
 		<md-toolbar class="md-theme-indigo">
 			<div layout="row" layout-align="center center">
-				<span class="md-toolbar-tools" flex>Capas</span>
+				<span class="md-toolbar-tools" flex>{{ getText('MAP_LAYERS') }}</span>
 			</div>
 		</md-toolbar>
 		<!--
 			TODO replace this div with o-tree-list if it goes into the framework
 			Block with a hierarquical list of Layers and LayerGroups
 		-->
-		<o-map-layer-group #mainLayerGroup class="group-ref">
+		<div class="group-ref">
 			<ng-content></ng-content>
-		</o-map-layer-group>
+			<o-map-layer-group #mainLayerGroup ></o-map-layer-group>
+		</div>
+
 		<!--
 			Header for Workspace
 		-->
 		<md-toolbar class="md-theme-indigo">
 			<div layout="row" layout-align="center center">
-				<span class="md-toolbar-tools" flex>Espacio de trabajo</span>
+				<span class="md-toolbar-tools" flex>{{ getText('MAP_WORKSPACE_LAYERS') }}</span>
 			</div>
 		</md-toolbar>
 		<!--
@@ -65,7 +68,7 @@
 			<!--
 				Map container for Leaflet
 			-->
-			<div id="map"></div>
+			<div class="leaflet-map-container"></div>
 			<!--
 				Omnibar o-navigator
 			-->

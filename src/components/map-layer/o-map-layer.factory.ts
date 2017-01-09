@@ -1,4 +1,4 @@
-import { MapService } from '../../services/MapService';
+import { MapService } from '../../services';
 import { LayerConfiguration } from '../../core/LayerConfiguration.class';
 import { ILayerService, IGeoJSONLayerService } from '../../interfaces';
 
@@ -54,7 +54,7 @@ export class OMapLayerFactory {
 		var success = ((id !== null) && layerConf.hasOwnProperty('center'));
 		if (success) {
 			layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, null,
-				layerConf.popup, layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
+				layerConf.popup, !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
 		}
 		return layer;
 	}
@@ -80,7 +80,12 @@ export class OMapLayerFactory {
 			let opt = {
 				'icon': layerConf.icon
 			};
-			layer = mapService.addGeoJSON(id, null, opt, layerConf.popup,
+			if (layerConf.options === undefined) {
+				layerConf.options = {};
+			}
+			layerConf.options = Object.assign(layerConf.options, opt);
+
+			layer = mapService.addGeoJSON(id, null, layerConf.options, layerConf.popup,
 				!layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
 		}
 
@@ -101,16 +106,14 @@ export class OMapLayerFactory {
 			id = layerConf.layerId;
 		}
 
-		layerConf.options = {
+		let opt = {
 			format: 'image/png',
-			info_format: 'application/json',
-			layers: id,
-			query_layers: id,
-			feature_count: 50,
-			x: 0,
-			y: 0,
 			transparent: true
 		};
+		if (layerConf.options === undefined) {
+			layerConf.options = {};
+		}
+		layerConf.options = Object.assign(layerConf.options, opt);
 
 		let layer;
 		var success = (id !== null);

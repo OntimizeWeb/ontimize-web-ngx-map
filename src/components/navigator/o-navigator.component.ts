@@ -1,6 +1,6 @@
-import { Component, Inject, forwardRef } from '@angular/core';
+import { Component, Inject, Injector, forwardRef } from '@angular/core';
 import { OMapComponent } from '../../components';
-import { GeocodingService } from '../../services';
+import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
 
 @Component({
@@ -14,14 +14,22 @@ export class ONavigatorComponent extends ONavigatorDefault {
 
 	constructor(
 		@Inject(GeocodingService) geocoder: GeocodingService,
+		@Inject(TranslateMapService) translateMapService: TranslateMapService,
 		@Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
 	) {
-		super(geocoder, oMap);
+		super(geocoder, translateMapService, oMap);
 	}
 
 	ngOnInit() {
 		//this.oMap.getMapService().disableMouseEvent('goto');
 		this.oMap.getMapService().disableMouseEvent('place-input');
+	}
+
+	protected getText(text: string): string {
+		if (this.translateMapService) {
+			return this.translateMapService.get(text);
+		}
+		return text;
 	}
 
 	/**

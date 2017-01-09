@@ -15,7 +15,8 @@ import {
 	inputs: [
 		'id: layer-id',
 		'name: title',
-		'urlTemplate: src'
+		'urlTemplate: src',
+		'active'
 	],
 	templateUrl: '/map-base-layer/o-map-base-layer.component.html',
 	styleUrls: ['/map-base-layer/o-map-base-layer.component.css']
@@ -43,6 +44,23 @@ export class OMapBaseLayerComponent implements BaseLayer, OSearchable {
 	constructor(
 		@Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent
 	) { }
+
+	ngOnInit() {
+		if (this.oMap) {
+			var self = this;
+			this.oMap.getLMap().on('baselayerchange', (evt) => {
+				self.updateActiveState(evt['name']);
+			});
+		}
+	}
+
+	updateActiveState(layerId: string) {
+		if (layerId === this.name) {
+			this.active = true;
+		} else {
+			this.active = false;
+		}
+	}
 
 	select(): boolean {
 		this.oMap.unselectBaseLayers();

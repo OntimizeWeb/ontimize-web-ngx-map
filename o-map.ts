@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MdIconModule, MdIconRegistry, MdSidenavModule } from '@angular/material';
@@ -16,6 +16,8 @@ import {
 	ONavigatorComponent,
 	ONavigatorItemComponent
 } from './src/components';
+
+import { TranslateMapService } from './src/services';
 
 export {
 	OMapComponent,
@@ -46,8 +48,17 @@ const OMAP_DIRECTIVES: any[] = [
 @NgModule({
 	imports: [CommonModule, FormsModule, MdIconModule, MdSidenavModule, DragulaModule],
 	declarations: OMAP_DIRECTIVES,
-	exports: [OMapComponent, OMapBaseLayerComponent, OMapLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent, OMapWorkspaceLayerComponent, OToggleIconButtonComponent, DragulaDirective],
-	providers: [MdIconRegistry],
+	exports: [
+		...OMAP_DIRECTIVES,
+		DragulaDirective],
+	providers: [MdIconRegistry,
+		[Injector,
+			{
+				provide: TranslateMapService,
+				useFactory: (injector) => new TranslateMapService(injector),
+				deps: [Injector]
+			}]
+	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OMapModule { }

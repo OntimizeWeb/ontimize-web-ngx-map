@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Util } from '../utils';
 import { BaseLayerDefault, BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+require('leaflet-providers');
 //import { MarkerCluster } from 'leaflet.markercluster';
+import { MapServiceUtils } from './MapServiceUtils';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
 @Injectable()
 export class MapService {
-	static BASE_PANE: string = 'basePane';
-	static DEFAULT_BASE_MAP: string = 'OpenStreetMap';
+	static DEFAULT_BASE_MAP: string = 'OpenStreetMap.HOT';
 	map: Map;
 	layers: Object = {};
 	controls: Object = {};
@@ -18,18 +19,7 @@ export class MapService {
 	overlayMaps: Object = {};
 	iconTypes: Object = {};
 
-	constructor() {
-		this.baseLayers.addLayer(
-			MapService.DEFAULT_BASE_MAP,
-			new BaseLayerDefault({
-				name: MapService.DEFAULT_BASE_MAP,
-				urlTemplate: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-				options: {
-					attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target= "_blank" > Humanitarian OpenStreetMap Team< /a>'
-				}
-			})
-		);
-	}
+	public baseLayerSelected: EventEmitter<any> = new EventEmitter();
 
 	disableMouseEvent(tag: string) {
 		var html = L.DomUtil.get(tag);
@@ -132,7 +122,6 @@ export class MapService {
 				}
 				this.layers[id] = menuLabel;
 				this.overlayMaps[menuLabel] = layer;
-				layer.options.pane = MapService.BASE_PANE;
 				if (this.controls[LAYERS_CONTROL_ID]) {
 					this.controls[LAYERS_CONTROL_ID].addOverlay(layer, menuLabel);
 				} else {
@@ -153,14 +142,38 @@ export class MapService {
 	}
 
 	/**
+	 * Configures default base layers of the map
+	 * @param baseLayerIds Array of base layer identifiers ('OpenStreetMap' | 'Esri' | 'CartoDB' ...)
+	 *	@see https://github.com/leaflet-extras/leaflet-providers#providers
+	 */
+	configureBaseLayers(baseLayerIds: Array<string>) {
+		if (baseLayerIds && baseLayerIds.length > 0) {
+			baseLayerIds.forEach((id, index) => {
+				if (!this.baseLayers.contains(id)) {
+					let bl = MapServiceUtils.createDefaultBaseLayer(id, index === 0);
+					if (bl) {
+						this.baseLayers.addLayer(id, bl);
+					}
+				}
+			});
+		} else {
+			// By default it is added 'OpenStreetMap' as base layer.
+			this.baseLayers.addLayer(MapService.DEFAULT_BASE_MAP,
+			MapServiceUtils.createDefaultBaseLayer(MapService.DEFAULT_BASE_MAP, true));
+		}
+	}
+
+	/**
 	 * Selects a layer by adding it again to the map
-	 * @param id Unique identifier 
+	 * @param id Unique identifier
 	 */
 	selectBaseLayer(id: string) {
-		let l = this.getLayer(id);
+		let l = this.baseLayers.getTileLayer(id);
 		if (!!l) {
 			this.clearBaseLayers();
 			l.addTo(this.getMap());
+
+			this.baseLayerSelected.emit(true);
 		}
 	}
 
@@ -180,7 +193,8 @@ export class MapService {
 		let lM = this.baseLayers.getLayersMap();
 		for (var layerId in lM) {
 			if (lM.hasOwnProperty(layerId)) {
-				this.removeLayer(layerId);
+				let layer = this.baseLayers.getTileLayer(layerId);
+				this.map.removeLayer(layer);
 			}
 		}
 	}
@@ -192,7 +206,7 @@ export class MapService {
 	 * @return True if success, else false.
 	 */
 	removeLayer(id: string): boolean {
-		var success = false; //(typeof (this.layers[id]) !== 'undefined') || this.baseLayers.contains(id);
+		var success = false;
 		var layer;
 		if (this.controls[LAYERS_CONTROL_ID]) {
 			if ((typeof (this.layers[id]) === 'string')) {
@@ -729,6 +743,9 @@ export class MapService {
 					// Default marker icon
 					return L.marker(latlng);
 				}
+			},
+			style : function (geoJsonFeature) {
+				return MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, options);
 			},
 			onEachFeature: function (feature, layer) {
 				if (popup && Object.keys(feature.properties).length > 0

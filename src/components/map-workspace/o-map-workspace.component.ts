@@ -8,7 +8,9 @@ import { OSearcher, OSearchable } from '../../interfaces';
 @Component({
 	selector: 'o-map-workspace',
 	moduleId: module.id,
-	providers: [],
+	providers: [
+		[ { provide: 'DragulaService', useClass: DragulaService }]
+	],
 	inputs: [],
 	templateUrl: '/map-workspace/o-map-workspace.component.html',
 	styleUrls: ['/map-workspace/o-map-workspace.component.css']
@@ -27,7 +29,7 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
 
 	constructor(
 		@Inject(forwardRef(() => OMapComponent)) private map: OMapComponent,
-		private dragulaService: DragulaService) {
+		@Inject('DragulaService') private dragulaService: DragulaService) {
 		dragulaService.over.subscribe(value => this.onOver(value.slice(1)));
 		dragulaService.out.subscribe(value => this.onOut(value.slice(1)));
 	}
@@ -46,7 +48,9 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
 	}
 
 	ngOnDestroy() {
-		this.dragulaService.destroy('layer-bag');
+		if (this.dragulaService.find('layer-bag')) {
+			this.dragulaService.destroy('layer-bag');
+		}
 	}
 
 	/**

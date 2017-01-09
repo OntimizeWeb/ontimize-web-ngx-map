@@ -3,7 +3,7 @@ import { OMapWEvents } from './o-map-w-events.class';
 
 export class OMapWSidenav extends OMapWEvents {
 	sideNavCmp: MdSidenav;
-	private isSidenavVisible: boolean = false;
+	protected isSidenavVisible: boolean = false;
 
 	/**
 	 * Changes Sidebar state
