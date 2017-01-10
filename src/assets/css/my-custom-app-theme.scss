@@ -1,0 +1,89 @@
+@import 'node_modules/@angular/material/core/theming/all-theme';
+
+// Include non-theme styles for core.
+@include md-core();
+
+/*** START GREEN ****/
+$md-custom-primary: (
+  50: #f6fafe,
+  100: #b2d4f6,
+  200: #80b8f0,
+  300: #4095e8,
+  400: #2585e5,
+  500: #1976d2,
+  600: #1667b7,
+  700: #12579b,
+  800: #0f4880,
+  900: #0c3965,
+  A100: #f6fafe,
+  A200: #b2d4f6,
+  A400: #2585e5,
+  A700: #12579b,
+
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: white,
+    400: white,
+    500: $white-87-opacity,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$md-custom-accent: (
+  50: #ffffff,
+  100: #feeae9,
+  200: #fbb9b4,
+  300: #f77970,
+  400: #f65e53,
+  500: #f44336,
+  600: #f22819,
+  700: #e11b0c,
+  800: #c3170b,
+  900: #a61409,
+  A100: #ffffff,
+  A200: #feeae9,
+  A400: #f65e53,
+  A700: #e11b0c,
+
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: white,
+    400: white,
+    500: $white-87-opacity,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+/** END GREEN ***/
+
+
+// Define a theme.
+$primary: md-palette($md-blue);
+$accent:  md-palette($md-red);
+
+/* Light theme */
+$theme: md-light-theme($primary, $accent);
+
+/* Dark theme */
+/*$theme: md-dark-theme($primary, $accent);*/
+
+// Include all theme styles for the components.
+@include angular-material-theme($theme);

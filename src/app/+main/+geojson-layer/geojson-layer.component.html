@@ -1,0 +1,25 @@
+<div layout="row" layout-align="center start" layout-margin>
+
+    <example-comp [comp-name]="getId()" [files]="getFiles()" flex="85">
+        <div layout="row" layout-fill layout-align="start">
+            <o-map #oMapGeoJSON center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20"
+                zoom-control="yes" search-control="yes" layer-panel-visible="no" flex>
+                <o-map-layer layer-type="geoJSON" layer-service="geojson-train-lines" layer-id="train-lines"
+                    layer-menu-label="Train lines" layer-menu-label-secondary="Spain's' train lines."
+                    ></o-map-layer>
+                <o-map-layer layer-type="geoJSON" layer-service="geojson-train-stations" layer-id="train-stations"
+                    layer-menu-label="Train stations" layer-menu-label-secondary="Spain's train stations."></o-map-layer>
+                <o-map-layer layer-type="geoJSON" layer-service="geojson-municipality" layer-id="municipality"
+                    layer-menu-label="Municipality" layer-menu-label-secondary="Pontevedra's municipalities"
+                    [layer-options]="getTrainLinesLayerStyle()"></o-map-layer>
+            </o-map>
+        </div>
+        <div  class="body-text-container" layout-padding>
+            <h2>Adding GeoJSON layers</h2>
+            <p class="body-text">
+                TODO
+            </p>
+        </div>
+    </example-comp>
+
+</div>
