@@ -1,0 +1,25 @@
+o-map {
+  position: relative; }
+  o-map .md-sidenav-content {
+    width: 100%; }
+
+.on-map {
+  z-index: 400; }
+
+.on-map-absolute {
+  position: absolute;
+  z-index: 400; }
+
+.map-button {
+  width: 35px;
+  height: 35px;
+  text-align: center; }
+
+.leaflet-clickable {
+  cursor: crosshair !important; }
+
+.leaflet-container {
+  cursor: help !important; }
+
+.group-ref > div.expanded:first-child {
+  border: none !important; }

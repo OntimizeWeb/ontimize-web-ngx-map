@@ -1,0 +1,39 @@
+<div layout="row" layout-align="center start" layout-margin>
+
+    <example-comp [comp-name]="getBasicUsageId()" [files]="getBasicUsageFiles()" flex="85">
+        <div layout="row" layout-fill layout-align="start">
+            <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
+                zoom-control="yes" search-control="yes" flex></o-map>
+        </div>
+        <div  class="body-text-container" layout-padding>
+            <h2>Basic Usage</h2>
+            <p class="body-text">
+                Basic configuration of the map. In this example is shown how to define the map component, setting the center and zoom levels.
+            </p>
+        </div>
+    </example-comp>
+</div>
+
+<div layout="row" layout-align="center start" layout-margin>
+    <example-comp [comp-name]="getBaseLayersId()" [files]="getBaseLayersFiles()" flex="85">
+        <div layout="row" layout-fill layout-align="start">
+            <o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
+                base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite"
+                zoom-control="yes" search-control="yes" flex></o-map>
+        </div>
+        <div  class="body-text-container" layout-padding>
+            <h2>Base layers</h2>
+            <p class="body-text">
+                It can be configured which layer or layers will be the base layers of the map. By default, if none is provided it is used 'OpenStreetMap' base layer.
+            </p>
+            <p class="body-text">
+                The different base layer/s are taken from the extension  <a href="https://github.com/leaflet-extras/leaflet-providers/blob/master/README.md" target="_blank"> 'leaflet-providers'</a>
+                that contains configurations for various free tile providers. Please, for production environments take into account what leaflet-providers developers says:
+                <figure>
+                    <blockquote>We try to maintain leaflet-providers in such a way that you'll be able to use the layers we include without paying money.
+                        This doesn't mean no limits apply, you should always check before using these layers for anything serious.</blockquote>
+                </figure>
+            </p>
+        </div>
+    </example-comp>
+</div>

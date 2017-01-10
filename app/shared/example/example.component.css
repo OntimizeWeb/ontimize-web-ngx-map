@@ -1,0 +1,5 @@
+.playground-source-container {
+  display: block;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: auto; }

@@ -1,0 +1,21 @@
+<md-sidenav-layout layout-fill>
+  <md-sidenav mode="side" opened="true" class="main-sidenav">
+    <side-menu></side-menu>
+  </md-sidenav>
+
+
+  <md-toolbar class="navigation-toolbar">
+    {{ sectionTitle }}
+    <span flex></span>
+    <a href="https://github.com/OntimizeWeb/ontimize-web-ng2-map/tree/1.0.0"
+      title="View Source on Github"
+      aria-label="View Source on Github" target="_blank">
+      <md-icon svgSrc="./assets/images/github.svg"></md-icon>
+    </a>
+    <span class="version">{{ version }}</span>
+  </md-toolbar>
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
+
+</md-sidenav-layout>
