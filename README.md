@@ -1,5 +1,5 @@
 # Ontimize Web Map
-An implementation of leaflet map library for Ontimize Web Ng2..
+An implementation of leaflet map library for Ontimize Web.
 
 * [Examples](#examples)
 * [Installation](#installation)
@@ -21,6 +21,11 @@ Do not forget to add typings as well
 ```sh
 typings install leaflet --ambient -DA
 ````
+
+> Ensure that you have installed 'typings' node module globally with the same version of the one saved into the package.json of the
+application.
+For checking the version : typings -v
+For installing globally: npm install -g typings@0.8.1
 
 After that, install the npm map module:
 ```sh
