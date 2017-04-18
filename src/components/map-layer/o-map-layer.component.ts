@@ -123,8 +123,13 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 	getMapLayerFactory(): any {
 		return new OMapLayerFactory();
 	}
-
 	getLayerConfiguration(): LayerConfiguration {
+		if (this.layerConf === undefined) {
+			this.layerConf = this.createLayerConfiguration();
+		}
+		return this.layerConf;
+	}
+	createLayerConfiguration(): LayerConfiguration {
 		let layerConf = new LayerConfiguration();
 		layerConf.layerId = this.layerId;
 		layerConf.type = this.type;
@@ -139,7 +144,6 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 		layerConf.baseUrl = this.baseUrl;
 		layerConf.showInMenu = this.inMenu;
 		layerConf.options = this.options;
-
 		return layerConf;
 	}
 
@@ -159,7 +163,7 @@ export class OMapLayerComponent implements OnInit, OSearchable {
 		if (!this.service && this.sService && this.sService.length > 0) {
 			this.service = this.oMap.getInjector().get(this.sService);
 		}
-		this.layerConf = this.getLayerConfiguration();
+		this.layerConf = this.createLayerConfiguration();
 
 		if (this.popupUrl && this.popupUrl.length > 0) {
 			this.loadPopupTpl().subscribe(data => {
