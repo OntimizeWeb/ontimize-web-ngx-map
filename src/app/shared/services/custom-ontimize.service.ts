@@ -1,6 +1,6 @@
-import {Injector} from '@angular/core';
-import {Headers} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injector } from '@angular/core';
+import { Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
@@ -12,7 +12,7 @@ export class CustomOntimizeService extends OntimizeService {
     super(injector);
   }
 
- public getDefaultServiceConfiguration(serviceName?: string): Object {
+  public getDefaultServiceConfiguration(serviceName?: string): Object {
 
     let loginService = this.injector.get(LoginService);
     let configuration = this.injector.get(SERVICE_CONFIG);
@@ -94,7 +94,7 @@ export class CustomOntimizeService extends OntimizeService {
   }
 
   public advancedQuery(kv?: Object, av?: Array<string>, entity?: string, sqltypes?: Object,
-    offset?: number, pagesize?: number, orderby?: Array<Object>) : Observable<any> {
+    offset?: number, pagesize?: number, orderby?: Array<Object>): Observable<any> {
     return undefined;
   }
 

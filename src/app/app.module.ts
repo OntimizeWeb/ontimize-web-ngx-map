@@ -1,14 +1,16 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import {
   ONTIMIZE_MODULES,
   ONTIMIZE_DIRECTIVES,
-  ontimizeProviders } from 'ontimize-web-ng2/ontimize';
+  ontimizeProviders,
+  ODialogComponent
+} from 'ontimize-web-ng2/ontimize';
 
 import { OMapModule } from 'ontimize-web-ng2-map/o-map';
 
 import { CONFIG } from './app.config';
-import { AppComponent }  from './app.component';
+import { AppComponent } from './app.component';
 import { routing } from './app.routes';
 import { APP_DIRECTIVES } from './app.directives';
 import { appProviders } from './app.providers';
@@ -25,13 +27,23 @@ let customProviders = [
 ];
 
 @NgModule({
-  imports: [ ONTIMIZE_MODULES, routing, OMapModule, HighlightJsModule],
+  imports: [
+    ONTIMIZE_MODULES,
+    routing,
+    OMapModule,
+    HighlightJsModule
+  ],
   declarations: [
     AppComponent,
     ONTIMIZE_DIRECTIVES,
     ...APP_DIRECTIVES
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    ODialogComponent
+  ],
   providers: [
     ...standardProviders,
     HighlightJsService,

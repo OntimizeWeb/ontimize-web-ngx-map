@@ -4,8 +4,8 @@ import { NavigationBarService, CustomOntimizeService, GeoServerService } from '.
 
 export const appProviders = [
   NavigationBarService,
-  CustomOntimizeService,
   [
+    { provide: 'custom-ontimize-service', useClass: CustomOntimizeService, deps: [Injector] },
     { provide: 'geojson-train-lines', useClass: GeoServerService, deps: [Injector] },
     { provide: 'geojson-train-stations', useClass: GeoServerService, deps: [Injector] },
     { provide: 'geojson-municipality', useClass: GeoServerService, deps: [Injector] }

@@ -5,8 +5,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",
-
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "noImplicitAny": false,
     "outDir": "../dist/",
     "rootDir": ".",
@@ -14,7 +13,6 @@
     "target": "es5",
     "inlineSources": true
   },
-
   "files": [
     "main.ts",
     "typings.d.ts"

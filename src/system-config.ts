@@ -14,7 +14,7 @@ const map: any = {
   '@angular/router': 'vendor/@angular/router/bundles/router.umd.js',
   '@angular/forms': 'vendor/@angular/forms/bundles/forms.umd.js',
 
-  '@angular/material': 'vendor/@angular/material/material.umd.js'
+  '@angular/material': 'vendor/@angular/material/bundles/material.umd.js'
 
 };
 
@@ -58,7 +58,10 @@ cliSystemConfigPackages['datatables.net-colreorder'] = { main: 'js/dataTables.co
 cliSystemConfigPackages['datatables.net-select'] = { main: 'js/dataTables.select' };
 cliSystemConfigPackages['colresizable'] = { main: 'colResizable-1.6.min' };
 cliSystemConfigPackages['pdfmake'] = { main: 'build/pdfmake.min' };
-cliSystemConfigPackages['ng2-translate'] = { main: 'ng2-translate' };
+cliSystemConfigPackages['ng2-translate'] = {
+  main: 'bundles/ng2-translate.umd.js',
+  defaultExtension: 'js'
+};
 cliSystemConfigPackages['ontimize-web-ng2'] = { main: 'ontimize' };
 cliSystemConfigPackages['ontimize-web-ng2-map'] = { main: 'o-map' };
 cliSystemConfigPackages['angular2-highlight-js'] =
