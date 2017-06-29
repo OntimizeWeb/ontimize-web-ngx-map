@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ng2-map",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "test": "tsc",

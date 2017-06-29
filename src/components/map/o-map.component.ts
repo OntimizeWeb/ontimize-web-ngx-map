@@ -1,4 +1,4 @@
-import { Component, Injector, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, Injector, ElementRef, OnInit, ViewChild, ViewChildren, EventEmitter } from '@angular/core';
 import { MdIconRegistry, MdSidenav } from '@angular/material';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
@@ -34,6 +34,11 @@ const DEFAULT_INPUTS = [
 	inputs: [
 		...OMapComponent.DEFAULT_INPUTS
 	],
+	outputs: [
+		'onToggleWSLayerSelected',
+		'onToggleWSLayerVisibility',
+		'onToggleWSLayerInWS'
+	],
 	templateUrl: '/map/o-map.component.html',
 	styleUrls: ['/map/o-map.component.css']
 })
@@ -46,6 +51,10 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 	@ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
 	@ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroupComponent;
 	@ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspaceComponent;
+
+	onToggleWSLayerSelected: EventEmitter<Object> = new EventEmitter<Object>();
+	onToggleWSLayerVisibility: EventEmitter<Object> = new EventEmitter<Object>();
+	onToggleWSLayerInWS: EventEmitter<Object> = new EventEmitter<Object>();
 
 	public set sCenter(center: string) {
 		this.setCenter(center);
@@ -102,6 +111,18 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 		// this.toggleSidenav();
 		// Enable search on workspace?
 		//this.mapSearchers.push(this.mapWorkspace);
+	}
+
+	public onWSLayerSelected(event) {
+		this.onToggleWSLayerSelected.emit(event);
+	}
+
+	public onWSLayerVisibilityToggled(event) {
+		this.onToggleWSLayerVisibility.emit(event);
+	}
+
+	public onWSLayerInWSToggled(event) {
+		this.onToggleWSLayerInWS.emit(event);
 	}
 
 	protected getText(text: string): string {

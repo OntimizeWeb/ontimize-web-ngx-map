@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, TemplateRef } from '@angular/core';
+import { Component, Inject, forwardRef, TemplateRef, EventEmitter } from '@angular/core';
 import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
 import { OSearchable, OSearchResult } from '../../interfaces';
 
@@ -14,6 +14,11 @@ import { OSearchable, OSearchResult } from '../../interfaces';
 		'menuLabelSecondary : layer-menu-label-secondary',
 		'refLayer : layer-ref'
 	],
+	outputs: [
+		'onToggleSelected',
+		'onToggleVisibility',
+		'onToggleInWS'
+	],
 	templateUrl: '/map-workspace-layer/o-map-workspace-layer.component.html',
 	styleUrls: ['/map-workspace-layer/o-map-workspace-layer.component.css']
 })
@@ -26,6 +31,9 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
 	refLayer: OMapLayerComponent;
 
 	public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
+	onToggleSelected: EventEmitter<Object> = new EventEmitter<Object>();
+	onToggleVisibility: EventEmitter<Object> = new EventEmitter<Object>();
+	onToggleInWS: EventEmitter<Object> = new EventEmitter<Object>();
 
 	constructor(
 		@Inject(forwardRef(() => OMapWorkspaceComponent)) private refWorkspace: OMapWorkspaceComponent
@@ -49,9 +57,10 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
 		} else if (unselect) {
 			this.selected = this.refLayer.setSelected(false);
 		}
+		this.onToggleSelected.emit(this);
 	}
 
-	public toggleVisible(status?: boolean, evt?: Event) {
+	public toggleVisible(status?: boolean, evt?: Event, avoidEvent? : boolean) {
 		if (evt) {
 			evt.stopPropagation();
 		}
@@ -59,12 +68,16 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
 		if (!this.visible && !!this.selected) {
 			this.toggleSelected(false);
 		}
+		if (!avoidEvent) {
+			this.onToggleVisibility.emit(this);
+		}
 	}
 	public toggleInWS(status?: boolean) {
 		this.inWS = this.refLayer.toggleInWS(status);
 		if (!this.inWS && !!this.visible) {
-			this.toggleVisible(false);
+			this.toggleVisible(false, undefined, true);
 		}
+		this.onToggleInWS.emit(this);
 	}
 
 }

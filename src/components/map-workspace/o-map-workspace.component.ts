@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, forwardRef, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -9,9 +9,14 @@ import { OSearcher, OSearchable } from '../../interfaces';
 	selector: 'o-map-workspace',
 	moduleId: module.id,
 	providers: [
-		[ { provide: 'DragulaService', useClass: DragulaService }]
+		[{ provide: 'DragulaService', useClass: DragulaService }]
 	],
 	inputs: [],
+	outputs: [
+		'onToggleWSLayerSelected',
+		'onToggleWSLayerVisibility',
+		'onToggleWSLayerInWS'
+	],
 	templateUrl: '/map-workspace/o-map-workspace.component.html',
 	styleUrls: ['/map-workspace/o-map-workspace.component.css']
 })
@@ -26,6 +31,9 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
 	oSearcherCollection = null;
 
 	public wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
+	onToggleWSLayerSelected: EventEmitter<Object> = new EventEmitter<Object>();
+	onToggleWSLayerVisibility: EventEmitter<Object> = new EventEmitter<Object>();
+	onToggleWSLayerInWS: EventEmitter<Object> = new EventEmitter<Object>();
 
 	constructor(
 		@Inject(forwardRef(() => OMapComponent)) private map: OMapComponent,
@@ -86,6 +94,18 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
 
 	public getMapLayers(): Array<OMapLayerComponent> {
 		return this.wsMapLayers;
+	}
+
+	public onWSLayerSelected(event) {
+		this.onToggleWSLayerSelected.emit(event);
+	}
+
+	public onWSLayerVisibilityToggled(event) {
+		this.onToggleWSLayerVisibility.emit(event);
+	}
+
+	public onWSLayerInWSToggled(event) {
+		this.onToggleWSLayerInWS.emit(event);
 	}
 
 	private updateMapLayersPosition() {

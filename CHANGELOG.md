@@ -1,3 +1,9 @@
+## 1.0.2
+### Features
+* **o-map**: adding '*onToggleWSLayerSelected*', '*onToggleWSLayerVisibility*' and '*onToggleWSLayerInWS*' outputs.
+* **o-map-workspace**: adding '*onToggleWSLayerSelected*', '*onToggleWSLayerVisibility*' and '*onToggleWSLayerInWS*' outputs.
+* **o-map-workspace-layer**: adding '*onToggleSelected*', '*onToggleVisibility*' and '*onToggleInWS*' outputs.
+
 ## 1.0.1
 
 ### PEER-DEPENDENCY UPDATES ###

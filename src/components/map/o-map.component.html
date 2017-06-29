@@ -57,7 +57,11 @@
 			TODO replace this div with o-list if it goes into the framework
 			Block with a simple list of WorkspaceLayers
 		-->
-		<o-map-workspace #oMapWorkspace flex></o-map-workspace>
+		<o-map-workspace #oMapWorkspace flex
+			(onToggleWSLayerSelected)="onWSLayerSelected($event)"
+			(onToggleWSLayerVisibility)="onWSLayerVisibilityToggled($event)"
+			(onToggleWSLayerInWS)="onWSLayerInWSToggled($event)"
+		></o-map-workspace>
 	</md-sidenav>
 	<!--
 		TODO o-frame sidebar container
