@@ -1,13 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector } from '@angular/core';
+import {
+	NgModule,
+	CUSTOM_ELEMENTS_SCHEMA,
+	Injector
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MdIconModule, MdIconRegistry, MdSidenavModule } from '@angular/material';
+
+import {
+	MdIconModule,
+	MdIconRegistry,
+	MdSidenavModule
+} from '@angular/material';
+
 import { DragulaDirective, DragulaModule } from 'ng2-dragula/ng2-dragula';
 import {
 	OMapComponent,
 	OMapBaseLayerComponent,
 	OMapLayerComponent,
-	OMapLayerFactory,
+	// OMapLayerFactory,
 	OMapLayerGroupComponent,
 	OMapWorkspaceComponent,
 	OMapWorkspaceLayerComponent,
@@ -46,18 +57,28 @@ const OMAP_DIRECTIVES: any[] = [
 ];
 
 @NgModule({
-	imports: [CommonModule, FormsModule, MdIconModule, MdSidenavModule, DragulaModule],
+	imports: [
+		CommonModule,
+		FormsModule,
+		MdIconModule,
+		MdSidenavModule,
+		DragulaModule
+	],
 	declarations: OMAP_DIRECTIVES,
 	exports: [
 		...OMAP_DIRECTIVES,
-		DragulaDirective],
-	providers: [MdIconRegistry,
-		[Injector,
+		DragulaDirective
+	],
+	providers: [
+		MdIconRegistry,
+		[
+			Injector,
 			{
 				provide: TranslateMapService,
 				useFactory: (injector) => new TranslateMapService(injector),
 				deps: [Injector]
-			}]
+			}
+		]
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
