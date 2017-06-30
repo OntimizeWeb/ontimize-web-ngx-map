@@ -18,7 +18,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
  */
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Ontimize web map charts webpack',
+  title: 'Ontimize web ng2 map webpack',
   baseUrl: '/',
   isDevServer: false
 };
@@ -37,14 +37,6 @@ module.exports = function (options) {
 
     // rest of config here
     externals: [
-      // {
-      //   'ng2-nvd3': {
-      //     root: ['ng2-nvd3'],
-      //     commonjs: 'ng2-nvd3',
-      //     commonjs2: 'ng2-nvd3',
-      //     amd: 'ng2-nvd3'
-      //   }
-      // },
       {
         'ontimize-web-ng2': {
           root: ['ontimize-web-ng2'],
@@ -71,10 +63,15 @@ module.exports = function (options) {
           loader: 'raw-loader',
           exclude: /\.async\.(html|css)$/
         },
+        // {
+        //   test: /\.scss$/,
+        //   use: ['style-loader', 'css-loader', 'sass-loader'],
+        //   include: ['styles.scss']
+        // },
         {
           test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-          include: ['styles.scss']
+          exclude: /node_modules/,
+          loaders: ['raw-loader', 'sass-loader']
         },
         {
           test: /\.(ts|js)$/,
@@ -105,7 +102,8 @@ module.exports = function (options) {
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
-        jQuery: "jquery"
+        jQuery: "jquery",
+        L: "leaflet"
       }),
 
       new ContextReplacementPlugin(

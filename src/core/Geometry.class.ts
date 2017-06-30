@@ -1,3 +1,3 @@
 export class Geometry {
-	coordinates: Array<number>;
+  coordinates: Array<number>;
 }

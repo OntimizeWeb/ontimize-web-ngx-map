@@ -1,9 +1,10 @@
 import { Injector } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+// import { EventEmitter } from '@angular/core';
 
-import { OTranslateService } from 'ontimize-web-ng2/ontimize';
+import { OTranslateService } from 'ontimize-web-ng2';
 
-import MAP_CORE_TRANSLATIONS = require('../i18n/i18n');
+import * as MAP_CORE_TRANSLATIONS from '../i18n/i18n';
+// import MAP_CORE_TRANSLATIONS = require('../i18n/i18n');
 
 export class TranslateMapService {
 
@@ -24,7 +25,7 @@ export class TranslateMapService {
   }
 
 
-  public get (text: string): string {
+  public get(text: string): string {
     let textTranslated = undefined;
     try {
       if (this.oTranslateService) {

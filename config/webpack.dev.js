@@ -5,7 +5,6 @@ const commonConfig = require('./webpack.common.js');
 /**
  * Webpack Plugins
  */
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 /**
@@ -31,13 +30,6 @@ module.exports = function (options) {
     },
 
     module: {
-      loaders: [{
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        })
-      },
-      ],
 
       rules: [{
         test: /\.ts$/,
