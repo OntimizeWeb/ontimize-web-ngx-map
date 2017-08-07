@@ -1,6 +1,6 @@
-<div class="search-result" layout="row">
+<div class="search-result" fxLayout="row">
 	<i class="material-icons" *ngIf="searchResult.icon">{{searchResult.icon}}</i>
-	<div flex layout="column" layout-align="center start">
+	<div fxFlex fxLayout="column" fxLayoutAlign="center start">
 		<span *ngIf="searchResult.label">{{searchResult.label}}</span>
 		<span class="sub-label" *ngIf="searchResult.sublabel">{{searchResult.sublabel}}</span>
 	</div>

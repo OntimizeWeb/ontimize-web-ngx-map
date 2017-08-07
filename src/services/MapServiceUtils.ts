@@ -1,6 +1,6 @@
-
 import { BaseLayerDefault } from '../core';
 import { BaseLayer } from '../interfaces';
+import * as L from 'leaflet';
 
 const AVAILABLE_STYLE_ATTRIBUTE_KEYS = [
   'stroke', 'color', 'weight', 'opacity', 'lineCap',
@@ -51,13 +51,13 @@ export class MapServiceUtils {
     return style;
   }
 
-  public static createDefaultBaseLayer(id: string, active: boolean = false):  BaseLayer | L.TileLayer {
+  public static createDefaultBaseLayer(id: string, active: boolean = false): BaseLayer | L.TileLayer {
     let baseLayer: BaseLayer | L.TileLayer = undefined;
 
     try {
-		  // First, search into known providers
+      // First, search into known providers
       let tileLayer: L.TileLayer = L.tileLayer['provider'](id);
-      if (tileLayer !== undefined ) {
+      if (tileLayer !== undefined) {
         baseLayer = new BaseLayerDefault({
           id: id,
           name: id,
@@ -69,12 +69,12 @@ export class MapServiceUtils {
       } else if (!baseLayer && Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
         baseLayer = new BaseLayerDefault(DEFAULT_BASE_LAYERS[id]);
       }
-		} catch (e) {
+    } catch (e) {
       // If not found, try to create new tile layer
       if (Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
         baseLayer = new BaseLayerDefault(DEFAULT_BASE_LAYERS[id]);
       }
-		}
+    }
     return baseLayer;
   }
 

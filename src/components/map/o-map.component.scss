@@ -1,65 +1,69 @@
 .leaflet-map-container {
-	position: absolute;
-	top: 0px;
-	bottom: 0;
-	width: 100%;
-	.sidenav-toggle-btn {
-		position: absolute;
-		left: 8px;
-		top: 8px;
-	}
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  width: 100%;
+  .sidenav-toggle-btn {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+  }
 }
 
 md-sidenav#layers {
-	top: 0px;
-	bottom: 0px;
-	position: absolute !important;
-	width: 350px;
-	md-toolbar {
-		min-height: 40px;
-		height: 40px;
-		border-bottom: 2px solid #ccc;
-		padding: 0;
-		button {
-			min-width: 54px;
-			height: 40px;
-			md-icon {
-				line-height: 40px;
-			}
-		}
-		.md-toolbar-tools {
-			padding-left: 16px;
-			line-height: 40px;
-		}
-	}
+  width: 350px;
+  .mat-toolbar-layout {
+    padding-left: 16px;
+    line-height: 40px;
+  }
+  md-toolbar, md-toolbar-row {
+    min-height: 40px;
+    height: 40px;
+    border-bottom: 2px solid #ccc;
+    padding: 0;
+    button {
+      min-width: 54px;
+      height: 40px;
+    }
+  }
 }
 
 .md-pushed-closed {
-	transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-	padding-left: 0px !important;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  padding-left: 0px !important;
 }
 
 .md-sidenav-left.md-open,
 md-sidenav.md-sidenav-opened {
-	transform: translate3d(0%, 0, 0);
-	visibility: initial;
-	transition: transform 0.2s ease-in;
-	user-select: none;
+  transform: translate3d(0%, 0, 0);
+  visibility: initial;
+  transition: transform 0.2s ease-in;
+  user-select: none;
 }
 
 $layerHeight: 30%;
 .group-ref {
-	max-height: $layerHeight;
-	/* min-height: 120px;*/
-	overflow: auto;
+  max-height: $layerHeight;
+  overflow: auto;
 }
 
 .o-map-base-layer-group {
-	column-count: 3;
-	column-gap: 0px;
-	column-rule-width: 0px;
+  column-count: 3;
+  column-gap: 0px;
+  column-rule-width: 0px;
 }
 
 o-map-workspace {
-	overflow: auto;
+  overflow: auto;
+}
+
+o-map-layer>button {
+  .mat-button-focus-overlay {
+    display: none;
+  }
+  o-toggle-icon-button {
+    .mat-button-ripple, .mat-button-focus-overlay {
+      display: none;
+    }
+  }
 }
