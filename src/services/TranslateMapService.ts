@@ -1,10 +1,6 @@
 import { Injector } from '@angular/core';
-// import { EventEmitter } from '@angular/core';
-
 import { OTranslateService } from 'ontimize-web-ng2';
-
-import * as MAP_CORE_TRANSLATIONS from '../i18n/i18n';
-// import MAP_CORE_TRANSLATIONS = require('../i18n/i18n');
+import { MAP } from '../i18n/i18n';
 
 export class TranslateMapService {
 
@@ -43,7 +39,7 @@ export class TranslateMapService {
       textTranslated = undefined;
     }
     if (!textTranslated) {
-      let bundle = MAP_CORE_TRANSLATIONS.MAP[this.currentLang];
+      let bundle = MAP[this.currentLang];
       if (bundle && bundle[text]) {
         textTranslated = bundle[text];
       } else {

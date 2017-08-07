@@ -2,7 +2,7 @@ import { Component, Inject, forwardRef, OnInit, OnDestroy, EventEmitter } from '
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { OMapComponent, OMapLayerComponent, OMapLayerGroupComponent } from '../../components';
+import { OMapComponent, OMapLayerComponent } from '../../components';
 import { OSearcher, OSearchable } from '../../interfaces';
 
 @Component({

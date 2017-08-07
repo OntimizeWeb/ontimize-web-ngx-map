@@ -1,7 +1,7 @@
 import { MapService } from '../../services';
 import { LayerConfiguration } from '../../core/LayerConfiguration.class';
-// import { ILayerService, IGeoJSONLayerService } from '../../interfaces';
-import { L } from 'leaflet';
+
+import * as L from 'leaflet';
 
 export class OMapLayerFactory {
 
@@ -36,14 +36,14 @@ export class OMapLayerFactory {
     return layer;
   }
 
-	/**
-	 * Creates marker and adds it to map.
-	 * @param  {LayerConfiguration} layerConf
-	 *          Layer configuration parameters.
-	 * @param  {MapService} mapService
-	 *          Reference to map service responsible of interact with leaflet map object.
-	 * @return L.Marker layer.
-	 */
+  /**
+   * Creates marker and adds it to map.
+   * @param  {LayerConfiguration} layerConf
+   *          Layer configuration parameters.
+   * @param  {MapService} mapService
+   *          Reference to map service responsible of interact with leaflet map object.
+   * @return L.Marker layer.
+   */
   public createMarker(layerConf: LayerConfiguration, mapService: MapService): L.Marker {
     // Get id
     var id = null;
@@ -60,14 +60,14 @@ export class OMapLayerFactory {
     return layer;
   }
 
-	/**
-	 * Creates GeoJSON layer and adds it to map.
-	 * @param  {LayerConfiguration} layerConf
-	 *          Layer configuration parameters.
-	 * @param  {MapService} mapService
-	 *          Reference to map service responsible of interact with leaflet map object.
-	 * @returns L.GeoJSON layer.
-	 */
+  /**
+   * Creates GeoJSON layer and adds it to map.
+   * @param  {LayerConfiguration} layerConf
+   *          Layer configuration parameters.
+   * @param  {MapService} mapService
+   *          Reference to map service responsible of interact with leaflet map object.
+   * @returns L.GeoJSON layer.
+   */
   public createGeoJSON(layerConf: LayerConfiguration, mapService: MapService): L.GeoJSON {
     // Get id
     var id = null;
@@ -93,14 +93,14 @@ export class OMapLayerFactory {
     return layer;
   }
 
-	/**
-	 * Creates WMS layer and adds it to map.
-	 * @param  {LayerConfiguration} layerConf
-	 *          Layer configuration parameters.
-	 * @param  {MapService} mapService
-	 *          Reference to map service responsible of interact with leaflet map object.
-	 * @returns L.TileLayer.WMS layer
-	 */
+  /**
+   * Creates WMS layer and adds it to map.
+   * @param  {LayerConfiguration} layerConf
+   *          Layer configuration parameters.
+   * @param  {MapService} mapService
+   *          Reference to map service responsible of interact with leaflet map object.
+   * @returns L.TileLayer.WMS layer
+   */
   public createWMS(layerConf: LayerConfiguration, mapService: MapService): L.TileLayer.WMS {
     var id = null;
     if (layerConf.layerId) {
@@ -125,4 +125,5 @@ export class OMapLayerFactory {
 
     return layer;
   }
+
 }

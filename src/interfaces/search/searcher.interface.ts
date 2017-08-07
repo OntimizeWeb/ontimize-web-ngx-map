@@ -19,7 +19,7 @@ export interface OSearcher {
 
   /**
    * Method to do the search
-   * @param searchValue - Value to match
+   * @param searchValue - Value to match 
    */
   search(oSearchValue: string): Observable<Array<OSearchable>>;
 

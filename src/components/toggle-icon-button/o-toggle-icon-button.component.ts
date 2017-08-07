@@ -41,10 +41,10 @@ export class OToggleIconButtonComponent {
     }
   }
 
-  toggle(evt: Event) {
+  toggle() {
     if (this.clickable) {
       return this.buttonActive = !this.buttonActive;
     }
-    return undefined;
+    return false;
   }
 }

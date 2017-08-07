@@ -1,4 +1,3 @@
-
 import { BaseLayerDefault } from '../core';
 import { BaseLayer } from '../interfaces';
 import * as L from 'leaflet';

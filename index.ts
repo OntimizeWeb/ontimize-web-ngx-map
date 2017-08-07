@@ -1,24 +1,13 @@
-import {
-  NgModule,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Injector
-} from '@angular/core';
-
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import {
-  MdIconModule,
-  MdIconRegistry,
-  MdSidenavModule
-} from '@angular/material';
-
+import { MdIconModule, MdIconRegistry, MdSidenavModule } from '@angular/material';
 import { DragulaDirective, DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { OCustomMaterialModule } from 'ontimize-web-ng2';
 import {
   OMapComponent,
   OMapBaseLayerComponent,
   OMapLayerComponent,
-  // OMapLayerFactory,
   OMapLayerGroupComponent,
   OMapWorkspaceComponent,
   OMapWorkspaceLayerComponent,
@@ -29,6 +18,7 @@ import {
 } from './src/components';
 
 import { TranslateMapService } from './src/services';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 export {
   OMapComponent,
@@ -56,7 +46,7 @@ const OMAP_DIRECTIVES: any[] = [
   ONavigatorItemComponent
 ];
 
-export function loadTranslateMapService(injector: Injector) {
+export function getTranslateMapServiceProvider(injector) {
   return new TranslateMapService(injector);
 }
 
@@ -66,23 +56,24 @@ export function loadTranslateMapService(injector: Injector) {
     FormsModule,
     MdIconModule,
     MdSidenavModule,
-    DragulaModule
+    DragulaModule,
+    OCustomMaterialModule,
+    FlexLayoutModule
   ],
-  declarations: OMAP_DIRECTIVES,
+  declarations: [
+    OMAP_DIRECTIVES
+  ],
   exports: [
     ...OMAP_DIRECTIVES,
     DragulaDirective
   ],
   providers: [
     MdIconRegistry,
-    [
-      Injector,
-      {
-        provide: TranslateMapService,
-        useFactory: loadTranslateMapService,
-        deps: [Injector]
-      }
-    ]
+    {
+      provide: TranslateMapService,
+      useFactory: getTranslateMapServiceProvider,
+      deps: [Injector]
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

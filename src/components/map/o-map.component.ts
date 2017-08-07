@@ -3,12 +3,9 @@ import { MdIconRegistry, MdSidenav } from '@angular/material';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { MapService, GeocodingService, TranslateMapService } from '../../services';
-// import { Feature } from '../../core';
 import { Util } from '../../utils';
 import { OMapWSearch } from './o-map-w-search.class';
-
-// import * as L from 'leaflet';
-import { L } from 'leaflet';
+import * as L from 'leaflet';
 //TODO import {Control} from 'leaflet-draw';
 
 
@@ -134,7 +131,7 @@ export class OMapComponent extends OMapWSearch implements OnInit {
   }
 
   protected configureMap() {
-    L.Icon.Default.imagePath = './vendor/leaflet/dist/images/';
+    L.Icon.Default.imagePath = './assets/';
 
     let mapOptions = {
       zoomControl: false,
@@ -161,4 +158,3 @@ export class OMapComponent extends OMapWSearch implements OnInit {
   }
 
 }
-

@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, TemplateRef, EventEmitter } from '@angular/core';
+import { Component, Inject, forwardRef, EventEmitter } from '@angular/core';
 import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
 import { OSearchable, OSearchResult } from '../../interfaces';
 

@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Util } from '../utils';
-import { BaseLayerDefault, BaseLayerCollection } from '../core';
+import { BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
 require('leaflet-providers');

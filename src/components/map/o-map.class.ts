@@ -5,7 +5,7 @@ import { MapService } from '../../services';
 import { Center } from '../../core';
 import { Util } from '../../utils';
 import { TranslateMapService } from '../../services';
-import { L } from 'leaflet';
+import * as L from 'leaflet';
 
 const DEFAULT_CENTER = new Center(42.2274519, -8.7236805);
 

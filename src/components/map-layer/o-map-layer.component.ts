@@ -1,13 +1,12 @@
-import { Component, OnInit, ApplicationRef, Inject, Injector, EventEmitter, forwardRef, ReflectiveInjector, TemplateRef } from '@angular/core';
+import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-// import * as leaflet from 'leaflet';
-import { L } from 'leaflet';
+import * as L from 'leaflet';
 import { MapService } from '../../services';
 import { Center, LayerConfiguration } from '../../core';
 import { Util } from '../../utils';
 import { OMapComponent, OMapLayerFactory } from '../../components';
-import { ILayerService, IGeoJSONLayerService, OSearchable, OSearchResult } from '../../interfaces';
+import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
 
 @Component({
   selector: 'o-map-layer',
@@ -170,7 +169,7 @@ export class OMapLayerComponent implements OnInit, OSearchable {
         self.popup = data;
         self.layerConf.popup = data;
         self.createMapLayer(self.layerConf);
-      }, error => {
+      }, () => {
         console.log('Could not load popup template.');
         self.popup = '';
         self.layerConf.popup = '';

@@ -1,4 +1,3 @@
-import { MapService } from '../../services';
 import { BaseLayer } from '../../interfaces';
 import { OMapWMarkerCluster } from './o-map-w-markercluster.class';
 

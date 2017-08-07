@@ -2,7 +2,6 @@ import { ILayerService } from '../interfaces';
 import * as L from 'leaflet';
 
 export class Util {
-
   static parseBoolean(value: string, defaultValue?: boolean): boolean {
     if ((typeof value === 'string') && (value.toUpperCase() === 'TRUE' || value.toUpperCase() === 'YES')) {
       return true;

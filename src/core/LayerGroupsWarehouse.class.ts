@@ -1,4 +1,3 @@
-import { OMapLayerGroupComponent } from '../components';
 import { LayerGroupConfiguration } from './LayerGroupConfiguration.class';
 
 export class OMapLayerGroupsWarehouse {

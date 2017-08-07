@@ -1,5 +1,4 @@
 import { Center } from './Center.class';
-import { ILayerService } from '../interfaces';
 
 export class LayerConfiguration {
   public layerId: string;

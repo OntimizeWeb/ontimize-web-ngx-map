@@ -1,5 +1,6 @@
 import { OMapWWorkspace } from './o-map-w-workspace.class';
-import { L } from 'leaflet';
+
+import * as L from 'leaflet';
 
 export class OMapWDraw extends OMapWWorkspace {
   public drawControl: boolean = false;
@@ -24,7 +25,7 @@ export class OMapWDraw extends OMapWWorkspace {
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
-    map.on('draw:created', function (e) {
+    map.on('draw:created', function () {
       //TODO editableLayers.addLayer(e.layer);
     });
   }

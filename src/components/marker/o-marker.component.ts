@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { LeafletMouseEvent, L } from 'leaflet';
+import { LeafletMouseEvent } from 'leaflet';
 import { MapService } from '../../services';
+
+import * as L from 'leaflet';
 
 @Component({
   selector: 'o-marker',
@@ -41,7 +43,7 @@ export class OMarkerComponent {
 
         this.markerCount += 1;
 
-        marker.on('click', (event: MouseEvent) => {
+        marker.on('click', () => {
           if (this.removing) {
             this.mapService.map.removeLayer(marker);
             this.markerCount -= 1;

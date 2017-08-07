@@ -63,15 +63,9 @@ module.exports = function (options) {
           loader: 'raw-loader',
           exclude: /\.async\.(html|css)$/
         },
-        // {
-        //   test: /\.scss$/,
-        //   use: ['style-loader', 'css-loader', 'sass-loader'],
-        //   include: ['styles.scss']
-        // },
         {
           test: /\.scss$/,
-          exclude: /node_modules/,
-          loaders: ['raw-loader', 'sass-loader']
+          use: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
           test: /\.(ts|js)$/,
@@ -102,8 +96,7 @@ module.exports = function (options) {
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
-        jQuery: "jquery",
-        L: "leaflet"
+        jQuery: "jquery"
       }),
 
       new ContextReplacementPlugin(
