@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { ObservableWrapper } from 'ontimize-web-ng2/ontimize/util/async';
 
-
 @Injectable()
 export class NavigationBarService {
   public currentTitle: string = null;
@@ -21,10 +20,9 @@ export class NavigationBarService {
     this._emitVisibleChanged(this.visible);
   }
 
-
   /**
- * Subscribe to title updates
- */
+   * Subscribe to title updates
+   */
   public onTitleChange(onNext: (value: any) => void): Object {
     return ObservableWrapper.subscribe(this.titleEmitter, onNext);
   }
@@ -41,7 +39,5 @@ export class NavigationBarService {
   private _emitVisibleChanged(visible): void {
     ObservableWrapper.callEmit(this.visibleEmitter, visible);
   }
-
-
 
 }

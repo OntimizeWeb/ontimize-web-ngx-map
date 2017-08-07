@@ -1,0 +1,116 @@
+// .example-container {
+//   width: 500px;
+//   height: 300px;
+//   border: 1px solid rgba(0, 0, 0, 0.5);
+// }
+
+// .example-sidenav-content {
+//   display: flex;
+//   height: 100%;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+
+
+
+
+
+// md-sidenav#layers {
+//   width: 350px;
+//   .mat-toolbar-layout {
+//     padding-left: 16px;
+//     line-height: 40px;
+//   }
+// 	md-toolbar, md-toolbar-row {
+// 		min-height: 40px;
+// 		height: 40px;
+// 		border-bottom: 2px solid #ccc;
+//     padding: 0;
+//     button {
+// 			min-width: 54px;
+// 			height: 40px;
+// 		}
+//   }
+// }
+
+
+
+// button.o-map-layer-item {
+// 	font-size: 0.8em;
+// 	visibility: initial;
+// 	width: 100%;
+// 	padding: 0;
+// 	display: flex;
+// 	line-height: normal;
+// 	overflow: hidden;
+// }
+
+// .layer-icon {
+// 	height: 24px;
+// 	width: 24px;
+// 	margin: 15px;
+// 	margin-left: 0;
+// 	margin-right: 4px;
+// }
+
+
+
+figure {
+	blockquote {
+    font-size: 1em;
+    font-style: italic;
+    line-height: 1.5;
+    border-left: 0.5em solid #DDD;
+    padding-left: 4px;
+    margin: 1.5em 0px .75em 0em;
+  }
+}
+
+
+/* Quotes for two levels of nested quotations */
+q {
+	quotes: '“' '”' '‘' '’';
+}
+ /* extra content definitions for pre-2011 WebKit */
+q:before {
+	content: '“';
+	content: open-quote;
+}
+q:after {
+	content: '”';
+	content: close-quote;
+}
+q q:before {
+	content: '‘';
+	content: open-quote;
+}
+q q:after {
+	content: '’';
+	content: close-quote;
+}
+  /* q in blockquote */
+blockquote q:before {
+	content: '‘';
+	content: open-quote;
+}
+blockquote q:after {
+	content: '’';
+	content: close-quote;
+}
+blockquote q q:before {
+	content: '“';
+	content: open-quote;
+}
+blockquote q q:after {
+	content: '”';
+	content: close-quote;
+}
+/* hanging opening quote */
+blockquote:before {
+	display: block;
+	height: 0;
+	content: "“";
+	margin-left: -.8em; font: italic 400%/1 Cochin,Georgia,"Times New Roman", serif;
+	color: #999;
+}

@@ -1,10 +1,10 @@
 import { Injector, forwardRef, ElementRef, OnInit } from '@angular/core';
-import { OComponent } from 'ontimize-web-ng2/ontimize';
+import { OComponent } from 'ontimize-web-ng2';
 
 import {
   OMapComponent, MapService
   // ChartFactory, ChartDataAdapterFactory
-} from 'ontimize-web-ng2-map/o-map';
+} from 'ontimize-web-ng2-map';
 
 // import { CustomMapFactory } from './custom.map.factory';
 

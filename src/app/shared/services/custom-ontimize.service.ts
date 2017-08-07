@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
-import { OntimizeService, LoginService, SERVICE_CONFIG } from 'ontimize-web-ng2/ontimize';
+import { OntimizeService, LoginService } from 'ontimize-web-ng2';
 
 export class CustomOntimizeService extends OntimizeService {
 
@@ -12,10 +12,22 @@ export class CustomOntimizeService extends OntimizeService {
     super(injector);
   }
 
-  public getDefaultServiceConfiguration(serviceName?: string): Object {
+  // public getDefaultServiceConfiguration(serviceName?: string): Object {
 
+  //   let loginService = this.injector.get(LoginService);
+  //   let configuration = this.injector.get(SERVICE_CONFIG);
+
+  //   let servConfig = {};
+  //   if (serviceName && configuration.hasOwnProperty(serviceName)) {
+  //     servConfig = configuration[serviceName];
+  //   }
+  //   servConfig['session'] = loginService.getSessionInfo();
+  //   return servConfig;
+  // }
+
+  public getDefaultServiceConfiguration(serviceName?: string): Object {
     let loginService = this.injector.get(LoginService);
-    let configuration = this.injector.get(SERVICE_CONFIG);
+    let configuration = this._config.getServiceConfiguration();
 
     let servConfig = {};
     if (serviceName && configuration.hasOwnProperty(serviceName)) {
@@ -110,6 +122,5 @@ export class CustomOntimizeService extends OntimizeService {
   public delete(kv: Object = {}, entity?: string, sqltypes?: Object): Observable<any> {
     return undefined;
   }
-
 
 }

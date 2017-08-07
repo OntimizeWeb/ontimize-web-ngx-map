@@ -1,24 +1,24 @@
-@import 'node_modules/@angular/material/core/theming/all-theme';
+@import '~@angular/material/theming';
 
 // Include non-theme styles for core.
-@include md-core();
+@include mat-core();
 
 /*** START GREEN ****/
-$md-custom-primary: (
-  50: #f6fafe,
-  100: #b2d4f6,
-  200: #80b8f0,
-  300: #4095e8,
-  400: #2585e5,
-  500: #1976d2,
-  600: #1667b7,
-  700: #12579b,
-  800: #0f4880,
-  900: #0c3965,
-  A100: #f6fafe,
-  A200: #b2d4f6,
-  A400: #2585e5,
-  A700: #12579b,
+$mat-custom-primary: (
+  50 : #e5e5e5,
+  100 : #bdbdbd,
+  200 : #929292,
+  300 : #666666,
+  400 : #454545,
+  500 : #242424,
+  600 : #202020,
+  700 : #1b1b1b,
+  800 : #161616,
+  900 : #0d0d0d,
+  A100 : #e5e5e5,
+  A200 : #bdbdbd,
+  A400 : #454545,
+  A700 : #1b1b1b,
 
   contrast: (
     50: $black-87-opacity,
@@ -38,21 +38,21 @@ $md-custom-primary: (
   )
 );
 
-$md-custom-accent: (
-  50: #ffffff,
-  100: #feeae9,
-  200: #fbb9b4,
-  300: #f77970,
-  400: #f65e53,
-  500: #f44336,
-  600: #f22819,
-  700: #e11b0c,
-  800: #c3170b,
-  900: #a61409,
-  A100: #ffffff,
-  A200: #feeae9,
-  A400: #f65e53,
-  A700: #e11b0c,
+$mat-custom-accent: (
+  50 : #fff9e0,
+  100 : #fff0b3,
+  200 : #ffe680,
+  300 : #ffdb4d,
+  400 : #ffd426,
+  500 : #ffcc00,
+  600 : #ffc700,
+  700 : #ffc000,
+  800 : #ffb900,
+  900 : #ffad00,
+  A100 : #fff9e0,
+  A200 : #ffe680,
+  A400 : #ffd426,
+  A700 : #ffc000,
 
   contrast: (
     50: $black-87-opacity,
@@ -76,14 +76,14 @@ $md-custom-accent: (
 
 
 // Define a theme.
-$primary: md-palette($md-blue);
-$accent:  md-palette($md-red);
+$primary: mat-palette($mat-custom-primary);
+$accent:  mat-palette($mat-custom-accent);
 
 /* Light theme */
-$theme: md-light-theme($primary, $accent);
+$theme: mat-light-theme($primary, $accent);
 
 /* Dark theme */
-/*$theme: md-dark-theme($primary, $accent);*/
+/*$theme: mat-dark-theme($primary, $accent);*/
 
 // Include all theme styles for the components.
 @include angular-material-theme($theme);

@@ -1,10 +1,10 @@
 
 @import 'my-custom-app-theme.scss';
 
-@import 'node_modules/ontimize-web-ng2/ontimize/components/theming/all-theme.scss';
+@import '~ontimize-web-ng2/ontimize/components/theming/all-theme.scss';
 @include o-material-theme($theme);
 
-@import '../../app/+main/main-theme.scss';
+@import '../../app/main/main-theme.scss';
 @include main-theme($theme);
 
 .container-title {

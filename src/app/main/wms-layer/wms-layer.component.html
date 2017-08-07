@@ -1,0 +1,26 @@
+<div fxLayout="row" fxLayoutAlign="center start" layout-margin>
+
+  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="start">
+      <o-map #oMapWMS center="40.712784,-74.005941" zoom="10" min-zoom="6" max-zoom="14" base-layer-ids="CartoDB.PositronNoLabels"
+        zoom-control="yes" search-control="yes" layer-panel-visible="no" fxFlex>
+        <o-map-layer layer-type="WMS" layer-id="wms-example-airports" layer-base-url="http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WMSServer"
+          [layer-options]="getWMSAirportLayerOptions()" layer-menu-label="Airports" layer-menu-label-secondary="Airport WMS layer.">
+        </o-map-layer>
+        <o-map-layer layer-type="WMS" layer-id="wms-example-largecities" layer-base-url="http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WMSServer"
+          [layer-options]="getWMSLargeCitiesLayerOptions()" layer-menu-label="Large cities" layer-menu-label-secondary="Large cities WMS layer.">
+        </o-map-layer>
+        <o-map-layer layer-type="WMS" layer-id="wms-example-mediumcities" layer-base-url="http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WMSServer"
+          [layer-options]="getWMSMediumCitiesLayerOptions()" layer-visible="no" layer-menu-label="Medium cities" layer-menu-label-secondary="Medium cities WMS layer.">
+        </o-map-layer>
+      </o-map>
+    </div>
+    <div class="body-text-container" layout-padding>
+      <h2>Adding WMS layers</h2>
+      <p class="body-text">
+        TODO
+      </p>
+    </div>
+  </example-comp>
+
+</div>
