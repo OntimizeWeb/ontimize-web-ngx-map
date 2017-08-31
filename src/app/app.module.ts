@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { appProviders } from './app.providers';
 import { MainModule } from './main/main.module';
-import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
 // Defining custom providers (if needed)...
 let customProviders = [
@@ -27,7 +26,6 @@ let customProviders = [
     ONTIMIZE_MODULES,
     OMapModule,
     OntimizeWebModule,
-    HighlightJsModule,
     MainModule,
     AppRoutingModule
   ],
@@ -38,7 +36,6 @@ let customProviders = [
     AppComponent
   ],
   providers: [
-    HighlightJsService,
     { provide: APP_CONFIG, useValue: CONFIG },
     ...ONTIMIZE_PROVIDERS,
     ...customProviders

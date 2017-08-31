@@ -7,9 +7,12 @@ import { ExampleComponent } from './example/example.component';
 import { HighlightComponent } from './highlight/highlight.component';
 import { CustomMapComponent } from './map/custom.map.component';
 
+import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
+
 @NgModule({
   imports: [
     OntimizeWebModule,
+    HighlightJsModule,
     OMapModule
   ],
   declarations: [
@@ -22,6 +25,9 @@ import { CustomMapComponent } from './map/custom.map.component';
     ExampleComponent,
     HighlightComponent,
     CustomMapComponent
+  ],
+  providers: [
+    HighlightJsService
   ]
 })
 export class SharedModule { }
