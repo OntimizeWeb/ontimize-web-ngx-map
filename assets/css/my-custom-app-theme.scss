@@ -3,7 +3,6 @@
 // Include non-theme styles for core.
 @include mat-core();
 
-/*** START GREEN ****/
 $mat-custom-primary: (
   50 : #e5e5e5,
   100 : #bdbdbd,
@@ -71,9 +70,6 @@ $mat-custom-accent: (
     A700: white,
   )
 );
-
-/** END GREEN ***/
-
 
 // Define a theme.
 $primary: mat-palette($mat-custom-primary);
