@@ -1,39 +1,36 @@
 <div fxLayout="column" fxLayoutAlign="center top" fxFill>
 
   <div fxLayout="column" layout-padding fxFill>
-    <section class="playground-container mat-elevation-z4" [class.show-source]="showSource">
+    <section fxLayout="column" class="playground-container mat-elevation-z4" [class.show-source]="showSource">
       <md-toolbar class="playground-toolbar" color="primary">
         <span> {{ compName }}</span>
         <span fxFlex></span>
+
         <button *ngIf="!collapsed && orderedFiles && orderedFiles.length" md-icon-button aria-label="View Source" (click)="toggleShowSource()">
           <md-icon class="mat-24">code</md-icon>
         </button>
+
         <button *ngIf="collapsible" md-icon-button aria-label="Collapse" (click)="collapsed = !collapsed">
           <md-icon *ngIf="!collapsed" class="mat-24">keyboard_arrow_up</md-icon>
           <md-icon *ngIf="collapsed" class="mat-24">keyboard_arrow_down</md-icon>
         </button>
+
       </md-toolbar>
 
-
+      <!-- Source views -->
       <md-tab-group *ngIf="showSource">
         <md-tab label="{{ 'html' | uppercase }}" *ngIf="hasTplData('html')">
-          <div md-scroll-y class="playground-source-container">
-            <highlight-comp [template-content]="html ? html : getTplData('html')" [template-type]="html"></highlight-comp>
-          </div>
+          <highlight-comp [template-content]="html ? html : getTplData('html')" [template-type]="html"></highlight-comp>
         </md-tab>
         <md-tab label="{{ 'scss' | uppercase }}" *ngIf="hasTplData('scss')">
-          <div md-scroll-y class="playground-source-container">
-            <highlight-comp [template-content]="getTplData('scss')" [template-type]="scss"></highlight-comp>
-          </div>
+          <highlight-comp [template-content]="getTplData('scss')" [template-type]="scss"></highlight-comp>
         </md-tab>
         <md-tab label="{{ 'typescript' | uppercase }}" *ngIf="hasTplData('typescript')">
-          <div md-scroll-y class="playground-source-container">
-            <highlight-comp [template-content]="getTplData('typescript')" [template-type]="typescript"></highlight-comp>
-          </div>
+          <highlight-comp [template-content]="getTplData('typescript')" [template-type]="typescript"></highlight-comp>
         </md-tab>
       </md-tab-group>
 
-      <div>
+      <div [class.collapsed]="collapsed" [class.collapsible]="collapsible">
         <ng-content></ng-content>
       </div>
 

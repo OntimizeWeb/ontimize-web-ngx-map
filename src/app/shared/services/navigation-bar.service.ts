@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { ObservableWrapper } from 'ontimize-web-ng2/ontimize/util/async';
+// import { ObservableWrapper } from 'ontimize-web-ng2';
 
 @Injectable()
 export class NavigationBarService {
   public currentTitle: string = null;
-  public visible: boolean = true;
+  public visible = true;
 
   private titleEmitter: EventEmitter<any> = new EventEmitter();
   private visibleEmitter: EventEmitter<Boolean> = new EventEmitter<Boolean>();
@@ -23,21 +23,21 @@ export class NavigationBarService {
   /**
    * Subscribe to title updates
    */
-  public onTitleChange(onNext: (value: any) => void): Object {
-    return ObservableWrapper.subscribe(this.titleEmitter, onNext);
+  public onTitleChange(onNext: (value: any) => void)/*: Object*/ {
+    // return ObservableWrapper.subscribe(this.titleEmitter, onNext);
   }
 
-  public onVisibleChange(onNext: (value: boolean) => void): Object {
-    return ObservableWrapper.subscribe(this.visibleEmitter, onNext);
+  public onVisibleChange(onNext: (value: boolean) => void)/*: Object */ {
+    // return ObservableWrapper.subscribe(this.visibleEmitter, onNext);
   }
 
 
   private _emitTitleChanged(title): void {
-    ObservableWrapper.callEmit(this.titleEmitter, title);
+    // ObservableWrapper.callEmit(this.titleEmitter, title);
   }
 
   private _emitVisibleChanged(visible): void {
-    ObservableWrapper.callEmit(this.visibleEmitter, visible);
+    // ObservableWrapper.callEmit(this.visibleEmitter, visible);
   }
 
 }
