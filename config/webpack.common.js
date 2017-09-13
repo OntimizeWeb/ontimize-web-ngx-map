@@ -8,7 +8,6 @@ const helpers = require('./helpers');
 const AssetsPlugin = require('assets-webpack-plugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ngcWebpack = require('ngc-webpack');
@@ -28,7 +27,7 @@ module.exports = function (options) {
   return {
 
     entry: {
-      'ontimize-web-ng2-map': helpers.root('index.ts')
+      'ontimize-web-ng2-map': helpers.root('tmp/index.ts')
     },
 
     resolve: {
@@ -54,7 +53,9 @@ module.exports = function (options) {
       rules: [
         {
           test: /\.ts$/,
-          loaders: ['awesome-typescript-loader?configFileName=tsconfig-webpack.json', 'angular2-template-loader'],
+          loaders: [
+            'awesome-typescript-loader?configFileName=config/tsconfig.webpack.json',
+            'angular2-template-loader'],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
         /* Embed files. */
@@ -98,23 +99,10 @@ module.exports = function (options) {
         jQuery: "jquery",
         jQuery: "jquery"
       }),
-
       new ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)@angular/,
-        helpers.root('./src')
+        helpers.root('./tmp')
       ),
-
-      new CopyWebpackPlugin([
-        { from: '.npmignore', to: '../' },
-        { from: 'CHANGELOG.md', to: '../' },
-        { from: 'LICENSE', to: '../' },
-        { from: 'README.md', to: '../' },
-        { from: 'package.json', to: '../' },
-        { from: 'styles.scss', to: '../' },
-        { from: 'src/**/*.scss', to: '../' },
-        { from: 'src/**/*.html', to: '../' }
-      ]),
-
       new ngcWebpack.NgcWebpackPlugin({
         disabled: false,
         //  disabled: !AOT,

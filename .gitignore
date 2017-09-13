@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/tmp
 /out
 /src/**/*.css
 o-map.css
