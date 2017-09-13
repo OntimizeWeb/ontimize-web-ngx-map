@@ -6,11 +6,11 @@ import { OSearchResult, OSearchResultAction } from '../../interfaces';
   inputs: [
     'searchResult : search-result'
   ],
-  template: require('./o-navigator-item.component.html'),
-  styles: [require('./o-navigator-item.component.scss')]
+  templateUrl: './o-navigator-item.component.html',
+  styleUrls: ['./o-navigator-item.component.scss']
 })
 export class ONavigatorItemComponent {
-  searchResult: OSearchResult;
+  protected _searchResult: OSearchResult;
 
   private actionButtons: Array<OSearchResultAction> = new Array<OSearchResultAction>();
 
@@ -40,5 +40,17 @@ export class ONavigatorItemComponent {
 	 */
   falseStatusIcon(button: OSearchResultAction): string {
     return (!button.icon || !button.icon.length) ? '' : button.icon.slice(-1, button.icon.length)[0];
+  }
+
+  getIcon(button: OSearchResultAction): string {
+    return button.status() ? this.trueStatusIcon(button) : this.falseStatusIcon(button);
+  }
+
+  get searchResult(): OSearchResult {
+    return this._searchResult;
+  }
+
+  set searchResult(val: OSearchResult) {
+    this._searchResult = val;
   }
 }

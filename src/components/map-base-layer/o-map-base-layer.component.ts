@@ -1,7 +1,5 @@
 import { Component, Inject, forwardRef } from '@angular/core';
-import {
-  OMapComponent
-} from '../../components';
+import { OMapComponent } from '../../components';
 import {
   BaseLayer,
   OSearchable,
@@ -17,15 +15,15 @@ import {
     'urlTemplate: src',
     'active'
   ],
-  template: require('./o-map-base-layer.component.html'),
-  styles: [require('./o-map-base-layer.component.scss')]
+  templateUrl: './o-map-base-layer.component.html',
+  styleUrls: ['./o-map-base-layer.component.scss']
 })
 export class OMapBaseLayerComponent implements BaseLayer, OSearchable {
   id: string;
-  active: boolean = false;
+  protected _active: boolean = false;
 
-  name: string;
-  urlTemplate: string;
+  protected _name: string;
+  protected _urlTemplate: string;
 
   public oSearchKeys: Array<string> = ['name'];
   get oSearchResult(): OSearchResult {
@@ -65,5 +63,29 @@ export class OMapBaseLayerComponent implements BaseLayer, OSearchable {
     this.oMap.unselectBaseLayers();
     this.oMap.getMapService().selectBaseLayer(this.id);
     return this.active = true;
+  }
+
+  get active(): boolean {
+    return this._active;
+  }
+
+  set active(val: boolean) {
+    this._active = val;
+  }
+
+  get urlTemplate(): string {
+    return this._urlTemplate;
+  }
+
+  set urlTemplate(val: string) {
+    this._urlTemplate = val;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(val: string) {
+    this._name = val;
   }
 }

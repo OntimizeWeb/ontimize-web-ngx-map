@@ -7,7 +7,7 @@
       (blur)="onBlur()" (click)="onFocus()">
   </div>
 </div>
-<div *ngIf="searchResults.length > 0" fxLayout="row" layout-padding layout-wrap ng-cloak>
+<div *ngIf="searchResults.length > 0" fxLayout="row" layout-padding fxLayoutWrap ng-cloak>
   <div class="search-results on-map mat-elevation-z2" fxFlex fxLayout="column" fxLayoutAlign="start center" [class.rendered]="rendered">
     <o-navigator-item *ngFor="let item of searchResults" [search-result]="item.oSearchResult">
     </o-navigator-item>

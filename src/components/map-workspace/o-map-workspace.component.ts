@@ -16,11 +16,14 @@ import { OSearcher, OSearchable } from '../../interfaces';
     'onToggleWSLayerVisibility',
     'onToggleWSLayerInWS'
   ],
-  template: require('./o-map-workspace.component.html'),
-  styles: [require('./o-map-workspace.component.scss')]
+  templateUrl: './o-map-workspace.component.html',
+  styleUrls: ['./o-map-workspace.component.scss']
 })
 export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
-	/**
+
+  protected wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
+
+  /**
 	 * OSearcher implementation
 	 */
   oSearchTitle: string = 'Capas del Espacio de Trabajo';
@@ -29,7 +32,6 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
   }
   oSearcherCollection = null;
 
-  public wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
   onToggleWSLayerSelected: EventEmitter<Object> = new EventEmitter<Object>();
   onToggleWSLayerVisibility: EventEmitter<Object> = new EventEmitter<Object>();
   onToggleWSLayerInWS: EventEmitter<Object> = new EventEmitter<Object>();
@@ -115,12 +117,14 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
   }
 
   private onOver(args) {
-    let [e, el, container] = args;
+    // let [e, el, container] = args;
+    let e = args[0];
     e.classList.add('layer-on-movement');
   }
 
   private onOut(args) {
-    let [e, el, container] = args;
+    let e = args[0];
+    // let [e, el, container] = args;
     e.classList.remove('layer-on-movement');
     this.updateMapLayersPosition();
   }

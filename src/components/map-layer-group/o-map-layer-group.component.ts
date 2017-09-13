@@ -16,15 +16,15 @@ import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse }
     'collapsed: group-collapsed',
     'refGroup: group-ref'
   ],
-  template: require('./o-map-layer-group.component.html'),
-  styles: [require('./o-map-layer-group.component.scss')]
+  templateUrl: './o-map-layer-group.component.html',
+  styleUrls: ['./o-map-layer-group.component.scss']
 })
 export class OMapLayerGroupComponent {
   id: string;
   idParent: string;
   name: string;
-  description: string;
-  collapsed: boolean = false;
+  protected _description: string;
+  protected _collapsed: boolean = false;
   refGroup: LayerGroupConfiguration;
 
   public mapLayers: Array<LayerConfiguration> = new Array<LayerConfiguration>();
@@ -64,7 +64,11 @@ export class OMapLayerGroupComponent {
     return childLayerGroupInWS || childLayerInWS;
   }
 
-  protected getLayerGroups() {
+  public getMapLayers() {
+    return this.mapLayers;
+  }
+
+  public getLayerGroups() {
     if (this.mLayerGroupsWarehouse.all &&
       this.mLayerGroupsWarehouse.all.length > 0) {
       return this.mLayerGroupsWarehouse.all;
@@ -80,8 +84,23 @@ export class OMapLayerGroupComponent {
     return center;
   }
 
-  private toggleCollapse() {
+  public toggleCollapse() {
     this.collapsed = !this.collapsed;
   }
 
+  get collapsed(): boolean {
+    return this._collapsed;
+  }
+
+  set collapsed(val: boolean) {
+    this._collapsed = val;
+  }
+
+  get description(): string {
+    return this._description;
+  }
+
+  set description(val: string) {
+    this._description = val;
+  }
 }

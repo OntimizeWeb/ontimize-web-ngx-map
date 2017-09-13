@@ -2,8 +2,11 @@
 	<!--<img class="layer-icon" *ngIf="icon && icon.length>0" [src]="icon">-->
 	<o-toggle-icon-button
 		icon-dark="true"
-		[icon-name]="icon && icon.length>0? icon : 'layers'"
+		[icon-name]="icon"
 		[button-active]="inWS">
 	</o-toggle-icon-button>
-	<div fxFlex fxLayout="column" fxLayoutAlign="center start">{{menuLabel || layerId}}<small *ngIf="menuLabelSecondary">{{menuLabelSecondary}}</small></div>
+	<div fxFlex fxLayout="column" fxLayoutAlign="center start">
+		{{menuLabel || layerId}}
+		<small *ngIf="menuLabelSecondary !== undefined">{{menuLabelSecondary}}</small>
+	</div>
 </button>

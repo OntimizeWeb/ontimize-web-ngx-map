@@ -1,14 +1,14 @@
 <!--<md-content class="workspace-controls">##Controles</md-content>-->
-<md-content [dragula]='"layer-bag"' [dragulaModel]='wsMapLayers'>
-	<o-map-workspace-layer *ngFor="let layer of wsMapLayers"
-		[layer-selected]				= "layer.selected"
-		[layer-visible]					= "layer.visible"
-		[layer-in-ws]					= "layer.inWS"
-		[layer-menu-label]				= "layer.menuLabel"
-		[layer-menu-label-secondary]	= "layer.menuLabelSecondary"
-		[layer-ref]						= "layer"
-		(onToggleSelected) 				= "onWSLayerSelected($event)"
-		(onToggleVisibility) 			= "onWSLayerVisibilityToggled($event)"
-		(onToggleInWS) 						= "onWSLayerInWSToggled($event)">
+<md-content [dragula]='"layer-bag"' [dragulaModel]='oSearchableCollection'>
+	<o-map-workspace-layer *ngFor="let layer of oSearchableCollection"
+		[layer-selected]              = "layer.selected"
+		[layer-visible]               = "layer.visible"
+		[layer-in-ws]                 = "layer.inWS"
+		[layer-menu-label]            = "layer.menuLabel"
+		[layer-menu-label-secondary]  = "layer.menuLabelSecondary"
+		[layer-ref]                   = "layer"
+		(onToggleSelected)            = "onWSLayerSelected($event)"
+		(onToggleVisibility)          = "onWSLayerVisibilityToggled($event)"
+		(onToggleInWS)                = "onWSLayerInWSToggled($event)">
 	</o-map-workspace-layer>
 </md-content>

@@ -36,8 +36,8 @@ const DEFAULT_INPUTS = [
     'onToggleWSLayerVisibility',
     'onToggleWSLayerInWS'
   ],
-  template: require('./o-map.component.html'),
-  styles: [require('./o-map.component.scss')],
+  templateUrl: './o-map.component.html',
+  styleUrls: ['./o-map.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class OMapComponent extends OMapWSearch implements OnInit {
@@ -123,7 +123,7 @@ export class OMapComponent extends OMapWSearch implements OnInit {
     this.onToggleWSLayerInWS.emit(event);
   }
 
-  protected getText(text: string): string {
+  public getText(text: string): string {
     if (this.translateMapService) {
       return this.translateMapService.get(text);
     }

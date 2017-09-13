@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import * as L from 'leaflet';
+// import * as L from 'leaflet';
 import { OMapEvents } from './o-map-events.interface';
 import { OMapBase } from './o-map.class';
 

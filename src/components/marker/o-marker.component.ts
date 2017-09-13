@@ -6,12 +6,12 @@ import * as L from 'leaflet';
 
 @Component({
   selector: 'o-marker',
-  template: require('./o-marker.component.html'),
-  styles: [require('./o-marker.component.scss')]
+  templateUrl: './o-marker.component.html',
+  styleUrls: ['./o-marker.component.scss']
 })
 export class OMarkerComponent {
-  public editing: boolean;
-  public removing: boolean;
+  protected _editing: boolean;
+  protected _removing: boolean;
   public markerCount: number;
   private mapService: MapService;
 
@@ -67,5 +67,21 @@ export class OMarkerComponent {
     if (this.editing === true && this.removing === true) {
       this.editing = false;
     }
+  }
+
+  get editing(): boolean {
+    return this._editing;
+  }
+
+  set editing(val: boolean) {
+    this._editing = val;
+  }
+
+  get removing(): boolean {
+    return this._removing;
+  }
+
+  set removing(val: boolean) {
+    this._removing = val;
   }
 }

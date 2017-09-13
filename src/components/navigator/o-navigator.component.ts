@@ -5,11 +5,11 @@ import { ONavigatorDefault } from './o-navigator.class';
 
 @Component({
   selector: 'o-navigator',
-  template: require('./o-navigator.component.html'),
-  styles: [require('./o-navigator.component.scss')]
+  templateUrl: './o-navigator.component.html',
+  styleUrls: ['./o-navigator.component.scss']
 })
 export class ONavigatorComponent extends ONavigatorDefault {
-  private rendered: boolean = false;
+  protected _rendered: boolean = false;
 
   constructor(
     @Inject(GeocodingService) geocoder: GeocodingService,
@@ -24,7 +24,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
     this.oMap.getMapService().disableMouseEvent('place-input');
   }
 
-  protected getText(text: string): string {
+  public getText(text: string): string {
     if (this.translateMapService) {
       return this.translateMapService.get(text);
     }
@@ -47,14 +47,14 @@ export class ONavigatorComponent extends ONavigatorDefault {
 	/**
 	 * Toggle OMap sidebar state
 	 */
-  private toggleSidenav() {
+  public toggleSidenav() {
     this.oMap.toggleSidenav();
   }
 
 	/**
 	 * Hide search results when cursor goes out
 	 */
-  private onBlur() {
+  public onBlur() {
     this.rendered = false;
     setTimeout(() => {
       if (this.rendered === false) {
@@ -66,9 +66,18 @@ export class ONavigatorComponent extends ONavigatorDefault {
 	/**
 	 * Load search results when cursor goes in
 	 */
-  private onFocus() {
+  public onFocus() {
     if (this.rendered === false) {
       this.rendered = this.search();
     }
+  }
+
+
+  get rendered(): boolean {
+    return this._rendered;
+  }
+
+  set rendered(val: boolean) {
+    this._rendered = val;
   }
 }
