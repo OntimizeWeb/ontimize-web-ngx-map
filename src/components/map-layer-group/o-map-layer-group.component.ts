@@ -30,8 +30,8 @@ export class OMapLayerGroupComponent {
   public mapLayers: Array<LayerConfiguration> = new Array<LayerConfiguration>();
   public mLayerGroupsWarehouse: OMapLayerGroupsWarehouse = new OMapLayerGroupsWarehouse();
 
-  @ViewChildren(OMapLayerComponent) layerChildren: OMapLayerComponent[];
-  @ViewChildren(OMapLayerGroupComponent) layerGroupChildren: OMapLayerGroupComponent[];
+  @ViewChildren(forwardRef(() => OMapLayerComponent)) layerChildren: OMapLayerComponent[];
+  @ViewChildren(forwardRef(() => OMapLayerGroupComponent)) layerGroupChildren: OMapLayerGroupComponent[];
 
   constructor(
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent
