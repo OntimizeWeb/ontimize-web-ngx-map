@@ -1,15 +1,17 @@
 import { Component, Inject, forwardRef } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
 
 @Component({
   selector: 'o-navigator',
-  template: require('./o-navigator.component.html'),
-  styles: [require('./o-navigator.component.scss')]
+  templateUrl: './o-navigator.component.html',
+  styleUrls: ['./o-navigator.component.scss']
 })
 export class ONavigatorComponent extends ONavigatorDefault {
-  private rendered: boolean = false;
+  protected _rendered: boolean = false;
+  protected oMapConfigurationSubscription: Subscription;
 
   constructor(
     @Inject(GeocodingService) geocoder: GeocodingService,
@@ -17,14 +19,28 @@ export class ONavigatorComponent extends ONavigatorDefault {
     @Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
   ) {
     super(geocoder, translateMapService, oMap);
+    if (this.oMap.waitForBuild) {
+      this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
+        //this.oMap.getMapService().disableMouseEvent('goto');
+        this.oMap.getMapService().disableMouseEvent('place-input');
+      });
+    }
   }
 
   ngOnInit() {
-    //this.oMap.getMapService().disableMouseEvent('goto');
-    this.oMap.getMapService().disableMouseEvent('place-input');
+    if (!this.oMap.waitForBuild) {
+      //this.oMap.getMapService().disableMouseEvent('goto');
+      this.oMap.getMapService().disableMouseEvent('place-input');
+    }
   }
 
-  protected getText(text: string): string {
+  ngOnDestroy() {
+    if (this.oMapConfigurationSubscription) {
+      this.oMapConfigurationSubscription.unsubscribe();
+    }
+  }
+
+  public getText(text: string): string {
     if (this.translateMapService) {
       return this.translateMapService.get(text);
     }
@@ -47,14 +63,14 @@ export class ONavigatorComponent extends ONavigatorDefault {
 	/**
 	 * Toggle OMap sidebar state
 	 */
-  private toggleSidenav() {
+  public toggleSidenav() {
     this.oMap.toggleSidenav();
   }
 
 	/**
 	 * Hide search results when cursor goes out
 	 */
-  private onBlur() {
+  public onBlur() {
     this.rendered = false;
     setTimeout(() => {
       if (this.rendered === false) {
@@ -66,9 +82,18 @@ export class ONavigatorComponent extends ONavigatorDefault {
 	/**
 	 * Load search results when cursor goes in
 	 */
-  private onFocus() {
+  public onFocus() {
     if (this.rendered === false) {
       this.rendered = this.search();
     }
+  }
+
+
+  get rendered(): boolean {
+    return this._rendered;
+  }
+
+  set rendered(val: boolean) {
+    this._rendered = val;
   }
 }

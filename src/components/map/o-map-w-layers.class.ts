@@ -5,7 +5,7 @@ import { OMapWSidenav } from './o-map-w-sidenav.class';
 export class OMapWLayers extends OMapWSidenav {
   mapLayerGroup: OMapLayerGroupComponent;
   private auxLayerGroupWarehouse: OMapLayerGroupsWarehouse = new OMapLayerGroupsWarehouse();
-  private mLayerGroupsWarehouse: OMapLayerGroupsWarehouse = new OMapLayerGroupsWarehouse();
+  // private mLayerGroupsWarehouse: OMapLayerGroupsWarehouse = new OMapLayerGroupsWarehouse();
 
   /**
    * Add multiple LayerGroup configuration objects to OMap

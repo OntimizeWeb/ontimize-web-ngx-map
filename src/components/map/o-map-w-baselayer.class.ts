@@ -11,7 +11,7 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
 		 * - creates a Leaflet layer panel
 		 * - adds baseLayers to map
 		 */
-    this.mapConfiguration.subscribe(() => {
+    this.onMapConfigured().subscribe(() => {
       this.getMapService().uploadBaseLayers();
       let bLayers = this.getMapService().baseLayers.getBaseLayers();
       if (bLayers && bLayers.length > 0) {

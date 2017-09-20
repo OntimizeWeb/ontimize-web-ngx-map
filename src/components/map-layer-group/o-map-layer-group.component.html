@@ -1,4 +1,5 @@
-<button md-button md-ink fxFlex [class.collapsed]= "collapsed" *ngIf="description && description.length > 0"
+<button md-button md-ink fxFlex fxFlexFill [class.collapsed]= "collapsed"
+	*ngIf="description !== undefined && description.length > 0"
 	fxLayout="row" fxLayoutAlign="space-around center"
 	(click)="toggleCollapse()">
 	<!--<img class="layer-icon" *ngIf="icon && icon.length>0"[src]= "icon">-->
@@ -8,41 +9,43 @@
 		icon-name="folder"
 		[button-active]= "hasChildInWS()">
 	</o-toggle-icon-button>
-	<span fxFlex fxLayout="row" fxLayoutAlign="start center">{{description}}</span>
+	<span fxFlex fxLayout="row" fxLayoutAlign="start center">{{ description }}</span>
 	<o-toggle-icon-button
-		clickable="no"
-		icon-dark="true"
-		icon-name="keyboard_arrow_down">
+		clickable="no" icon-dark="true"	icon-name="keyboard_arrow_down">
 	</o-toggle-icon-button>
 </button>
-<div class="group-list" [class.collapsed]= "collapsed" [class.expanded]= "!collapsed" fxFlex
-   fxLayout="column" fxLayoutAlign="space-between stretch">
-	<o-map-layer-group fxFlex ng-if="mapLayerGroups.all && mapLayerGroups.all.length > 0 " *ngFor="let layerGroup of getLayerGroups()"
-		[group-id]						= "layerGroup.id"
-		[group-id-parent]				= "layerGroup.idParent"
-		[group-name]					= "layerGroup.name"
-		[group-description]				= "layerGroup.description"
-		[group-collapsed]				= "layerGroup.collapsed"
-		[group-ref]						= "layerGroup">
-	</o-map-layer-group>
-	<o-map-layer fxFlex ng-if="mapLayers && mapLayers.length > 0" *ngFor="let layerConf of mapLayers"
-		[layer-radius]					= "layerConf.radius"
-		[layer-service]					= "layerConf.service"
-		[layer-base-url]				= "layerConf.baseUrl"
-		[layer-selected]				= "layerConf.selected"
-		[layer-visible]					= "layerConf.visible"
-		[layer-in-ws]					= "layerConf.inWS"
-		[layer-id]						= "layerConf.layerId"
-		[layer-group-id]				= "layerConf.layerGroupId"
-		[layer-type]					= "layerConf.type"
-		[layer-popup]					= "layerConf.popup"
-		[layer-popup-url]				= "layerConf.popupUrl"
-		[layer-menu-label]				= "layerConf.menuLabel"
-		[layer-menu-label-secondary]	= "layerConf.menuLabelSecondary"
-		[layer-icon]					= "layerConf.icon"
-		[layer-show-in-menu]			= "layerConf.showInMenu"
-		[layer-center]					= "getLayerCenter(layerConf)"
-		[layer-options]					= "layerConf.options">
+<div class="group-list" [class.collapsed]= "collapsed" [class.expanded]= "!collapsed"
+	fxFlex fxLayout="column" fxLayoutAlign="space-between stretch">
+	<!-- ng-if="mapLayerGroups.all && mapLayerGroups.all.length > 0 " fxFlex-->
+	<o-map-layer-group
+		*ngFor="let layerGroup of getLayerGroups()"
+		[group-id]          = "layerGroup.id"
+		[group-id-parent]   = "layerGroup.idParent"
+		[group-name]        = "layerGroup.name"
+		[group-description] = "layerGroup.description"
+    [group-collapsed]   = "layerGroup.collapsed"
+		[group-ref]         = "layerGroup">
+  </o-map-layer-group>
+  <!-- ng-if="mapLayers && mapLayers.length > 0" -->
+	<o-map-layer fxFlex
+    *ngFor="let layerConf of getMapLayers()"
+		[layer-radius]                = "layerConf.radius"
+		[layer-service]               = "layerConf.service"
+		[layer-base-url]              = "layerConf.baseUrl"
+		[layer-selected]              = "layerConf.selected"
+		[layer-visible]               = "layerConf.visible"
+		[layer-in-ws]                 = "layerConf.inWS"
+		[layer-id]                    = "layerConf.layerId"
+		[layer-group-id]              = "layerConf.layerGroupId"
+		[layer-type]                  = "layerConf.type"
+		[layer-popup]                 = "layerConf.popup"
+		[layer-popup-url]             = "layerConf.popupUrl"
+		[layer-menu-label]            = "layerConf.menuLabel"
+		[layer-menu-label-secondary]  = "layerConf.menuLabelSecondary"
+		[layer-icon]                  = "layerConf.icon"
+		[layer-show-in-menu]          = "layerConf.showInMenu"
+		[layer-center]                = "getLayerCenter(layerConf)"
+		[layer-options]               = "layerConf.options">
 	</o-map-layer>
 </div>
 <!--

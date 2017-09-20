@@ -7,7 +7,7 @@ import { Util } from '../../utils';
 import { LocationResult } from './o-navigator-location-result.interface';
 
 export class ONavigatorDefault {
-  public searchResults: Array<OSearchable> = new Array<OSearchable>();
+  protected _searchResults: Array<OSearchable> = new Array<OSearchable>();
   protected cachedAddress: string = '';
   private searchObserver: Subscription;
   private locationSearcher: OSearcher = new SearcherDefault('Lugares', () => this.locationResults);
@@ -95,6 +95,14 @@ export class ONavigatorDefault {
       this.searchObserver.unsubscribe();
       this.searchObserver.closed = true;
     }
+  }
+
+  get searchResults(): Array<OSearchable> {
+    return this._searchResults;
+  }
+
+  set searchResults(val: Array<OSearchable>) {
+    this._searchResults = val;
   }
 
 }

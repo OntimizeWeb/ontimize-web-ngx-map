@@ -3,6 +3,9 @@ import { BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
 require('leaflet-providers');
+require('leaflet.markercluster');
+require('leaflet.heat');
+// require('leaflet-timedimension');
 //import { MarkerCluster } from 'leaflet.markercluster';
 import { MapServiceUtils } from './MapServiceUtils';
 
@@ -763,11 +766,11 @@ export class MapService {
     // Add GeoJSON layer to map
     this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
 
-		/*/ Add MarkerCluster to layer
-		let markers = (<any> L).markerClusterGroup();
-		markers.addLayer(geoJson);
-		this.map.addLayer(markers);*/
-
+    // // Add MarkerCluster to layer
+    // let markers = (<any>L).markerClusterGroup();
+    // markers.addLayer(geoJson);
+    // // this.map.addLayer(markers);
+    // this.addLayer(id, markers, hidden, showInMenu, menuLabel);
     return geoJson;
   }
 

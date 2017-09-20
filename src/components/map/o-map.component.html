@@ -4,7 +4,7 @@
 -->
 <md-sidenav-container fxFlexFill>
   <md-sidenav #sidenav id="layers" name="layers" mode="side" [opened]="isSidenavVisible">
-    <div fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxLayout="column" fxFlexFill fxLayoutAlign="start stretch">
       <!--
         Header for Layer Base
       -->
@@ -34,7 +34,7 @@
       -->
       <div class="group-ref">
         <ng-content></ng-content>
-        <o-map-layer-group #mainLayerGroup></o-map-layer-group>
+        <o-map-layer-group class="" #mainLayerGroup></o-map-layer-group>
       </div>
 
       <!--

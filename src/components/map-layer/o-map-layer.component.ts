@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import * as L from 'leaflet';
 import { MapService } from '../../services';
 import { Center, LayerConfiguration } from '../../core';
@@ -32,8 +33,8 @@ import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
     'icon : layer-icon',
     'options : layer-options'
   ],
-  template: require('./o-map-layer.component.html'),
-  styles: [require('./o-map-layer.component.scss')]
+  templateUrl: './o-map-layer.component.html',
+  styleUrls: ['./o-map-layer.component.scss']
 })
 export class OMapLayerComponent implements OnInit, OSearchable {
   sCenter: string;
@@ -45,10 +46,10 @@ export class OMapLayerComponent implements OnInit, OSearchable {
   // Status of the label
   public selected: boolean = false;
   public visible: boolean = true;
-  public inWS: boolean = true;
+  protected _inWS: boolean = true;
   public inMenu: string;
 
-  public layerId: string;
+  protected _layerId: string;
   public layerGroupId: string;
   public type: string;
   public center: Center;
@@ -57,11 +58,11 @@ export class OMapLayerComponent implements OnInit, OSearchable {
   public bounds: any;
   public popup: string;
   public popupUrl: string;
-  public menuLabel: string;
-  public menuLabelSecondary: string;
+  protected _menuLabel: string;
+  protected _menuLabelSecondary: string;
   public service: ILayerService;
   public baseUrl: string;
-  public icon: string;
+  protected _icon: string;
   public options: Object;
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
@@ -83,19 +84,37 @@ export class OMapLayerComponent implements OnInit, OSearchable {
   private _resizeEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupOpenEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupCloseEvtEmitter: EventEmitter<any> = new EventEmitter();
+  protected oMapConfigurationSubscription: Subscription;
 
   constructor(
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
     protected injector: Injector
-  ) { }
+  ) {
+    if (this.oMap.waitForBuild) {
+      this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
+        this.oMap.addOMapLayer(this);
+        this.updateStatus();
+      });
+    }
+  }
 
   ngOnInit() {
     this.inMenu = this.inMenu ? this.inMenu : 'overlay';
-    this.oMap.addOMapLayer(this);
+    if (!this.oMap.waitForBuild) {
+      this.oMap.addOMapLayer(this);
+    }
   }
 
   ngAfterViewInit() {
-    this.updateStatus();
+    if (!this.oMap.waitForBuild) {
+      this.updateStatus();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.oMapConfigurationSubscription) {
+      this.oMapConfigurationSubscription.unsubscribe();
+    }
   }
 
   get oSearchResult(): OSearchResult {
@@ -360,5 +379,45 @@ export class OMapLayerComponent implements OnInit, OSearchable {
     headers.append('Access-Control-Allow-Origin', '*');
     let _http = this.injector.get(Http);
     return _http.get(this.popupUrl).map(response => response.text());
+  }
+
+  get layerId(): string {
+    return this._layerId;
+  }
+
+  set layerId(val: string) {
+    this._layerId = val;
+  }
+
+  get icon(): string {
+    return (this._icon && this._icon.length) ? this._icon : 'layers';
+  }
+
+  set icon(val: string) {
+    this._icon = val;
+  }
+
+  get inWS(): boolean {
+    return this._inWS;
+  }
+
+  set inWS(val: boolean) {
+    this._inWS = val;
+  }
+
+  get menuLabelSecondary(): string {
+    return this._menuLabelSecondary;
+  }
+
+  set menuLabelSecondary(val: string) {
+    this._menuLabelSecondary = val;
+  }
+
+  get menuLabel(): string {
+    return this._menuLabel;
+  }
+
+  set menuLabel(val: string) {
+    this._menuLabel = val;
   }
 }

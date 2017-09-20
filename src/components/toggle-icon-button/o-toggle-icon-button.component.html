@@ -1,5 +1,5 @@
-<button md-button *ngIf="iconName"
+<button md-button *ngIf="iconName !== undefined"
 	[class.active]="buttonActive" [class.dark]="iconDark" [class.md-no-ink]="noInk"
 	(click)="toggle($event)">
-	<md-icon>{{iconName}}</md-icon>
+	<md-icon>{{ iconName }}</md-icon>
 </button>

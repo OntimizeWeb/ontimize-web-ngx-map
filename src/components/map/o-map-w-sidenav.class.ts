@@ -3,7 +3,7 @@ import { OMapWEvents } from './o-map-w-events.class';
 
 export class OMapWSidenav extends OMapWEvents {
   sideNavCmp: MdSidenav;
-  protected isSidenavVisible: boolean = false;
+  protected _isSidenavVisible: boolean = false;
 
 	/**
 	 * Changes Sidebar state
@@ -18,5 +18,13 @@ export class OMapWSidenav extends OMapWEvents {
       setTimeout(() => this.getMapService().map.invalidateSize(true), 0);
     }
     this.isSidenavVisible = !this.isSidenavVisible;
+  }
+
+  get isSidenavVisible(): boolean {
+    return this._isSidenavVisible;
+  }
+
+  set isSidenavVisible(val: boolean) {
+    this._isSidenavVisible = val;
   }
 }

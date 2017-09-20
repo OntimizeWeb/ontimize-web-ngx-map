@@ -14,7 +14,15 @@ export class OMapWSearch extends OMapWBaseLayer implements OSearcher {
     return this.mapSearchers;
   }
 
-  public searchControl: boolean = true;
+  protected _searchControl: boolean = true;
+  get searchControl(): boolean {
+    return this._searchControl;
+  }
+
+  set searchControl(val: boolean) {
+    this._searchControl = val;
+  }
+
   public mapSearchers: Array<OSearcher> = [
     new SearcherDefault('Capas Base', () => this.mapBaseLayerGroup),
     new SearcherDefault('Capas', () => this.mapLayers)
