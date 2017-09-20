@@ -1,4 +1,4 @@
-<button md-button md-ink fxFlex [class.collapsed]= "collapsed"
+<button md-button md-ink fxFlex fxFlexFill [class.collapsed]= "collapsed"
 	*ngIf="description !== undefined && description.length > 0"
 	fxLayout="row" fxLayoutAlign="space-around center"
 	(click)="toggleCollapse()">
