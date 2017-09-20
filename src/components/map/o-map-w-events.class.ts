@@ -18,7 +18,7 @@ export class OMapWEvents extends OMapBase {
 		 * When configuration is triggered
 		 * this subscription maps Leaflet events to OMap EventEmitters
 		 */
-    this.mapConfiguration.subscribe(() => {
+    this.onMapConfigured().subscribe(() => {
       ['Click', 'Drag', 'Move', 'MoveEnd', 'ZoomLevelsChange'].forEach(eventName => {
         this.getMapService().map.on(
           eventName.toLowerCase(),

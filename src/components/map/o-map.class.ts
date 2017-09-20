@@ -95,4 +95,8 @@ export class OMapBase {
   public addMarker(id, latitude, longitude, options, popup, hidden, showInMenu, menuLabel) {
     this.mapService.addMarker(id, latitude, longitude, options, popup, hidden, showInMenu, menuLabel);
   }
+
+  public onMapConfigured(): EventEmitter<any> {
+    return this.mapConfiguration;
+  }
 }

@@ -1,11 +1,13 @@
-import { Component, Injector, ElementRef, OnInit, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { MdIconRegistry, MdSidenav } from '@angular/material';
+import { Component, Injector, ElementRef, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { MdIconRegistry, MdSidenav, MdTabGroup, MdTab } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { MapService, GeocodingService, TranslateMapService } from '../../services';
 import { Util } from '../../utils';
 import { OMapWSearch } from './o-map-w-search.class';
 import * as L from 'leaflet';
+
 //TODO import {Control} from 'leaflet-draw';
 
 
@@ -40,7 +42,7 @@ const DEFAULT_INPUTS = [
   styleUrls: ['./o-map.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class OMapComponent extends OMapWSearch implements OnInit {
+export class OMapComponent extends OMapWSearch {
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
 
@@ -69,7 +71,10 @@ export class OMapComponent extends OMapWSearch implements OnInit {
 
   protected mapId: string;
   protected baseLayerIds: Array<string>;
-
+  protected mdTabGroupContainer: MdTabGroup;
+  protected mdTabContainer: MdTab;
+  protected mdTabGroupSubscription: Subscription;
+  protected _waitForBuild: boolean = false;
   constructor(
     protected elRef: ElementRef,
     protected injector: Injector
@@ -77,13 +82,31 @@ export class OMapComponent extends OMapWSearch implements OnInit {
     super();
     this.mapService = this.injector.get(MapService);
     this.translateMapService = this.injector.get(TranslateMapService);
+    try {
+      this.mdTabGroupContainer = this.injector.get(MdTabGroup);
+      this.mdTabContainer = this.injector.get(MdTab);
+    } catch (error) {
+      // Do nothing due to not always is contained on tab.
+    }
   }
 
   public getInjector(): Injector {
     return this.injector;
   }
 
-  ngOnInit() {
+  // ngOnInit() {
+  // }
+
+  ngAfterViewInit() {
+    if (this.mdTabGroupContainer && this.mdTabContainer && !this.mdTabContainer.content.isAttached) {
+      this.waitForBuild = true;
+      this.registerTabGroupListener();
+    } else {
+      this.initialize();
+    }
+  }
+
+  initialize() {
     this.mapId = this.sAttr ? this.sAttr : 'map_' + new Date().getTime();
     this.elRef.nativeElement.querySelector('.leaflet-map-container').setAttribute('id', this.mapId);
     this.zoom = {
@@ -105,10 +128,39 @@ export class OMapComponent extends OMapWSearch implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
-    // this.toggleSidenav();
-    // Enable search on workspace?
-    //this.mapSearchers.push(this.mapWorkspace);
+  registerTabGroupListener() {
+    var self = this;
+
+    this.mdTabGroupContainer.selectedIndexChange.subscribe((evt) => {
+      console.log(evt);
+    });
+    this.mdTabGroupSubscription = this.mdTabGroupContainer.selectChange.subscribe((evt) => {
+      var interval = setInterval(function () { timerCallback(evt.tab); }, 250);
+      function timerCallback(tab: MdTab) {
+        if (tab && tab.content.isAttached) {
+          clearInterval(interval);
+          if (tab === self.mdTabContainer) {
+            self.mdTabGroupSubscription.unsubscribe();
+            self.initialize();
+            self.waitForBuild = false;
+          }
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.mdTabGroupSubscription) {
+      this.mdTabGroupSubscription.unsubscribe();
+    }
+  }
+
+  get waitForBuild(): boolean {
+    return this._waitForBuild;
+  }
+
+  set waitForBuild(val: boolean) {
+    this._waitForBuild = val;
   }
 
   public onWSLayerSelected(event) {
@@ -154,7 +206,7 @@ export class OMapComponent extends OMapWSearch implements OnInit {
       //TODO  this.configureDrawControl(map);
     }
 
-    this.mapConfiguration.emit(true);
+    this.onMapConfigured().emit(true);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import * as L from 'leaflet';
 import { MapService } from '../../services';
 import { Center, LayerConfiguration } from '../../core';
@@ -83,19 +84,37 @@ export class OMapLayerComponent implements OnInit, OSearchable {
   private _resizeEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupOpenEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupCloseEvtEmitter: EventEmitter<any> = new EventEmitter();
+  protected oMapConfigurationSubscription: Subscription;
 
   constructor(
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
     protected injector: Injector
-  ) { }
+  ) {
+    if (this.oMap.waitForBuild) {
+      this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
+        this.oMap.addOMapLayer(this);
+        this.updateStatus();
+      });
+    }
+  }
 
   ngOnInit() {
     this.inMenu = this.inMenu ? this.inMenu : 'overlay';
-    this.oMap.addOMapLayer(this);
+    if (!this.oMap.waitForBuild) {
+      this.oMap.addOMapLayer(this);
+    }
   }
 
   ngAfterViewInit() {
-    this.updateStatus();
+    if (!this.oMap.waitForBuild) {
+      this.updateStatus();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.oMapConfigurationSubscription) {
+      this.oMapConfigurationSubscription.unsubscribe();
+    }
   }
 
   get oSearchResult(): OSearchResult {

@@ -1,4 +1,5 @@
 import { Component, Inject, forwardRef } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
@@ -10,6 +11,7 @@ import { ONavigatorDefault } from './o-navigator.class';
 })
 export class ONavigatorComponent extends ONavigatorDefault {
   protected _rendered: boolean = false;
+  protected oMapConfigurationSubscription: Subscription;
 
   constructor(
     @Inject(GeocodingService) geocoder: GeocodingService,
@@ -17,11 +19,25 @@ export class ONavigatorComponent extends ONavigatorDefault {
     @Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
   ) {
     super(geocoder, translateMapService, oMap);
+    if (this.oMap.waitForBuild) {
+      this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
+        //this.oMap.getMapService().disableMouseEvent('goto');
+        this.oMap.getMapService().disableMouseEvent('place-input');
+      });
+    }
   }
 
   ngOnInit() {
-    //this.oMap.getMapService().disableMouseEvent('goto');
-    this.oMap.getMapService().disableMouseEvent('place-input');
+    if (!this.oMap.waitForBuild) {
+      //this.oMap.getMapService().disableMouseEvent('goto');
+      this.oMap.getMapService().disableMouseEvent('place-input');
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.oMapConfigurationSubscription) {
+      this.oMapConfigurationSubscription.unsubscribe();
+    }
   }
 
   public getText(text: string): string {
