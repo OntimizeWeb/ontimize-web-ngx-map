@@ -31,9 +31,9 @@ button {
 	overflow: hidden;
 	transition: 350ms;
 	transition-timing-function: ease-in-out;
-}
 
-.search-results.rendered {
-	max-height: 70vh;
-	overflow: auto;
+	&.rendered {
+		max-height: 70vh;
+		overflow: auto;
+	}
 }

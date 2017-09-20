@@ -1,8 +1,5 @@
-import { Component, Inject, forwardRef, ViewChildren } from '@angular/core';
-import {
-  OMapComponent,
-  OMapLayerComponent
-} from '../../components';
+import { Component, Inject, forwardRef, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { OMapComponent, OMapLayerComponent } from '../../components';
 import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../core';
 
 @Component({
@@ -17,8 +14,13 @@ import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse }
     'refGroup: group-ref'
   ],
   templateUrl: './o-map-layer-group.component.html',
-  styleUrls: ['./o-map-layer-group.component.scss']
+  styleUrls: ['./o-map-layer-group.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.o-map-layer-group]': 'true'
+  }
 })
+
 export class OMapLayerGroupComponent {
   id: string;
   idParent: string;
