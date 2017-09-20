@@ -85,6 +85,9 @@ export class OMapComponent extends OMapWSearch {
     try {
       this.mdTabGroupContainer = this.injector.get(MdTabGroup);
       this.mdTabContainer = this.injector.get(MdTab);
+      if (this.mdTabGroupContainer && this.mdTabContainer) {
+        this.waitForBuild = true;
+      }
     } catch (error) {
       // Do nothing due to not always is contained on tab.
     }
@@ -94,12 +97,8 @@ export class OMapComponent extends OMapWSearch {
     return this.injector;
   }
 
-  // ngOnInit() {
-  // }
-
   ngAfterViewInit() {
-    if (this.mdTabGroupContainer && this.mdTabContainer && !this.mdTabContainer.content.isAttached) {
-      this.waitForBuild = true;
+    if (this.waitForBuild && !this.mdTabContainer.content.isAttached) {
       this.registerTabGroupListener();
     } else {
       this.initialize();
@@ -130,10 +129,6 @@ export class OMapComponent extends OMapWSearch {
 
   registerTabGroupListener() {
     var self = this;
-
-    this.mdTabGroupContainer.selectedIndexChange.subscribe((evt) => {
-      console.log(evt);
-    });
     this.mdTabGroupSubscription = this.mdTabGroupContainer.selectChange.subscribe((evt) => {
       var interval = setInterval(function () { timerCallback(evt.tab); }, 250);
       function timerCallback(tab: MdTab) {
