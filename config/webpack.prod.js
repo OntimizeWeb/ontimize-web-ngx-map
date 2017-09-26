@@ -30,7 +30,7 @@ module.exports = function (env) {
       path: helpers.root('dist/bundles'),
       publicPath: '/',
       filename: '[name].umd.js',
-      library: 'ontimize-web-ng2-map',
+      library: 'ontimize-web-ngx-map',
       libraryTarget: 'umd'
     },
 
