@@ -7,7 +7,7 @@ An implementation of leaflet map library for Ontimize Web.
 
 ## Examples
 
-Check out examples demo <a href="https://ontimizeweb.github.io/ontimize-web-ng2-map" target="_blank" title="examples demo">
+Check out examples demo <a href="https://ontimizeweb.github.io/ontimize-web-ngx-map" target="_blank" title="examples demo">
 here</a>
 
 ## Installation
