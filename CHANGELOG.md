@@ -1,3 +1,19 @@
+##2.0.0
+
+### DEV-DEPENDENCY UPDATES ###
+* **Updated**:  ontimize-web-ngx@2.0.0
+* **Updated**:  @angular/cli@1.3.2
+* **Updated**:  @ngx-translate/core@8.0.0
+* **Updated**:  @angular@4.3.6
+* **Updated**:  @angular/material@2.0.0-beta.10
+* **Updated**:  @angular/cdk@2.0.0-beta.10
+* **Updated**:  @angular/flex-layout@2.0.0-beta.9
+
+### BREAKING CHANGES
+* **OMapModule**: '*ontimize-web-ng2-map*' is now called '*ontimize-web-ngx-map*'.
+
+**IMPORTANT: you must update your imports for changing '*ontimize-web-ng2-map*' for '*ontimize-web-ngx-map*'. This includes module and components import and '*styles.scss*' reference.
+
 ##2.0.0-rc.2
 
 ### Features
