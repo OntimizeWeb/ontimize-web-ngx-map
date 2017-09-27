@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rimraf dist",
-    "production": "npm run clean && ng build --aot=false --target -prod --base-href=/ontimize-web-ngx-map-quickstart/",
+    "production": "npm run clean && ng build --aot=false --target -prod --base-href=/ontimize-web-ngx-map/",
     "clean:all": "npm run clean && npm run clean:aot",
     "clean:aot": " rimraf src/node_modules && rimraf src/app/**/*.ngfactory.ts && rimraf src/app/**/*.ngsummary.json && rimraf src/app/**/*.ngstyle.ts && rimraf src/app/**/*.d.ts",
     "aot": "npm run clean:all && npm run aot:compile && npm run aot:bundle && npm run styles",
