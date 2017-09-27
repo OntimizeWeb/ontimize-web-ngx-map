@@ -97,10 +97,18 @@ export class OMapComponent extends OMapWSearch {
     return this.injector;
   }
 
+  ngOnInit() {
+    if (!this.waitForBuild) {
+      this.initialize();
+    } else {
+      this.waitForBuild = true;
+    }
+  }
+
   ngAfterViewInit() {
     if (this.waitForBuild && !this.mdTabContainer.content.isAttached) {
       this.registerTabGroupListener();
-    } else {
+    } else if (this.waitForBuild) {
       this.initialize();
     }
   }

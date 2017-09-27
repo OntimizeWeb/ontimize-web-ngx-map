@@ -17,7 +17,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
  */
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Ontimize web ng2 map webpack',
+  title: 'Ontimize web map webpack',
   baseUrl: '/',
   isDevServer: false
 };
@@ -27,7 +27,7 @@ module.exports = function (options) {
   return {
 
     entry: {
-      'ontimize-web-ng2-map': helpers.root('tmp/index.ts')
+      'ontimize-web-ngx-map': helpers.root('tmp/index.ts')
     },
 
     resolve: {
@@ -37,11 +37,11 @@ module.exports = function (options) {
     // rest of config here
     externals: [
       {
-        'ontimize-web-ng2': {
-          root: ['ontimize-web-ng2'],
-          commonjs: 'ontimize-web-ng2',
-          commonjs2: 'ontimize-web-ng2',
-          amd: 'ontimize-web-ng2'
+        'ontimize-web-ngx': {
+          root: ['ontimize-web-ngx'],
+          commonjs: 'ontimize-web-ngx',
+          commonjs2: 'ontimize-web-ngx',
+          amd: 'ontimize-web-ngx'
         }
       },
       /^\@angular\//,
