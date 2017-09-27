@@ -1,6 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center start" layout-margin>
-
-  <!-- <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
+  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
     <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
       <o-map #oMapMarker center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no"
         layer-panel-visible="no" fxFlex>
@@ -14,27 +13,5 @@
         It is possible to add markers to our map in the map definition itself.
       </p>
     </div>
-  </example-comp> -->
-
-  <md-tab-group fxFill class="vertical-padding-8">
-    <md-tab label="{{ 'ACCOUNTS' | oTranslate }}">
-      <div fxLayout="column" layout-padding>
-        hola que tal
-      </div>
-    </md-tab>
-
-    <md-tab label="{{ 'BRANCH_PLAN' | oTranslate }}">
-      <div fxLayout="column" layout-padding>
-        <o-map #oMapMarker center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no"
-          layer-panel-visible="no" fxFlex>
-          <o-map-layer layer-type="marker" layer-id="office_marker" layer-center="42.240599;-8.720727" layer-menu-label="Office headquarters "
-            layer-menu-label-secondary="Location of office headquarters"></o-map-layer>
-        </o-map>
-      </div>
-
-
-    </md-tab>
-
-  </md-tab-group>
-
+  </example-comp>
 </div>

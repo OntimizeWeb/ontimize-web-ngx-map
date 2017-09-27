@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center start" layout-margin>
 
-  <!-- <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
+  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
     <div fxLayout="row" fxFlexFill fxLayoutAlign="start">
       <o-map #oMapGeoJSON center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="yes"
         layer-panel-visible="no" fxFlex>
@@ -18,40 +18,6 @@
         TODO
       </p>
     </div>
-  </example-comp> -->
-
-
-  <md-tab-group fxFill class="vertical-padding-8">
-
-
-    <md-tab label="{{ 'BRANCH_PLAN' | oTranslate }}">
-
-      <div fxLayout="row">
-        <div fxLayout="column" fxFlex="50">
-          70
-        </div>
-        <div fxLayout="column" fxFlex>
-          <o-map #oMapGeoJSON center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="yes"
-            layer-panel-visible="no" fxFlex>
-            <o-map-layer layer-type="geoJSON" layer-service="geojson-train-lines" layer-id="train-lines" layer-menu-label="Train lines"
-              layer-menu-label-secondary="Spain's' train lines."></o-map-layer>
-            <o-map-layer layer-type="geoJSON" layer-service="geojson-train-stations" layer-id="train-stations" layer-menu-label="Train stations"
-              layer-menu-label-secondary="Spain's train stations."></o-map-layer>
-            <o-map-layer layer-type="geoJSON" layer-service="geojson-municipality" layer-id="municipality" layer-menu-label="Municipality"
-              layer-menu-label-secondary="Pontevedra's municipalities" [layer-options]="getTrainLinesLayerStyle()"></o-map-layer>
-          </o-map>
-        </div>
-      </div>
-
-
-
-    </md-tab>
-    <md-tab label="{{ 'ACCOUNTS' | oTranslate }}">
-      <div fxLayout="column" layout-padding>
-        hola que tal
-      </div>
-    </md-tab>
-
-  </md-tab-group>
+  </example-comp>
 
 </div>
