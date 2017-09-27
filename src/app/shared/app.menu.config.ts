@@ -1,6 +1,6 @@
 import {
   MenuRootItem
-} from 'ontimize-web-ng2';
+} from 'ontimize-web-ngx';
 
 export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'home', name: 'INTRODUCTION', icon: 'home', route: '/main/home' },

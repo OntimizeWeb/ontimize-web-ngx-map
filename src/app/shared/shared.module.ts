@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { OntimizeWebModule } from 'ontimize-web-ng2';
+import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { CommonModule } from '@angular/common';
-import { OMapModule } from 'ontimize-web-ng2-map';
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 import { ExampleComponent } from './example/example.component';
 import { HighlightComponent } from './highlight/highlight.component';

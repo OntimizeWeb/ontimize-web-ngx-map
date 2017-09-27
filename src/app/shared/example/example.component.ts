@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewEncapsulation, EventEmitter, OnInit } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ng2';
+import { InputConverter } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'example-comp',
-  styles: [require('./example.component.scss')],
-  template: require('./example.component.html'),
+  styleUrls: ['./example.component.scss'],
+  templateUrl: './example.component.html',
   inputs: [
     'compName: comp-name',
     'orderedFiles: files',
@@ -21,8 +21,8 @@ import { InputConverter } from 'ontimize-web-ng2';
 })
 export class ExampleComponent {
   public showSource = false;
-  protected compName = '';
-  protected orderedFiles: Array<string>;
+  compName = '';
+  orderedFiles: Array<string> = [];
   @InputConverter()
   collapsible: boolean = false;
   @InputConverter()
@@ -52,7 +52,7 @@ export class ExampleComponent {
 
   initializeData(type: string) {
     let tpl = '';
-    if (this.orderedFiles && this.orderedFiles.length > -1) {
+    if (this.orderedFiles.length) {
       this.orderedFiles.forEach((item) => {
         if (item['type'] === type) {
           tpl = item['data'];

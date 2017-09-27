@@ -6,7 +6,7 @@
         <span> {{ compName }}</span>
         <span fxFlex></span>
 
-        <button *ngIf="!collapsed && orderedFiles && orderedFiles.length" md-icon-button aria-label="View Source" (click)="toggleShowSource()">
+        <button *ngIf="!collapsed && orderedFiles.length > 0" md-icon-button aria-label="View Source" (click)="toggleShowSource()">
           <md-icon class="mat-24">code</md-icon>
         </button>
 

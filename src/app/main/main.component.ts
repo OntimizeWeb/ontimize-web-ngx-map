@@ -4,8 +4,8 @@ import { NavigationBarService } from '../shared';
 
 @Component({
   selector: 'app-main',
-  template: require('./main.component.html'),
-  styles: [require('./main.component.scss')],
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class MainComponent implements OnInit {

@@ -1,14 +1,13 @@
 import { Component, OnInit, Injector, ViewChild, ElementRef } from '@angular/core';
 
-import { OTranslateService } from 'ontimize-web-ng2';
-import { OMapComponent } from 'ontimize-web-ng2-map';
-
+import { OTranslateService } from 'ontimize-web-ngx';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 import { NavigationBarService } from '../../shared';
 
 @Component({
   selector: 'geojson-layer',
-  template: require('./geojson-layer.component.html'),
-  styles: [require('./geojson-layer.component.scss')]
+  templateUrl: './geojson-layer.component.html',
+  styleUrls: ['./geojson-layer.component.scss']
 })
 export class GeoJSONLayerComponent implements OnInit {
 
@@ -28,14 +27,13 @@ export class GeoJSONLayerComponent implements OnInit {
     this.navigationService.setTitle(title);
   }
 
-  ngAfterViewInit() { }
 
   getTrainLinesLayerStyle() {
     return {
       'color': '#388E3C',
       'weight': 2,
       'opacity': 0.65
-    }
+    };
   }
 
   getId() {
@@ -79,13 +77,13 @@ layer-menu-label="Municipality" layer-menu-label-secondary="Pontevedra's municip
 
 const TYPESCRIPT_DATA = `
 import { Component, ViewChild } from '@angular/core';
-import { OMapComponent } from 'ontimize-web-ng2-map';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 
 @Component({
 selector: 'geojson-layer',
-template: require('./geojson-layer.component.html'),
-styles: [require('./geojson-layer.component.scss')]
+templateUrl: './geojson-layer.component.html',
+styleUrls: ['./geojson-layer.component.scss']
 })
 export class GeoJSONLayerComponent implements OnInit {
 

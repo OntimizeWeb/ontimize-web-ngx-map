@@ -5,9 +5,9 @@ import {
   ONTIMIZE_MODULES,
   ONTIMIZE_PROVIDERS,
   OntimizeWebModule
-} from 'ontimize-web-ng2';
+} from 'ontimize-web-ngx';
 
-import { OMapModule } from 'ontimize-web-ng2-map';
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 import { CONFIG } from './app.config';
 import { AppComponent } from './app.component';

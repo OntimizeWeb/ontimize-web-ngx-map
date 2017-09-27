@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
-import { OntimizeService, LoginService } from 'ontimize-web-ng2';
+import { OntimizeService, LoginService } from 'ontimize-web-ngx';
 
 export class CustomOntimizeService extends OntimizeService {
 

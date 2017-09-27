@@ -8,8 +8,8 @@ import {
 
 @Component({
   selector: 'highlight-comp',
-  styles: [require('./highlight.component.scss')],
-  template: require('./highlight.component.html'),
+  styleUrls: ['./highlight.component.scss'],
+  templateUrl: './highlight.component.html',
   inputs: [
     'templateContent: template-content',
     'templateType: template-type'
@@ -19,7 +19,8 @@ import {
 export class HighlightComponent implements OnInit, OnDestroy {
 
   protected clipboard: any;
-
+  templateContent: any;
+  templateType: any;
   constructor(protected elRef: ElementRef) {
   }
 

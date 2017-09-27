@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { OTranslateService } from 'ontimize-web-ng2';
+import { OTranslateService } from 'ontimize-web-ngx';
 
 import { NavigationBarService } from '../../shared';
 
 @Component({
   selector: 'home',
-  template: require('./home.component.html'),
-  styles: [require('./home.component.scss')]
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 

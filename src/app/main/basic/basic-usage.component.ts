@@ -7,15 +7,15 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { OTranslateService } from 'ontimize-web-ng2';
-import { OMapComponent } from 'ontimize-web-ng2-map';
+import { OTranslateService } from 'ontimize-web-ngx';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 import { NavigationBarService, CustomOntimizeService } from '../../shared';
 
 @Component({
   selector: 'basic-usage',
-  template: require('./basic-usage.component.html'),
-  styles: [require('./basic-usage.component.scss')],
+  templateUrl: './basic-usage.component.html',
+  styleUrls: ['./basic-usage.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class BasicUsageComponent implements OnInit {

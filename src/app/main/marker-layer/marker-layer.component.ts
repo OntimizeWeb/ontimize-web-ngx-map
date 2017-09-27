@@ -1,14 +1,14 @@
 import { Component, OnInit, Injector, ViewChild, ElementRef } from '@angular/core';
 
-import { OTranslateService } from 'ontimize-web-ng2';
-import { OMapComponent } from 'ontimize-web-ng2-map';
+import { OTranslateService } from 'ontimize-web-ngx';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 import { NavigationBarService } from '../../shared';
 
 @Component({
   selector: 'marker-layer',
-  template: require('./marker-layer.component.html'),
-  styles: [require('./marker-layer.component.scss')]
+  templateUrl: './marker-layer.component.html',
+  styleUrls: ['./marker-layer.component.scss']
 })
 export class MarkerLayerComponent implements OnInit {
 

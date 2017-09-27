@@ -1,3 +1,3 @@
-import { OMapLayerFactory } from 'ontimize-web-ng2-map';
+import { OMapLayerFactory } from 'ontimize-web-ngx-map';
 
 export class CustomMapFactory extends OMapLayerFactory { }

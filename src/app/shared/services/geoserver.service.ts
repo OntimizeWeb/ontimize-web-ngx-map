@@ -3,10 +3,9 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/share';
-import { APP_CONFIG, Config } from 'ontimize-web-ng2';
+import { APP_CONFIG, Config } from 'ontimize-web-ngx';
 
-import { IFeature, IGeoJSONLayerService } from 'ontimize-web-ng2-map';
-import { LayerConfiguration } from 'ontimize-web-ng2-map/src/core/LayerConfiguration.class';
+import { IFeature, IGeoJSONLayerService, LayerConfiguration } from 'ontimize-web-ngx-map';
 
 export class GeoServerService implements IGeoJSONLayerService {
 

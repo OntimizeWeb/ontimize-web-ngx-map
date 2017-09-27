@@ -2,15 +2,15 @@ import { Component, OnInit, Injector, ViewChild, ElementRef } from '@angular/cor
 
 import * as L from 'leaflet';
 
-import { OTranslateService } from 'ontimize-web-ng2';
-import { OMapComponent } from 'ontimize-web-ng2-map';
+import { OTranslateService } from 'ontimize-web-ngx';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 import { NavigationBarService } from '../../shared';
 
 @Component({
   selector: 'wms-layer',
-  template: require('./wms-layer.component.html'),
-  styles: [require('./wms-layer.component.scss')]
+  templateUrl: './wms-layer.component.html',
+  styleUrls: ['./wms-layer.component.scss']
 })
 export class WMSLayerComponent implements OnInit {
 
@@ -117,13 +117,13 @@ layer-menu-label="Medium cities" layer-menu-label-secondary="Medium cities WMS l
 
 const TYPESCRIPT_DATA = `
 import { Component, ViewChild } from '@angular/core';
-import { OMapComponent } from 'ontimize-web-ng2-map';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 
 @Component({
 selector: 'wms-layer',
-template: require('./wms-layer.component.html'),
-styles: [require('./wms-layer.component.scss')]
+templateUrl: './wms-layer.component.html',
+styleUrls: ['./wms-layer.component.scss']
 })
 export class WMSLayerComponent implements OnInit {
 
