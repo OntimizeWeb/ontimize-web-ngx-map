@@ -17,7 +17,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
  */
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Ontimize web ng2 map webpack',
+  title: 'Ontimize web map webpack',
   baseUrl: '/',
   isDevServer: false
 };

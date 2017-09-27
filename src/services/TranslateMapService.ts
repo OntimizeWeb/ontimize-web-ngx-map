@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { OTranslateService } from 'ontimize-web-ng2';
+import { OTranslateService } from 'ontimize-web-ngx';
 import { MAP } from '../i18n/i18n';
 
 export class TranslateMapService {
