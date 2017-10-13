@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/tmp-src
 *.ngfactory.ts
 *.ngsummary.json
 *.ngstyle.ts

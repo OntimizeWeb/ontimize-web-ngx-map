@@ -1,5 +1,4 @@
-
-@import 'my-custom-app-theme.scss';
+@import 'node_modules/ontimize-web-ngx-theming/src/themes/ontimize.scss';
 
 @import 'node_modules/ontimize-web-ngx/ontimize/components/theming/all-theme.scss';
 @include o-material-theme($theme);
