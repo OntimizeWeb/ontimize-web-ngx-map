@@ -10,7 +10,7 @@ const replace = require('gulp-replace');
 const SCSS_CONF = {
   SRC: './styles.scss',
   OPTIONS: {
-    matchPattern: "!assets/leaflet/*"
+    matchPattern: "!leaflet/*"
   },
   DIST: './dist'
 };
