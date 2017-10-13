@@ -26,8 +26,6 @@
       "styles": [
         "../node_modules/ontimize-web-ngx/ontimize.scss",
         "../node_modules/ontimize-web-ngx-map/styles.scss",
-        "../node_modules/leaflet/dist/leaflet.css",
-        "../node_modules/leaflet-draw/dist/leaflet.draw.css",
         "../node_modules/flag-icon-css/sass/_flag-icon.scss",
         "assets/css/app.scss",
         "styles.scss"
