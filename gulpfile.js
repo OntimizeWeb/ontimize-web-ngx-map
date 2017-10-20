@@ -9,12 +9,15 @@ const replace = require('gulp-replace');
 
 const SCSS_CONF = {
   SRC: './styles.scss',
+  OPTIONS: {
+    matchPattern: "!leaflet/*"
+  },
   DIST: './dist'
 };
 
 gulp.task('map.styles', (callback) => {
   return gulp.src(SCSS_CONF.SRC)
-    .pipe(cssimport({}))
+    .pipe(cssimport(SCSS_CONF.OPTIONS))
     .pipe(gulp.dest(SCSS_CONF.DIST));
 });
 
@@ -28,9 +31,52 @@ const FILES = [
   'dist'
 ];
 
-
-gulp.task('copy-files', (callback) => {
+gulp.task('copy-files', ['copy.leaflet.assets', 'copy.leaflet.draw.assets'], (callback) => {
   copyfiles(FILES, true, callback);
+});
+
+/**
+ * LEAFLET
+ */
+const LEAFLET_FILES = [
+  'node_modules/leaflet/dist/leaflet.css',
+  'node_modules/leaflet.markercluster/dist/MarkerCluster.css',
+  'node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
+  'dist/assets/leaflet'
+];
+
+gulp.task('copy.leaflet.assets', ['copy.leaflet.images'], (callback) => {
+  copyfiles(LEAFLET_FILES, true, callback);
+});
+
+const LEAFLET_IMAGES = [
+  'node_modules/leaflet/dist/images/*',
+  'dist/assets/leaflet/images'
+];
+
+gulp.task('copy.leaflet.images', (callback) => {
+  copyfiles(LEAFLET_IMAGES, true, callback);
+});
+
+/**
+ * LEAFLET DRAW
+ */
+const LEAFLET_DRAW_FILES = [
+  'node_modules/leaflet-draw/dist/leaflet.draw.css',
+  'dist/assets/leaflet'
+];
+
+gulp.task('copy.leaflet.draw.assets', ['copy.leaflet.draw.images'], (callback) => {
+  copyfiles(LEAFLET_DRAW_FILES, true, callback);
+});
+
+const LEAFLET_DRAW_IMAGES = [
+  'node_modules/leaflet-draw/dist/images/*',
+  'dist/assets/leaflet/images'
+];
+
+gulp.task('copy.leaflet.draw.images', (callback) => {
+  copyfiles(LEAFLET_DRAW_IMAGES, true, callback);
 });
 
 /**

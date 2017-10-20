@@ -1,3 +1,8 @@
+#2.0.1
+
+### Features
+* **ontimize-web-ngx-map**: leafleat styles and some neccesary assets are now included in '*ontimize-web-ngx-map/styles.scss*' and '*ontimize-web-ngx-map/assets*' ([#14](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/14)) ([a200c74](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/a200c74)).
+
 ##2.0.0
 
 ### DEV-DEPENDENCY UPDATES ###

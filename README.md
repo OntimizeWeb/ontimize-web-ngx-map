@@ -1,148 +1,63 @@
 # Ontimize Web Map
+
 An implementation of leaflet map library for Ontimize Web.
 
+* [Github repository](#github)
 * [Examples](#examples)
 * [Installation](#installation)
 * [Usage](#usage)
 
+## Github
+Ontimize Web Map module is stored in [github](https://github.com/OntimizeWeb/ontimize-web-ngx-map){:target="_blank"} where you can also see/add todos, bugs or feature requests in the [issues](https://github.com/OntimizeWeb/ontimize-web-ngx-map/issues){:target="_blank"} section.
+
+
 ## Examples
 
-Check out examples demo <a href="https://ontimizeweb.github.io/ontimize-web-ngx-map" target="_blank" title="examples demo">
-here</a>
+Check out examples demo <a href="https://ontimizeweb.github.io/ontimize-web-ngx-map" target="_blank" title="examples demo">here</a>
 
 ## Installation
 
-First you need to install map module dependencies (leaflet and plugin libraries):
-```sh
-npm install leaflet@1.0.1 leaflet-providers@1.1.16 leaflet-draw@0.3.2 dragula@3.7.2 ng2-dragula@1.2.2-0 --save
-```
-
-Do not forget to add typings as well
-```sh
-typings install leaflet --ambient -DA
-````
-
-> Ensure that you have installed 'typings' node module globally with the same version of the one saved into the package.json of the
-application.
-For checking the version : typings -v
-For installing globally: npm install -g typings@0.8.1
-
-After that, install the npm map module:
-```sh
-npm install ontimize-web-ng2-map --save
+```bash
+  npm install ontimize-web-ngx-map --save
 ```
 
 ## Usage
 
-Finally, you can use ontimize-web-ng2-map in your Ontimize Web project.
+Finally, you can use ontimize-web-ngx-map in your Ontimize Web project.
 
-### Configure third party dependencies and map module (Angular-cli & SystemeJS)
+### Configure angular-cli.json dependencies
 
-Configure third party dependencies like this:
+You must add the module styles definition in your '*.angular-cli.json*' file styles array:
 
-**system-config.ts**
-```sh
-const cliSystemConfigPackages: any = {
-};
-// ontimize map module
-cliSystemConfigPackages['ontimize-web-ng2-map'] = { main: 'o-map' };
-// third party dependencies
-cliSystemConfigPackages['leaflet'] = { main: 'dist/leaflet' };
-cliSystemConfigPackages['leaflet-providers'] = { main: 'leaflet-providers', defaultExtension: 'js' };
-cliSystemConfigPackages['leaflet-draw'] = { main: 'dist/leaflet.draw' };
-cliSystemConfigPackages['ng2-dragula'] = { main: 'ng2-dragula', defaultExtension: 'js' };
-cliSystemConfigPackages['dragula'] = { main: 'dragula', defaultExtension: 'js' };
-cliSystemConfigPackages['contra'] = { main: 'contra', defaultExtension: 'js' };
-cliSystemConfigPackages['atoa'] = { main: 'atoa', defaultExtension: 'js' };
-cliSystemConfigPackages['ticky'] = { main: 'ticky', defaultExtension: 'js' };
-cliSystemConfigPackages['crossvent'] = { main: 'crossvent', defaultExtension: 'js' };
-cliSystemConfigPackages['custom-event'] = { main: 'index', defaultExtension: 'js' };
-
-// Apply the CLI SystemJS configuration.
-System.config({
-  map: {
-    ...
-
-    'ontimize-web-ng2-map': 'vendor/ontimize-web-ng2-map',
-
-    'leaflet': 'vendor/leaflet',
-    'leaflet-providers': 'vendor/leaflet-providers',
-    'leaflet-draw': 'vendor/leaflet-draw',
-    'ng2-dragula': 'vendor/ng2-dragula',
-    'dragula': 'vendor/dragula',
-    'contra': 'vendor/contra',
-    'atoa': 'vendor/atoa',
-    'ticky': 'vendor/ticky',
-    'crossvent': 'vendor/crossvent/src',
-    'custom-event': 'vendor/custom-event'
-    },
-  packages: cliSystemConfigPackages
-});
-
-```
-
-**angular-cli-build.js**
-```sh
-var Angular2App = require('angular-cli/lib/broccoli/angular2-app');
-
-module.exports = function(defaults) {
-  return new Angular2App(defaults, {
-    vendorNpmFiles: [
-      ....
-
-      'ontimize-web-ng2-map/*.js',
-      'ontimize-web-ng2-map/src/**/*.js',
-
-      'leaflet/**/*.js',
-      'leaflet-providers/**/*.js',
-      'leaflet-draw/**/*.js',
-      'ng2-dragula/**/*.js',
-      'dragula/*.js',
-      'contra/*.js',
-      'atoa/*.js',
-      'ticky/*.js',
-      'crossvent/src/*.js',
-      'custom-event/*.js',
-
-      'ontimize-web-ng2-map/**/*.css',
-      'leaflet/**/*.css',
-      'leaflet/dist/images/*.*',
-      'leaflet-draw/**/*.css'
-     ]
-  });
-};
-```
-**index.html**
-Do not forget to include CSS style sheets
-
-```sh
-  <link rel="stylesheet" type="text/css" href="./vendor/leaflet/dist/leaflet.css">
-  <link rel="stylesheet" type="text/css" href="./vendor/leaflet-draw/dist/leaflet.draw.css">
-  <link rel="stylesheet" type="text/css" href="./vendor/ontimize-web-ng2-map/o-map.css">
-```
-
-**app.module.ts**
-Include the library map module into your app.
-
-```sh
+```bash
 ...
-import { OMapModule } from 'ontimize-web-ng2-map/o-map';
+"styles": [
+  ...
+  "../node_modules/ontimize-web-ngx-map/styles.scss",
+  ....
+],
+...
+```
+
+### Update your webpack AoT generation file
+*pending*
+
+### Import in an application module
+
+Include the library map module into your app in the module where you want to use it.
+
+```bash
+...
+import { OMapModule } from 'ontimize-web-ngx-map';
 ...
 
 @NgModule({
-  imports: [ ONTIMIZE_MODULES, routing, OMapModule],
-  declarations: [
-    AppComponent,
-    ONTIMIZE_DIRECTIVES,
-    ...APP_DIRECTIVES
+  imports: [
+    OMapModule,
+    /* other imports */
   ],
-  bootstrap: [ AppComponent ],
-  providers: [
-    ...standardProviders,
-    ...customProviders
-  ]
+  declarations: ...
+  providers: ...
 })
-export class AppModule { }
-
+export class ExampleModule { }
 ```
-
