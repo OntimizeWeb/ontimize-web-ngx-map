@@ -13,13 +13,7 @@ Ontimize Web Map module is stored in [github](https://github.com/OntimizeWeb/ont
 
 ## Examples
 
-Check out examples demo:
-<div>
-  <a href="https://ontimizeweb.github.io/ontimize-web-ngx-map" target="_blank" class="btn btn--success">
-    <i class="fa fa-play"></i>
-    live demo
-  </a>
-</div>
+Check out examples demo <a href="https://ontimizeweb.github.io/ontimize-web-ngx-map" target="_blank" title="examples demo">here</a>
 
 ## Installation
 
