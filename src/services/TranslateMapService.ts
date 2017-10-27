@@ -12,6 +12,7 @@ export class TranslateMapService {
     try {
       var self = this;
       this.oTranslateService = this.injector.get(OTranslateService);
+      this.currentLang = this.oTranslateService.getCurrentLang();
       this.oTranslateService.onLanguageChanged.subscribe((lang: string) => {
         self.currentLang = lang;
       });

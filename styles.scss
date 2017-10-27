@@ -1,7 +1,8 @@
-@import "leaflet/leaflet.css";
-@import "leaflet/leaflet.draw.css";
-@import "leaflet/MarkerCluster.css";
-@import "leaflet/MarkerCluster.Default.css";
+@import "assets/dependencies/leaflet/leaflet.scss";
+@import "assets/dependencies/leaflet/leaflet.draw.scss";
+@import "assets/dependencies/leaflet/MarkerCluster.scss";
+@import "assets/dependencies/leaflet/MarkerCluster.Default.scss";
+@import "assets/dependencies/dragula/dragula.scss";
 
 o-map {
 	position: relative;

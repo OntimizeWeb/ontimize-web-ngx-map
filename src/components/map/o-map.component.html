@@ -65,7 +65,7 @@
       Omnibar o-navigator
     -->
     <div *ngIf="searchControl" fxLayout="row" fxLayoutAlign="start center">
-      <o-navigator></o-navigator>
+      <o-navigator [show-sidenav-button]="isSearchControlButtonVisible"></o-navigator>
     </div>
   </div>
 </md-sidenav-container>

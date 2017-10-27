@@ -7,9 +7,7 @@ import { OSearcher, OSearchable } from '../../interfaces';
 
 @Component({
   selector: 'o-map-workspace',
-  providers: [
-    [{ provide: 'DragulaService', useClass: DragulaService }]
-  ],
+  providers: [{ provide: 'DragulaService', useClass: DragulaService }],
   inputs: [],
   outputs: [
     'onToggleWSLayerSelected',
@@ -38,7 +36,8 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
 
   constructor(
     @Inject(forwardRef(() => OMapComponent)) private map: OMapComponent,
-    @Inject('DragulaService') private dragulaService: DragulaService) {
+    private dragulaService: DragulaService
+  ) {
     dragulaService.over.subscribe(value => this.onOver(value.slice(1)));
     dragulaService.out.subscribe(value => this.onOut(value.slice(1)));
   }
@@ -47,13 +46,29 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
     if (this.dragulaService.find('layer-bag')) {
       this.dragulaService.destroy('layer-bag');
     }
+    const self = this;
     this.dragulaService.setOptions('layer-bag', {
       moves: function (el, container, handle) {
-        let iconClicked = handle.tagName === 'MD-ICON' && handle.parentNode.parentNode.classList.contains('drag-handle');
-        let buttonClicked = handle.tagName === 'BUTTON' && handle.parentNode.classList.contains('drag-handle');
+        let iconClicked = handle.tagName === 'MD-ICON' && self.parentHasDragHandle(handle);
+        let buttonClicked = handle.tagName === 'BUTTON' && self.parentHasDragHandle(handle);
         return iconClicked || buttonClicked;
       }
     });
+  }
+
+  private parentHasDragHandle(element: any): boolean {
+    let result = false;
+    let parent = element.parentNode;
+    let i = 0;
+    while (i <= 2) {
+      i++;
+      result = parent && parent.classList.contains('drag-handle');
+      if (result) {
+        break;
+      }
+      parent = parent.parentNode;
+    }
+    return result;
   }
 
   ngOnDestroy() {
