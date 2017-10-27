@@ -1,6 +1,6 @@
 <div fxLayout="row" layout-padding layout-wrap ng-cloak>
   <div class="search-panel on-map mat-elevation-z2" fxLayout="row" fxLayoutAlign="start center">
-    <button md-button class="md-button" (click)="toggleSidenav()">
+    <button *ngIf="isSidenavButtonVisible" md-button class="md-button" (click)="toggleSidenav()">
 			<i class="material-icons">menu</i>
 		</button>
     <input id="place-input" class="on-map" type="text" fxFlex [placeholder]="getText('SEARCH_PLACEHOLDER')" [(ngModel)]="address"

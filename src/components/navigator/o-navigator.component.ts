@@ -4,12 +4,22 @@ import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
 
+const DEFAULT_INPUTS = [
+  'showSidenavButton: show-sidenav-button'
+];
+
 @Component({
   selector: 'o-navigator',
   templateUrl: './o-navigator.component.html',
-  styleUrls: ['./o-navigator.component.scss']
+  styleUrls: ['./o-navigator.component.scss'],
+  inputs: DEFAULT_INPUTS
 })
 export class ONavigatorComponent extends ONavigatorDefault {
+
+  public static DEFAULT_INPUTS = DEFAULT_INPUTS;
+
+  public showSidenavButton: boolean = true;
+
   protected _rendered: boolean = false;
   protected oMapConfigurationSubscription: Subscription;
 
@@ -88,12 +98,19 @@ export class ONavigatorComponent extends ONavigatorDefault {
     }
   }
 
-
   get rendered(): boolean {
     return this._rendered;
   }
 
   set rendered(val: boolean) {
     this._rendered = val;
+  }
+
+  get isSidenavButtonVisible(): boolean {
+    return this.showSidenavButton;
+  }
+
+  set isSidenavButtonVisible(val: boolean) {
+    this.showSidenavButton = val;
   }
 }

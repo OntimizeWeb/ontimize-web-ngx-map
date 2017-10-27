@@ -19,6 +19,7 @@ const DEFAULT_INPUTS = [
   'sMaxZoom: max-zoom',
   'sZoomControl: zoom-control',
   'sSearchControl: search-control',
+  'sSearchControlButtonVisible: search-control-button-visible',
   'sDrawControl: draw-control',
   'sLayerPanelVisible: layer-panel-visible',
 
@@ -65,6 +66,7 @@ export class OMapComponent extends OMapWSearch {
   public sMaxZoom: string;
   public sZoomControl: string;
   public sSearchControl: string;
+  public sSearchControlButtonVisible: string;
   public sDrawControl: string;
   public sLayerPanelVisible: string;
   public sBaseLayerIds: string;
@@ -75,6 +77,7 @@ export class OMapComponent extends OMapWSearch {
   protected mdTabContainer: MdTab;
   protected mdTabGroupSubscription: Subscription;
   protected _waitForBuild: boolean = false;
+  protected _searchControlButtonVisible: boolean = true;
   constructor(
     protected elRef: ElementRef,
     protected injector: Injector
@@ -123,6 +126,7 @@ export class OMapComponent extends OMapWSearch {
       control: Util.parseBoolean(this.sZoomControl, true)
     };
     this.searchControl = Util.parseBoolean(this.sSearchControl, true);
+    this.isSearchControlButtonVisible = Util.parseBoolean(this.sSearchControlButtonVisible, true);
     this.drawControl = Util.parseBoolean(this.sDrawControl, false);
     this.isSidenavVisible = Util.parseBoolean(this.sLayerPanelVisible, false);
 
@@ -210,6 +214,14 @@ export class OMapComponent extends OMapWSearch {
     }
 
     this.onMapConfigured().emit(true);
+  }
+
+  get isSearchControlButtonVisible(): boolean {
+    return this._searchControlButtonVisible;
+  }
+
+  set isSearchControlButtonVisible(val: boolean) {
+    this._searchControlButtonVisible = val;
   }
 
 }
