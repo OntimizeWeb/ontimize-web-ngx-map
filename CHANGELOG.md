@@ -1,3 +1,15 @@
+#2.0.2
+
+### Features
+
+* **o-map**: adding '*search-control-button-visible*' (default value = true) ([22#](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/22)) ([10e88bc](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/10e88bc))
+
+### Bug Fixes
+* **TranslateMapService**: fixing initial language bug ([#18](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/18)) ([b3eca7d](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/b3eca7d))
+* **ontimize-web-ngx-map**: fixing bugs in '*ontimize-web-ngx-map/styles.scss*' and '*ontimize-web-ngx-map/assets*' ([#21](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/21)) ([643831b](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/643831b))
+* **o-map-workspace**: dragging bugs fixed ([20#](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/20)) ([f545586](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/f545586))
+
+
 #2.0.1
 
 ### Features
