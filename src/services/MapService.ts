@@ -1,13 +1,17 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Injector } from '@angular/core';
 import { BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+
+require('leaflet-draw');
 require('leaflet-providers');
 require('leaflet.markercluster');
 require('leaflet.heat');
-// require('leaflet-timedimension');
-//import { MarkerCluster } from 'leaflet.markercluster';
+require('proj4');
+require('proj4leaflet');
+
 import { MapServiceUtils } from './MapServiceUtils';
+import { TranslateMapService } from './TranslateMapService';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -21,7 +25,14 @@ export class MapService {
   overlayMaps: Object = {};
   iconTypes: Object = {};
 
+  drawLayerId: string;
+  translateMapService: TranslateMapService;
+
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
+
+  constructor(protected injector: Injector) {
+    this.translateMapService = this.injector.get(TranslateMapService);
+  }
 
   disableMouseEvent(tag: string) {
     var html = L.DomUtil.get(tag);
@@ -143,6 +154,15 @@ export class MapService {
     }
   }
 
+  addDrawLayer(layer) {
+    this.drawLayerId = Math.random().toString(36);
+    let label = this.translateMapService.get('draw-control-layer');
+    this.addLayer(this.drawLayerId, layer, false, 'overlay', label);
+  }
+
+  getDrawLayer() {
+    return this.overlayMaps[this.layers[this.drawLayerId]];
+  }
 	/**
 	 * Configures default base layers of the map
 	 * @param baseLayerIds Array of base layer identifiers ('OpenStreetMap' | 'Esri' | 'CartoDB' ...)

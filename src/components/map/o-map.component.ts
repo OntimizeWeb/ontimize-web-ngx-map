@@ -10,7 +10,6 @@ import * as L from 'leaflet';
 
 //TODO import {Control} from 'leaflet-draw';
 
-
 const DEFAULT_INPUTS = [
   'sAttr: attr',
   'sCenter: center',
@@ -28,17 +27,39 @@ const DEFAULT_INPUTS = [
   'sBaseLayerIds: base-layer-ids'
 ];
 
+const DEFAULT_OUTPUTS = [
+  'onToggleWSLayerSelected',
+  'onToggleWSLayerVisibility',
+  'onToggleWSLayerInWS',
+
+  'onClick',
+  'onDrag',
+  'onMove',
+  'onMoveEnd',
+  'onZoomLevelsChange',
+
+  'onDrawEvent',
+
+  'onDrawCreated',
+  'onDrawEdited',
+  'onDrawDeleted',
+  'onDrawDrawStart',
+  'onDrawDrawstop',
+  'onDrawvertex',
+  'onDrawEditStart',
+  'onDrawEditMove',
+  'onDrawEditResize',
+  'onDrawEditvertex',
+  'onDrawEditStop',
+  'onDrawDeleteStart',
+  'onDrawDeleteStop'
+];
+
 @Component({
   selector: 'o-map',
   providers: [MapService, GeocodingService, MdIconRegistry],
-  inputs: [
-    ...OMapComponent.DEFAULT_INPUTS
-  ],
-  outputs: [
-    'onToggleWSLayerSelected',
-    'onToggleWSLayerVisibility',
-    'onToggleWSLayerInWS'
-  ],
+  inputs: OMapComponent.DEFAULT_INPUTS,
+  outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',
   styleUrls: ['./o-map.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -46,6 +67,7 @@ const DEFAULT_INPUTS = [
 export class OMapComponent extends OMapWSearch {
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
+  public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
 
   @ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
   @ViewChild('sidenav') sideNavCmp: MdSidenav;
@@ -114,6 +136,10 @@ export class OMapComponent extends OMapWSearch {
     } else if (this.waitForBuild) {
       this.initialize();
     }
+    if (this.drawDefaultControl && !this.drawControlComponent) {
+      this.configureDefaultDrawControl(this.mapService.getMap());
+    }
+    this.onMapReady().emit(this);
   }
 
   initialize() {
@@ -127,7 +153,7 @@ export class OMapComponent extends OMapWSearch {
     };
     this.searchControl = Util.parseBoolean(this.sSearchControl, true);
     this.isSearchControlButtonVisible = Util.parseBoolean(this.sSearchControlButtonVisible, true);
-    this.drawControl = Util.parseBoolean(this.sDrawControl, false);
+    this.drawDefaultControl = Util.parseBoolean(this.sDrawControl, false);
     this.isSidenavVisible = Util.parseBoolean(this.sLayerPanelVisible, false);
 
     this.baseLayerIds = Util.parseArray(this.sBaseLayerIds);
@@ -198,19 +224,13 @@ export class OMapComponent extends OMapWSearch {
       zoom: this.zoom.current || 12,
       minZoom: this.zoom.min || 4,
       maxZoom: this.zoom.max || 19,
-      layers: this.mapService.baseLayers.getLayersArray(),
-      drawControl: false
+      layers: this.mapService.baseLayers.getLayersArray()
     };
-
     let map = this.mapService.getMap(this.mapId, mapOptions);
 
     L.control.scale().addTo(map);
     if (this.zoom.control) {
       L.control.zoom({ position: 'bottomright' }).addTo(map);
-    }
-
-    if (this.drawControl) {
-      //TODO  this.configureDrawControl(map);
     }
 
     this.onMapConfigured().emit(true);

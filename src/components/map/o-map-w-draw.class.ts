@@ -1,19 +1,39 @@
-import { OMapWWorkspace } from './o-map-w-workspace.class';
-
+import { Observable } from 'rxjs/Observable';
 import * as L from 'leaflet';
+import { OMapWWorkspace } from './o-map-w-workspace.class';
+import { OMapDrawControlsEvents, IMapDrawControlEvent } from '../map-draw-controls/o-map-draw-controls-events.class';
+import { OMapDrawControlsComponent } from '../map-draw-controls/o-map-draw-controls.component';
+import { MapService } from '../../services/MapService';
+
 
 export class OMapWDraw extends OMapWWorkspace {
-  public drawControl: boolean = false;
+  public drawDefaultControl: boolean = false;
+  protected defaultDrawControlEvents: OMapDrawControlsEvents;
+  protected drawControlComponent: OMapDrawControlsComponent;
 
-  protected configureDrawControl(map: L.Map): void {
+  registerDrawControlComponent(drawControlComponent: OMapDrawControlsComponent) {
+    this.drawControlComponent = drawControlComponent;
+  }
+
+  getDrawControlEventsObservable(): Observable<IMapDrawControlEvent> {
+    let controlEvents: OMapDrawControlsEvents = this.defaultDrawControlEvents;
+    if (this.drawControlComponent && this.drawControlComponent.drawControlEvents) {
+      controlEvents = this.drawControlComponent.drawControlEvents;
+    }
+    return controlEvents ? controlEvents.observable() : undefined;
+  }
+
+  protected configureDefaultDrawControl(map: L.Map): void {
     var editableLayers = new L.FeatureGroup();
-    map.addLayer(editableLayers);
+    let mapService: MapService = this.getMapService();
+    mapService.addDrawLayer(editableLayers);
 
     var options: L.Control.IDrawConstructorOptions = {
       position: 'topright',
       draw: {
         polygon: {
-          allowIntersection: false // Restricts shapes to simple polygons
+          allowIntersection: false
+          // Restricts shapes to simple polygons
         }
       },
       edit: {
@@ -25,8 +45,6 @@ export class OMapWDraw extends OMapWWorkspace {
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
-    map.on('draw:created', function () {
-      //TODO editableLayers.addLayer(e.layer);
-    });
+    this.defaultDrawControlEvents = new OMapDrawControlsEvents(map, editableLayers);
   }
 }
