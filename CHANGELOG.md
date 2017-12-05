@@ -1,3 +1,31 @@
+#2.0.3
+
+### Features
+
+* **o-map**: adding default draw contrlos if '*draw-controls*' input is true and no there is no inner '*o-map-draw-controls*' component ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
+
+* **o-map-draw-controls**: new component ([#25](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/25)) ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
+
+* **o-map**: new outputs '*onClick*', '*onDrag*', '*onMove*', '*onMoveEnd*' and '*onZoomLevelsChange*' ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
+* **o-map**: new draw events outputs ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
+  * '*onDrawEvent*': triggered on each map draw control event.
+  * draw:created     => '*onDrawCreated*'
+  * draw:edited      => '*onDrawEdited*'
+  * draw:deleted     => '*onDrawDeleted*'
+  * draw:drawstart   => '*onDrawDrawStart*'
+  * draw:drawstop    => '*onDrawDrawstop*'
+  * draw:drawvertex  => '*onDrawvertex*'
+  * draw:editstart   => '*onDrawEditStart*'
+  * draw:editmove    => '*onDrawEditMove*'
+  * draw:editresize  => '*onDrawEditResize*'
+  * draw:editvertex  => '*onDrawEditvertex*'
+  * draw:editstop    => '*onDrawEditStop*'
+  * draw:deletestart => '*onDrawDeleteStart*'
+  * draw:deletestop  => '*onDrawDeleteStop*'
+
+### BREAKING CHANGES
+* **o-map**: '*events*' property no longer exists. All events now are declared in the '*OMapComponent*' ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
+
 #2.0.2
 
 ### Features
