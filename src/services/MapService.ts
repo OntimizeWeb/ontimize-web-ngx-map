@@ -28,6 +28,10 @@ export class MapService {
   drawLayerId: string;
   translateMapService: TranslateMapService;
 
+  popupOptions: Object = {
+    maxHeight: 200
+  };
+
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(protected injector: Injector) {
@@ -408,7 +412,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      marker.bindPopup(popup);
+      marker.bindPopup(popup, this.popupOptions);
     }
 
     // Add marker to map
@@ -451,7 +455,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      //TODO image.bindPopup(popup);
+      //TODO image.bindPopup(popup, this.popupOptions);
     }
 
     // Add rectangle to map
@@ -484,7 +488,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polyline.bindPopup(popup);
+      polyline.bindPopup(popup, this.popupOptions);
     }
 
     // Add polyline to map
@@ -517,7 +521,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolyline.bindPopup(popup);
+      multiPolyline.bindPopup(popup, this.popupOptions);
     }
 
     // Add multi-polyline to map
@@ -550,7 +554,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polygon.bindPopup(popup);
+      polygon.bindPopup(popup, this.popupOptions);
     }
 
     // Add polygon to map
@@ -583,7 +587,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolygon.bindPopup(popup);
+      multiPolygon.bindPopup(popup, this.popupOptions);
     }
 
     // Add multi-polygon to map
@@ -623,7 +627,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      rectangle.bindPopup(popup);
+      rectangle.bindPopup(popup, this.popupOptions);
     }
 
     // Add rectangle to map
@@ -660,7 +664,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      circle.bindPopup(popup);
+      circle.bindPopup(popup, this.popupOptions);
     }
 
     // Add circle to map
@@ -716,7 +720,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      featureGroup.bindPopup(popup);
+      featureGroup.bindPopup(popup, this.popupOptions);
     }
 
     // Add feature group to map
@@ -774,7 +778,7 @@ export class MapService {
           /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
             let txt = L.Util.template(popup, feature.properties);
-            (<L.GeoJSON>layer).bindPopup(txt);
+            (<L.GeoJSON>layer).bindPopup(txt, this.popupOptions);
           } catch (error) {
             console.log(error);
           }
