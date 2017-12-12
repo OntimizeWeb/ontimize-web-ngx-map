@@ -11,12 +11,16 @@ export interface IMapDrawControlEvent {
 export class OMapDrawControlsEvents {
 
   onDrawEvent: EventEmitter<IMapDrawControlEvent> = new EventEmitter<IMapDrawControlEvent>();
+  protected map: L.Map;
 
-  constructor(
-    protected map: L.Map,
-    protected editableLayers: L.FeatureGroup
-  ) {
+  constructor(protected editableLayers: L.FeatureGroup) { }
 
+  setMap(arg: L.Map) {
+    this.map = arg;
+    this.registerMapEvents();
+  }
+
+  registerMapEvents() {
     this.map.on('draw:created', (data: PolyLine) => {
       this.editableLayers.addLayer(data.layer);
       this.onDrawEvent.emit({ event: 'onDrawCreated', data: data });

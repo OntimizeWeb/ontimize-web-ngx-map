@@ -45,6 +45,7 @@ export class OMapWDraw extends OMapWWorkspace {
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
-    this.defaultDrawControlEvents = new OMapDrawControlsEvents(map, editableLayers);
+    this.defaultDrawControlEvents = new OMapDrawControlsEvents(editableLayers);
+    this.defaultDrawControlEvents.setMap(map);
   }
 }

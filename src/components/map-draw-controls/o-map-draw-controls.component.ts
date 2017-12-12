@@ -1,5 +1,5 @@
-import { Component, Inject, forwardRef } from '@angular/core';
-import { OMapComponent } from '../../components';
+import { Component, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import {
   polylineOptions,
   polygonOptions,
@@ -13,9 +13,11 @@ import {
 } from 'leaflet-draw';
 
 import * as L from 'leaflet';
+import { OMapComponent } from '../../components';
 
 import { OMapDrawControlsEvents } from './o-map-draw-controls-events.class';
 import { MapService } from '../../services/MapService';
+
 
 const DEFAULT_INPUTS = [
   'position',
@@ -40,7 +42,7 @@ const DEFAULT_OUTPUTS = [
   inputs: DEFAULT_INPUTS,
   outputs: DEFAULT_OUTPUTS
 })
-export class OMapDrawControlsComponent {
+export class OMapDrawControlsComponent implements OnInit, OnDestroy {
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
   public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
@@ -70,6 +72,8 @@ export class OMapDrawControlsComponent {
 
   protected editableLayers: L.FeatureGroup;
 
+  protected onMapReadySubscription: Subscription;
+
   constructor( @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent) {
   }
 
@@ -77,8 +81,18 @@ export class OMapDrawControlsComponent {
     if (this.oMap) {
       this.parseDrawOptions();
       this.setOptions();
-      this.configureDrawControl();
+      this.addDrawControlEvents();
       this.oMap.registerDrawControlComponent(this);
+
+      this.onMapReadySubscription = this.oMap.onMapReady().subscribe(() => {
+        this.configureDrawControl();
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.onMapReadySubscription) {
+      this.onMapReadySubscription.unsubscribe();
     }
   }
 
@@ -137,8 +151,6 @@ export class OMapDrawControlsComponent {
 
     if (this.editPolyOptions) {
       this.editableLayers = new L.FeatureGroup();
-      let mapService: MapService = this.getMapService();
-      mapService.addDrawLayer(this.editableLayers);
 
       this.editPolyOptions = {
         featureGroup: this.editableLayers,
@@ -153,13 +165,18 @@ export class OMapDrawControlsComponent {
     this.options.edit = this.editPolyOptions;
   }
 
+  protected addDrawControlEvents(): void {
+    this.drawControlEvents = new OMapDrawControlsEvents(this.editableLayers);
+  }
+
   protected configureDrawControl(): void {
     const map: L.Map = this.oMap.getLMap();
-
     var drawControl = new L.Control.Draw(this.options);
     map.addControl(drawControl);
 
-    this.drawControlEvents = new OMapDrawControlsEvents(map, this.editableLayers);
+    let mapService: MapService = this.getMapService();
+    mapService.addDrawLayer(this.editableLayers);
+    this.drawControlEvents.setMap(map);
   }
 
 }

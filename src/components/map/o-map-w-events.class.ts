@@ -40,7 +40,6 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
         this.getMapService().map.on(
           eventName.toLowerCase(),
           (evt) => {
-            console.log(evt);
             this['on' + eventName].emit(evt);
           }
         );
@@ -52,7 +51,6 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
       const observable: Observable<IMapDrawControlEvent> = oMap.getDrawControlEventsObservable();
       if (observable) {
         observable.subscribe((args: IMapDrawControlEvent) => {
-          console.log(args);
           this.onDrawEvent.emit(args.data);
           this[args.event].emit(args.data);
         });
