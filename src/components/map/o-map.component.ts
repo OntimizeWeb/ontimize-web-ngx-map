@@ -7,6 +7,7 @@ import { MapService, GeocodingService, TranslateMapService } from '../../service
 import { Util } from '../../utils';
 import { OMapWSearch } from './o-map-w-search.class';
 import * as L from 'leaflet';
+import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
 
 //TODO import {Control} from 'leaflet-draw';
 
@@ -100,6 +101,8 @@ export class OMapComponent extends OMapWSearch {
   protected mdTabGroupSubscription: Subscription;
   protected _waitForBuild: boolean = false;
   protected _searchControlButtonVisible: boolean = true;
+  protected crsComponent: OMapCrsComponent;
+
   constructor(
     protected elRef: ElementRef,
     protected injector: Injector
@@ -136,6 +139,10 @@ export class OMapComponent extends OMapWSearch {
     } else if (this.waitForBuild) {
       this.initialize();
     }
+    if (!this.mapService.map) {
+      // console.debug('Initializing map...');
+      this.configureMap();
+    }
     if (this.drawDefaultControl && !this.drawControlComponent) {
       this.configureDefaultDrawControl(this.mapService.getMap());
     }
@@ -158,11 +165,10 @@ export class OMapComponent extends OMapWSearch {
 
     this.baseLayerIds = Util.parseArray(this.sBaseLayerIds);
     this.mapService.configureBaseLayers(this.baseLayerIds);
+  }
 
-    if (!this.mapService.map) {
-      console.debug('Initializing map...');
-      this.configureMap();
-    }
+  registerCRSComponent(crsComp: OMapCrsComponent) {
+    this.crsComponent = crsComp;
   }
 
   registerTabGroupListener() {
@@ -226,6 +232,14 @@ export class OMapComponent extends OMapWSearch {
       maxZoom: this.zoom.max || 19,
       layers: this.mapService.baseLayers.getLayersArray()
     };
+
+    if (this.crsComponent) {
+      let crsConf = this.crsComponent.getCRS();
+      if (crsConf) {
+        mapOptions['crs'] = crsConf;
+      }
+    }
+
     let map = this.mapService.getMap(this.mapId, mapOptions);
 
     L.control.scale().addTo(map);

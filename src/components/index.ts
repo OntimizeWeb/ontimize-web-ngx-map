@@ -1,7 +1,7 @@
 import { OMapComponent } from './map/o-map.component';
 import { OMapBaseLayerComponent } from './map-base-layer/o-map-base-layer.component';
 import { OMapDrawControlsComponent } from './map-draw-controls/o-map-draw-controls.component';
-// import { OMapCrsComponent } from './map-crs/o-map-crs.component';
+import { OMapCrsComponent } from './map-crs/o-map-crs.component';
 import { OMapLayerComponent } from './map-layer/o-map-layer.component';
 import { OMapLayerGroupComponent } from './map-layer-group/o-map-layer-group.component';
 import { OMapWorkspaceComponent } from './map-workspace/o-map-workspace.component';
@@ -14,7 +14,7 @@ import { ONavigatorItemComponent } from './navigator/o-navigator-item.component'
 export * from './map/o-map.component';
 export * from './map-base-layer/o-map-base-layer.component';
 export * from './map-draw-controls/o-map-draw-controls.component';
-// export * from './map-crs/o-map-crs.component';
+export * from './map-crs/o-map-crs.component';
 export * from './map-layer/o-map-layer.component';
 export * from './map-layer/o-map-layer.factory';
 export * from './map-layer-group/o-map-layer-group.component';
@@ -29,7 +29,7 @@ export const OMAP_DIRECTIVES: any[] = [
   OMapComponent,
   OMapBaseLayerComponent,
   OMapDrawControlsComponent,
-  // OMapCrsComponent,
+  OMapCrsComponent,
   OMapLayerComponent,
   OMapLayerGroupComponent,
   OMapWorkspaceComponent,
