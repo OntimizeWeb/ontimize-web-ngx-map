@@ -1,10 +1,7 @@
-import { Component, Inject, forwardRef } from '@angular/core';
+import { Component, Inject, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { OMapComponent } from '../../components';
-import {
-  BaseLayer,
-  OSearchable,
-  OSearchResult
-} from '../../interfaces';
+import { BaseLayer, OSearchable, OSearchResult } from '../../interfaces';
 
 @Component({
   selector: 'o-map-base-layer',
@@ -18,12 +15,14 @@ import {
   templateUrl: './o-map-base-layer.component.html',
   styleUrls: ['./o-map-base-layer.component.scss']
 })
-export class OMapBaseLayerComponent implements BaseLayer, OSearchable {
+export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSearchable {
+
   id: string;
   protected _active: boolean = false;
 
   protected _name: string;
   protected _urlTemplate: string;
+  protected onMapReadySubscription: Subscription;
 
   public oSearchKeys: Array<string> = ['name'];
   get oSearchResult(): OSearchResult {
@@ -45,9 +44,17 @@ export class OMapBaseLayerComponent implements BaseLayer, OSearchable {
   ngOnInit() {
     if (this.oMap) {
       var self = this;
-      this.oMap.getLMap().on('baselayerchange', (evt) => {
-        self.updateActiveState(evt['name']);
+      this.onMapReadySubscription = this.oMap.onMapReady().subscribe(() => {
+        self.oMap.getLMap().on('baselayerchange', (evt) => {
+          self.updateActiveState(evt['name']);
+        });
       });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.onMapReadySubscription) {
+      this.onMapReadySubscription.unsubscribe();
     }
   }
 
