@@ -30,7 +30,7 @@ export class OMapCrsConfigurationClass {
         args['origin'] = crsParam.origin;
       }
       if (crsParam.espg !== undefined && crsParam.espg_configuration !== undefined) {
-        result = new L.Proj.CRS(crsParam.espg, crsParam.espg_configuration, args);
+        result = L.Proj.CRS.TMS(crsParam.espg, crsParam.espg_configuration, args);
       }
     }
     return result;
