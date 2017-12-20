@@ -17,7 +17,7 @@ import { OMapComponent } from '../../components';
 
 import { OMapDrawControlsEvents } from './o-map-draw-controls-events.class';
 import { MapService } from '../../services/MapService';
-
+import { InputConverter } from 'ontimize-web-ngx';
 
 const DEFAULT_INPUTS = [
   'position',
@@ -25,11 +25,13 @@ const DEFAULT_INPUTS = [
   'polygonOptions : polygon-options',
   'rectangleOptions : rectangle-options',
   'circleOptions : circle-options',
+  'circleMarkerOptions : circlemarker-options',
   'markerOptions : marker-options',
 
   'editPolyOptions : edit-poly-options',
   'editHandlerOptions : edit-handler-options',
-  'deleteHandlerOptions : delete-handler-options'
+  'deleteHandlerOptions : delete-handler-options',
+  'showControls: show-controls'
 ];
 
 const DEFAULT_OUTPUTS = [
@@ -43,6 +45,8 @@ const DEFAULT_OUTPUTS = [
   outputs: DEFAULT_OUTPUTS
 })
 export class OMapDrawControlsComponent implements OnInit, OnDestroy {
+
+  drawControl: L.Control.Draw;
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
   public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
@@ -58,6 +62,7 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
   protected rectangleOptions: rectangleOptions = {};
   protected circleOptions: circleOptions = {};
   protected markerOptions: markerOptions = {};
+  protected circleMarkerOptions = {};
 
   // EditPolyOptions
   protected editPolyOptions: EditPolyOptions = {};
@@ -73,6 +78,8 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
   protected editableLayers: L.FeatureGroup;
 
   protected onMapReadySubscription: Subscription;
+  @InputConverter()
+  protected showControls: boolean = true;
 
   constructor( @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent) {
   }
@@ -117,6 +124,9 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
     if (this.markerOptions === OMapDrawControlsComponent.EMPTY_CONTROL_TAG) {
       this.markerOptions = false;
     }
+    if (this.circleMarkerOptions === OMapDrawControlsComponent.EMPTY_CONTROL_TAG) {
+      this.circleMarkerOptions = false;
+    }
 
     // editPolyOptions
     if (this.editPolyOptions === OMapDrawControlsComponent.EMPTY_CONTROL_TAG) {
@@ -145,7 +155,8 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
       polygon: this.polygonOptions,
       rectangle: this.rectangleOptions,
       circle: this.circleOptions,
-      marker: this.markerOptions
+      marker: this.markerOptions,
+      circlemarker: this.circleMarkerOptions
     };
     this.options.draw = drawOptions;
 
@@ -169,14 +180,26 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
     this.drawControlEvents = new OMapDrawControlsEvents(this.editableLayers);
   }
 
-  protected configureDrawControl(): void {
+  configureDrawControl(): void {
     const map: L.Map = this.oMap.getLMap();
-    var drawControl = new L.Control.Draw(this.options);
-    map.addControl(drawControl);
-
-    let mapService: MapService = this.getMapService();
-    mapService.addDrawLayer(this.editableLayers);
+    this.drawControl = new L.Control.Draw(this.options);
+    if (this.showControls) {
+      this.showDrawControl();
+    }
     this.drawControlEvents.setMap(map);
   }
 
+  removeDrawControl(): void {
+    const map: L.Map = this.oMap.getLMap();
+    map.removeControl(this.drawControl);
+    let mapService: MapService = this.getMapService();
+    mapService.removeDrawLayer();
+  }
+
+  showDrawControl() {
+    const map: L.Map = this.oMap.getLMap();
+    map.addControl(this.drawControl);
+    let mapService: MapService = this.getMapService();
+    mapService.addDrawLayer(this.editableLayers);
+  }
 }

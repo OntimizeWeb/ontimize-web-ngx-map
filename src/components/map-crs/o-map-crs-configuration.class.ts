@@ -5,15 +5,14 @@ import { OMapCrsComponent } from './o-map-crs.component';
 
 
 export interface ICRSConfiguration {
-  espg: string;
-  espg_configuration: string;
-  resolutions?: Array<number>;
-  origin?: Array<number>;
+  epsg: string;
+  epsg_configuration: string;
+  epsg_args?: Object;
 }
 
 export interface ICRSConfigurationParameter {
   crs?: string;
-  crsConfiguration?: any;
+  crsConfiguration?: ICRSConfiguration;
 }
 
 export class OMapCrsConfigurationClass {
@@ -21,17 +20,12 @@ export class OMapCrsConfigurationClass {
   static getCRSFromConfigurationObject(comp: OMapCrsComponent | OMapLayerComponent) {
     let result = undefined;
     let crsParam: ICRSConfiguration = comp.getCRSConfigurationParam().crsConfiguration;
-    if (crsParam !== undefined) {
-      let args = {};
-      if (crsParam.resolutions !== undefined) {
-        args['resolutions'] = crsParam.resolutions;
-      }
-      if (crsParam.origin !== undefined) {
-        args['origin'] = crsParam.origin;
-      }
-      if (crsParam.espg !== undefined && crsParam.espg_configuration !== undefined) {
-        result = L.Proj.CRS.TMS(crsParam.espg, crsParam.espg_configuration, args);
-      }
+    let args = {};
+    if (crsParam !== undefined && crsParam.epsg_args !== undefined) {
+      args = crsParam.epsg_args;
+    }
+    if (crsParam.epsg !== undefined && crsParam.epsg_configuration !== undefined) {
+      result = new L.Proj.CRS(crsParam.epsg, crsParam.epsg_configuration, args);
     }
     return result;
   }

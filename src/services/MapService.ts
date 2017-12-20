@@ -164,6 +164,10 @@ export class MapService {
     this.addLayer(this.drawLayerId, layer, false, 'overlay', label);
   }
 
+  removeDrawLayer() {
+    this.removeLayer(this.drawLayerId);
+  }
+
   getDrawLayer() {
     return this.overlayMaps[this.layers[this.drawLayerId]];
   }
