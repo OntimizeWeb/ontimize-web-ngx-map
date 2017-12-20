@@ -1,4 +1,4 @@
-##2.0.3
+## 2.0.3 (2017-12-20)
 
 ### Features
 
@@ -31,7 +31,7 @@
 ### BREAKING CHANGES
 * **o-map**: '*events*' property no longer exists. All events now are declared in the '*OMapComponent*' ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
 
-##2.0.2 (2017-10-27)
+## 2.0.2 (2017-10-27)
 
 ### Features
 
@@ -43,12 +43,12 @@
 * **o-map-workspace**: dragging bugs fixed ([20#](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/20)) ([f545586](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/f545586))
 
 
-##2.0.1 (2017-10-20)
+## 2.0.1 (2017-10-20)
 
 ### Features
 * **ontimize-web-ngx-map**: leafleat styles and some neccesary assets are now included in '*ontimize-web-ngx-map/styles.scss*' and '*ontimize-web-ngx-map/assets*' ([#14](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/14)) ([a200c74](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/a200c74)).
 
-##2.0.0 (2017-09-27)
+## 2.0.0 (2017-09-27)
 
 ### DEV-DEPENDENCY UPDATES ###
 * **Updated**:  ontimize-web-ngx@2.0.0
@@ -64,7 +64,7 @@
 
 **IMPORTANT: you must update your imports for changing '*ontimize-web-ng2-map*' for '*ontimize-web-ngx-map*'. This includes module and components import and '*styles.scss*' reference.
 
-##2.0.0-rc.2 (2017-09-20)
+## 2.0.0-rc.2 (2017-09-20)
 
 ### Features
 * **ontimize-web-ng2-map**: '*OMapModule*' is now AoT compatible.
