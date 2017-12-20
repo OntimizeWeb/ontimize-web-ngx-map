@@ -16,6 +16,7 @@ export class OMapBase {
   protected mapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
   protected mapService: MapService;
   protected mapConfiguration: EventEmitter<any> = new EventEmitter();
+  protected mapReady: EventEmitter<any> = new EventEmitter();
   private center: Center;
 
 	/**
@@ -98,5 +99,9 @@ export class OMapBase {
 
   public onMapConfigured(): EventEmitter<any> {
     return this.mapConfiguration;
+  }
+
+  public onMapReady(): EventEmitter<any> {
+    return this.mapReady;
   }
 }

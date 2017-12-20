@@ -1,13 +1,17 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Injector } from '@angular/core';
 import { BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+
+require('leaflet-draw');
 require('leaflet-providers');
 require('leaflet.markercluster');
 require('leaflet.heat');
-// require('leaflet-timedimension');
-//import { MarkerCluster } from 'leaflet.markercluster';
+require('proj4');
+require('proj4leaflet');
+
 import { MapServiceUtils } from './MapServiceUtils';
+import { TranslateMapService } from './TranslateMapService';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -21,7 +25,18 @@ export class MapService {
   overlayMaps: Object = {};
   iconTypes: Object = {};
 
+  drawLayerId: string;
+  translateMapService: TranslateMapService;
+
+  popupOptions: Object = {
+    maxHeight: 200
+  };
+
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
+
+  constructor(protected injector: Injector) {
+    this.translateMapService = this.injector.get(TranslateMapService);
+  }
 
   disableMouseEvent(tag: string) {
     var html = L.DomUtil.get(tag);
@@ -143,6 +158,19 @@ export class MapService {
     }
   }
 
+  addDrawLayer(layer) {
+    this.drawLayerId = Math.random().toString(36);
+    let label = this.translateMapService.get('draw-control-layer');
+    this.addLayer(this.drawLayerId, layer, false, 'overlay', label);
+  }
+
+  removeDrawLayer() {
+    this.removeLayer(this.drawLayerId);
+  }
+
+  getDrawLayer() {
+    return this.overlayMaps[this.layers[this.drawLayerId]];
+  }
 	/**
 	 * Configures default base layers of the map
 	 * @param baseLayerIds Array of base layer identifiers ('OpenStreetMap' | 'Esri' | 'CartoDB' ...)
@@ -388,7 +416,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      marker.bindPopup(popup);
+      marker.bindPopup(popup, this.popupOptions);
     }
 
     // Add marker to map
@@ -431,7 +459,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      //TODO image.bindPopup(popup);
+      //TODO image.bindPopup(popup, this.popupOptions);
     }
 
     // Add rectangle to map
@@ -464,7 +492,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polyline.bindPopup(popup);
+      polyline.bindPopup(popup, this.popupOptions);
     }
 
     // Add polyline to map
@@ -497,7 +525,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolyline.bindPopup(popup);
+      multiPolyline.bindPopup(popup, this.popupOptions);
     }
 
     // Add multi-polyline to map
@@ -530,7 +558,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polygon.bindPopup(popup);
+      polygon.bindPopup(popup, this.popupOptions);
     }
 
     // Add polygon to map
@@ -563,7 +591,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolygon.bindPopup(popup);
+      multiPolygon.bindPopup(popup, this.popupOptions);
     }
 
     // Add multi-polygon to map
@@ -603,7 +631,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      rectangle.bindPopup(popup);
+      rectangle.bindPopup(popup, this.popupOptions);
     }
 
     // Add rectangle to map
@@ -640,7 +668,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      circle.bindPopup(popup);
+      circle.bindPopup(popup, this.popupOptions);
     }
 
     // Add circle to map
@@ -696,7 +724,7 @@ export class MapService {
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      featureGroup.bindPopup(popup);
+      featureGroup.bindPopup(popup, this.popupOptions);
     }
 
     // Add feature group to map
@@ -754,7 +782,7 @@ export class MapService {
           /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
             let txt = L.Util.template(popup, feature.properties);
-            (<L.GeoJSON>layer).bindPopup(txt);
+            (<L.GeoJSON>layer).bindPopup(txt, this.popupOptions);
           } catch (error) {
             console.log(error);
           }

@@ -1,4 +1,37 @@
-#2.0.2
+## 2.0.3 (2017-12-20)
+
+### Features
+
+* **o-map-crs**: new '*o-map-crs*' component ([#24](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/24)) ([e43a2fc](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/e43a2fc))
+  * **o-map-layer**: new '*crs*' and '*crs-configuration*' inputs.
+
+* **o-map-draw-controls**: new '*o-map-draw-controls*' component ([#25](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/25)) ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/4f0fafe)) ([f084589](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/f084589))
+  * **o-map**: adding default draw controls if '*draw-controls*' input is true and no there is no inner '*o-map-draw-controls*' component.
+
+* **o-map**: new '*onClick*', '*onDrag*', '*onMove*', '*onMoveEnd*' and '*onZoomLevelsChange*' outputs ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/4f0fafe))
+
+* **o-map**: new draw events outputs ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/4f0fafe))
+  * '*onDrawEvent*': triggered on each map draw control event.
+  * draw:created     => '*onDrawCreated*'
+  * draw:edited      => '*onDrawEdited*'
+  * draw:deleted     => '*onDrawDeleted*'
+  * draw:drawstart   => '*onDrawDrawStart*'
+  * draw:drawstop    => '*onDrawDrawstop*'
+  * draw:drawvertex  => '*onDrawvertex*'
+  * draw:editstart   => '*onDrawEditStart*'
+  * draw:editmove    => '*onDrawEditMove*'
+  * draw:editresize  => '*onDrawEditResize*'
+  * draw:editvertex  => '*onDrawEditvertex*'
+  * draw:editstop    => '*onDrawEditStop*'
+  * draw:deletestart => '*onDrawDeleteStart*'
+  * draw:deletestop  => '*onDrawDeleteStop*'
+
+
+
+### BREAKING CHANGES
+* **o-map**: '*events*' property no longer exists. All events now are declared in the '*OMapComponent*' ([4f0fafe](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit4f0fafe/))
+
+## 2.0.2 (2017-10-27)
 
 ### Features
 
@@ -10,12 +43,12 @@
 * **o-map-workspace**: dragging bugs fixed ([20#](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/20)) ([f545586](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/f545586))
 
 
-#2.0.1
+## 2.0.1 (2017-10-20)
 
 ### Features
 * **ontimize-web-ngx-map**: leafleat styles and some neccesary assets are now included in '*ontimize-web-ngx-map/styles.scss*' and '*ontimize-web-ngx-map/assets*' ([#14](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/14)) ([a200c74](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/a200c74)).
 
-##2.0.0
+## 2.0.0 (2017-09-27)
 
 ### DEV-DEPENDENCY UPDATES ###
 * **Updated**:  ontimize-web-ngx@2.0.0
@@ -31,7 +64,7 @@
 
 **IMPORTANT: you must update your imports for changing '*ontimize-web-ng2-map*' for '*ontimize-web-ngx-map*'. This includes module and components import and '*styles.scss*' reference.
 
-##2.0.0-rc.2
+## 2.0.0-rc.2 (2017-09-20)
 
 ### Features
 * **ontimize-web-ng2-map**: '*OMapModule*' is now AoT compatible.
@@ -46,13 +79,13 @@
 * **o-map**: fixing styles bugs ([#13](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/13)) ([72c6f82](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/72c6f82))
 * **o-map-layer-group**: fixing display problems ([#10](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/10)) ([52a3cec](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/52a3cec))
 
-## 1.0.2
+## 1.0.2 (2017-06-20)
 ### Features
 * **o-map**: adding '*onToggleWSLayerSelected*', '*onToggleWSLayerVisibility*' and '*onToggleWSLayerInWS*' outputs.
 * **o-map-workspace**: adding '*onToggleWSLayerSelected*', '*onToggleWSLayerVisibility*' and '*onToggleWSLayerInWS*' outputs.
 * **o-map-workspace-layer**: adding '*onToggleSelected*', '*onToggleVisibility*' and '*onToggleInWS*' outputs.
 
-## 1.0.1
+## 1.0.1 (2017-04-18)
 
 ### PEER-DEPENDENCY UPDATES ###
 * **Updated**:   ontimize-web-ng2@1.2.3
@@ -64,7 +97,7 @@
 * **Updated**:   moment@2.17.1
 * **Updated**:   ng2-translate@5.0.0
 
-## 1.0.0
+## 1.0.0 (2017-01-24)
 
 ### Features
 
@@ -74,7 +107,7 @@
 
 ---
 
-## 1.0.0-rc.0
+## 1.0.0-rc.0 (2016-10-13)
 
 ### Features
 

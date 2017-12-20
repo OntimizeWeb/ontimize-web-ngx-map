@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "preinstall": "npm config set package-lock false",
@@ -33,11 +33,12 @@
   "typings": "./index.d.ts",
   "dependencies": {
     "dragula": "^3.7.2",
-    "leaflet": "1.1.0",
-    "leaflet-draw": "0.4.9",
+    "leaflet": "1.2.0",
+    "leaflet-draw": "0.4.13",
     "leaflet-providers": "1.1.17",
     "leaflet.markercluster": "1.0.6",
     "leaflet.heat": "0.2.0",
+    "proj4leaflet": "1.0.2",
     "ng2-dragula": "1.3.1"
   },
   "peerDependencies": {

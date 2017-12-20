@@ -8,6 +8,7 @@ import { Center, LayerConfiguration } from '../../core';
 import { Util } from '../../utils';
 import { OMapComponent, OMapLayerFactory } from '../../components';
 import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
+import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-crs-configuration.class';
 
 @Component({
   selector: 'o-map-layer',
@@ -31,7 +32,9 @@ import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
     'menuLabel : layer-menu-label',
     'menuLabelSecondary : layer-menu-label-secondary',
     'icon : layer-icon',
-    'options : layer-options'
+    'options : layer-options',
+    'crs',
+    'crsConfiguration : crs-configuration'
   ],
   templateUrl: './o-map-layer.component.html',
   styleUrls: ['./o-map-layer.component.scss']
@@ -64,6 +67,8 @@ export class OMapLayerComponent implements OnInit, OSearchable {
   public baseUrl: string;
   protected _icon: string;
   public options: Object;
+  protected crs: string;
+  protected crsConfiguration: ICRSConfiguration;
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
 
@@ -90,12 +95,12 @@ export class OMapLayerComponent implements OnInit, OSearchable {
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
     protected injector: Injector
   ) {
-    if (this.oMap.waitForBuild) {
-      this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-        this.oMap.addOMapLayer(this);
-        this.updateStatus();
-      });
-    }
+
+    this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
+      this.oMap.addOMapLayer(this);
+      this.updateStatus();
+    });
+
   }
 
   ngOnInit() {
@@ -105,16 +110,23 @@ export class OMapLayerComponent implements OnInit, OSearchable {
     }
   }
 
-  ngAfterViewInit() {
-    if (!this.oMap.waitForBuild) {
-      this.updateStatus();
-    }
-  }
+  // ngAfterViewInit() {
+  //   if (!this.oMap.waitForBuild) {
+  //     this.updateStatus();
+  //   }
+  // }
 
   ngOnDestroy() {
     if (this.oMapConfigurationSubscription) {
       this.oMapConfigurationSubscription.unsubscribe();
     }
+  }
+
+  getCRSConfigurationParam(): ICRSConfigurationParameter {
+    return {
+      crsConfiguration: this.crsConfiguration,
+      crs: this.crs
+    };
   }
 
   get oSearchResult(): OSearchResult {
