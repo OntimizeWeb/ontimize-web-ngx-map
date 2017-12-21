@@ -6,6 +6,7 @@ import { Center } from '../../core';
 import { Util } from '../../utils';
 import { TranslateMapService } from '../../services';
 import * as L from 'leaflet';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const DEFAULT_CENTER = new Center(42.2274519, -8.7236805);
 
@@ -16,7 +17,8 @@ export class OMapBase {
   protected mapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
   protected mapService: MapService;
   protected mapConfiguration: EventEmitter<any> = new EventEmitter();
-  protected mapReady: EventEmitter<any> = new EventEmitter();
+  protected mapAfterViewInit: EventEmitter<any> = new EventEmitter();
+  protected mapReady: BehaviorSubject<any> = new BehaviorSubject(undefined);
   private center: Center;
 
 	/**
@@ -101,7 +103,11 @@ export class OMapBase {
     return this.mapConfiguration;
   }
 
-  public onMapReady(): EventEmitter<any> {
+  public onMapAfterViewInit(): EventEmitter<any> {
+    return this.mapAfterViewInit;
+  }
+
+  public onMapReady(): BehaviorSubject<any> {
     return this.mapReady;
   }
 }

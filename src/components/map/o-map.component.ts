@@ -146,7 +146,8 @@ export class OMapComponent extends OMapWSearch {
     if (this.drawDefaultControl && !this.drawControlComponent) {
       this.configureDefaultDrawControl(this.mapService.getMap());
     }
-    this.onMapReady().emit(this);
+    this.onMapAfterViewInit().emit(this);
+    this.onMapReady().next(this);
   }
 
   initialize() {

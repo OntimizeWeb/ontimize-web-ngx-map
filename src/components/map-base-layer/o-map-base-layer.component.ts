@@ -44,7 +44,7 @@ export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSe
   ngOnInit() {
     if (this.oMap) {
       var self = this;
-      this.onMapReadySubscription = this.oMap.onMapReady().subscribe(() => {
+      this.onMapReadySubscription = this.oMap.onMapAfterViewInit().subscribe(() => {
         self.oMap.getLMap().on('baselayerchange', (evt) => {
           self.updateActiveState(evt['name']);
         });
