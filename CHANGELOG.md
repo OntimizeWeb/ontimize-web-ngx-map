@@ -1,3 +1,8 @@
+## 2.0.4 (2017-12-21)
+
+### Bug Fixes
+* **o-map-layer**: fixing initialization bug ([#29](https://github.com/OntimizeWeb/ontimize-web-ng2-map/issues/29)) ([95dd56d](https://github.com/OntimizeWeb/ontimize-web-ng2-map/commit/95dd56d))
+
 ## 2.0.3 (2017-12-20)
 
 ### Features
