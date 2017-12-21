@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef, AfterViewInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -39,7 +39,7 @@ import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-
   templateUrl: './o-map-layer.component.html',
   styleUrls: ['./o-map-layer.component.scss']
 })
-export class OMapLayerComponent implements OnInit, OSearchable {
+export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   sCenter: string;
   sPoints: string;
   sRadius: string;
@@ -91,34 +91,49 @@ export class OMapLayerComponent implements OnInit, OSearchable {
   private _popupCloseEvtEmitter: EventEmitter<any> = new EventEmitter();
   protected oMapConfigurationSubscription: Subscription;
 
+  protected layerAfterViewInitStream: EventEmitter<Object> = new EventEmitter<Object>();
+  protected layerMapConfigured: EventEmitter<Object> = new EventEmitter<Object>();
+  protected layerStream: Observable<any>;
+  protected layerStreamSubscription: Subscription;
+
   constructor(
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
     protected injector: Injector
   ) {
 
-    this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-      this.oMap.addOMapLayer(this);
-      this.updateStatus();
+    this.layerStream = Observable.combineLatest(
+      this.layerAfterViewInitStream.asObservable(),
+      this.layerMapConfigured.asObservable()
+    );
+
+    this.layerStreamSubscription = this.layerStream.subscribe(() => {
+      if (oMap) {
+        this.oMap.addOMapLayer(this);
+        this.updateStatus();
+      }
     });
 
+    this.oMapConfigurationSubscription = this.oMap.onMapReady().subscribe((oMap) => {
+      if (oMap) {
+        this.layerMapConfigured.emit(true);
+      }
+    });
   }
 
   ngOnInit() {
     this.inMenu = this.inMenu ? this.inMenu : 'overlay';
-    if (!this.oMap.waitForBuild) {
-      this.oMap.addOMapLayer(this);
-    }
   }
 
-  // ngAfterViewInit() {
-  //   if (!this.oMap.waitForBuild) {
-  //     this.updateStatus();
-  //   }
-  // }
+  ngAfterViewInit() {
+    this.layerAfterViewInitStream.emit(true);
+  }
 
   ngOnDestroy() {
     if (this.oMapConfigurationSubscription) {
       this.oMapConfigurationSubscription.unsubscribe();
+    }
+    if (this.layerStreamSubscription) {
+      this.layerStreamSubscription.unsubscribe();
     }
   }
 

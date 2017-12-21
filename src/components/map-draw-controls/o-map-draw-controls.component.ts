@@ -91,7 +91,7 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
       this.addDrawControlEvents();
       this.oMap.registerDrawControlComponent(this);
 
-      this.onMapReadySubscription = this.oMap.onMapReady().subscribe(() => {
+      this.onMapReadySubscription = this.oMap.onMapAfterViewInit().subscribe(() => {
         this.configureDrawControl();
       });
     }

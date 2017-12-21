@@ -47,7 +47,7 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
 
     });
 
-    this.onMapReady().subscribe((oMap: OMapComponent) => {
+    this.onMapAfterViewInit().subscribe((oMap: OMapComponent) => {
       const observable: Observable<IMapDrawControlEvent> = oMap.getDrawControlEventsObservable();
       if (observable) {
         observable.subscribe((args: IMapDrawControlEvent) => {
