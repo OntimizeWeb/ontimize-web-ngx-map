@@ -15,7 +15,14 @@ export class OMapWSidenav extends OMapWEvents {
       } else {
         this.sideNavCmp.open();
       }
-      setTimeout(() => this.getMapService().map.invalidateSize(true), 0);
+      setTimeout(() => {
+        this.getMapService().map.invalidateSize(true);
+        if (!this.sideNavCmp.opened) {
+          var evt = window.document.createEvent('UIEvents');
+          evt.initUIEvent('resize', true, false, window, 0);
+          window.dispatchEvent(evt);
+        }
+      }, 0);
     }
     this.isSidenavVisible = !this.isSidenavVisible;
   }
