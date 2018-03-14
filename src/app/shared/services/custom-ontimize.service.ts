@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
-import { OntimizeService, LoginService } from 'ontimize-web-ngx';
+import { OntimizeService, LoginService, Util } from 'ontimize-web-ngx';
 
 export class CustomOntimizeService extends OntimizeService {
 
@@ -61,7 +61,7 @@ export class CustomOntimizeService extends OntimizeService {
 
   public query(kv?: Object, av?: Array<string>, entity?: string,
     sqltypes?: Object): Observable<any> {
-    entity = (this.isNullOrUndef(entity)) ? this.entity : entity;
+    entity = (Util.isDefined(entity)) ? entity : this.entity;
 
     var url = this._urlBase;
     if (entity === 'EMovements') {

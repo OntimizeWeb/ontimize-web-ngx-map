@@ -9,6 +9,7 @@ import { GeoJsonLayerModule } from './geojson-layer/geojson-layer.module';
 import { HomeModule } from './home/home.module';
 import { MarkerLayerModule } from './marker-layer/marker-layer.module';
 import { WmsLayerModule } from './wms-layer/wms-layer.module';
+import { MapEventsModule } from './map-events/map-events.module';
 
 export function loadBasicModule() {
   return BasicModule;
@@ -30,6 +31,10 @@ export function loadWmsLayerModule() {
   return WmsLayerModule;
 }
 
+export function loadMapEventsModule() {
+  return MapEventsModule;
+}
+
 export const routes: Routes = [{
   path: 'main',
   component: MainComponent,
@@ -39,7 +44,8 @@ export const routes: Routes = [{
     { path: 'geojson', loadChildren: loadGeoJsonLayerModule },
     { path: 'home', loadChildren: loadHomeModule },
     { path: 'marker', loadChildren: loadMarkerLayerModule },
-    { path: 'wms', loadChildren: loadWmsLayerModule }
+    { path: 'wms', loadChildren: loadWmsLayerModule },
+    { path: 'map-events', loadChildren: loadMapEventsModule }
   ]
 }];
 

@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="center start" layout-margin>
+  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
+      <o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" layer-panel-visible="no"
+        fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
+        <!-- [crs-configuration]="objeto" -->
+        <o-map-crs crs="EPSG4326"></o-map-crs>
+
+        <!-- crs="26915" -->
+        <o-map-draw-controls></o-map-draw-controls>
+        <!-- <o-map-projection projection="26915"></o-map-projection> -->
+        <!-- crs="9857"  -->
+
+      </o-map>
+    </div>
+    <div class="body-text-container" layout-padding fxLayout="column" fxLayoutAlign="center start">
+      <h2>Triggering draw events</h2>
+      <span class="body-text" *ngFor="let event of eventsArray">
+        {{ event.type }}
+      </span>
+    </div>
+  </example-comp>
+</div>
