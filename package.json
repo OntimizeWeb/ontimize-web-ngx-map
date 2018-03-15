@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "preinstall": "npm config set package-lock false",
@@ -48,7 +48,7 @@
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
-    "ontimize-web-ngx": "2.0.0",
+    "ontimize-web-ngx": "2.1.0",
     "@angular/animations": "4.3.6",
     "@angular/cli": "1.3.2",
     "@angular/common": "4.3.6",
