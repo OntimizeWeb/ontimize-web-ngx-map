@@ -1,3 +1,15 @@
+##3.0.0-rc.0
+### PEER-DEPENDENCY UPDATES ###
+* **Updated**:  core-js@2.5.3
+* **Updated**:  rxjs@5.5.6
+* **Updated**:  zone.js@0.8.20
+* **Updated**:  lodash@4.17.4
+
+### BREAKING CHANGES
+* **OntimizeWeb**: using '*ontimize-web-ngx@3.0.0-rc.0*' ([8ab87f6](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/8ab87f6))
+* **Angular and Angular Material**: updating versions ([8ab87f6](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/8ab87f6))
+* **devDependencies**: updating and removing unnecesary dependencies ([1aae84b](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/1aae84b))
+
 ## 2.0.4 (2017-12-21)
 
 ### Bug Fixes
