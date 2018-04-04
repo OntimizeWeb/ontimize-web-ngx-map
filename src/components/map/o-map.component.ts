@@ -94,7 +94,7 @@ export class OMapComponent extends OMapWSearch {
   public sLayerPanelVisible: string;
   public sBaseLayerIds: string;
 
-  protected mapId: string;
+  mapId: string;
   protected baseLayerIds: Array<string>;
   protected tabGroupContainer: MatTabGroup;
   protected tabContainer: MatTab;
