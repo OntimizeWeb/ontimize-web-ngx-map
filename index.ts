@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MdIconModule, MdSidenavModule } from '@angular/material';
+import { MatIconModule, MatSidenavModule } from '@angular/material';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { OCustomMaterialModule } from 'ontimize-web-ngx';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -18,8 +18,8 @@ export * from './src/components';
   imports: [
     CommonModule,
     FormsModule,
-    MdIconModule,
-    MdSidenavModule,
+    MatIconModule,
+    MatSidenavModule,
     DragulaModule,
     OCustomMaterialModule,
     FlexLayoutModule

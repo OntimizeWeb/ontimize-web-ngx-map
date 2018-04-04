@@ -1,5 +1,5 @@
 import { Component, Injector, ElementRef, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { MdIconRegistry, MdSidenav, MdTabGroup, MdTab } from '@angular/material';
+import { MatIconRegistry, MatSidenav, MatTabGroup, MatTab } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
@@ -58,7 +58,7 @@ const DEFAULT_OUTPUTS = [
 
 @Component({
   selector: 'o-map',
-  providers: [MapService, GeocodingService, MdIconRegistry],
+  providers: [MapService, GeocodingService, MatIconRegistry],
   inputs: OMapComponent.DEFAULT_INPUTS,
   outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',
@@ -71,7 +71,7 @@ export class OMapComponent extends OMapWSearch {
   public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
 
   @ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
-  @ViewChild('sidenav') sideNavCmp: MdSidenav;
+  @ViewChild('sidenav') sideNavCmp: MatSidenav;
   @ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
   @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroupComponent;
   @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspaceComponent;
@@ -96,9 +96,9 @@ export class OMapComponent extends OMapWSearch {
 
   protected mapId: string;
   protected baseLayerIds: Array<string>;
-  protected mdTabGroupContainer: MdTabGroup;
-  protected mdTabContainer: MdTab;
-  protected mdTabGroupSubscription: Subscription;
+  protected tabGroupContainer: MatTabGroup;
+  protected tabContainer: MatTab;
+  protected tabGroupSubscription: Subscription;
   protected _waitForBuild: boolean = false;
   protected _searchControlButtonVisible: boolean = true;
   protected crsComponent: OMapCrsComponent;
@@ -111,9 +111,9 @@ export class OMapComponent extends OMapWSearch {
     this.mapService = this.injector.get(MapService);
     this.translateMapService = this.injector.get(TranslateMapService);
     try {
-      this.mdTabGroupContainer = this.injector.get(MdTabGroup);
-      this.mdTabContainer = this.injector.get(MdTab);
-      if (this.mdTabGroupContainer && this.mdTabContainer) {
+      this.tabGroupContainer = this.injector.get(MatTabGroup);
+      this.tabContainer = this.injector.get(MatTab);
+      if (this.tabGroupContainer && this.tabContainer) {
         this.waitForBuild = true;
       }
     } catch (error) {
@@ -134,25 +134,27 @@ export class OMapComponent extends OMapWSearch {
   }
 
   ngAfterViewInit() {
-    if (this.waitForBuild && !this.mdTabContainer.content.isAttached) {
+    if (this.waitForBuild && !this.tabContainer.content.isAttached) {
       this.registerTabGroupListener();
     } else if (this.waitForBuild) {
       this.initialize();
     }
-    if (!this.mapService.map) {
-      // console.debug('Initializing map...');
-      this.configureMap();
-    }
-    if (this.drawDefaultControl && !this.drawControlComponent) {
-      this.configureDefaultDrawControl(this.mapService.getMap());
-    }
-    this.onMapAfterViewInit().emit(this);
-    this.onMapReady().next(this);
+    const self = this;
+    setTimeout(() => {
+      if (!self.mapService.map) {
+        // console.debug('Initializing map...');
+        self.configureMap();
+      }
+      if (self.drawDefaultControl && !self.drawControlComponent) {
+        self.configureDefaultDrawControl(self.mapService.getMap());
+      }
+      self.onMapAfterViewInit().emit(self);
+      self.onMapReady().next(self);
+    }, 0);
   }
 
   initialize() {
     this.mapId = this.sAttr ? this.sAttr : 'map_' + new Date().getTime();
-    this.elRef.nativeElement.querySelector('.leaflet-map-container').setAttribute('id', this.mapId);
     this.zoom = {
       current: parseInt(this.sZoom),
       min: parseInt(this.sMinZoom),
@@ -174,13 +176,13 @@ export class OMapComponent extends OMapWSearch {
 
   registerTabGroupListener() {
     var self = this;
-    this.mdTabGroupSubscription = this.mdTabGroupContainer.selectChange.subscribe((evt) => {
+    this.tabGroupSubscription = this.tabGroupContainer.selectChange.subscribe((evt) => {
       var interval = setInterval(function () { timerCallback(evt.tab); }, 250);
-      function timerCallback(tab: MdTab) {
+      function timerCallback(tab: MatTab) {
         if (tab && tab.content.isAttached) {
           clearInterval(interval);
-          if (tab === self.mdTabContainer) {
-            self.mdTabGroupSubscription.unsubscribe();
+          if (tab === self.tabContainer) {
+            self.tabGroupSubscription.unsubscribe();
             self.initialize();
             self.waitForBuild = false;
           }
@@ -190,8 +192,8 @@ export class OMapComponent extends OMapWSearch {
   }
 
   ngOnDestroy() {
-    if (this.mdTabGroupSubscription) {
-      this.mdTabGroupSubscription.unsubscribe();
+    if (this.tabGroupSubscription) {
+      this.tabGroupSubscription.unsubscribe();
     }
   }
 

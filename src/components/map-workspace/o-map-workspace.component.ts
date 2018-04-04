@@ -49,7 +49,7 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
     const self = this;
     this.dragulaService.setOptions('layer-bag', {
       moves: function (el, container, handle) {
-        let iconClicked = handle.tagName === 'MD-ICON' && self.parentHasDragHandle(handle);
+        let iconClicked = handle.tagName === 'MAT-ICON' && self.parentHasDragHandle(handle);
         let buttonClicked = handle.tagName === 'BUTTON' && self.parentHasDragHandle(handle);
         return iconClicked || buttonClicked;
       }

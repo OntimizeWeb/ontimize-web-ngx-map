@@ -1,5 +1,5 @@
-<!--<md-content class="workspace-controls">##Controles</md-content>-->
-<md-content [dragula]='"layer-bag"' [dragulaModel]='oSearchableCollection'>
+<!--<mat-content class="workspace-controls">##Controles</mat-content>-->
+<mat-content [dragula]='"layer-bag"' [dragulaModel]='oSearchableCollection'>
 	<o-map-workspace-layer *ngFor="let layer of oSearchableCollection"
 		[layer-selected]              = "layer.selected"
 		[layer-visible]               = "layer.visible"
@@ -11,4 +11,4 @@
 		(onToggleVisibility)          = "onWSLayerVisibilityToggled($event)"
 		(onToggleInWS)                = "onWSLayerInWSToggled($event)">
 	</o-map-workspace-layer>
-</md-content>
+</mat-content>

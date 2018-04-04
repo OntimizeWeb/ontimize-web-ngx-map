@@ -12,8 +12,6 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const OptimizeJsPlugin = require('optimize-js-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -49,10 +47,6 @@ module.exports = function (env) {
     },
 
     plugins: [
-
-      // new OptimizeJsPlugin({
-      //   sourceMap: false
-      // }),
 
       // NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
       new UglifyJsPlugin({

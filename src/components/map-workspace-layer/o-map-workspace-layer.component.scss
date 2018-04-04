@@ -1,4 +1,4 @@
-md-content {
+mat-content {
 	position: relative;
 	margin: 0px;
 	box-shadow: 0 0px 0px 0px;
@@ -9,11 +9,11 @@ md-content {
 	padding: 8px;
 }
 
-md-content.selected {
+mat-content.selected {
 	background: rgba(0, 0, 0, 0.2);
 }
 
-:host(.layer-on-movement) md-content {
+:host(.layer-on-movement) mat-content {
 	margin: 0 8px 8px;
 	box-shadow: 0 4px 8px -4px;
 	border-radius: 4px;

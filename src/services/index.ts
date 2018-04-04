@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { MdIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
 import { TranslateMapService } from './TranslateMapService';
 
 export * from './MapService';
@@ -11,7 +11,7 @@ export function getTranslateMapServiceProvider(injector) {
 }
 
 export const OMAP_PROVIDERS: any = [
-  MdIconRegistry,
+  MatIconRegistry,
   {
     provide: TranslateMapService,
     useFactory: getTranslateMapServiceProvider,

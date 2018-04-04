@@ -1,8 +1,8 @@
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 import { OMapWEvents } from './o-map-w-events.class';
 
 export class OMapWSidenav extends OMapWEvents {
-  sideNavCmp: MdSidenav;
+  sideNavCmp: MatSidenav;
   protected _isSidenavVisible: boolean = false;
 
 	/**

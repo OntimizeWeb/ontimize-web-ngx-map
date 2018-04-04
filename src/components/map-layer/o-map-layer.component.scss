@@ -6,6 +6,12 @@ button.o-map-layer-item {
 	display: flex;
 	line-height: normal;
 	overflow: hidden;
+	> span {
+		display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    width: 100%;
+	}
 }
 
 .layer-icon {
