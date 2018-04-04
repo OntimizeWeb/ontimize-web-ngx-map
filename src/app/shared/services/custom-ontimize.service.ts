@@ -63,7 +63,7 @@ export class CustomOntimizeService extends OntimizeService {
     sqltypes?: Object): Observable<any> {
     entity = (Util.isDefined(entity)) ? entity : this.entity;
 
-    var url = this._urlBase;
+    let url = this._urlBase;
     if (entity === 'EMovements') {
       url += '/emovements.json';
     } else if (entity === 'EMovementTypes') {
@@ -76,30 +76,26 @@ export class CustomOntimizeService extends OntimizeService {
       url += '/eaccounts.json';
     }
 
-    var headers: Headers = new Headers();
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Content-Type', 'application/json;charset=UTF-8');
+    const options = {
+      headers: this.buildHeaders()
+    };
 
-    var self = this;
+    const self = this;
     let innerObserver: any;
-    let dataObservable = new Observable(observer =>
-      innerObserver = observer).share();
+    const dataObservable = new Observable(observer => innerObserver = observer).share();
 
-    this.http
-      .get(url, { headers: headers })
-      .map(response => response.json())
-      .subscribe(resp => {
-        if (resp && resp.code === 3) {
-          self.redirectLogin(true);
-        } else if (resp.code === 1) {
-          innerObserver.error(resp.message);
-        } else if (resp.code === 0) {
-          innerObserver.next(resp);
-        } else {
-          // Unknow state -> error
-          innerObserver.error('Service unavailable');
-        }
-      }, error => innerObserver.error(error),
+    this.httpClient.get(url, options).subscribe((resp: any) => {
+      if (resp && resp.code === 3) {
+        self.redirectLogin(true);
+      } else if (resp.code === 1) {
+        innerObserver.error(resp.message);
+      } else if (resp.code === 0) {
+        innerObserver.next(resp);
+      } else {
+        // Unknow state -> error
+        innerObserver.error('Service unavailable');
+      }
+    }, error => innerObserver.error(error),
       () => innerObserver.complete());
 
     return dataObservable;

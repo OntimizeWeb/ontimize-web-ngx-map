@@ -3,7 +3,10 @@
 @import 'node_modules/ontimize-web-ngx-theming/ontimize-theme.scss';
 @include ontimize-theme-styles($theme);
 
-@import 'node_modules/ontimize-web-ngx/ontimize/components/theming/all-theme.scss';
+// @import 'node_modules/ontimize-web-ngx-theming/ontimize-theme-lite.scss';
+// @include ontimize-theme-styles-lite($theme);
+
+@import 'node_modules/ontimize-web-ngx/theme.scss';
 @include o-material-theme($theme);
 
 @import '../../app/main/main-theme.scss';

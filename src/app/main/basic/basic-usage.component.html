@@ -1,24 +1,24 @@
-<!-- <md-sidenav-container class="example-container" fxFlexFill>
-  <md-sidenav #sidenav id="layers" class="example-sidenav">
-    <md-toolbar>
+<!-- <mat-sidenav-container class="example-container" fxFlexFill>
+  <mat-sidenav #sidenav id="layers" class="example-sidenav">
+    <mat-toolbar>
       <span>First Row</span>
-      <md-toolbar-row>
+      <mat-toolbar-row>
         <span>Second Row</span>
-      </md-toolbar-row>
-      <md-toolbar-row>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
         <span>Third Row</span>
-      </md-toolbar-row>
-    </md-toolbar>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
-<md-toolbar>
+<mat-toolbar>
   <span fxFlex>Base layers</span>
-  <button md-button aria-label="Close" (click)="toggleSidenav()">
-    <md-icon>navigate_before</md-icon>
+  <button mat-button aria-label="Close" (click)="toggleSidenav()">
+    <mat-icon>navigate_before</mat-icon>
   </button>
 
-  <md-toolbar-row>
+  <mat-toolbar-row>
 
-<button md-button md-ink #layer class="o-map-layer-item" (click)="toggleInWS()">
+<button mat-button mat-ink #layer class="o-map-layer-item" (click)="toggleInWS()">
 	<o-toggle-icon-button
 		icon-dark="true"
 		[icon-name]="icon && icon.length>0? icon : 'layers'"
@@ -27,18 +27,18 @@
 	<div fxFlex fxLayout="column" fxLayoutAlign="center start">Layer id<small *ngIf="true">Description</small></div>
 </button>
 
-  </md-toolbar-row>
-</md-toolbar>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-  </md-sidenav>
+  </mat-sidenav>
 
   <div class="example-sidenav-content">
-    <button type="button" md-button (click)="sidenav.open()">
+    <button type="button" mat-button (click)="sidenav.open()">
       Open sidenav
     </button>
   </div>
 
-</md-sidenav-container> -->
+</mat-sidenav-container> -->
 
 <div fxLayoutAlign="center start" layout-margin>
   <example-comp [comp-name]="getBasicUsageId()" [files]="getBasicUsageFiles()" fxFlex="85">
