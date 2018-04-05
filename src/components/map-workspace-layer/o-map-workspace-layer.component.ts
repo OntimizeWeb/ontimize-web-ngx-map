@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, EventEmitter } from '@angular/core';
+import { Component, Inject, forwardRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
 import { OSearchable, OSearchResult } from '../../interfaces';
 
@@ -11,7 +11,8 @@ import { OSearchable, OSearchResult } from '../../interfaces';
     'inWS : layer-in-ws',
     'menuLabel : layer-menu-label',
     'menuLabelSecondary : layer-menu-label-secondary',
-    'refLayer : layer-ref'
+    'refLayer : layer-ref',
+    'layerIndex : layer-index'
   ],
   outputs: [
     'onToggleSelected',
@@ -19,7 +20,11 @@ import { OSearchable, OSearchResult } from '../../interfaces';
     'onToggleInWS'
   ],
   templateUrl: './o-map-workspace-layer.component.html',
-  styleUrls: ['./o-map-workspace-layer.component.scss']
+  styleUrls: ['./o-map-workspace-layer.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.o-map-workspace-layer]': 'true'
+  }
 })
 export class OMapWorkspaceLayerComponent implements OSearchable {
   protected _selected: boolean = false;
@@ -28,6 +33,8 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
   protected _menuLabel: string;
   protected _menuLabelSecondary: string;
   refLayer: OMapLayerComponent;
+  layerIndex: any;
+  dragging: boolean = false;
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
   onToggleSelected: EventEmitter<Object> = new EventEmitter<Object>();
@@ -78,6 +85,15 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
       this.toggleVisible(false, undefined, true);
     }
     this.onToggleInWS.emit(this);
+  }
+
+  onDragStart() {
+    this.dragging = true;
+  }
+
+  onDragEnd() {
+    this.dragging = false;
+    this.refWorkspace.updateMapLayersPosition();
   }
 
   get selected(): boolean {

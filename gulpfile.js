@@ -40,7 +40,7 @@ gulp.task('copy-files', (callback) => {
 /**
  * DEPENDENCIES
  */
-gulp.task('copy-dependencies-assets', ['copy.leaflet.assets', 'copy.leaflet.draw.assets', 'copy.dragula.assets'], (callback) => {
+gulp.task('copy-dependencies-assets', ['copy.leaflet.assets', 'copy.leaflet.draw.assets'], (callback) => {
   gulp.src('./tmp/assets/dependencies/**/*.css')
     .pipe(ext_replace('.scss'))
     .pipe(gulp.dest('./tmp/assets/dependencies/'))
@@ -85,19 +85,6 @@ const LEAFLET_DRAW_IMAGES = [
 
 gulp.task('copy.leaflet.draw.images', (callback) => {
   copyfiles(LEAFLET_DRAW_IMAGES, true, callback);
-});
-
-/**
- * DRAGULA
- */
-
-const DRAGULA_FILES = [
-  'node_modules/dragula/dist/dragula.css',
-  'tmp/assets/dependencies/dragula'
-];
-
-gulp.task('copy.dragula.assets', (callback) => {
-  copyfiles(DRAGULA_FILES, true, callback);
 });
 
 /**
