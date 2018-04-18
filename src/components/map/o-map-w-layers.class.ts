@@ -9,7 +9,7 @@ export class OMapWLayers extends OMapWSidenav {
 
   /**
    * Add multiple LayerGroup configuration objects to OMap
-   * @param {Array<LayerGroupConfiguration>} groups -
+   * @param groups -
    */
   addOMapLayerGroupsConfiguration(groups: Array<LayerGroupConfiguration>) {
     if (!groups || groups.length === 0) return;
@@ -21,7 +21,7 @@ export class OMapWLayers extends OMapWSidenav {
 
   /**
    * Add LayerGroup configuration object to OMap
-   * @param {LayerGroupConfiguration} layerGroup -
+   * @param layerGroup -
    */
   addOMapLayerGroupConfiguration(layerGroup: LayerGroupConfiguration) {
     if (!layerGroup) return;
@@ -36,7 +36,7 @@ export class OMapWLayers extends OMapWSidenav {
 
   /**
    * Add a Layer configuration object to OMap
-   * @param {LayerConfiguration} layer -
+   * @param layer -
    */
   addOMapLayerConfiguration(layer: LayerConfiguration) {
     if (!layer) return;

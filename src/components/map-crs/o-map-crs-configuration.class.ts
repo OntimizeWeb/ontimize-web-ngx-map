@@ -1,6 +1,6 @@
 
 import * as L from 'leaflet';
-import { OMapLayerComponent/*, OMapComponent*/ } from '../../components/index';
+import { OMapLayerComponent/*, OMapComponent*/ } from '../../components';
 import { OMapCrsComponent } from './o-map-crs.component';
 
 

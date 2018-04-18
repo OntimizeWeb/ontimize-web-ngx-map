@@ -1,10 +1,10 @@
 import { Injector } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
-import { TranslateMapService } from './TranslateMapService';
+import { TranslateMapService } from './services/TranslateMapService';
 
-export * from './MapService';
-export * from './GeocodingService';
-export * from './TranslateMapService';
+export * from './services/MapService';
+export * from './services/GeocodingService';
+export * from './services/TranslateMapService';
 
 export function getTranslateMapServiceProvider(injector) {
   return new TranslateMapService(injector);

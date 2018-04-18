@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Inject, forwardRef, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { OMapComponent, OMapLayerComponent } from '../../components';
@@ -15,7 +15,7 @@ import { OSearcher, OSearchable } from '../../interfaces';
   templateUrl: './o-map-workspace.component.html',
   styleUrls: ['./o-map-workspace.component.scss']
 })
-export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
+export class OMapWorkspaceComponent implements OSearcher {
 
   protected wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
 
@@ -37,9 +37,6 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
   ) {
   }
 
-  ngOnInit() {
-  }
-
   private parentHasDragHandle(element: any): boolean {
     let result = false;
     let parent = element.parentNode;
@@ -55,13 +52,10 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
     return result;
   }
 
-  ngOnDestroy() {
-  }
-
 	/**
 	 * OSearcher implementation
 	 */
-  search(oSearchValue: string): Observable<Array<OSearchable>> {
+  search(_oSearchValue: string): Observable<Array<OSearchable>> {
     let subject = new Subject<Array<OSearchable>>();
     setTimeout(() => subject.next(this.oSearchableCollection), 1);
     return subject.asObservable();

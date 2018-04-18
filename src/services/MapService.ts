@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Injector } from '@angular/core';
 import { BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
-
+declare var require: any;
 require('leaflet-draw');
 require('leaflet-providers');
 require('leaflet.markercluster');
@@ -47,8 +47,8 @@ export class MapService {
 
 	/**
 	 * Gets or creates the map
-	 * @param  {string} id Id of the map
-	 * @param  {L.Map.MapOptions} options Leaflet option for the map
+	 * @param id Id of the map
+	 * @param options Leaflet option for the map
 	 */
   getMap(id?: string, options?: L.Map.MapOptions): Map {
     if (!!id && !this.map) {
@@ -59,8 +59,8 @@ export class MapService {
 
 	/**
 	 * Sets center of map.
-	 * @param  {number} latitude Center latitude.
-	 * @param  {number} longitude  Center longitude.
+	 * @param latitude Center latitude.
+	 * @param longitude  Center longitude.
 	 */
   setCenter(latitude: number, longitude: number) {
     this.map.setView([latitude, longitude]);
@@ -76,7 +76,7 @@ export class MapService {
 
 	/**
 	 * Sets map zoom.
-	 * @param  {number} zoom  Zoom value
+	 * @param zoom  Zoom value
 	 */
   setZoom(zoom: number) {
     this.map.setZoom(zoom);
@@ -764,7 +764,7 @@ export class MapService {
     }
 
     var geoJson = L.geoJson(d, {
-      pointToLayer: function (feature, latlng) {
+      pointToLayer: function (_feature, latlng) {
         if (customIcon) {
           return L.marker(latlng, {
             icon: customIcon

@@ -38,9 +38,9 @@ export class OMapLayerFactory {
 
   /**
    * Creates marker and adds it to map.
-   * @param  {LayerConfiguration} layerConf
+   * @param  layerConf
    *          Layer configuration parameters.
-   * @param  {MapService} mapService
+   * @param  mapService
    *          Reference to map service responsible of interact with leaflet map object.
    * @return L.Marker layer.
    */
@@ -62,9 +62,9 @@ export class OMapLayerFactory {
 
   /**
    * Creates GeoJSON layer and adds it to map.
-   * @param  {LayerConfiguration} layerConf
+   * @param  layerConf
    *          Layer configuration parameters.
-   * @param  {MapService} mapService
+   * @param  mapService
    *          Reference to map service responsible of interact with leaflet map object.
    * @returns L.GeoJSON layer.
    */
@@ -95,9 +95,9 @@ export class OMapLayerFactory {
 
   /**
    * Creates WMS layer and adds it to map.
-   * @param  {LayerConfiguration} layerConf
+   * @param   layerConf
    *          Layer configuration parameters.
-   * @param  {MapService} mapService
+   * @param   mapService
    *          Reference to map service responsible of interact with leaflet map object.
    * @returns L.TileLayer.WMS layer
    */

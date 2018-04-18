@@ -42,7 +42,7 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
 
 	/**
 	 * Transforms baseLayers url to the same tile
-	 * @param {BaseLayer} baseLayer - The baseLayer to transform
+	 * @param baseLayer - The baseLayer to transform
 	 * @return {BaseLayer}
 	 */
   private buildBaseLayerUrl(bL: BaseLayer): BaseLayer {

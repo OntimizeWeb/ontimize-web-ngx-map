@@ -22,7 +22,7 @@ export class Util {
 
 	/**
 	 * Checks wether specified service as argument implements 'ILayerService' interface
-	 * @param  {any} arg The service instance for checking.
+	 * @param arg The service instance for checking.
 	 * @returns boolean
 	 */
   static isLayerService(arg: any): arg is ILayerService {

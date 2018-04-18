@@ -27,7 +27,7 @@ export class ONavigatorItemComponent {
 
 	/**
 	 * Extracts the true status icon, if any
-	 * @param {OSearchResultAction} button - The button to extract the icon from
+	 * @param button - The button to extract the icon from
 	 * @return {string} The first string in the array
 	 */
   trueStatusIcon(button: OSearchResultAction): string {
@@ -35,7 +35,7 @@ export class ONavigatorItemComponent {
   }
 	/**
 	 * Extracts the false status icon, if any
-	 * @param {OSearchResultAction} button - The button to extract the icon from
+	 * @param button - The button to extract the icon from
 	 * @return {string} The last string in the array
 	 */
   falseStatusIcon(button: OSearchResultAction): string {
