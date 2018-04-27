@@ -6,11 +6,11 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
 
   constructor() {
     super();
-		/**
-		 * When configuration is triggered this subscription:
-		 * - creates a Leaflet layer panel
-		 * - adds baseLayers to map
-		 */
+    /**
+       * When configuration is triggered this subscription:
+       * - creates a Leaflet layer panel
+       * - adds baseLayers to map
+       */
     this.onMapConfigured().subscribe(() => {
       this.getMapService().uploadBaseLayers();
       let bLayers = this.getMapService().baseLayers.getBaseLayers();
@@ -21,9 +21,9 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
     });
   }
 
-	/**
+  /**
 	 * Look for changes on MapService baseLayers
-	 * @return {Array<BaseLayer>}
+	 * @return
 	 */
   get baseLayers(): Array<BaseLayer> {
     let newBaseLayerGroup = this.getMapService().baseLayers.getBaseLayers();
@@ -33,17 +33,17 @@ export class OMapWBaseLayer extends OMapWMarkerCluster {
     return this.baseLayersGroup;
   }
 
-	/**
+  /**
 	 * Makes all baseLayers inactive
 	 */
   unselectBaseLayers() {
     this.mapBaseLayerGroup.forEach(bL => bL.active = false);
   }
 
-	/**
+  /**
 	 * Transforms baseLayers url to the same tile
 	 * @param baseLayer - The baseLayer to transform
-	 * @return {BaseLayer}
+	 * @return
 	 */
   private buildBaseLayerUrl(bL: BaseLayer): BaseLayer {
     let url = bL.urlTemplate.replace('{s}', 'b').replace('{x}', '974').replace('{y}', '758').replace('{z}', '11');
