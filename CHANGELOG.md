@@ -9,7 +9,7 @@
 * **Updated**:  core-js@2.5.3
 * **Updated**:  rxjs@5.5.6
 * **Updated**:  zone.js@0.8.20
-* **Updated**:  lodash@4.17.4
+* **Removed**:  lodash@4.17.4
 
 ### Features
 * **OntimizeWeb**: using '*ontimize-web-ngx@3.0.0-rc.0*' ([8ab87f6](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/8ab87f6))
