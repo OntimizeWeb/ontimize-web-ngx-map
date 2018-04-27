@@ -12,7 +12,7 @@ const SCSS_CONF = {
   DIST: './dist'
 };
 
-gulp.task('map.styles', ['map-styles-copy'], (callback) => {
+gulp.task('styles', ['map-styles-copy'], (callback) => {
   return gulp.src(SCSS_CONF.SRC)
     .pipe(cssimport(SCSS_CONF.OPTIONS))
     .pipe(gulp.dest(SCSS_CONF.DIST));
@@ -32,10 +32,11 @@ const FILES = [
   'dist'
 ];
 
-gulp.task('copy-files', (callback) => {
+gulp.task('copy-files', ['copy-files-array', 'copy-dependencies-assets']);
+
+gulp.task('copy-files-array', (callback) => {
   copyfiles(FILES, true, callback);
 });
-
 
 /**
  * DEPENDENCIES

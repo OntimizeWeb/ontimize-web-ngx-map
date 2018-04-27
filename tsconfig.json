@@ -15,11 +15,21 @@
     "noUnusedParameters": true,
     "pretty": true,
     "stripInternal": true,
+    "allowSyntheticDefaultImports": true,
     // "sourceMap": false,
     // "inlineSourceMap": false,
     // "inlineSources": false,
     "outDir": "dist",
     "types": [
+
+      "leaflet",
+      "leaflet-draw",
+      "leaflet-providers",
+      "leaflet.markercluster",
+      "leaflet.heat",
+      "proj4",
+      "proj4leaflet",
+      "hammerjs",
       "node"
     ],
     "typeRoots": [
