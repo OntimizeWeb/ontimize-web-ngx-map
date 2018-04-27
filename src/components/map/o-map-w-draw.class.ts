@@ -28,7 +28,7 @@ export class OMapWDraw extends OMapWWorkspace {
     let mapService: MapService = this.getMapService();
     mapService.addDrawLayer(editableLayers);
 
-    var options: L.Control.IDrawConstructorOptions = {
+    var options: L.Control.DrawConstructorOptions = {
       position: 'topright',
       draw: {
         polygon: {

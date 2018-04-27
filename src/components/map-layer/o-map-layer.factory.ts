@@ -5,7 +5,7 @@ import * as L from 'leaflet';
 
 export class OMapLayerFactory {
 
-  public createMapLayer(layerConf: LayerConfiguration, mapService: MapService): L.ILayer {
+  public createMapLayer(layerConf: LayerConfiguration, mapService: MapService): L.Layer {
     let layer;
     switch (layerConf.type) {
       case 'marker':
@@ -99,7 +99,7 @@ export class OMapLayerFactory {
    *          Layer configuration parameters.
    * @param   mapService
    *          Reference to map service responsible of interact with leaflet map object.
-   * @returns L.TileLayer.WMS layer
+   * @returns  layer
    */
   public createWMS(layerConf: LayerConfiguration, mapService: MapService): L.TileLayer.WMS {
     var id = null;

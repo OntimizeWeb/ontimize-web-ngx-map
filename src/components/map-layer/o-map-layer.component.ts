@@ -73,7 +73,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
 
-  layer: L.ILayer;
+  layer: L.Layer;
   protected layerConf: LayerConfiguration;
 
   private rendered: boolean = null;
@@ -301,10 +301,10 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     this.oMap.mapWorkspace.updateMapLayers();
   }
 
-	/**
-	 * @see('http://leafletjs.com/reference.html#map-events')
-	 * @returns void
-	 */
+  /**
+     * @see('http://leafletjs.com/reference.html#map-events')
+     * @returns void
+     */
   bindLayerEvents(): void {
     var self = this;
     if (Util.isTileLayer(this.layer)) {
