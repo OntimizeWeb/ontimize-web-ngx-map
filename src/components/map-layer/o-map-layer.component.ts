@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -37,7 +37,8 @@ import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-
     'crsConfiguration : crs-configuration'
   ],
   templateUrl: './o-map-layer.component.html',
-  styleUrls: ['./o-map-layer.component.scss']
+  styleUrls: ['./o-map-layer.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   sCenter: string;
@@ -72,7 +73,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
 
-  layer: L.ILayer;
+  layer: L.Layer;
   protected layerConf: LayerConfiguration;
 
   private rendered: boolean = null;
@@ -300,10 +301,10 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     this.oMap.mapWorkspace.updateMapLayers();
   }
 
-	/**
-	 * @see('http://leafletjs.com/reference.html#map-events')
-	 * @returns void
-	 */
+  /**
+     * @see('http://leafletjs.com/reference.html#map-events')
+     * @returns void
+     */
   bindLayerEvents(): void {
     var self = this;
     if (Util.isTileLayer(this.layer)) {

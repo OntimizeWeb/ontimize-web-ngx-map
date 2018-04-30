@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const sass = require('node-sass');
 const inlineTemplates = require('gulp-inline-ng2-template');
 const exec = require('child_process').exec;
-const htmlMinifier = require("html-minifier");/*!!!!*/
 const copyfiles = require('copyfiles');
 const cssimport = require("gulp-cssimport");
 const replace = require('gulp-replace');
@@ -13,7 +12,7 @@ const SCSS_CONF = {
   DIST: './dist'
 };
 
-gulp.task('map.styles', ['map-styles-copy'], (callback) => {
+gulp.task('styles', ['map-styles-copy'], (callback) => {
   return gulp.src(SCSS_CONF.SRC)
     .pipe(cssimport(SCSS_CONF.OPTIONS))
     .pipe(gulp.dest(SCSS_CONF.DIST));
@@ -33,15 +32,16 @@ const FILES = [
   'dist'
 ];
 
-gulp.task('copy-files', (callback) => {
+gulp.task('copy-files', ['copy-files-array', 'copy-dependencies-assets']);
+
+gulp.task('copy-files-array', (callback) => {
   copyfiles(FILES, true, callback);
 });
-
 
 /**
  * DEPENDENCIES
  */
-gulp.task('copy-dependencies-assets', ['copy.leaflet.assets', 'copy.leaflet.draw.assets', 'copy.dragula.assets'], (callback) => {
+gulp.task('copy-dependencies-assets', ['copy.leaflet.assets', 'copy.leaflet.draw.assets'], (callback) => {
   gulp.src('./tmp/assets/dependencies/**/*.css')
     .pipe(ext_replace('.scss'))
     .pipe(gulp.dest('./tmp/assets/dependencies/'))
@@ -86,19 +86,6 @@ const LEAFLET_DRAW_IMAGES = [
 
 gulp.task('copy.leaflet.draw.images', (callback) => {
   copyfiles(LEAFLET_DRAW_IMAGES, true, callback);
-});
-
-/**
- * DRAGULA
- */
-
-const DRAGULA_FILES = [
-  'node_modules/dragula/dist/dragula.css',
-  'tmp/assets/dependencies/dragula'
-];
-
-gulp.task('copy.dragula.assets', (callback) => {
-  copyfiles(DRAGULA_FILES, true, callback);
 });
 
 /**

@@ -23,7 +23,7 @@ export class OMapBase {
 
 	/**
 	 * Get individual layer
-	 * @param {string} layerId - Id of the layer to find
+	 * @param layerId - Id of the layer to find
 	 */
   public getOMapLayer(layerId: string): OMapLayerComponent {
     return this.mapLayers.filter(layer => layer.layerId === layerId).shift();
@@ -40,7 +40,7 @@ export class OMapBase {
 	 * Add a new layer
 	 * ####TODO
 	 * - Change to an Add-Or-Update pattern
-	 * @param {OMapLayerComponent} layer - The layer to add
+	 * @param layer - The layer to add
 	 */
   public addOMapLayer(layer: OMapLayerComponent) {
     this.mapLayers.push(layer);
@@ -70,7 +70,7 @@ export class OMapBase {
 	/**
 	 * Set center from a coma separated coordinates 'latitude, longitude' string.
 	 * Accepted ',' and ';'
-	 * @param {string} sCenter - 'latitude, longitude' string
+	 * @param sCenter - 'latitude, longitude' string
 	 */
   public setCenter(sCenter: string) {
     if (Util.isBlank(sCenter)) {

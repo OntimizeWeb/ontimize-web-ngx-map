@@ -1,13 +1,11 @@
-import { Component, Inject, forwardRef, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Inject, forwardRef, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { OMapComponent, OMapLayerComponent } from '../../components';
 import { OSearcher, OSearchable } from '../../interfaces';
 
 @Component({
   selector: 'o-map-workspace',
-  providers: [{ provide: 'DragulaService', useClass: DragulaService }],
   inputs: [],
   outputs: [
     'onToggleWSLayerSelected',
@@ -17,7 +15,7 @@ import { OSearcher, OSearchable } from '../../interfaces';
   templateUrl: './o-map-workspace.component.html',
   styleUrls: ['./o-map-workspace.component.scss']
 })
-export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
+export class OMapWorkspaceComponent implements OSearcher {
 
   protected wsMapLayers: Array<OMapLayerComponent> = new Array<OMapLayerComponent>();
 
@@ -35,25 +33,8 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
   onToggleWSLayerInWS: EventEmitter<Object> = new EventEmitter<Object>();
 
   constructor(
-    @Inject(forwardRef(() => OMapComponent)) private map: OMapComponent,
-    private dragulaService: DragulaService
+    @Inject(forwardRef(() => OMapComponent)) private map: OMapComponent
   ) {
-    dragulaService.over.subscribe(value => this.onOver(value.slice(1)));
-    dragulaService.out.subscribe(value => this.onOut(value.slice(1)));
-  }
-
-  ngOnInit() {
-    if (this.dragulaService.find('layer-bag')) {
-      this.dragulaService.destroy('layer-bag');
-    }
-    const self = this;
-    this.dragulaService.setOptions('layer-bag', {
-      moves: function (el, container, handle) {
-        let iconClicked = handle.tagName === 'MD-ICON' && self.parentHasDragHandle(handle);
-        let buttonClicked = handle.tagName === 'BUTTON' && self.parentHasDragHandle(handle);
-        return iconClicked || buttonClicked;
-      }
-    });
   }
 
   private parentHasDragHandle(element: any): boolean {
@@ -71,16 +52,10 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
     return result;
   }
 
-  ngOnDestroy() {
-    if (this.dragulaService.find('layer-bag')) {
-      this.dragulaService.destroy('layer-bag');
-    }
-  }
-
 	/**
 	 * OSearcher implementation
 	 */
-  search(oSearchValue: string): Observable<Array<OSearchable>> {
+  search(_oSearchValue: string): Observable<Array<OSearchable>> {
     let subject = new Subject<Array<OSearchable>>();
     setTimeout(() => subject.next(this.oSearchableCollection), 1);
     return subject.asObservable();
@@ -124,23 +99,10 @@ export class OMapWorkspaceComponent implements OnInit, OnDestroy, OSearcher {
     this.onToggleWSLayerInWS.emit(event);
   }
 
-  private updateMapLayersPosition() {
+  updateMapLayersPosition() {
     var zMax = this.wsMapLayers.length;
     this.wsMapLayers.forEach((l, i) => {
       l.setZIndex(zMax - i + 2);
     });
-  }
-
-  private onOver(args) {
-    // let [e, el, container] = args;
-    let e = args[0];
-    e.classList.add('layer-on-movement');
-  }
-
-  private onOut(args) {
-    let e = args[0];
-    // let [e, el, container] = args;
-    e.classList.remove('layer-on-movement');
-    this.updateMapLayersPosition();
   }
 }

@@ -29,19 +29,19 @@ export class ONavigatorComponent extends ONavigatorDefault {
     @Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
   ) {
     super(geocoder, translateMapService, oMap);
-    if (this.oMap.waitForBuild) {
-      this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-        //this.oMap.getMapService().disableMouseEvent('goto');
-        this.oMap.getMapService().disableMouseEvent('place-input');
-      });
-    }
+    // if (this.oMap.waitForBuild) {
+    this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
+      //this.oMap.getMapService().disableMouseEvent('goto');
+      this.oMap.getMapService().disableMouseEvent('place-input');
+    });
+    // }
   }
 
   ngOnInit() {
-    if (!this.oMap.waitForBuild) {
-      //this.oMap.getMapService().disableMouseEvent('goto');
-      this.oMap.getMapService().disableMouseEvent('place-input');
-    }
+    // if (!this.oMap.waitForBuild) {
+    //   //this.oMap.getMapService().disableMouseEvent('goto');
+    //   this.oMap.getMapService().disableMouseEvent('place-input');
+    // }
   }
 
   ngOnDestroy() {

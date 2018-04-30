@@ -1,16 +1,5 @@
 import { Component, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import {
-  polylineOptions,
-  polygonOptions,
-  rectangleOptions,
-  circleOptions,
-  markerOptions,
-  DrawOptions,
-  EditPolyOptions,
-  EditHandlerOptions,
-  DeleteHandlerOptions
-} from 'leaflet-draw';
 
 import * as L from 'leaflet';
 import { OMapComponent } from '../../components';
@@ -57,21 +46,22 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
   // https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html
 
   // DrawOptions
-  protected polylineOptions: polylineOptions = {};
-  protected polygonOptions: polygonOptions = {};
-  protected rectangleOptions: rectangleOptions = {};
-  protected circleOptions: circleOptions = {};
-  protected markerOptions: markerOptions = {};
+
+  protected polylineOptions: L.DrawOptions.PolylineOptions | boolean = {};
+  protected polygonOptions: L.DrawOptions.PolygonOptions | boolean = {};
+  protected rectangleOptions: L.DrawOptions.RectangleOptions | boolean = {};
+  protected circleOptions: L.DrawOptions.CircleOptions | boolean = {};
+  protected markerOptions: L.DrawOptions.MarkerOptions | boolean = {};
   protected circleMarkerOptions = {};
 
   // EditPolyOptions
-  protected editPolyOptions: EditPolyOptions = {};
-  // EditHandlerOptions
-  protected editHandlerOptions: EditHandlerOptions = {};
-  // DeleteHandlerOptions
-  protected deleteHandlerOptions: DeleteHandlerOptions = {};
+  protected editPolyOptions: any = {};
 
-  protected options: L.Control.IDrawConstructorOptions;
+  protected editHandlerOptions: any = {};
+
+  protected deleteHandlerOptions: any = {};
+
+  protected options: any;
 
   drawControlEvents: OMapDrawControlsEvents;
 
@@ -150,7 +140,7 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
       position: this.position
     };
 
-    let drawOptions: DrawOptions = {
+    let drawOptions: any = {
       polyline: this.polylineOptions,
       polygon: this.polygonOptions,
       rectangle: this.rectangleOptions,

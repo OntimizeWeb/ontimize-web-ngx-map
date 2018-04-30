@@ -2,13 +2,11 @@ import { Injectable, EventEmitter, Injector } from '@angular/core';
 import { BaseLayerCollection } from '../core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
-
-require('leaflet-draw');
-require('leaflet-providers');
-require('leaflet.markercluster');
-require('leaflet.heat');
-require('proj4');
-require('proj4leaflet');
+import 'leaflet-draw';
+import 'leaflet-providers';
+import 'leaflet.markercluster';
+import 'leaflet.heat';
+import 'proj4leaflet';
 
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
@@ -22,7 +20,7 @@ export class MapService {
   layers: Object = {};
   controls: Object = {};
   baseLayers: BaseLayerCollection = new BaseLayerCollection();
-  overlayMaps: Object = {};
+  overlayMaps: L.Control.LayersObject = {};
   iconTypes: Object = {};
 
   drawLayerId: string;
@@ -45,28 +43,28 @@ export class MapService {
     L.DomEvent.on(html, 'mousewheel', L.DomEvent.stopPropagation);
   }
 
-	/**
+  /**
 	 * Gets or creates the map
-	 * @param  {string} id Id of the map
-	 * @param  {L.Map.MapOptions} options Leaflet option for the map
+	 * @param id Id of the map
+	 * @param options Leaflet option for the map
 	 */
-  getMap(id?: string, options?: L.Map.MapOptions): Map {
+  getMap(id?: string, options?: L.MapOptions): Map {
     if (!!id && !this.map) {
       this.map = new L.Map(id, options);
     }
     return this.map;
   }
 
-	/**
+  /**
 	 * Sets center of map.
-	 * @param  {number} latitude Center latitude.
-	 * @param  {number} longitude  Center longitude.
+	 * @param latitude Center latitude.
+	 * @param longitude  Center longitude.
 	 */
   setCenter(latitude: number, longitude: number) {
-    this.map.setView([latitude, longitude]);
+    this.map.setView([latitude, longitude], this.map.getZoom());
   }
 
-	/**
+  /**
 	 * Returns the geographical center of the map view.
 	 * @return Map center geographical coordinates.
 	 */
@@ -74,15 +72,15 @@ export class MapService {
     return this.map.getCenter();
   }
 
-	/**
+  /**
 	 * Sets map zoom.
-	 * @param  {number} zoom  Zoom value
+	 * @param zoom  Zoom value
 	 */
   setZoom(zoom: number) {
     this.map.setZoom(zoom);
   }
 
-	/**
+  /**
 	* Returns map current zoom.
 	* @return Map zoom.
 	*/
@@ -90,7 +88,7 @@ export class MapService {
     return this.getZoom();
   }
 
-	/**
+  /**
 	 * Adds a layer (tiles, marker, circle, polygon...) to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -171,7 +169,7 @@ export class MapService {
   getDrawLayer() {
     return this.overlayMaps[this.layers[this.drawLayerId]];
   }
-	/**
+  /**
 	 * Configures default base layers of the map
 	 * @param baseLayerIds Array of base layer identifiers ('OpenStreetMap' | 'Esri' | 'CartoDB' ...)
 	 *	@see https://github.com/leaflet-extras/leaflet-providers#providers
@@ -193,7 +191,7 @@ export class MapService {
     }
   }
 
-	/**
+  /**
 	 * Selects a layer by adding it again to the map
 	 * @param id Unique identifier
 	 */
@@ -207,7 +205,7 @@ export class MapService {
     }
   }
 
-	/**
+  /**
 	 * Upload base layers in the map
 	 */
   uploadBaseLayers() {
@@ -216,7 +214,7 @@ export class MapService {
     this.controls[LAYERS_CONTROL_ID] = L.control.layers(lM).addTo(this.getMap());
   }
 
-	/**
+  /**
 	 * Deletes all base layers.
 	 */
   clearBaseLayers(): void {
@@ -229,7 +227,7 @@ export class MapService {
     }
   }
 
-	/**
+  /**
 	 * Removes a layer (tiles, marker, circle, polygon...) from the map.
 	 * @param id
 	 *          Unique identifier.
@@ -258,7 +256,7 @@ export class MapService {
     return success;
   }
 
-	/**
+  /**
 	 * Deletes all layers.
 	 */
   clearLayers(): void {
@@ -270,7 +268,7 @@ export class MapService {
     this.layers = {};
   }
 
-	/**
+  /**
 	 * Returns concrete map layer.
 	 * @param id
 	 *          Layer identifier.
@@ -289,7 +287,7 @@ export class MapService {
     return layer;
   }
 
-	/**
+  /**
 	* Creates Leaflet icon type, which can be used to create new icons.
 	* @param id
 	*          Unique identifier.
@@ -304,7 +302,7 @@ export class MapService {
     return this.iconTypes[id];
   }
 
-	/**
+  /**
 	 * Creates Leaflet icon, which can be used in layers.
 	 * @param options
 	 *          Object with options (http://leafletjs.com/reference.html#icon-options).
@@ -325,7 +323,7 @@ export class MapService {
     return icon;
   }
 
-	/**
+  /**
 	* Adds a tile layer to the map.
 	* @param id
 	*          Unique identifier.
@@ -349,7 +347,7 @@ export class MapService {
 
     // try {
     //   // First, search into known providers
-    //   tileLayer = L.tileLayer.provider(template, options);
+    //   tileLayer = TileLayer.provider(template, options);
     // } catch (e) {
     // If not found, try to create new tile layer
     tileLayer = new L.TileLayer(template, options);
@@ -363,7 +361,7 @@ export class MapService {
     return tileLayer;
   }
 
-	/**
+  /**
 	 * Used to display WMS services as tile layers on the map.
 	 * @param id
 	 *          Unique identifier.
@@ -389,7 +387,7 @@ export class MapService {
     return tileLayerWMS;
   }
 
-	/**
+  /**
 	 * Adds a marker to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -425,7 +423,7 @@ export class MapService {
     return marker;
   }
 
-	/**
+  /**
 	 * Displays a single image over specific bounds of the map.
 	 * @param id
 	 *          Unique identifier.
@@ -468,7 +466,7 @@ export class MapService {
     return image;
   }
 
-	/**
+  /**
 	 * Adds a polyline to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -486,9 +484,9 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added polyline.
 	 */
-  addPolyline(id, points, options, popup, hidden, showInMenu, menuLabel) {
+  addPolyline(id, points, options, popup, hidden, showInMenu, menuLabel): L.Polyline<any> {
     // Create new polyline
-    var polyline = new L.Polyline(points, options);
+    var polyline: L.Polyline<any> = new L.Polyline(points, options);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
@@ -501,7 +499,7 @@ export class MapService {
     return polyline;
   }
 
-	/**
+  /**
 	 * Adds a multi-polyline to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -521,7 +519,8 @@ export class MapService {
 	 */
   addMultiPolyline(id, points, options, popup, hidden, showInMenu, menuLabel) {
     // Create new multi-polyline
-    var multiPolyline = new L.MultiPolyline(points, options);
+
+    var multiPolyline = new multiPolyline(points, options);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
@@ -534,7 +533,7 @@ export class MapService {
     return multiPolyline;
   }
 
-	/**
+  /**
 	 * Adds a polygon to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -567,7 +566,7 @@ export class MapService {
     return polygon;
   }
 
-	/**
+  /**
 	 * Adds a multi-polygon to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -587,7 +586,7 @@ export class MapService {
 	 */
   addMultiPolygon(id, points, options, popup, hidden, showInMenu, menuLabel) {
     // Create new multi-polygon
-    var multiPolygon = new L.MultiPolygon(points, options);
+    var multiPolygon = new multiPolygon(points, options);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
@@ -600,7 +599,7 @@ export class MapService {
     return multiPolygon;
   }
 
-	/**
+  /**
 	 * Adds a rectangle to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -640,7 +639,7 @@ export class MapService {
     return rectangle;
   }
 
-	/**
+  /**
 	 * Adds a circle to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -677,7 +676,7 @@ export class MapService {
     return circle;
   }
 
-	/**
+  /**
 	 * Adds a layer group to the map.
 	 * @param id
 	 *          Unique identifier.
@@ -701,7 +700,7 @@ export class MapService {
     return layerGroup;
   }
 
-	/**
+  /**
 	 * Adds a extended layer group that also has mouse events (propagated from members of the group) and a shared
 	 * bindPopup method.
 	 * @param id
@@ -733,7 +732,7 @@ export class MapService {
     return featureGroup;
   }
 
-	/**
+  /**
 	 * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
 	 * @param id
 	 *          Unique identifier.
@@ -763,8 +762,8 @@ export class MapService {
       });
     }
 
-    var geoJson = L.geoJson(d, {
-      pointToLayer: function (feature, latlng) {
+    var geoJson = L.geoJSON(d, {
+      pointToLayer: function (_feature, latlng) {
         if (customIcon) {
           return L.marker(latlng, {
             icon: customIcon

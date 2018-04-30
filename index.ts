@@ -1,10 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MdIconModule, MdSidenavModule } from '@angular/material';
-import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-import { OCustomMaterialModule } from 'ontimize-web-ngx';
+import { MatIconModule, MatSidenavModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { OCustomMaterialModule } from 'ontimize-web-ngx';
+import { DndModule } from 'ng2-dnd';
 
 import { OMAP_DIRECTIVES } from './src/components';
 import { OMAP_PROVIDERS } from './src/services';
@@ -18,11 +18,11 @@ export * from './src/components';
   imports: [
     CommonModule,
     FormsModule,
-    MdIconModule,
-    MdSidenavModule,
-    DragulaModule,
+    MatIconModule,
+    MatSidenavModule,
     OCustomMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    DndModule.forRoot()
   ],
   declarations: OMAP_DIRECTIVES,
   exports: OMAP_DIRECTIVES,

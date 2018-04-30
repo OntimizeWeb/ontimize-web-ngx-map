@@ -1,5 +1,6 @@
 import { ILayerService } from '../interfaces';
 import * as L from 'leaflet';
+// import { TileLayer } from 'leaflet';
 
 export class Util {
   static parseBoolean(value: string, defaultValue?: boolean): boolean {
@@ -20,11 +21,11 @@ export class Util {
     return [];
   }
 
-	/**
-	 * Checks wether specified service as argument implements 'ILayerService' interface
-	 * @param  {any} arg The service instance for checking.
-	 * @returns boolean
-	 */
+  /**
+     * Checks wether specified service as argument implements 'ILayerService' interface
+     * @param arg The service instance for checking.
+     * @returns boolean
+     */
   static isLayerService(arg: any): arg is ILayerService {
     return arg && ((arg as ILayerService).load !== undefined);
   }
@@ -34,8 +35,7 @@ export class Util {
   }
 
   static isTileLayer(arg: any): arg is L.TileLayer {
-    return arg && ((arg as L.TileLayer).setZIndex !== undefined &&
-      (arg as L.TileLayer).on !== undefined);
+    return arg && ((arg as L.TileLayer).setZIndex !== undefined && (arg as L.TileLayer).on !== undefined);
   }
 
   static isBlank(value: any): boolean {

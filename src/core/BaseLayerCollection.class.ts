@@ -25,6 +25,7 @@ export class BaseLayerCollection {
     } else if (layer instanceof L.TileLayer) {
       return layer;
     }
+    return undefined;
   }
 
   getBaseLayers(): Array<BaseLayer> {
@@ -33,8 +34,8 @@ export class BaseLayerCollection {
       .filter(l => l instanceof BaseLayerDefault);
   }
 
-  getLayersMap(): Object {
-    let map = {};
+  getLayersMap(): L.Control.LayersObject {
+    let map: L.Control.LayersObject = {};
     this.baseMapsOrderedList.forEach(k => {
       //TODO translate 'k' for showing pretty name at control panel
       map[k] = this.getTileLayer(k);

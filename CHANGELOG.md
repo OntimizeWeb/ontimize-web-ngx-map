@@ -1,3 +1,24 @@
+##3.0.0-rc.0 (2018-04-30)
+
+### DEPENDENCY UPDATES ###
+* **Removed**:  dragula@^3.7.2
+* **Removed**:  ng2-dragula@1.3.1
+* **Added**  :  ng2-dnd@5.0.2
+
+### PEER-DEPENDENCY UPDATES ###
+* **Updated**:  core-js@2.5.3
+* **Updated**:  rxjs@5.5.6
+* **Updated**:  zone.js@0.8.20
+* **Removed**:  lodash@4.17.4
+
+### Features
+* **OntimizeWeb**: using '*ontimize-web-ngx@3.0.0-rc.0*' ([8ab87f6](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/8ab87f6))
+* **Angular and Angular Material**: updating versions ([8ab87f6](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/8ab87f6))
+
+### BREAKING CHANGES
+* **devDependencies**: updating and removing unnecesary dependencies ([1aae84b](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/1aae84b))
+* **ng2-dnd**: Using '*ng2-dnd'* for draggable workspace layer components (change should be transparent to user) ([3e7ccc8](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/3e7ccc8))
+
 ## 2.0.4 (2017-12-21)
 
 ### Bug Fixes

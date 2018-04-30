@@ -2,18 +2,18 @@
 	TODO replace this div with o-frame if it goes into the framework
 	Frame to create the sidebar
 -->
-<md-sidenav-container fxFlexFill>
-  <md-sidenav #sidenav id="layers" name="layers" mode="side" [opened]="isSidenavVisible">
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav id="layers" name="layers" mode="side" [opened]="isSidenavVisible">
     <div fxLayout="column" fxFlexFill fxLayoutAlign="start stretch">
       <!--
         Header for Layer Base
       -->
-      <md-toolbar>
+      <mat-toolbar>
         <span fxFlex>{{ getText('MAP_BASE_LAYERS') }}</span>
-        <button md-button aria-label="Close" (click)="toggleSidenav()">
-          <md-icon>navigate_before</md-icon>
+        <button mat-button aria-label="Close" (click)="toggleSidenav()">
+          <mat-icon>navigate_before</mat-icon>
         </button>
-      </md-toolbar>
+      </mat-toolbar>
       <!--
         TODO replace this div with o-grid if it goes into the framework
         Block with a grid of Base Layers
@@ -25,9 +25,9 @@
       <!--
         Header for Layers
       -->
-      <md-toolbar>
+      <mat-toolbar>
         <span fxFlex>{{ getText('MAP_LAYERS') }}</span>
-      </md-toolbar>
+      </mat-toolbar>
       <!--
         TODO replace this div with o-tree-list if it goes into the framework
         Block with a hierarquical list of Layers and LayerGroups
@@ -40,9 +40,9 @@
       <!--
         Header for Workspace
       -->
-      <md-toolbar>
+      <mat-toolbar>
         <span fxFlex>{{ getText('MAP_WORKSPACE_LAYERS') }}</span>
-      </md-toolbar>
+      </mat-toolbar>
       <!--
         TODO replace this div with o-list if it goes into the framework
         Block with a simple list of WorkspaceLayers
@@ -51,7 +51,7 @@
       <o-map-workspace #oMapWorkspace (onToggleWSLayerSelected)="onWSLayerSelected($event)" (onToggleWSLayerVisibility)="onWSLayerVisibilityToggled($event)"
         (onToggleWSLayerInWS)="onWSLayerInWSToggled($event)"></o-map-workspace>
     </div>
-  </md-sidenav>
+  </mat-sidenav>
   <!--
 		TODO o-frame sidebar container
 		Map Section
@@ -60,7 +60,7 @@
     <!--
       Map container for Leaflet
     -->
-    <div class="leaflet-map-container"></div>
+    <div [id]="mapId" class="leaflet-map-container"></div>
     <!--
       Omnibar o-navigator
     -->
@@ -68,4 +68,4 @@
       <o-navigator [show-sidenav-button]="isSearchControlButtonVisible"></o-navigator>
     </div>
   </div>
-</md-sidenav-container>
+</mat-sidenav-container>
