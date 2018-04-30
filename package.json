@@ -4,8 +4,6 @@
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "preinstall": "npm config set package-lock false",
-    "pack": "npm run build && cd dist && npm pack && cd ..",
-    "xxx": "rimraf node_modules/ontimize-web-ngx* && npm install",
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"
   },
   "keywords": [
@@ -81,8 +79,8 @@
     "gulp-replace": "0.6.1",
     "json-loader": "^0.5.7",
     "node-sass": "4.7.2",
-    "ontimize-web-ngx": "file:C:\\workspace\\github\\ontimize-web-ng2-VERSIONS\\3.0.0-rc.0\\ontimize-web-ngx\\dist\\ontimize-web-ngx-3.0.0-rc.0.tgz",
-    "ontimize-web-ngx-library-tools": "file:C:\\workspace\\github\\TOOLS\\ontimize-web-ngx-library-tools\\ontimize-web-ngx-library-tools-1.0.0.tgz",
+    "ontimize-web-ngx": "3.0.0-rc.0",
+    "ontimize-web-ngx-library-tools": "1.0.0",
     "reflect-metadata": "0.1.12",
     "rimraf": "2.6.2",
     "rxjs": "5.5.6",
