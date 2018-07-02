@@ -1,5 +1,5 @@
 import { Component, Injector, ElementRef, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { MatIconRegistry, MatSidenav, MatTabGroup, MatTab } from '@angular/material';
+import { MatSidenav, MatTabGroup, MatTab } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
@@ -58,7 +58,7 @@ const DEFAULT_OUTPUTS = [
 
 @Component({
   selector: 'o-map',
-  providers: [MapService, GeocodingService, MatIconRegistry],
+  providers: [MapService, GeocodingService],
   inputs: OMapComponent.DEFAULT_INPUTS,
   outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',
