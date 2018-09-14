@@ -1,3 +1,11 @@
+## 3.0.0
+
+### DEPENDENCY UPDATES ###
+* ontimize-web-ngx@3.0.1
+* ontimize-web-ngx-map@3.0.0
+* ontimize-web-ngx-theming@1.1.2
+* ontimize-web-ngx-tools@1.0.6
+
 ## 0.0.2
 
 ### PEER-DEPENDENCY UPDATES ###
