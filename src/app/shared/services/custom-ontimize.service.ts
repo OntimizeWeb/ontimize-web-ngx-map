@@ -1,8 +1,7 @@
 import { Injector } from '@angular/core';
 import { Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 import { OntimizeService, LoginService, Util } from 'ontimize-web-ngx';
 
@@ -82,7 +81,7 @@ export class CustomOntimizeService extends OntimizeService {
 
     const self = this;
     let innerObserver: any;
-    const dataObservable = new Observable(observer => innerObserver = observer).share();
+    const dataObservable = new Observable(observer => innerObserver = observer).pipe(share());
 
     this.httpClient.get(url, options).subscribe((resp: any) => {
       if (resp && resp.code === 3) {

@@ -1,8 +1,7 @@
 import { Injector } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/operator/share';
+import { Observable, Observer } from 'rxjs';
+import { share, map } from 'rxjs/operators';
 import { APP_CONFIG, Config } from 'ontimize-web-ngx';
 
 import { IFeature, IGeoJSONLayerService, LayerConfiguration } from 'ontimize-web-ngx-map';
@@ -36,7 +35,7 @@ export class GeoServerService implements IGeoJSONLayerService {
 
     this.dataObservable = new Observable<IFeature[]>(observer =>
       this.innerObserver = observer
-    ).share();
+    ).pipe(share());
 
     this.loadFeaturesFrom(
       this.initHeaders(),
@@ -53,7 +52,8 @@ export class GeoServerService implements IGeoJSONLayerService {
 
   private loadFeaturesFrom(headers: Headers, url: string) {
     this.http.get(url, { headers: headers })
-      .map(response => response.json()).subscribe(data => {
+      .pipe(map(response => response.json()))
+      .subscribe(data => {
 
         let features = data.features;
         if (features) {
