@@ -3,6 +3,7 @@ import { OMapComponent, OMapLayerComponent } from '../../components';
 import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../core';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-layer-group',
   providers: [],
   inputs: [

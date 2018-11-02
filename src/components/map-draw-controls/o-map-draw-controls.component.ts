@@ -1,5 +1,5 @@
 import { Component, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import * as L from 'leaflet';
 import { OMapComponent } from '../../components';
@@ -27,6 +27,7 @@ const DEFAULT_OUTPUTS = [
 ];
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-draw-controls',
   templateUrl: './o-map-draw-controls.component.html',
   styleUrls: ['./o-map-draw-controls.component.scss'],

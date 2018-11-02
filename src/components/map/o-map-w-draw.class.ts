@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as L from 'leaflet';
 import { OMapWWorkspace } from './o-map-w-workspace.class';
 import { OMapDrawControlsEvents, IMapDrawControlEvent } from '../map-draw-controls/o-map-draw-controls-events.class';

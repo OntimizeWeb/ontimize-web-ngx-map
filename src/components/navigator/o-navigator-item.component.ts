@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OSearchResult, OSearchResultAction } from '../../interfaces';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-navigator-item',
   inputs: [
     'searchResult : search-result'

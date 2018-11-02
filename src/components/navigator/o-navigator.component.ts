@@ -1,5 +1,5 @@
 import { Component, Inject, forwardRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
@@ -9,6 +9,7 @@ const DEFAULT_INPUTS = [
 ];
 
 @Component({
+  moduleId: module.id,
   selector: 'o-navigator',
   templateUrl: './o-navigator.component.html',
   styleUrls: ['./o-navigator.component.scss'],

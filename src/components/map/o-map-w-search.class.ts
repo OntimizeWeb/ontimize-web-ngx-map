@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { OSearcher, OSearchable } from '../../interfaces';
 import { SearcherDefault } from '../../core';
 import { OMapWBaseLayer } from './o-map-w-baselayer.class';

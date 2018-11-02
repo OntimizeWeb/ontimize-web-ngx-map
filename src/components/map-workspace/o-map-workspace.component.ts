@@ -1,10 +1,10 @@
 import { Component, Inject, forwardRef, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { OMapComponent, OMapLayerComponent } from '../../components';
 import { OSearcher, OSearchable } from '../../interfaces';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-workspace',
   inputs: [],
   outputs: [

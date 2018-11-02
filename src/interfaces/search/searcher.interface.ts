@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { OSearchable } from './searchable.interface';
 
 export interface OSearcher {
@@ -19,7 +19,7 @@ export interface OSearcher {
 
   /**
    * Method to do the search
-   * @param searchValue - Value to match 
+   * @param searchValue - Value to match
    */
   search(oSearchValue: string): Observable<Array<OSearchable>>;
 

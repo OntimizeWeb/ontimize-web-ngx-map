@@ -6,7 +6,7 @@ import { Center } from '../../core';
 import { Util } from '../../utils';
 import { TranslateMapService } from '../../services';
 import * as L from 'leaflet';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 const DEFAULT_CENTER = new Center(42.2274519, -8.7236805);
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Util } from '../../utils';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-toggle-icon-button',
   providers: [],
   inputs: [

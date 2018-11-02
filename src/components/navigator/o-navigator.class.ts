@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { OSearcher, OSearchable } from '../../interfaces';
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';

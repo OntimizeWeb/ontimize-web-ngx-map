@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export interface IMapDrawControlEvent {
   event: string;
