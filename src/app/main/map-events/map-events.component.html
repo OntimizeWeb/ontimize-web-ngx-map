@@ -1,5 +1,5 @@
-<div fxLayout="row" fxLayoutAlign="center start" layout-margin>
-  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="85">
+<div fxLayout="row" fxLayoutAlign="center start">
+  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="100">
     <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
       <o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" layer-panel-visible="no"
         fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
