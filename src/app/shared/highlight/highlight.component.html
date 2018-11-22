@@ -1,7 +1,7 @@
 <section highlight-js-content="code.highlight" fxFill>
-  <pre class="no-margin snippet" fxFill>
-    <button id="copy-btn" class="copy-btn" data-clipboard-target="#code">
-      <img class="clippy" width="13" src="./assets/images/clippy.svg" alt="Copy to clipboard">
+  <pre class="snippet" fxFill>
+    <button mat-icon-button id="copy-btn" class="copy-btn" data-clipboard-target="#code">
+      <mat-icon aria-label="Copy to clipboard">file_copy</mat-icon>
     </button>
     <code id="code" class="highlight">
       {{ templateContent }}
