@@ -3,9 +3,11 @@ import { OMapComponent } from "ontimize-web-ngx-map";
 
 
 const MARKER_LAYER_HTML_DATA = `
-<o-map #oMapMarker center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20"
-zoom-control="yes" search-control="yes" layer-panel-visible="no" fxFlex>
-
+<o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no"
+    layer-panel-visible="no" fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
+    <!-- [crs-configuration]="objeto" -->
+    <o-map-crs crs="EPSG4326"></o-map-crs>
+    <o-map-draw-controls></o-map-draw-controls>
 </o-map>
 `;
 
@@ -48,7 +50,8 @@ export class MapEventsComponent {
 @Component({
   moduleId: module.id,
   selector: 'map-events',
-  templateUrl: './map-events.component.html'
+  templateUrl: './map-events.component.html',
+  styleUrls: ['./map-events.component.scss'],
 })
 export class MapEventsComponent {
   _eventsArray: Array<any> = [];
