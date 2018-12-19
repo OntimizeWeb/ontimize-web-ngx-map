@@ -12,57 +12,8 @@
 @import '../../app/main/main-theme.scss';
 @include main-theme($theme);
 
-.container-title {
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.no-padding {
-  padding: 0px !important;
-}
-
-.section-title {
-  padding-left: 12px;
-  padding-top: 3px;
-}
-
-o-form form.inner-form{
-  position: initial !important;
-}
-
-div.body-text-container{
-  margin: 0px 20px;
-}
-
-p.body-text{
-  text-align: justify;
-  font-weight: 400;
-  letter-spacing: 0.010em;
-  line-height: 1.6em;
-  margin: 0.8em 0 1.6em;
-}
-
-code:not(.highlight) {
-  color: #106CC8;
-  margin-left: 1px;
-  margin-right: 1px;
-  -webkit-font-smoothing: auto;
-  padding: 0.125em 0.35em;
-  border-radius: 2px;
-}
-a{
- color: #106CC8;
-}
-
-o-side-menu h3 {
-  visibility: hidden;
-
-}
-o-side-menu-separator hr {
-  border: 1px solid #267ED5 !important;
-  border-top: none !important;
-}
+@import '../../app/shared/example/example.theme.scss';
+@include example-component-theme($theme);
 
 o-map{
   min-height: 600px;

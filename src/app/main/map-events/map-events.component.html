@@ -1,8 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="center start">
-  <example-comp [comp-name]="getId()" [files]="getFiles()" fxFlex="100">
+  <example-comp comp-name="LAYERS.EVENTS.BASIC_USAGE" [files]="getFiles()" fxFlex="100">
     <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
-      <o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" layer-panel-visible="no"
-        fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
+      <o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no"
+        layer-panel-visible="no" fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
         <!-- [crs-configuration]="objeto" -->
         <o-map-crs crs="EPSG4326"></o-map-crs>
 
@@ -13,11 +13,14 @@
 
       </o-map>
     </div>
-    <div class="body-text-container" layout-padding fxLayout="column" fxLayoutAlign="center start">
-      <h2>Triggering draw events</h2>
-      <span class="body-text" *ngFor="let event of eventsArray">
-        {{ event.type }}
-      </span>
+    <div class="body-text-container" layout-padding>
+      <h3>Triggering draw events</h3>
+      <mat-divider ></mat-divider>
+      <div fxLayout="column" fxLayoutAlign="center start" >
+        <span class="body-text" *ngFor="let event of eventsArray" layout-padding>
+          {{ event.type }}
+        </span>
+      </div>
     </div>
   </example-comp>
 </div>

@@ -1,69 +1,4 @@
-import { Component, OnInit, Injector, ViewChild, ElementRef } from '@angular/core';
-
-import * as L from 'leaflet';
-
-import { OTranslateService } from 'ontimize-web-ngx';
-import { OMapComponent } from 'ontimize-web-ngx-map';
-
-import { NavigationBarService } from '../../shared';
-
-@Component({
-  selector: 'wms-layer',
-  templateUrl: './wms-layer.component.html',
-  styleUrls: ['./wms-layer.component.scss']
-})
-export class WMSLayerComponent implements OnInit {
-
-  @ViewChild('oMapWMS')
-  protected map: OMapComponent;
-
-  constructor(
-    protected injector: Injector,
-    protected elRef: ElementRef,
-    protected navigationService: NavigationBarService,
-    protected translateService: OTranslateService) {
-  }
-
-  ngOnInit() {
-    let title = '';
-    title += this.translateService.get('WMS');
-    this.navigationService.setTitle(title);
-  }
-
-  ngAfterViewInit() {
-
-  }
-
-  getWMSLayerOptions() {
-    return {
-      "maxZoom": "18",
-      "attribution": "<a href='https:usgs.gov'>USGS</a> National Map Data"
-    };
-  }
-
-  
-  getId() {
-    return 'WMS layers';
-  }
-
-  getFiles() {
-    return [
-      {
-        'type': 'html',
-        'data': HTML_DATA
-      },
-      {
-        'type': 'scss',
-        'data': ''
-      },
-      {
-        'type': 'typescript',
-        'data': ''
-      }
-    ];
-  }
-
-}
+import { Component } from '@angular/core';
 
 const HTML_DATA = `
 <o-map #oMapWMS center="40.712784,-74.005941" zoom="10" min-zoom="6" max-zoom="20" base-layer-ids="basemap.nationalmap.gov"
@@ -82,54 +17,55 @@ zoom-control="yes" search-control="yes" layer-panel-visible="no" fxFlex>
 `;
 
 const TYPESCRIPT_DATA = `
-import { Component, ViewChild } from '@angular/core';
-import { OMapComponent } from 'ontimize-web-ngx-map';
-
+import { Component } from '@angular/core';
 
 @Component({
-selector: 'wms-layer',
-templateUrl: './wms-layer.component.html',
-styleUrls: ['./wms-layer.component.scss']
+  selector: 'wms-layer',
+  templateUrl: './wms-layer.component.html'
 })
-export class WMSLayerComponent implements OnInit {
+export class WMSLayerComponent  {
 
-@ViewChild('oMapWMS')
-protected map: OMapComponent;
+  constructor(){ }
 
-getWMSAirportLayerOptions() {
-return {
-"format": "image/png",
-"transparent": "true",
-"attribution": "<a href='http://nationalatlas.gov'>NationalAtlas.gov</a>",
-"info_format": "text/html",
-"tiled": false,
-"layers": "14",
-"crs": L.CRS.EPSG4326
-};
-}
 
-getWMSLargeCitiesLayerOptions() {
-return {
-"format": "image/png",
-"transparent": "true",
-"attribution": "<a href='http://nationalatlas.gov'>NationalAtlas.gov</a>",
-"info_format": "text/html",
-"tiled": false,
-"layers": "27",
-"crs": L.CRS.EPSG4326
-};
-}
-
-getWMSMediumCitiesLayerOptions() {
-return {
-"format": "image/png",
-"transparent": "true",
-"attribution": "<a href='http://nationalatlas.gov'>NationalAtlas.gov</a>",
-"info_format": "text/html",
-"tiled": false,
-"layers": "26",
-"crs": L.CRS.EPSG4326
-};
-}
-}
+  getWMSLayerOptions() {
+    return {
+      "maxZoom": "18",
+      "attribution": "<a href='https:usgs.gov'>USGS</a> National Map Data"
+    };
+  }
 `;
+
+@Component({
+  moduleId: module.id,
+  selector: 'wms-layer',
+  templateUrl: './wms-layer.component.html'
+})
+export class WMSLayerComponent  {
+
+  constructor(){ }
+
+
+  getWMSLayerOptions() {
+    return {
+      "maxZoom": "18",
+      "attribution": "<a href='https:usgs.gov'>USGS</a> National Map Data"
+    };
+  }
+
+
+
+  getFiles() {
+    return {
+      'html': {
+        'data': HTML_DATA
+      },
+      'scss': {
+        'data': ''
+      },
+      'typescript': {
+        'data': TYPESCRIPT_DATA
+      }
+    }
+  }
+}

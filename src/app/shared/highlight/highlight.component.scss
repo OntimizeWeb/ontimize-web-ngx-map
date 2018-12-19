@@ -1,15 +1,15 @@
-pre.no-margin{
-  margin: 0 !important;
-  white-space: pre;
-  
-  code {
-    min-height: 300px;
-    margin: 0;
-  }
-}
-
 .snippet {
-    position: relative;
+  margin: 0;
+  position: relative;
+  height: 0;
+
+  .hljs {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 0;
+  }
 
   .copy-btn {
     position: absolute;

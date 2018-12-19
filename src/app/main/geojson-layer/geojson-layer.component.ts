@@ -4,61 +4,6 @@ import { OTranslateService } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { NavigationBarService } from '../../shared';
 
-@Component({
-  selector: 'geojson-layer',
-  templateUrl: './geojson-layer.component.html',
-  styleUrls: ['./geojson-layer.component.scss']
-})
-export class GeoJSONLayerComponent implements OnInit {
-
-  @ViewChild('oMapGeoJSON')
-  protected map: OMapComponent;
-
-  constructor(
-    protected injector: Injector,
-    protected elRef: ElementRef,
-    protected navigationService: NavigationBarService,
-    protected translateService: OTranslateService) {
-  }
-
-  ngOnInit() {
-    let title = '';
-    title += this.translateService.get('GEOJSON');
-    this.navigationService.setTitle(title);
-  }
-
-
-  getTrainLinesLayerStyle() {
-    return {
-      'color': '#388E3C',
-      'weight': 2,
-      'opacity': 0.65
-    };
-  }
-
-  getId() {
-    return 'GeoJson layers';
-  }
-
-  getFiles() {
-    return [
-      {
-        'type': 'html',
-        'data': HTML_DATA
-      },
-      {
-        'type': 'scss',
-        'data': '/** No CSS for this example */'
-      },
-      {
-        'type': 'typescript',
-        'data': TYPESCRIPT_DATA
-      }
-    ];
-  }
-
-}
-
 const HTML_DATA = `
 <o-map #oMapGeoJSON center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20"
 zoom-control="yes" search-control="yes" layer-panel-visible="no" fxFlex>
@@ -76,26 +21,58 @@ zoom-control="yes" search-control="yes" layer-panel-visible="no" fxFlex>
 `;
 
 const TYPESCRIPT_DATA = `
-import { Component, ViewChild } from '@angular/core';
-import { OMapComponent } from 'ontimize-web-ngx-map';
-
+import { Component } from '@angular/core';
 
 @Component({
-selector: 'geojson-layer',
-templateUrl: './geojson-layer.component.html',
-styleUrls: ['./geojson-layer.component.scss']
+  selector: 'geojson-layer',
+  templateUrl: './geojson-layer.component.html'
 })
-export class GeoJSONLayerComponent implements OnInit {
+export class GeoJSONLayerComponent {
 
-@ViewChild('oMapGeoJSON')
-protected map: OMapComponent;
+  constructor() { }
 
-getTrainLinesLayerStyle() {
-return {
-'color': '#388E3C',
-'weight': 2,
-'opacity': 0.65
-}
-}
+  getTrainLinesLayerStyle() {
+    return {
+      'color': '#388E3C',
+      'weight': 2,
+      'opacity': 0.65
+    };
+  }
+
 }
 `;
+
+@Component({
+  moduleId: module.id,
+  selector: 'geojson-layer',
+  templateUrl: './geojson-layer.component.html'
+})
+export class GeoJSONLayerComponent {
+
+  constructor() { }
+
+  getTrainLinesLayerStyle() {
+    return {
+      'color': '#388E3C',
+      'weight': 2,
+      'opacity': 0.65
+    };
+  }
+
+
+  getFiles() {
+    return {
+      'html': {
+        'data': HTML_DATA
+      },
+      'scss': {
+        'data': undefined
+      },
+      'typescript': {
+        'data': TYPESCRIPT_DATA
+      }
+    }
+
+  }
+}
+
