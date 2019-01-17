@@ -1,81 +1,13 @@
-<!-- <mat-sidenav-container class="example-container" fxFlexFill>
-  <mat-sidenav #sidenav id="layers" class="example-sidenav">
-    <mat-toolbar>
-      <span>First Row</span>
-      <mat-toolbar-row>
-        <span>Second Row</span>
-      </mat-toolbar-row>
-      <mat-toolbar-row>
-        <span>Third Row</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
-
-<mat-toolbar>
-  <span fxFlex>Base layers</span>
-  <button mat-button aria-label="Close" (click)="toggleSidenav()">
-    <mat-icon>navigate_before</mat-icon>
-  </button>
-
-  <mat-toolbar-row>
-
-<button mat-button mat-ink #layer class="o-map-layer-item" (click)="toggleInWS()">
-	<o-toggle-icon-button
-		icon-dark="true"
-		[icon-name]="icon && icon.length>0? icon : 'layers'"
-		[button-active]="true">
-	</o-toggle-icon-button>
-	<div fxFlex fxLayout="column" fxLayoutAlign="center start">Layer id<small *ngIf="true">Description</small></div>
-</button>
-
-  </mat-toolbar-row>
-</mat-toolbar>
-
-  </mat-sidenav>
-
-  <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="sidenav.open()">
-      Open sidenav
-    </button>
-  </div>
-
-</mat-sidenav-container> -->
-
-<div fxLayoutAlign="center start" layout-margin>
-  <example-comp [comp-name]="getBasicUsageId()" [files]="getBasicUsageFiles()" fxFlex="85">
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="start">
-      <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20" zoom-control="yes"
-        search-control="yes" fxFlex></o-map>
-    </div>
-    <div class="body-text-container" layout-padding>
-      <h2>Basic Usage</h2>
-      <p class="body-text">
-        Basic configuration of the map. In this example is shown how to define the map component, setting the center and zoom levels.
-      </p>
-    </div>
+<div fxLayout="column" fxLayoutAlign="center top">
+  <example-comp comp-name="BASIC.BASIC_USAGE" comp-desc="BASIC.BASIC_USAGE.DESC" [files]="getBasicUsageFiles()" fxFlex="100">
+    <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
+      zoom-control="yes" search-control="yes" fxFlex></o-map>
   </example-comp>
-</div>
 
-<div fxLayoutAlign="center start" layout-margin>
-  <example-comp [comp-name]="getBaseLayersId()" [files]="getBaseLayersFiles()" fxFlex="85">
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="start">
-      <o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20" base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite"
-        zoom-control="yes" search-control="yes" fxFlex></o-map>
-    </div>
-    <div class="body-text-container" layout-padding>
-      <h2>Base layers</h2>
-      <p class="body-text">
-        It can be configured which layer or layers will be the base layers of the map. By default, if none is provided it is used
-        'OpenStreetMap' base layer.
-      </p>
-      <p class="body-text">
-        The different base layer/s are taken from the extension <a href="https://github.com/leaflet-extras/leaflet-providers/blob/master/README.md"
-          target="_blank"> 'leaflet-providers'</a> that contains configurations for various free tile providers. Please, for
-        production environments take into account what leaflet-providers developers says:
-        <figure>
-          <blockquote>We try to maintain leaflet-providers in such a way that you'll be able to use the layers we include without paying
-            money. This doesn't mean no limits apply, you should always check before using these layers for anything serious.</blockquote>
-        </figure>
-      </p>
-    </div>
+  <example-comp comp-name="BASIC.BASIC_LAYERS" comp-desc="BASIC.BASIC_LAYERS.DESC" comp-note="BASIC.BASIC_LAYERS.NOTE"
+    [files]="getBaseLayersFiles()" fxFlex="100">
+    <o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
+      base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite" zoom-control="yes"
+      search-control="yes" fxFlex></o-map>
   </example-comp>
 </div>

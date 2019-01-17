@@ -8,6 +8,7 @@ import {
 
 @Component({
   selector: 'highlight-comp',
+  moduleId: module.id,
   styleUrls: ['./highlight.component.scss'],
   templateUrl: './highlight.component.html',
   inputs: [

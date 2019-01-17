@@ -12,7 +12,21 @@ import { OMapComponent } from 'ontimize-web-ngx-map';
 
 import { NavigationBarService, CustomOntimizeService } from '../../shared';
 
+
+const BASIC_USAGE_HTML_DATA = `
+<o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
+  zoom-control="yes" search-control="yes" fxFlex>
+</o-map>
+`;
+
+const BASE_LAYERS_HTML_DATA = `
+<o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
+  base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite" zoom-control="yes" search-control="yes" fxFlex>
+</o-map>
+`;
+
 @Component({
+  moduleId: module.id,
   selector: 'basic-usage',
   templateUrl: './basic-usage.component.html',
   styleUrls: ['./basic-usage.component.scss'],
@@ -38,31 +52,22 @@ export class BasicUsageComponent implements OnInit {
     this.navigationService.setTitle(title);
   }
 
-  ngAfterViewInit() {
-
-  }
-
-  getBasicUsageId() {
-    return 'Map (Basic usage)';
-  }
-
   //BaseLayers
 
   getBasicUsageFiles() {
-    return [
-      {
-        'type': 'html',
+    return {
+      'html': {
         'data': BASIC_USAGE_HTML_DATA
       },
-      {
-        'type': 'scss',
-        'data': '/** No CSS for this example */'
+
+      'scss': {
+        'data': undefined
       },
-      {
-        'type': 'typescript',
-        'data': '/** No Typescript for this example */'
+
+      'typescript': {
+        'data': undefined
       }
-    ];
+    }
   }
 
   getBaseLayersId() {
@@ -70,33 +75,17 @@ export class BasicUsageComponent implements OnInit {
   }
 
   getBaseLayersFiles() {
-    return [
-      {
-        'type': 'html',
+    return {
+      'html': {
         'data': BASE_LAYERS_HTML_DATA
       },
-      {
-        'type': 'scss',
-        'data': '/** No CSS for this example */'
+      'scss': {
+        'data': undefined
       },
-      {
-        'type': 'typescript',
-        'data': '/** No Typescript for this example */'
+      'typescript': {
+        'data': undefined
       }
-    ];
+    }
   }
-
 }
 
-const BASIC_USAGE_HTML_DATA = `
-<o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
-zoom-control="yes" search-control="yes" fxFlex>
-</o-map>
-`;
-
-const BASE_LAYERS_HTML_DATA = `
-<o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
-base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite"
-zoom-control="yes" search-control="yes" fxFlex>
-</o-map>
-`;
