@@ -1,11 +1,11 @@
 {
   "name": "ontimize-web-ngx-map-quickstart",
-  "version": "4.0.0",
+  "version": "4.0.0-rc.1",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port=4210",
+    "start": "ng serve --port 4406",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "production": "npm run clean && ng build --aot=false --target -prod --base-href=/ontimize-web-ngx-map/",
     "production-aot": "ontimize-web-ngx production-aot --project-name ontimize-web-ngx-quickstart-map --href=/ontimize-web-ngx-map/",
-    "production-aot-server": "ontimize-web-ngx production-aot --project-name ontimize-web-ngx-quickstart-map --href /ontimizeweb/map/"
+    "production-aot-server": "ontimize-web-ngx production-aot --project-name ontimize-web-ngx-quickstart-map --href /ontimizeweb/map/v4/"
   },
   "private": true,
   "dependencies": {
@@ -40,9 +40,9 @@
     "reflect-metadata": "0.1.12",
     "angular2-highlight-js": "5.0.2",
     "loader-utils": "1.1.0",
-    "ontimize-web-ngx": "4.0.0-rc.0",
-    "ontimize-web-ngx-map": "4.0.0-rc.0",
-    "ontimize-web-ngx-theming": "4.0.0-rc.0"
+    "ontimize-web-ngx": "4.0.0-rc.1",
+    "ontimize-web-ngx-map": "4.0.0-rc.1",
+    "ontimize-web-ngx-theming": "4.0.0-rc.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
