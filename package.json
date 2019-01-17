@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "4.0.0-rc.0",
+  "version": "4.0.0-rc.1",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"
@@ -38,7 +38,7 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "ontimize-web-ngx": "4.0.0-rc.0",
+    "ontimize-web-ngx": "4.0.0-rc.1",
     "ontimize-web-ngx-library-tools": "4.0.0-rc.0",
     "@angular/animations": "6.1.10",
     "@angular/cdk": "6.4.7",
