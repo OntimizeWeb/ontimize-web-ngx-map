@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "production": "npm run clean && ng build --aot=false --target -prod --base-href=/ontimize-web-ngx-map/",
     "production-aot": "ontimize-web-ngx production-aot --project-name ontimize-web-ngx-quickstart-map --href=/ontimize-web-ngx-map/",
-    "production-aot-server": "ontimize-web-ngx production-aot --project-name ontimize-web-ngx-quickstart-map --href /ontimizeweb/map/v4/"
+    "production-aot-server": "ontimize-web-ngx production-aot --project-name ontimize-web-ngx-quickstart-map --href /ontimizeweb/map/"
   },
   "private": true,
   "dependencies": {
