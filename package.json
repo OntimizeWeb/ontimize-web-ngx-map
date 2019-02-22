@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "4.0.0-rc.1",
+  "version": "4.0.0",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"
@@ -38,8 +38,6 @@
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "ontimize-web-ngx": "4.0.0-rc.1",
-    "ontimize-web-ngx-library-tools": "4.0.0-rc.0",
     "@angular/animations": "6.1.10",
     "@angular/cdk": "6.4.7",
     "@angular/common": "6.1.10",
@@ -59,34 +57,36 @@
     "@ngtools/webpack": "6.1.5",
     "@ngx-translate/core": "10.0.2",
     "@ngx-translate/http-loader": "3.0.1",
-    "core-js": "2.5.7",
-    "rxjs": "6.3.3",
-    "zone.js": "0.8.26",
     "@types/hammerjs": "2.0.34",
     "@types/jasmine": "2.5.46",
-    "@types/node": "7.0.10",
-    "@types/uglify-js": "2.6.30",
-    "@types/webpack": "4.1.1",
-    "ajv": "6.5.4",
     "@types/leaflet": "1.2.0",
     "@types/leaflet-draw": "0.4.12",
     "@types/leaflet-providers": "1.1.2",
     "@types/leaflet.heat": "0.2.0",
     "@types/leaflet.markercluster": "1.0.3",
+    "@types/node": "7.0.10",
     "@types/proj4": "2.3.4",
     "@types/proj4leaflet": "1.0.5",
     "@types/source-map": "0.5.7",
+    "@types/uglify-js": "2.6.30",
+    "@types/webpack": "4.1.1",
+    "ajv": "6.5.4",
     "copyfiles": "1.2.0",
+    "core-js": "2.5.7",
     "gulp": "4.0.0",
     "gulp-cssimport": "6.0.0",
     "gulp-ext-replace": "0.3.0",
     "gulp-inline-ng2-template": "5.0.1",
     "json-loader": "^0.5.7",
     "node-sass": "4.9.4",
+    "ontimize-web-ngx": "4.0.0",
+    "ontimize-web-ngx-library-tools": "4.0.0",
     "reflect-metadata": "0.1.12",
     "rimraf": "2.6.2",
+    "rollup-plugin-json": "2.3.0",
+    "rxjs": "6.3.3",
     "typescript": "2.9.2",
     "webpack": "4.21.0",
-    "rollup-plugin-json": "2.3.0"
+    "zone.js": "0.8.26"
   }
 }
