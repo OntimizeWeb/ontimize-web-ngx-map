@@ -1,16 +1,18 @@
-import { Component, OnInit, Inject, Injector, EventEmitter, forwardRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, EventEmitter, forwardRef, Inject, Injector, OnInit, ViewEncapsulation } from '@angular/core';
 import * as L from 'leaflet';
-import { MapService } from '../../services';
-import { Center, LayerConfiguration } from '../../core';
-import { Util } from '../../utils';
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { OMapComponent, OMapLayerFactory } from '../../components';
 import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
+import { Center, LayerConfiguration } from '../../models';
+import { MapService } from '../../services';
+import { Util } from '../../utils';
 import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-crs-configuration.class';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-layer',
   providers: [MapService],
   inputs: [
@@ -102,7 +104,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     protected injector: Injector
   ) {
 
-    this.layerStream = Observable.combineLatest(
+    this.layerStream = combineLatest(
       this.layerAfterViewInitStream.asObservable(),
       this.layerMapConfigured.asObservable()
     );
@@ -405,8 +407,9 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   public loadPopupTpl(): Observable<any> {
     var headers: Headers = new Headers();
     headers.append('Access-Control-Allow-Origin', '*');
-    let _http = this.injector.get(Http);
-    return _http.get(this.popupUrl).map(response => response.text());
+    let _http = this.injector.get(HttpClient);
+    return _http.get(this.popupUrl)
+      .pipe(map((response: any) => response.text()));
   }
 
   get layerId(): string {
@@ -448,4 +451,5 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   set menuLabel(val: string) {
     this._menuLabel = val;
   }
+
 }

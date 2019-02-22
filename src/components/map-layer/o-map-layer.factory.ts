@@ -1,7 +1,7 @@
-import { MapService } from '../../services';
-import { LayerConfiguration } from '../../core/LayerConfiguration.class';
-
 import * as L from 'leaflet';
+
+import { LayerConfiguration } from '../../models';
+import { MapService } from '../../services';
 
 export class OMapLayerFactory {
 

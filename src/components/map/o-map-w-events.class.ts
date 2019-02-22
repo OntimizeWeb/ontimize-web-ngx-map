@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { OMapEvents } from './o-map-events.interface';
 import { OMapBase } from './o-map.class';
 import { OMapComponent } from './o-map.component';

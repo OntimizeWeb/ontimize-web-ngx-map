@@ -5,6 +5,7 @@ import { MapService } from '../../services';
 import * as L from 'leaflet';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-marker',
   templateUrl: './o-marker.component.html',
   styleUrls: ['./o-marker.component.scss']

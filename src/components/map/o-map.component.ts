@@ -1,6 +1,6 @@
 import { Component, Injector, ElementRef, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { MatSidenav, MatTabGroup, MatTab } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { MapService, GeocodingService, TranslateMapService } from '../../services';
@@ -57,6 +57,7 @@ const DEFAULT_OUTPUTS = [
 ];
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map',
   providers: [MapService, GeocodingService],
   inputs: OMapComponent.DEFAULT_INPUTS,
@@ -176,7 +177,7 @@ export class OMapComponent extends OMapWSearch {
 
   registerTabGroupListener() {
     var self = this;
-    this.tabGroupSubscription = this.tabGroupContainer.selectChange.subscribe((evt) => {
+    this.tabGroupSubscription = this.tabGroupContainer.selectedTabChange.subscribe((evt) => {
       var interval = setInterval(function () { timerCallback(evt.tab); }, 250);
       function timerCallback(tab: MatTab) {
         if (tab && tab.content.isAttached) {

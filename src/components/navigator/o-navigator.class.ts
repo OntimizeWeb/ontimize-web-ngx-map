@@ -1,8 +1,9 @@
-import { Subscription } from 'rxjs/Subscription';
-import { OSearcher, OSearchable } from '../../interfaces';
+import { Subscription } from 'rxjs';
+
 import { OMapComponent } from '../../components';
+import { OSearchable, OSearcher } from '../../interfaces';
+import { Location, SearcherDefault } from '../../models';
 import { GeocodingService, TranslateMapService } from '../../services';
-import { SearcherDefault, Location } from '../../core';
 import { Util } from '../../utils';
 import { LocationResult } from './o-navigator-location-result.interface';
 

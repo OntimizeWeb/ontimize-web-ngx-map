@@ -1,9 +1,10 @@
 import { Component, Inject, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { OMapComponent } from '../../components';
 import { BaseLayer, OSearchable, OSearchResult } from '../../interfaces';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-base-layer',
   providers: [],
   inputs: [

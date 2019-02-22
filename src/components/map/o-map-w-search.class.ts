@@ -1,11 +1,11 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { OSearcher, OSearchable } from '../../interfaces';
-import { SearcherDefault } from '../../core';
+import { Observable, Subject } from 'rxjs';
+
+import { OSearchable, OSearcher } from '../../interfaces';
+import { SearcherDefault } from '../../models';
 import { OMapWBaseLayer } from './o-map-w-baselayer.class';
 
 export class OMapWSearch extends OMapWBaseLayer implements OSearcher {
-	/**
+  /**
 	 * OSearcher implementation
 	 */
   oSearchTitle: string = '';
@@ -28,7 +28,7 @@ export class OMapWSearch extends OMapWBaseLayer implements OSearcher {
     new SearcherDefault('Capas', () => this.mapLayers)
   ];
 
-	/**
+  /**
 	 * OSearcher implementation
 	 */
   search(oSearchValue: string): Observable<Array<OSearchable>> {
@@ -40,4 +40,5 @@ export class OMapWSearch extends OMapWBaseLayer implements OSearcher {
     }));
     return subject.asObservable();
   }
+
 }

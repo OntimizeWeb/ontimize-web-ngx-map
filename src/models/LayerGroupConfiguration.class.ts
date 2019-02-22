@@ -1,5 +1,5 @@
+import { OMapLayerGroupsWarehouse } from '../models';
 import { LayerConfiguration } from './LayerConfiguration.class';
-import { OMapLayerGroupsWarehouse } from '../core';
 
 export class LayerGroupConfiguration {
   public id: string;

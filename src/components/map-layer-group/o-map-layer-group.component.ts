@@ -1,8 +1,10 @@
-import { Component, Inject, forwardRef, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { Component, forwardRef, Inject, ViewChildren, ViewEncapsulation } from '@angular/core';
+
 import { OMapComponent, OMapLayerComponent } from '../../components';
-import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../core';
+import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../models';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-layer-group',
   providers: [],
   inputs: [
@@ -20,8 +22,8 @@ import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse }
     '[class.o-map-layer-group]': 'true'
   }
 })
-
 export class OMapLayerGroupComponent {
+
   id: string;
   idParent: string;
   name: string;
@@ -105,4 +107,5 @@ export class OMapLayerGroupComponent {
   set description(val: string) {
     this._description = val;
   }
+
 }

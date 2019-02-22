@@ -3,6 +3,7 @@ import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
 import { OSearchable, OSearchResult } from '../../interfaces';
 
 @Component({
+  moduleId: module.id,
   selector: 'o-map-workspace-layer',
   providers: [],
   inputs: [
