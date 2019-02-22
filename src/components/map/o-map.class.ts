@@ -1,12 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { Zoom } from '../../interfaces';
-import { OMapBaseLayerComponent, OMapLayerComponent } from '../../components';
-import { MapService } from '../../services';
-import { Center } from '../../core';
-import { Util } from '../../utils';
-import { TranslateMapService } from '../../services';
 import * as L from 'leaflet';
 import { BehaviorSubject } from 'rxjs';
+
+import { OMapBaseLayerComponent, OMapLayerComponent } from '../../components';
+import { Zoom } from '../../interfaces';
+import { Center } from '../../models';
+import { MapService, TranslateMapService } from '../../services';
+import { Util } from '../../utils';
 
 const DEFAULT_CENTER = new Center(42.2274519, -8.7236805);
 
@@ -21,7 +21,7 @@ export class OMapBase {
   protected mapReady: BehaviorSubject<any> = new BehaviorSubject(undefined);
   private center: Center;
 
-	/**
+  /**
 	 * Get individual layer
 	 * @param layerId - Id of the layer to find
 	 */
@@ -29,14 +29,14 @@ export class OMapBase {
     return this.mapLayers.filter(layer => layer.layerId === layerId).shift();
   }
 
-	/**
+  /**
 	 * Get all the layers
 	 */
   public getOMapLayers(): Array<OMapLayerComponent> {
     return this.mapLayers;
   }
 
-	/**
+  /**
 	 * Add a new layer
 	 * ####TODO
 	 * - Change to an Add-Or-Update pattern
@@ -46,28 +46,28 @@ export class OMapBase {
     this.mapLayers.push(layer);
   }
 
-	/**
+  /**
 	 * Get map configuration service
 	 */
   public getMapService(): MapService {
     return this.mapService;
   }
 
-	/**
+  /**
 	 * Get Leaflet map reference
 	 **/
   public getLMap(): L.Map {
     return this.getMapService().map;
   }
 
-	/**
+  /**
 	 * Get current center
 	 */
   public getCenter(): Center {
     return this.center || DEFAULT_CENTER;
   }
 
-	/**
+  /**
 	 * Set center from a coma separated coordinates 'latitude, longitude' string.
 	 * Accepted ',' and ';'
 	 * @param sCenter - 'latitude, longitude' string
@@ -92,7 +92,7 @@ export class OMapBase {
     }
   }
 
-	/**
+  /**
 	 * @deprecated use getMapService().addMarker
 	 */
   public addMarker(id, latitude, longitude, options, popup, hidden, showInMenu, menuLabel) {
@@ -110,4 +110,5 @@ export class OMapBase {
   public onMapReady(): BehaviorSubject<any> {
     return this.mapReady;
   }
+
 }

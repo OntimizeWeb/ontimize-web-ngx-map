@@ -1,5 +1,5 @@
 import { OMapLayerGroupComponent } from '../../components';
-import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../core';
+import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../models';
 import { OMapWSidenav } from './o-map-w-sidenav.class';
 
 export class OMapWLayers extends OMapWSidenav {

@@ -1,4 +1,4 @@
-import { Geometry } from '../core';
+import { Geometry } from '../models';
 
 export class Feature {
   id: string;

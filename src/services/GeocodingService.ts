@@ -1,8 +1,9 @@
+import { forwardRef, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Inject, forwardRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, flatMap } from 'rxjs/operators';
-import { Location } from '../core';
+import { flatMap, map } from 'rxjs/operators';
+
+import { Location } from '../models';
 
 export class GeocodingService {
 
@@ -42,4 +43,5 @@ export class GeocodingService {
         return location;
       }));
   }
+
 }
