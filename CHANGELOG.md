@@ -1,8 +1,8 @@
-## 4.0.0 (2018-02-22)
+## 4.0.0 (2019-02-22)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@4.0.0 (This change does not affect to user)
 
-## 4.0.0-rc.1 (2018-01-17)
+## 4.0.0-rc.1 (2019-01-17)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@4.0.0-rc.1 (This change does not affect to user)
 
