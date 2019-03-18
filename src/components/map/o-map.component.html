@@ -8,7 +8,7 @@
       <!--
         Header for Layer Base
       -->
-      <mat-toolbar>
+      <mat-toolbar class="base-layers">
         <span fxFlex>{{ getText('MAP_BASE_LAYERS') }}</span>
         <button mat-button aria-label="Close" (click)="toggleSidenav()">
           <mat-icon>navigate_before</mat-icon>
@@ -25,7 +25,7 @@
       <!--
         Header for Layers
       -->
-      <mat-toolbar>
+      <mat-toolbar class="layers">
         <span fxFlex>{{ getText('MAP_LAYERS') }}</span>
       </mat-toolbar>
       <!--
@@ -34,13 +34,13 @@
       -->
       <div class="group-ref">
         <ng-content></ng-content>
-        <o-map-layer-group class="" #mainLayerGroup></o-map-layer-group>
+        <o-map-layer-group class="o-map-layer-group" #mainLayerGroup></o-map-layer-group>
       </div>
 
       <!--
         Header for Workspace
       -->
-      <mat-toolbar>
+      <mat-toolbar class="workspace-layers">
         <span fxFlex>{{ getText('MAP_WORKSPACE_LAYERS') }}</span>
       </mat-toolbar>
       <!--
@@ -64,8 +64,8 @@
     <!--
       Omnibar o-navigator
     -->
-    <div *ngIf="searchControl" fxLayout="row" fxLayoutAlign="start center">
-      <o-navigator [show-sidenav-button]="isSearchControlButtonVisible"></o-navigator>
+    <div *ngIf="isNavigatorVisible" fxLayout="row" fxLayoutAlign="start center">
+      <o-navigator [show-search-input]="searchControl" [show-sidenav-button]="isSearchControlButtonVisible"></o-navigator>
     </div>
   </div>
 </mat-sidenav-container>
