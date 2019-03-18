@@ -101,6 +101,7 @@ export class OMapComponent extends OMapWSearch {
   protected tabContainer: MatTab;
   protected tabGroupSubscription: Subscription;
   protected _waitForBuild: boolean = false;
+  protected _searchControl: boolean = true;
   protected _searchControlButtonVisible: boolean = true;
   protected crsComponent: OMapCrsComponent;
 
@@ -254,12 +255,24 @@ export class OMapComponent extends OMapWSearch {
     this.onMapConfigured().emit(true);
   }
 
+  get searchControl(): boolean {
+    return this._searchControl;
+  }
+
+  set searchControl(val: boolean) {
+    this._searchControl = val;
+  }
+
   get isSearchControlButtonVisible(): boolean {
     return this._searchControlButtonVisible;
   }
 
   set isSearchControlButtonVisible(val: boolean) {
     this._searchControlButtonVisible = val;
+  }
+
+  get isNavigatorVisible(): boolean {
+    return this._searchControl || this._searchControlButtonVisible;
   }
 
 }

@@ -5,7 +5,8 @@ import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
 
 const DEFAULT_INPUTS = [
-  'showSidenavButton: show-sidenav-button'
+  'showSidenavButton: show-sidenav-button',
+  'showSearchInput: show-search-input'
 ];
 
 @Component({
@@ -20,6 +21,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
 
   public showSidenavButton: boolean = true;
+  public showSearchInput: boolean = true;
 
   protected _rendered: boolean = false;
   protected oMapConfigurationSubscription: Subscription;
@@ -30,19 +32,11 @@ export class ONavigatorComponent extends ONavigatorDefault {
     @Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
   ) {
     super(geocoder, translateMapService, oMap);
-    // if (this.oMap.waitForBuild) {
     this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-      //this.oMap.getMapService().disableMouseEvent('goto');
-      this.oMap.getMapService().disableMouseEvent('place-input');
+      if(this.isSearchInputVisible){
+        this.oMap.getMapService().disableMouseEvent('place-input');
+      }
     });
-    // }
-  }
-
-  ngOnInit() {
-    // if (!this.oMap.waitForBuild) {
-    //   //this.oMap.getMapService().disableMouseEvent('goto');
-    //   this.oMap.getMapService().disableMouseEvent('place-input');
-    // }
   }
 
   ngOnDestroy() {
@@ -105,6 +99,14 @@ export class ONavigatorComponent extends ONavigatorDefault {
 
   set rendered(val: boolean) {
     this._rendered = val;
+  }
+
+  get isSearchInputVisible(): boolean {
+    return this.showSearchInput;
+  }
+
+  set isSearchInputVisible(val: boolean) {
+    this.showSearchInput = val;
   }
 
   get isSidenavButtonVisible(): boolean {

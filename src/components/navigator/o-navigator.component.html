@@ -3,7 +3,7 @@
     <button *ngIf="isSidenavButtonVisible" mat-button class="mat-button" (click)="toggleSidenav()">
 			<i class="material-icons">menu</i>
 		</button>
-    <input id="place-input" class="on-map" type="text" fxFlex [placeholder]="getText('SEARCH_PLACEHOLDER')" [(ngModel)]="address"
+    <input *ngIf="isSearchInputVisible" id="place-input" class="on-map" type="text" fxFlex [placeholder]="getText('SEARCH_PLACEHOLDER')" [(ngModel)]="address"
       (blur)="onBlur()" (click)="onFocus()">
   </div>
 </div>
