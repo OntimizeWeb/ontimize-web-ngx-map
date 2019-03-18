@@ -141,18 +141,6 @@ export class OMapComponent extends OMapWSearch {
     } else if (this.waitForBuild) {
       this.initialize();
     }
-    const self = this;
-    setTimeout(() => {
-      if (!self.mapService.map) {
-        // console.debug('Initializing map...');
-        self.configureMap();
-      }
-      if (self.drawDefaultControl && !self.drawControlComponent) {
-        self.configureDefaultDrawControl(self.mapService.getMap());
-      }
-      self.onMapAfterViewInit().emit(self);
-      self.onMapReady().next(self);
-    }, 0);
   }
 
   initialize() {
@@ -170,6 +158,19 @@ export class OMapComponent extends OMapWSearch {
 
     this.baseLayerIds = Util.parseArray(this.sBaseLayerIds);
     this.mapService.configureBaseLayers(this.baseLayerIds);
+
+    const self = this;
+    setTimeout(() => {
+      if (!self.mapService.map) {
+        // console.debug('Initializing map...');
+        self.configureMap();
+      }
+      if (self.drawDefaultControl && !self.drawControlComponent) {
+        self.configureDefaultDrawControl(self.mapService.getMap());
+      }
+      self.onMapAfterViewInit().emit(self);
+      self.onMapReady().next(self);
+    }, 0);
   }
 
   registerCRSComponent(crsComp: OMapCrsComponent) {
