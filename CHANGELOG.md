@@ -1,3 +1,11 @@
+## 4.0.1 (2019-xx-xx)
+### Features
+* **Controls**: added new variables to show/hide controls in navigator control ([2b2d775](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/2b2d775))
+
+### Bug Fixes
+* **o-layer-options**: fixing bugs on merging layer options ([97ba9d0](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/97ba9d0))
+* **o-map**: fixing bug initializing map when it is inside a tab ([ab633e1](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/ab633e1))
+
 ## 4.0.0 (2018-02-22)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@4.0.0 (This change does not affect to user)
