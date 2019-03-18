@@ -84,7 +84,7 @@ export class OMapLayerFactory {
       if (layerConf.options === undefined) {
         layerConf.options = {};
       }
-      layerConf.options = Object.assign(layerConf.options, opt);
+      layerConf.options = Object.assign(opt, layerConf.options);
 
       layer = mapService.addGeoJSON(id, null, layerConf.options, layerConf.popup,
         !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
