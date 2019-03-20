@@ -52,7 +52,7 @@ export class OMapLayerFactory {
     }
 
     let layer;
-    var success = ((id !== null) && layerConf.hasOwnProperty('center'));
+    var success = ((id !== null) && layerConf.center);
     if (success) {
       layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, null,
         layerConf.popup, !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
