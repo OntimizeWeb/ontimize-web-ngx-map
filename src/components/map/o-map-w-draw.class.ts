@@ -1,15 +1,16 @@
-import { Observable } from 'rxjs';
 import * as L from 'leaflet';
-import { OMapWWorkspace } from './o-map-w-workspace.class';
-import { OMapDrawControlsEvents, IMapDrawControlEvent } from '../map-draw-controls/o-map-draw-controls-events.class';
-import { OMapDrawControlsComponent } from '../map-draw-controls/o-map-draw-controls.component';
-import { MapService } from '../../services/MapService';
+import { Observable } from 'rxjs';
 
+import { MapService } from '../../services/MapService';
+import { IMapDrawControlEvent, OMapDrawControlsEvents } from '../map-draw-controls/o-map-draw-controls-events.class';
+import { OMapDrawControlsComponent } from '../map-draw-controls/o-map-draw-controls.component';
+import { OMapWWorkspace } from './o-map-w-workspace.class';
 
 export class OMapWDraw extends OMapWWorkspace {
+
   public drawDefaultControl: boolean = false;
+  public drawControlComponent: OMapDrawControlsComponent;
   protected defaultDrawControlEvents: OMapDrawControlsEvents;
-  protected drawControlComponent: OMapDrawControlsComponent;
 
   registerDrawControlComponent(drawControlComponent: OMapDrawControlsComponent) {
     this.drawControlComponent = drawControlComponent;
@@ -48,4 +49,5 @@ export class OMapWDraw extends OMapWWorkspace {
     this.defaultDrawControlEvents = new OMapDrawControlsEvents(editableLayers);
     this.defaultDrawControlEvents.setMap(map);
   }
+
 }
