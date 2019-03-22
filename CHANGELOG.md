@@ -1,6 +1,8 @@
 ## 4.0.1 (2019-xx-xx)
 ### Features
 * **Controls**: added new variables to show/hide controls in navigator control ([2b2d775](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/2b2d775))
+* **DrawControl**: exposing `editableLayers` of drawControl ([edf8510](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/edf8510))
+* **DrawControl**: make `drawControlComponent` public ([0e2b1b3](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/0e2b1b3))
 
 ### Bug Fixes
 * **o-layer-options**: fixing bugs on merging layer options ([97ba9d0](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/97ba9d0))
