@@ -59,24 +59,39 @@ export class MapServiceUtils {
       // First, search into known providers
       let tileLayer: L.TileLayer = L.tileLayer['provider'](id);
       if (tileLayer !== undefined) {
+        let _url = tileLayer['_url'];
+        if(window.location.protocol === 'https:') {
+          _url = _url.replace('http:', 'https:');
+        }
         baseLayer = new BaseLayerDefault({
           id: id,
           name: id,
-          urlTemplate: tileLayer['_url'],
+          urlTemplate: _url,
           active: active,
           options: tileLayer['options'],
           tileLayer: tileLayer
         });
       } else if (!baseLayer && Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
-        baseLayer = new BaseLayerDefault(DEFAULT_BASE_LAYERS[id]);
+        baseLayer = new BaseLayerDefault(this.getDefaultBaseLayerConfiguration(id));
       }
     } catch (e) {
       // If not found, try to create new tile layer
       if (Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
-        baseLayer = new BaseLayerDefault(DEFAULT_BASE_LAYERS[id]);
+        baseLayer = new BaseLayerDefault(this.getDefaultBaseLayerConfiguration(id));
       }
     }
     return baseLayer;
+  }
+
+  private static getDefaultBaseLayerConfiguration(id:string): Object {
+    if (Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
+      let conf = DEFAULT_BASE_LAYERS[id];
+      if(window.location.protocol === 'https:') {
+        conf['urlTemplate'] = conf['urlTemplate'].replace('http:', 'https:');
+      }
+      return conf;
+    }
+    return null;
   }
 
 }
