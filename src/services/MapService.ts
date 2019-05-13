@@ -761,12 +761,22 @@ export class MapService {
         iconUrl: options['icon']
       });
     }
+    let customIconFromProps = null;
+    if (options['iconFromProperties']) {
+      customIconFromProps = options['iconFromProperties'];
+    }
 
     var geoJson = L.geoJSON(d, {
       pointToLayer: function (_feature, latlng) {
         if (customIcon) {
           return L.marker(latlng, {
             icon: customIcon
+          });
+        } else if(customIconFromProps && _feature && _feature.properties[customIconFromProps]){
+          return L.marker(latlng, {
+              icon: new L.Icon({
+                  iconUrl: _feature.properties[customIconFromProps]
+              })
           });
         } else {
           // Default marker icon
