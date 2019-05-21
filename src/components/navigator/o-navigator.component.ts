@@ -1,5 +1,6 @@
-import { Component, Inject, forwardRef } from '@angular/core';
+import { Component, forwardRef, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
@@ -33,13 +34,13 @@ export class ONavigatorComponent extends ONavigatorDefault {
   ) {
     super(geocoder, translateMapService, oMap);
     this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-      if(this.isSearchInputVisible){
+      if (this.isSearchInputVisible) {
         this.oMap.getMapService().disableMouseEvent('place-input');
       }
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (this.oMapConfigurationSubscription) {
       this.oMapConfigurationSubscription.unsubscribe();
     }
@@ -52,9 +53,9 @@ export class ONavigatorComponent extends ONavigatorDefault {
     return text;
   }
 
-	/**
-	 * Update search results using the new value of address
-	 */
+  /**
+   * Update search results using the new value of address
+   */
   get address(): string {
     return this.cachedAddress;
   }
@@ -62,20 +63,20 @@ export class ONavigatorComponent extends ONavigatorDefault {
   set address(address: string) {
     this.cachedAddress = address;
     this.rendered = this.search();
-    //this.goto();
+    // this.goto();
   }
 
-	/**
-	 * Toggle OMap sidebar state
-	 */
-  public toggleSidenav() {
+  /**
+   * Toggle OMap sidebar state
+   */
+  public toggleSidenav(): void {
     this.oMap.toggleSidenav();
   }
 
-	/**
-	 * Hide search results when cursor goes out
-	 */
-  public onBlur() {
+  /**
+   * Hide search results when cursor goes out
+   */
+  public onBlur(): void {
     this.rendered = false;
     setTimeout(() => {
       if (this.rendered === false) {
@@ -84,10 +85,10 @@ export class ONavigatorComponent extends ONavigatorDefault {
     }, 350);
   }
 
-	/**
-	 * Load search results when cursor goes in
-	 */
-  public onFocus() {
+  /**
+   * Load search results when cursor goes in
+   */
+  public onFocus(): void {
     if (this.rendered === false) {
       this.rendered = this.search();
     }
@@ -116,4 +117,5 @@ export class ONavigatorComponent extends ONavigatorDefault {
   set isSidenavButtonVisible(val: boolean) {
     this.showSidenavButton = val;
   }
+
 }
