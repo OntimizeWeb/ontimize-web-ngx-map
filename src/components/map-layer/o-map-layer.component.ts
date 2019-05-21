@@ -40,7 +40,10 @@ import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-
   ],
   templateUrl: './o-map-layer.component.html',
   styleUrls: ['./o-map-layer.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.o-map-layer]': 'true'
+  }
 })
 export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   sCenter: string;
