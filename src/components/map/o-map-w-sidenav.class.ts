@@ -5,10 +5,12 @@ export class OMapWSidenav extends OMapWEvents {
   sideNavCmp: MatSidenav;
   protected _isSidenavVisible: boolean = false;
 
-	/**
+  /**
 	 * Changes Sidebar state
 	 */
-  toggleSidenav() {
+  toggleSidenav(e: MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
     if (this.sideNavCmp) {
       if (this.isSidenavVisible) {
         this.sideNavCmp.close();
