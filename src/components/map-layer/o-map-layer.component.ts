@@ -3,13 +3,14 @@ import { AfterViewInit, Component, EventEmitter, forwardRef, Inject, Injector, O
 import * as L from 'leaflet';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { OMapComponent, OMapLayerFactory } from '../../components';
 import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
 import { Center, LayerConfiguration } from '../../models';
-import { MapService } from '../../services';
+import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.class';
+import { MapService, TranslateMapService } from '../../services';
 import { Util } from '../../utils';
 import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-crs-configuration.class';
+
 
 @Component({
   moduleId: module.id,
@@ -36,7 +37,9 @@ import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-
     'icon : layer-icon',
     'options : layer-options',
     'crs',
-    'crsConfiguration : crs-configuration'
+    'crsConfiguration : crs-configuration',
+    'contextMenu : layer-contextmenu'
+
   ],
   templateUrl: './o-map-layer.component.html',
   styleUrls: ['./o-map-layer.component.scss'],
@@ -73,8 +76,27 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   public baseUrl: string;
   protected _icon: string;
   public options: Object;
+  protected _contextmenu;
+  protected defaultContextMenu: LayerConfigurationContextmenu = {
+    contextmenuItems: [{
+      attr: 'centerMap',
+      label: 'CONTEXTMENU.CENTER_MAP',
+      callback: (e) => this.centerMap(e)
+    }, '-', {
+      attr: 'zoomIn',
+      label: 'CONTEXTMENU.ZOOM_IN',
+      icon: 'assets/zoom-in.png',
+      callback: () => this.zoomIn()
+    }, {
+      attr: 'zoomOut',
+      label: 'CONTEXTMENU.ZOOM_OUT',
+      icon: 'assets/zoom-out.png',
+      callback: () => this.zoomOut()
+    }]
+  };
   protected crs: string;
   protected crsConfiguration: ICRSConfiguration;
+  protected translateMapService: TranslateMapService;
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
 
@@ -95,6 +117,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   private _resizeEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupOpenEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupCloseEvtEmitter: EventEmitter<any> = new EventEmitter();
+  private _contextmenuEvtEmitter: EventEmitter<any> = new EventEmitter();
   protected oMapConfigurationSubscription: Subscription;
 
   protected layerAfterViewInitStream: EventEmitter<Object> = new EventEmitter<Object>();
@@ -106,7 +129,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
     protected injector: Injector
   ) {
-
+    this.translateMapService = this.injector.get(TranslateMapService);
     this.layerStream = combineLatest(
       this.layerAfterViewInitStream.asObservable(),
       this.layerMapConfigured.asObservable()
@@ -195,7 +218,21 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     layerConf.baseUrl = this.baseUrl;
     layerConf.showInMenu = this.inMenu;
     layerConf.options = this.options;
+    layerConf.contextmenu = this.contextMenu;
+
     return layerConf;
+  }
+
+  public centerMap(e) {
+    this.getMapService().getMap().panTo(e.latlng);
+  }
+
+  public zoomIn() {
+    this.getMapService().getMap().zoomIn();
+  }
+
+  public zoomOut() {
+    this.getMapService().getMap().zoomOut();
   }
 
   initializeMapLayer() {
@@ -352,6 +389,10 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
       this.layer.on('popupclose', function (evt) {
         self._popupCloseEvtEmitter.emit(evt);
       });
+
+      this.layer.on('contextmenu', function (evt) {
+        self._contextmenuEvtEmitter.emit(evt);
+      });
     }
   }
 
@@ -454,5 +495,65 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   set menuLabel(val: string) {
     this._menuLabel = val;
   }
+
+  set contextMenu(val: LayerConfigurationContextmenu) {
+    if (!val) {
+      return;
+    }
+
+    this._contextmenu = new LayerConfigurationContextmenu();
+
+    if (val.defaultContextmenuItems) {
+      this._contextmenu.contextmenuItems = this.defaultContextMenu.contextmenuItems;
+      if (val.contextmenuItems) {
+        this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(val.contextmenuItems);
+      }
+    } else {
+      this._contextmenu.contextmenuItems = val.contextmenuItems;
+    }
+    this._contextmenu.contextmenuItems = this.parseContextmenuItems(this._contextmenu.contextmenuItems)
+  }
+
+  get contextMenu(): LayerConfigurationContextmenu {
+    return this._contextmenu;
+  }
+
+  parseContextmenuItems(items: Array<any>): Array<any> {
+
+    return items.map((element) => {
+      let item = new Object();
+      if (element instanceof Object) {
+        //label: The label to use for the menu item (required).
+        if (element.hasOwnProperty('label')) {
+          item['text'] = this.translateMapService.get(element.label);
+        }
+        //icon: Url for a 16x16px icon to display to the left of the label.
+        if (element.hasOwnProperty('icon') && element.icon) {
+          item['icon'] = element.icon;
+        }
+        //iconCls: A CSS class which sets the background image for the icon (exclusive of the icon option).
+        if (element.hasOwnProperty('iconCls') && element.iconCls) {
+          item['iconCls'] = element.iconCls;
+        }
+        //callback:A callback function to be invoked when the menu item is clicked. The callback is passed an object with properties identifying the location the menu was opened at: latlng, layerPoint and containerPoint.
+        if (element.hasOwnProperty('callback') && element.callback) {
+          item['callback'] = element.callback;
+        }
+        if (element.hasOwnProperty('index') && element.index) {
+          item['index'] = element.index;
+        }
+        //If true a separator will be created instead of a menu item.
+        if (element.hasOwnProperty('separator') && element.separator) {
+          item['separator'] = element.callback;
+        }
+    
+        return item;
+      } else {
+        return element;
+      }
+    })
+  }
+
+
 
 }

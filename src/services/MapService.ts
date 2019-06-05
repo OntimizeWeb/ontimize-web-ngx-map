@@ -1,13 +1,14 @@
-import { Injectable, EventEmitter, Injector } from '@angular/core';
-import { BaseLayerCollection } from '../models';
+
+import { EventEmitter, Injectable, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+import 'leaflet-contextmenu';
 import 'leaflet-draw';
 import 'leaflet-providers';
-import 'leaflet.markercluster';
 import 'leaflet.heat';
+import 'leaflet.markercluster';
 import 'proj4leaflet';
-
+import { BaseLayerCollection } from '../models';
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
 
@@ -750,7 +751,7 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added GeoJSON layer.
 	 */
-  addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel) {
+  addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel, contextmenu) {
     // Create new GeoJSON layer
     let d = data ? data : null;
 
@@ -769,24 +770,35 @@ export class MapService {
     var geoJson = L.geoJSON(d, {
       pointToLayer: function (_feature, latlng) {
         if (customIcon) {
-          return L.marker(latlng, {
+          return (L as any).marker(latlng, {
             icon: customIcon
           });
-        } else if(customIconFromProps && _feature && _feature.properties[customIconFromProps]){
+        } else if (customIconFromProps && _feature && _feature.properties[customIconFromProps]) {
           return L.marker(latlng, {
-              icon: new L.Icon({
-                  iconUrl: _feature.properties[customIconFromProps]
-              })
+            icon: new L.Icon({
+              iconUrl: _feature.properties[customIconFromProps],
+
+            })
           });
         } else {
           // Default marker icon
-          return L.marker(latlng);
+          return (L as any).marker(latlng);
         }
       },
       style: function (geoJsonFeature) {
         return MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, options);
       },
       onEachFeature: function (feature, layer) {
+        if (contextmenu) {
+          (layer as any).bindContextMenu({
+            contextmenu: true,
+            contextmenuItems: contextmenu['contextmenuItems'],
+            contextmenuWidth: contextmenu['contextmenuWidth'],
+            contextmenuInheritItems: false
+          });
+        }
+
+
         if (popup && Object.keys(feature.properties).length > 0
           /*&& Util.isGeoJSONLayer(layer)*/) {
           try {

@@ -21,4 +21,11 @@ export class LayerConfiguration {
   public selected: boolean = false;
   public visible: boolean = false;
   public inWS: boolean = false;
+  public contextmenu: LayerConfigurationContextmenu;
+}
+
+export class LayerConfigurationContextmenu {
+  contextmenuWidth?: number;
+  contextmenuItems?: any[];
+  defaultContextmenuItems?: boolean = true;
 }
