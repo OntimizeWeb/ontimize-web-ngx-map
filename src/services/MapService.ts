@@ -8,7 +8,7 @@ import 'leaflet-providers';
 import 'leaflet.heat';
 import 'leaflet.markercluster';
 import 'proj4leaflet';
-import { BaseLayerCollection } from '../models';
+import { BaseLayerCollection, LayerConfigurationContextmenu } from '../models';
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
 
@@ -31,10 +31,42 @@ export class MapService {
     maxHeight: 200
   };
 
+  defaultContextMenu: LayerConfigurationContextmenu = {
+    contextmenuItems: [{
+      attr: 'centerMap',
+      label: 'CONTEXTMENU.CENTER_MAP',
+      callback: (e) => this.centerMap(e)
+    }, {
+      label: '',
+      separator: true
+    }, {
+      attr: 'zoomIn',
+      label: 'CONTEXTMENU.ZOOM_IN',
+      icon: 'assets/zoom-in.png',
+      callback: () => this.zoomIn()
+    }, {
+      attr: 'zoomOut',
+      label: 'CONTEXTMENU.ZOOM_OUT',
+      icon: 'assets/zoom-out.png',
+      callback: () => this.zoomOut()
+    }]
+  };
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(protected injector: Injector) {
     this.translateMapService = this.injector.get(TranslateMapService);
+  }
+
+  public centerMap(e) {
+    this.getMap().panTo(e.latlng);
+  }
+
+  public zoomIn() {
+    this.getMap().zoomIn();
+  }
+
+  public zoomOut() {
+    this.getMap().zoomOut();
   }
 
   disableMouseEvent(tag: string) {
@@ -87,6 +119,10 @@ export class MapService {
 	*/
   getZoom() {
     return this.getZoom();
+  }
+
+  getDefaultContextmenuItems() {
+    return this.defaultContextMenu;
   }
 
   /**
@@ -767,6 +803,7 @@ export class MapService {
       customIconFromProps = options['iconFromProperties'];
     }
 
+    let self = this;
     var geoJson = L.geoJSON(d, {
       pointToLayer: function (_feature, latlng) {
         if (customIcon) {
@@ -790,6 +827,10 @@ export class MapService {
       },
       onEachFeature: function (feature, layer) {
         if (contextmenu) {
+          if (contextmenu.callback) {
+            contextmenu['contextmenuItems'] = self.parseContextmenuItems(contextmenu.callback(layer));
+          }
+
           (layer as any).bindContextMenu({
             contextmenu: true,
             contextmenuItems: contextmenu['contextmenuItems'],
@@ -821,6 +862,42 @@ export class MapService {
     // // this.map.addLayer(markers);
     // this.addLayer(id, markers, hidden, showInMenu, menuLabel);
     return geoJson;
+  }
+
+  parseContextmenuItems(items: Array<any>): Array<any> {
+
+    return items.map((element) => {
+      let item = new Object();
+      if (element instanceof Object) {
+        //label: The label to use for the menu item (required).
+        if (element.hasOwnProperty('label')) {
+          item['text'] = this.translateMapService.get(element.label);
+        }
+        //icon: Url for a 16x16px icon to display to the left of the label.
+        if (element.hasOwnProperty('icon') && element.icon) {
+          item['icon'] = element.icon;
+        }
+        //iconCls: A CSS class which sets the background image for the icon (exclusive of the icon option).
+        if (element.hasOwnProperty('iconCls') && element.iconCls) {
+          item['iconCls'] = element.iconCls;
+        }
+        //callback:A callback function to be invoked when the menu item is clicked. The callback is passed an object with properties identifying the location the menu was opened at: latlng, layerPoint and containerPoint.
+        if (element.hasOwnProperty('callback') && element.callback) {
+          item['callback'] = element.callback;
+        }
+        if (element.hasOwnProperty('index') && element.index) {
+          item['index'] = element.index;
+        }
+        //If true a separator will be created instead of a menu item.
+        if (element.hasOwnProperty('separator') && element.separator) {
+          item['separator'] = element.separator;
+        }
+
+        return item;
+      } else {
+        return element;
+      }
+    })
   }
 
 }
