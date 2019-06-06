@@ -9,6 +9,8 @@ const AVAILABLE_STYLE_ATTRIBUTE_KEYS = [
   'fillColor', 'fillOpacity', 'fillRule'
 ];
 
+const AVAILABLE_ICON_OPTIONS_KEYS = ['iconUrl', 'iconRetinaUrl', 'iconSize', 'iconAnchor', 'popupAnchor', 'tooltipAnchor', 'shadowUrl', 'shadowRetinaUrl', 'shadowSize', 'shadowAnchor', 'className'];
+
 const DEFAULT_BASE_LAYERS = {
   'OpenStreetMap': {
     name: 'OpenStreetMap',
@@ -52,6 +54,12 @@ export class MapServiceUtils {
     return style;
   }
 
+  public static retrieveIconStyles(options: Object): Object {
+    const result = {};
+    AVAILABLE_ICON_OPTIONS_KEYS.forEach(key => result[key] = options[key]);
+    return result;
+  }
+
   public static createDefaultBaseLayer(id: string, active: boolean = false): BaseLayer | L.TileLayer {
     let baseLayer: BaseLayer | L.TileLayer = undefined;
 
@@ -60,7 +68,7 @@ export class MapServiceUtils {
       let tileLayer: L.TileLayer = L.tileLayer['provider'](id);
       if (tileLayer !== undefined) {
         let _url = tileLayer['_url'];
-        if(window.location.protocol === 'https:') {
+        if (window.location.protocol === 'https:') {
           _url = _url.replace('http:', 'https:');
         }
         baseLayer = new BaseLayerDefault({
@@ -83,10 +91,10 @@ export class MapServiceUtils {
     return baseLayer;
   }
 
-  private static getDefaultBaseLayerConfiguration(id:string): Object {
+  private static getDefaultBaseLayerConfiguration(id: string): Object {
     if (Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
       let conf = DEFAULT_BASE_LAYERS[id];
-      if(window.location.protocol === 'https:') {
+      if (window.location.protocol === 'https:') {
         conf['urlTemplate'] = conf['urlTemplate'].replace('http:', 'https:');
       }
       return conf;

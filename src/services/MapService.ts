@@ -770,62 +770,51 @@ export class MapService {
   }
 
   /**
-	 * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
-	 * @param id
-	 *          Unique identifier.
-	 * @param data
-	 *          (optional) GeoJSON data (http://geojson.org/geojson-spec.html).
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#geojson-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added GeoJSON layer.
-	 */
-  addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel, contextmenu) {
+   * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+   * @param id
+   *          Unique identifier.
+   * @param data
+   *          (optional) GeoJSON data (http://geojson.org/geojson-spec.html).
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#geojson-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added GeoJSON layer.
+   */
+  public addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel, contextmenu): L.GeoJSON {
     // Create new GeoJSON layer
-    let d = data ? data : null;
+    const d = data ? data : null;
 
-    //Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
-    var customIcon = null;
-    if (options['icon']) {
-      customIcon = new L.Icon({
-        iconUrl: options['icon']
-      });
-    }
-    let customIconFromProps = null;
-    if (options['iconFromProperties']) {
-      customIconFromProps = options['iconFromProperties'];
-    }
-
-    let self = this;
-    var geoJson = L.geoJSON(d, {
-      pointToLayer: function (_feature, latlng) {
-        if (customIcon) {
+    // Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
+    const iconOptions = MapServiceUtils.retrieveIconStyles(options);
+    const customIconFromProps = options['iconFromProperties'];
+    const self = this;
+    const geoJson = L.geoJSON(d, {
+      pointToLayer: (_feature, latlng) => {
+        if (iconOptions['iconUrl']) {
           return (L as any).marker(latlng, {
-            icon: customIcon
+            icon: new L.Icon(iconOptions)
           });
         } else if (customIconFromProps && _feature && _feature.properties[customIconFromProps]) {
-          return L.marker(latlng, {
-            icon: new L.Icon({
-              iconUrl: _feature.properties[customIconFromProps],
-
-            })
+          iconOptions['iconUrl'] = _feature.properties[customIconFromProps];
+          return (L as any).marker(latlng, {
+            icon: new L.Icon(iconOptions)
           });
         } else {
           // Default marker icon
           return (L as any).marker(latlng);
         }
       },
-      style: function (geoJsonFeature) {
+      style: geoJsonFeature => {
         return MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, options);
       },
-      onEachFeature: function (feature, layer) {
+      onEachFeature: (feature, layer) => {
         if (contextmenu) {
           if (contextmenu.callback) {
             contextmenu['contextmenuItems'] = self.parseContextmenuItems(contextmenu.callback(layer));
@@ -839,16 +828,13 @@ export class MapService {
           });
         }
 
-
-        if (popup && Object.keys(feature.properties).length > 0
-          /*&& Util.isGeoJSONLayer(layer)*/) {
+        if (popup && Object.keys(feature.properties).length > 0 /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
-            let txt = L.Util.template(popup, feature.properties);
+            const txt = L.Util.template(popup, feature.properties);
             (<L.GeoJSON>layer).bindPopup(txt, this.popupOptions);
           } catch (error) {
             console.log(error);
           }
-
         }
       }
     });
