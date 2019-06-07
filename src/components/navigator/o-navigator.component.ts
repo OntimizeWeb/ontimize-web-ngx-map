@@ -1,5 +1,6 @@
-import { Component, Inject, forwardRef } from '@angular/core';
+import { Component, forwardRef, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
@@ -39,7 +40,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (this.oMapConfigurationSubscription) {
       this.oMapConfigurationSubscription.unsubscribe();
     }
@@ -53,8 +54,8 @@ export class ONavigatorComponent extends ONavigatorDefault {
   }
 
   /**
-	 * Update search results using the new value of address
-	 */
+   * Update search results using the new value of address
+   */
   get address(): string {
     return this.cachedAddress;
   }
@@ -62,7 +63,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
   set address(address: string) {
     this.cachedAddress = address;
     this.rendered = this.search();
-    //this.goto();
+    // this.goto();
   }
 
   /**
@@ -116,4 +117,5 @@ export class ONavigatorComponent extends ONavigatorDefault {
   set isSidenavButtonVisible(val: boolean) {
     this.showSidenavButton = val;
   }
+
 }

@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "4.0.1",
+  "version": "4.0.1-5-SNAPSHOT",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"
@@ -23,14 +23,15 @@
   "es2015": "./esm2015/ontimize-web-ngx-map.js",
   "typings": "./index.d.ts",
   "dependencies": {
+    "@churchs19/ng2-dnd": "6.0.0",
     "leaflet": "1.2.0",
+    "leaflet-contextmenu": "1.4.0",
     "leaflet-draw": "0.4.13",
     "leaflet-providers": "1.1.17",
-    "leaflet.markercluster": "1.0.6",
     "leaflet.heat": "0.2.0",
+    "leaflet.markercluster": "1.0.6",
     "proj4": "2.4.4",
-    "proj4leaflet": "1.0.2",
-    "@churchs19/ng2-dnd": "6.0.0"
+    "proj4leaflet": "1.0.2"
   },
   "peerDependencies": {
     "core-js": "2.5.7",

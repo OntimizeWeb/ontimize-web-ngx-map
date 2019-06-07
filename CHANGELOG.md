@@ -9,6 +9,11 @@
 * **o-map**:
   * new `sidenav-mode`, `show-base-layers-menu`, `show-layers-menu` and `show-workspace-menu` inputs ([59053be](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/59053be))
   * Using expansion panels in sidenav menu ([59053be](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/59053be))
+* **GeoJson layer options**: new parameter 'iconFromProperties' for setting icon url from properties ([82b2461](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/82b2461))
+* **o-map-layer**: new `layer-options` attributes: `iconRetinaUrl`, `iconSize`, `iconAnchor`, `popupAnchor`, `tooltipAnchor`, `shadowUrl`, `shadowRetinaUrl`, `shadowSize`, `shadowAnchor`, `className` ([ad0d3f2](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/ad0d3f2))
+
+### BREAKING CHANGES
+* **o-map-layer**: `layer-options` attribute `icon` has been renamed to `iconUrl`.
 
 ### Bug Fixes
 * **o-layer-options**: fixing bugs on merging layer options ([97ba9d0](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/97ba9d0))

@@ -1,13 +1,14 @@
-import { Injectable, EventEmitter, Injector } from '@angular/core';
-import { BaseLayerCollection } from '../models';
+
+import { EventEmitter, Injectable, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+import 'leaflet-contextmenu';
 import 'leaflet-draw';
 import 'leaflet-providers';
-import 'leaflet.markercluster';
 import 'leaflet.heat';
+import 'leaflet.markercluster';
 import 'proj4leaflet';
-
+import { BaseLayerCollection, LayerConfigurationContextmenu } from '../models';
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
 
@@ -30,10 +31,42 @@ export class MapService {
     maxHeight: 200
   };
 
+  defaultContextMenu: LayerConfigurationContextmenu = {
+    contextmenuItems: [{
+      attr: 'centerMap',
+      label: 'CONTEXTMENU.CENTER_MAP',
+      callback: (e) => this.centerMap(e)
+    }, {
+      label: '',
+      separator: true
+    }, {
+      attr: 'zoomIn',
+      label: 'CONTEXTMENU.ZOOM_IN',
+      icon: 'assets/zoom-in.png',
+      callback: () => this.zoomIn()
+    }, {
+      attr: 'zoomOut',
+      label: 'CONTEXTMENU.ZOOM_OUT',
+      icon: 'assets/zoom-out.png',
+      callback: () => this.zoomOut()
+    }]
+  };
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(protected injector: Injector) {
     this.translateMapService = this.injector.get(TranslateMapService);
+  }
+
+  public centerMap(e) {
+    this.getMap().panTo(e.latlng);
+  }
+
+  public zoomIn() {
+    this.getMap().zoomIn();
+  }
+
+  public zoomOut() {
+    this.getMap().zoomOut();
   }
 
   disableMouseEvent(tag: string) {
@@ -86,6 +119,10 @@ export class MapService {
 	*/
   getZoom() {
     return this.getZoom();
+  }
+
+  getDefaultContextmenuItems() {
+    return this.defaultContextMenu;
   }
 
   /**
@@ -733,69 +770,71 @@ export class MapService {
   }
 
   /**
-	 * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
-	 * @param id
-	 *          Unique identifier.
-	 * @param data
-	 *          (optional) GeoJSON data (http://geojson.org/geojson-spec.html).
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#geojson-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added GeoJSON layer.
-	 */
-  addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel) {
+   * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+   * @param id
+   *          Unique identifier.
+   * @param data
+   *          (optional) GeoJSON data (http://geojson.org/geojson-spec.html).
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#geojson-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added GeoJSON layer.
+   */
+  public addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel, contextmenu): L.GeoJSON {
     // Create new GeoJSON layer
-    let d = data ? data : null;
+    const d = data ? data : null;
 
-    //Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
-    var customIcon = null;
-    if (options['icon']) {
-      customIcon = new L.Icon({
-        iconUrl: options['icon']
-      });
-    }
-    let customIconFromProps = null;
-    if (options['iconFromProperties']) {
-      customIconFromProps = options['iconFromProperties'];
-    }
-
-    var geoJson = L.geoJSON(d, {
-      pointToLayer: function (_feature, latlng) {
-        if (customIcon) {
-          return L.marker(latlng, {
-            icon: customIcon
+    // Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
+    const iconOptions = MapServiceUtils.retrieveIconStyles(options);
+    const customIconFromProps = options['iconFromProperties'];
+    const self = this;
+    const geoJson = L.geoJSON(d, {
+      pointToLayer: (_feature, latlng) => {
+        if (iconOptions['iconUrl']) {
+          return (L as any).marker(latlng, {
+            icon: new L.Icon(iconOptions)
           });
-        } else if(customIconFromProps && _feature && _feature.properties[customIconFromProps]){
-          return L.marker(latlng, {
-              icon: new L.Icon({
-                  iconUrl: _feature.properties[customIconFromProps]
-              })
+        } else if (customIconFromProps && _feature && _feature.properties[customIconFromProps]) {
+          iconOptions['iconUrl'] = _feature.properties[customIconFromProps];
+          return (L as any).marker(latlng, {
+            icon: new L.Icon(iconOptions)
           });
         } else {
           // Default marker icon
-          return L.marker(latlng);
+          return (L as any).marker(latlng);
         }
       },
-      style: function (geoJsonFeature) {
+      style: geoJsonFeature => {
         return MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, options);
       },
-      onEachFeature: function (feature, layer) {
-        if (popup && Object.keys(feature.properties).length > 0
-          /*&& Util.isGeoJSONLayer(layer)*/) {
+      onEachFeature: (feature, layer) => {
+        if (contextmenu) {
+          if (contextmenu.callback) {
+            contextmenu['contextmenuItems'] = self.parseContextmenuItems(contextmenu.callback(layer));
+          }
+
+          (layer as any).bindContextMenu({
+            contextmenu: true,
+            contextmenuItems: contextmenu['contextmenuItems'],
+            contextmenuWidth: contextmenu['contextmenuWidth'],
+            contextmenuInheritItems: false
+          });
+        }
+
+        if (popup && Object.keys(feature.properties).length > 0 /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
-            let txt = L.Util.template(popup, feature.properties);
+            const txt = L.Util.template(popup, feature.properties);
             (<L.GeoJSON>layer).bindPopup(txt, this.popupOptions);
           } catch (error) {
             console.log(error);
           }
-
         }
       }
     });
@@ -809,6 +848,42 @@ export class MapService {
     // // this.map.addLayer(markers);
     // this.addLayer(id, markers, hidden, showInMenu, menuLabel);
     return geoJson;
+  }
+
+  parseContextmenuItems(items: Array<any>): Array<any> {
+
+    return items.map((element) => {
+      let item = new Object();
+      if (element instanceof Object) {
+        //label: The label to use for the menu item (required).
+        if (element.hasOwnProperty('label')) {
+          item['text'] = this.translateMapService.get(element.label);
+        }
+        //icon: Url for a 16x16px icon to display to the left of the label.
+        if (element.hasOwnProperty('icon') && element.icon) {
+          item['icon'] = element.icon;
+        }
+        //iconCls: A CSS class which sets the background image for the icon (exclusive of the icon option).
+        if (element.hasOwnProperty('iconCls') && element.iconCls) {
+          item['iconCls'] = element.iconCls;
+        }
+        //callback:A callback function to be invoked when the menu item is clicked. The callback is passed an object with properties identifying the location the menu was opened at: latlng, layerPoint and containerPoint.
+        if (element.hasOwnProperty('callback') && element.callback) {
+          item['callback'] = element.callback;
+        }
+        if (element.hasOwnProperty('index') && element.index) {
+          item['index'] = element.index;
+        }
+        //If true a separator will be created instead of a menu item.
+        if (element.hasOwnProperty('separator') && element.separator) {
+          item['separator'] = element.separator;
+        }
+
+        return item;
+      } else {
+        return element;
+      }
+    })
   }
 
 }

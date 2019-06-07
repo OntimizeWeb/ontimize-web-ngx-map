@@ -3,13 +3,14 @@ import { AfterViewInit, Component, EventEmitter, forwardRef, Inject, Injector, O
 import * as L from 'leaflet';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { OMapComponent, OMapLayerFactory } from '../../components';
 import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
 import { Center, LayerConfiguration } from '../../models';
-import { MapService } from '../../services';
+import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.class';
+import { MapService, TranslateMapService } from '../../services';
 import { Util } from '../../utils';
 import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-crs-configuration.class';
+
 
 @Component({
   moduleId: module.id,
@@ -36,7 +37,9 @@ import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-
     'icon : layer-icon',
     'options : layer-options',
     'crs',
-    'crsConfiguration : crs-configuration'
+    'crsConfiguration : crs-configuration',
+    'contextMenu : layer-contextmenu'
+
   ],
   templateUrl: './o-map-layer.component.html',
   styleUrls: ['./o-map-layer.component.scss'],
@@ -73,8 +76,11 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   public baseUrl: string;
   protected _icon: string;
   public options: Object;
+  protected _contextmenu;
+
   protected crs: string;
   protected crsConfiguration: ICRSConfiguration;
+  protected translateMapService: TranslateMapService;
 
   public oSearchKeys: Array<string> = ['menuLabel', 'menuLabelSecondary'];
 
@@ -95,6 +101,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   private _resizeEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupOpenEvtEmitter: EventEmitter<any> = new EventEmitter();
   private _popupCloseEvtEmitter: EventEmitter<any> = new EventEmitter();
+  private _contextmenuEvtEmitter: EventEmitter<any> = new EventEmitter();
   protected oMapConfigurationSubscription: Subscription;
 
   protected layerAfterViewInitStream: EventEmitter<Object> = new EventEmitter<Object>();
@@ -106,7 +113,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
     protected injector: Injector
   ) {
-
+    this.translateMapService = this.injector.get(TranslateMapService);
     this.layerStream = combineLatest(
       this.layerAfterViewInitStream.asObservable(),
       this.layerMapConfigured.asObservable()
@@ -195,6 +202,8 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     layerConf.baseUrl = this.baseUrl;
     layerConf.showInMenu = this.inMenu;
     layerConf.options = this.options;
+    layerConf.contextmenu = this.contextMenu;
+
     return layerConf;
   }
 
@@ -352,6 +361,10 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
       this.layer.on('popupclose', function (evt) {
         self._popupCloseEvtEmitter.emit(evt);
       });
+
+      this.layer.on('contextmenu', function (evt) {
+        self._contextmenuEvtEmitter.emit(evt);
+      });
     }
   }
 
@@ -453,6 +466,28 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
 
   set menuLabel(val: string) {
     this._menuLabel = val;
+  }
+
+  set contextMenu(val: LayerConfigurationContextmenu) {
+    if (!val) {
+      return;
+    }
+
+    this._contextmenu = val;
+
+    if (val.defaultContextmenuItems) {
+      this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(this.getMapService().defaultContextMenu.contextmenuItems);
+    }
+    
+    if(!this._contextmenu.contextmenuItems){
+      return;
+    }
+
+    this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems);
+  }
+
+  get contextMenu(): LayerConfigurationContextmenu {
+    return this._contextmenu;
   }
 
 }

@@ -1,19 +1,19 @@
-import { Component, Injector, ElementRef, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation, ContentChildren, QueryList } from '@angular/core';
-import { MatSidenav, MatTabGroup, MatTab } from '@angular/material';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Subscription } from 'rxjs';
-import { InputConverter } from 'ontimize-web-ngx';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, ContentChildren, ElementRef, EventEmitter, Injector, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { MatSidenav, MatTab, MatTabGroup } from '@angular/material';
 import * as L from 'leaflet';
-import { MapService, GeocodingService, TranslateMapService } from '../../services';
+import { InputConverter } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
+import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.class';
+import { GeocodingService, MapService, TranslateMapService } from '../../services';
 import { Util } from '../../utils';
-import { OMarkerComponent } from '../marker/o-marker.component';
 import { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
+import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
+import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-container.component';
 import { OMapLayerGroupComponent } from '../map-layer-group/o-map-layer-group.component';
 import { OMapWorkspaceComponent } from '../map-workspace/o-map-workspace.component';
-import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-container.component';
-import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
+import { OMarkerComponent } from '../marker/o-marker.component';
 import { OMapWSearch } from './o-map-w-search.class';
-//TODO import {Control} from 'leaflet-draw';
 
 const DEFAULT_INPUTS = [
   'sAttr: attr',
@@ -35,7 +35,8 @@ const DEFAULT_INPUTS = [
 
   'showBaseLayersMenu: show-base-layers-menu',
   'showLayersMenu: show-layers-menu',
-  'showWorkspaceMenu: show-workspace-menu'
+  'showWorkspaceMenu: show-workspace-menu',
+  'contextMenu : layer-contextmenu'
 ];
 
 const DEFAULT_OUTPUTS = [
@@ -145,6 +146,7 @@ export class OMapComponent extends OMapWSearch {
   protected _searchControl: boolean = true;
   protected _searchControlButtonVisible: boolean = true;
   protected crsComponent: OMapCrsComponent;
+  protected _contextmenu: any;
 
   constructor(
     protected elRef: ElementRef,
@@ -282,6 +284,12 @@ export class OMapComponent extends OMapWSearch {
       maxZoom: this.zoom.max || 19,
       layers: this.mapService.baseLayers.getLayersArray()
     };
+    //Added contextmenu option in mapOptions
+    if (this.contextMenu) {
+      mapOptions['contextmenu'] = true;
+      mapOptions['contextmenuWidth'] = this.contextMenu.contextmenuWidth;
+      mapOptions['contextmenuItems'] = this.contextMenu.contextmenuItems;
+    }
 
     if (this.crsComponent) {
       let crsConf = this.crsComponent.getCRS();
@@ -339,5 +347,26 @@ export class OMapComponent extends OMapWSearch {
       result = this.sideNavCmp._width;
     }
     return result + 'px';
+  }
+
+  set contextMenu(val: LayerConfigurationContextmenu) {
+    if (!val) {
+      return;
+    }
+
+    this._contextmenu = val;
+
+    if (val.defaultContextmenuItems) {
+      this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(this.getMapService().defaultContextMenu.contextmenuItems);
+    }
+    
+    if(!this._contextmenu.contextmenuItems){
+      return;
+    }
+    this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems)
+  }
+
+  get contextMenu(): LayerConfigurationContextmenu {
+    return this._contextmenu;
   }
 }

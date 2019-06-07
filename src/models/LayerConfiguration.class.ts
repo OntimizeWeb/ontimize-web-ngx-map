@@ -1,3 +1,4 @@
+import { Layer } from 'leaflet';
 import { Center } from './Center.class';
 
 export class LayerConfiguration {
@@ -21,4 +22,23 @@ export class LayerConfiguration {
   public selected: boolean = false;
   public visible: boolean = false;
   public inWS: boolean = false;
+  public contextmenu: LayerConfigurationContextmenu;
+}
+export type LayerConfigurationFunction = (e: Layer) => LayerConfigurationContextmenuItem[];
+
+export class LayerConfigurationContextmenu {
+  contextmenuWidth?: number;
+  contextmenuItems?: LayerConfigurationContextmenuItem[];
+  contextmenuCallback?: Function;
+  defaultContextmenuItems?: boolean = true;
+  callback?: LayerConfigurationFunction;
+}
+export class LayerConfigurationContextmenuItem {
+  label: string;
+  attr?: string;
+  index?: number;
+  defaultContextmenuItems?: boolean = true;
+  callback?: Function;
+  icon?: string;
+  separator?: boolean;
 }
