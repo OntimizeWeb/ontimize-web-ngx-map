@@ -33,7 +33,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
   ) {
     super(geocoder, translateMapService, oMap);
     this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-      if(this.isSearchInputVisible){
+      if (this.isSearchInputVisible) {
         this.oMap.getMapService().disableMouseEvent('place-input');
       }
     });
@@ -52,7 +52,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
     return text;
   }
 
-	/**
+  /**
 	 * Update search results using the new value of address
 	 */
   get address(): string {
@@ -65,14 +65,14 @@ export class ONavigatorComponent extends ONavigatorDefault {
     //this.goto();
   }
 
-	/**
+  /**
 	 * Toggle OMap sidebar state
 	 */
-  public toggleSidenav() {
-    this.oMap.toggleSidenav();
+  public toggleSidenav(e: MouseEvent) {
+    this.oMap.toggleSidenav(e);
   }
 
-	/**
+  /**
 	 * Hide search results when cursor goes out
 	 */
   public onBlur() {
@@ -84,7 +84,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
     }, 350);
   }
 
-	/**
+  /**
 	 * Load search results when cursor goes in
 	 */
   public onFocus() {
