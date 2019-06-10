@@ -788,14 +788,11 @@ export class MapService {
    * @return Added GeoJSON layer.
    */
   public addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel, contextmenu): L.GeoJSON {
-    // Create new GeoJSON layer
-    const d = data ? data : null;
-
     // Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
     const iconOptions = MapServiceUtils.retrieveIconStyles(options);
     const customIconFromProps = options['iconFromProperties'];
     const self = this;
-    const geoJson = L.geoJSON(d, {
+    const geoJson = L.geoJSON(data, {
       pointToLayer: (_feature, latlng) => {
         if (iconOptions['iconUrl']) {
           return (L as any).marker(latlng, {
@@ -851,7 +848,6 @@ export class MapService {
   }
 
   parseContextmenuItems(items: Array<any>): Array<any> {
-
     return items.map((element) => {
       let item = new Object();
       if (element instanceof Object) {
@@ -878,12 +874,11 @@ export class MapService {
         if (element.hasOwnProperty('separator') && element.separator) {
           item['separator'] = element.separator;
         }
-
         return item;
       } else {
         return element;
       }
-    })
+    });
   }
 
 }

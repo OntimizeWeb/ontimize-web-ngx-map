@@ -24,6 +24,7 @@ export class LayerConfiguration {
   public inWS: boolean = false;
   public contextmenu: LayerConfigurationContextmenu;
 }
+
 export type LayerConfigurationFunction = (e: Layer) => LayerConfigurationContextmenuItem[];
 
 export class LayerConfigurationContextmenu {
@@ -33,6 +34,7 @@ export class LayerConfigurationContextmenu {
   defaultContextmenuItems?: boolean = true;
   callback?: LayerConfigurationFunction;
 }
+
 export class LayerConfigurationContextmenuItem {
   label: string;
   attr?: string;
