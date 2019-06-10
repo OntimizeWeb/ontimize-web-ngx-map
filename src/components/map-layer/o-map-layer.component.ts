@@ -10,7 +10,7 @@ import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.c
 import { MapService, TranslateMapService } from '../../services';
 import { Util } from '../../utils';
 import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-crs-configuration.class';
-
+import { InputConverter } from 'ontimize-web-ngx';
 
 @Component({
   moduleId: module.id,
@@ -38,8 +38,8 @@ import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-
     'options : layer-options',
     'crs',
     'crsConfiguration : crs-configuration',
-    'contextMenu : layer-contextmenu'
-
+    'contextMenu : layer-contextmenu',
+    'queryFeaturesInBounds: query-features-in-bounds'
   ],
   templateUrl: './o-map-layer.component.html',
   styleUrls: ['./o-map-layer.component.scss'],
@@ -75,8 +75,10 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   public service: ILayerService;
   public baseUrl: string;
   protected _icon: string;
-  public options: Object;
+  public options: Object = {};
   protected _contextmenu;
+  @InputConverter()
+  public queryFeaturesInBounds: boolean;
 
   protected crs: string;
   protected crsConfiguration: ICRSConfiguration;
@@ -135,6 +137,9 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
 
   ngOnInit() {
     this.inMenu = this.inMenu ? this.inMenu : 'overlay';
+    if (Util.isBlank(this.queryFeaturesInBounds)) {
+      this.queryFeaturesInBounds = this.oMap.queryFeaturesInBounds;
+    }
   }
 
   ngAfterViewInit() {
@@ -203,17 +208,16 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     layerConf.showInMenu = this.inMenu;
     layerConf.options = this.options;
     layerConf.contextmenu = this.contextMenu;
-
     return layerConf;
   }
 
   initializeMapLayer() {
-    var self = this;
+    const self = this;
     if (!this.center && this.sCenter) {
-      var coordinates = this.sCenter.split(/,|;/);
+      const coordinates = this.sCenter.split(/,|;/);
       if (coordinates.length === 2) {
         let aux: number[] = [];
-        for (var i in coordinates) {
+        for (const i in coordinates) {
           aux[i] = parseFloat(coordinates[i]);
         }
         this.center = new Center(aux[0], aux[1]);
@@ -242,20 +246,16 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   }
 
   createMapLayer(layerConf: LayerConfiguration) {
-    let mapService = this.getMapService();
+    const mapService = this.getMapService();
     this.layer = this.getMapLayerFactory().createMapLayer(layerConf, mapService);
-
-    if (Util.isLayerService(this.service) &&
-      Util.isGeoJSONLayer(this.layer)) {
-      var self = this;
-      (<ILayerService>this.service).load([layerConf])
-        .subscribe(resp => {
-          (<L.GeoJSON>self.layer).addData(resp);
-        }, err => {
-          console.log(err);
-        });
+    if (Util.isLayerService(this.service) && Util.isGeoJSONLayer(this.layer)) {
+      const self = this;
+      (<ILayerService>this.service).load([layerConf]).subscribe(resp => {
+        (<L.GeoJSON>self.layer).addData(resp);
+      }, err => {
+        console.log(err);
+      });
     }
-
     this.bindLayerEvents();
   }
 
@@ -320,51 +320,62 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
      * @returns void
      */
   bindLayerEvents(): void {
-    var self = this;
+    const self = this;
     if (Util.isTileLayer(this.layer)) {
-      this.layer.on('click', function (evt) {
+      this.layer.on('click', (evt) => {
         self._clickEvtEmitter.emit(evt);
       });
-      this.layer.on('dblclick', function (evt) {
+      this.layer.on('dblclick', (evt) => {
         self._dblClickEvtEmitter.emit(evt);
       });
-      this.layer.on('mousedown', function (evt) {
+      this.layer.on('mousedown', (evt) => {
         self._mouseDownEvtEmitter.emit(evt);
       });
-      this.layer.on('mouseup', function (evt) {
+      this.layer.on('mouseup', (evt) => {
         self._mouseUpEvtEmitter.emit(evt);
       });
-      this.layer.on('mouseover', function (evt) {
+      this.layer.on('mouseover', (evt) => {
         self._mouseOverEvtEmitter.emit(evt);
       });
-      this.layer.on('mouseout', function (evt) {
+      this.layer.on('mouseout', (evt) => {
         self._mouseOutEvtEmitter.emit(evt);
       });
-      this.layer.on('mousemove', function (evt) {
+      this.layer.on('mousemove', (evt) => {
         self._mouseMoveEvtEmitter.emit(evt);
       });
-      this.layer.on('dragstart', function (evt) {
+      this.layer.on('dragstart', (evt) => {
         self._dragStartEvtEmitter.emit(evt);
       });
-      this.layer.on('drag', function (evt) {
+      this.layer.on('drag', (evt) => {
         self._dragEvtEmitter.emit(evt);
       });
-      this.layer.on('dragend', function (evt) {
+      this.layer.on('dragend', (evt) => {
         self._dragEndEvtEmitter.emit(evt);
       });
-      this.layer.on('resize', function (evt) {
+      this.layer.on('resize', (evt) => {
         self._resizeEvtEmitter.emit(evt);
       });
-      this.layer.on('popupopen', function (evt) {
+      this.layer.on('popupopen', (evt) => {
         self._popupOpenEvtEmitter.emit(evt);
       });
-      this.layer.on('popupclose', function (evt) {
+      this.layer.on('popupclose', (evt) => {
         self._popupCloseEvtEmitter.emit(evt);
       });
-
-      this.layer.on('contextmenu', function (evt) {
+      this.layer.on('contextmenu', (evt) => {
         self._contextmenuEvtEmitter.emit(evt);
       });
+      if (this.queryFeaturesInBounds) {
+        this.oMap.getMapService().map.on('moveend', () => {
+          if (self.visible && Util.isLayerService(self.service) && Util.isGeoJSONLayer(self.layer)) {
+            (<ILayerService>self.service).load([self.layerConf]).subscribe((resp) => {
+              (<L.GeoJSON>self.layer).clearLayers();
+              (<L.GeoJSON>self.layer).addData(resp);
+            }, (err) => {
+              console.log(err);
+            });
+          }
+        });
+      }
     }
   }
 
@@ -421,7 +432,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   }
 
   public loadPopupTpl(): Observable<any> {
-    var headers: Headers = new Headers();
+    let headers: Headers = new Headers();
     headers.append('Access-Control-Allow-Origin', '*');
     let _http = this.injector.get(HttpClient);
     return _http.get(this.popupUrl)
@@ -472,17 +483,13 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
     if (!val) {
       return;
     }
-
     this._contextmenu = val;
-
     if (val.defaultContextmenuItems) {
       this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(this.getMapService().defaultContextMenu.contextmenuItems);
     }
-    
-    if(!this._contextmenu.contextmenuItems){
+    if (!this._contextmenu.contextmenuItems) {
       return;
     }
-
     this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems);
   }
 

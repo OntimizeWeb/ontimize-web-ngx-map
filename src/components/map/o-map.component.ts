@@ -36,7 +36,9 @@ const DEFAULT_INPUTS = [
   'showBaseLayersMenu: show-base-layers-menu',
   'showLayersMenu: show-layers-menu',
   'showWorkspaceMenu: show-workspace-menu',
-  'contextMenu : layer-contextmenu'
+  'contextMenu : layer-contextmenu',
+
+  'queryFeaturesInBounds: query-features-in-bounds'
 ];
 
 const DEFAULT_OUTPUTS = [
@@ -136,6 +138,8 @@ export class OMapComponent extends OMapWSearch {
   public showLayersMenu: boolean = true;
   @InputConverter()
   public showWorkspaceMenu: boolean = true;
+  @InputConverter()
+  public queryFeaturesInBounds: boolean = true;
 
   mapId: string;
   protected baseLayerIds: Array<string>;
@@ -353,17 +357,14 @@ export class OMapComponent extends OMapWSearch {
     if (!val) {
       return;
     }
-
     this._contextmenu = val;
-
     if (val.defaultContextmenuItems) {
       this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(this.getMapService().defaultContextMenu.contextmenuItems);
     }
-    
-    if(!this._contextmenu.contextmenuItems){
+    if (!this._contextmenu.contextmenuItems) {
       return;
     }
-    this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems)
+    this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems);
   }
 
   get contextMenu(): LayerConfigurationContextmenu {
