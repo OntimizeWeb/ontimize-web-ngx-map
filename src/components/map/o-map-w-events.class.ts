@@ -1,9 +1,10 @@
 import { EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { IMapDrawControlEvent } from '../map-draw-controls/o-map-draw-controls-events.class';
 import { OMapEvents } from './o-map-events.interface';
 import { OMapBase } from './o-map.class';
 import { OMapComponent } from './o-map.component';
-import { IMapDrawControlEvent } from '../map-draw-controls/o-map-draw-controls-events.class';
 
 export class OMapWEvents extends OMapBase implements OMapEvents {
 
@@ -12,6 +13,9 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
   onMove = new EventEmitter<any>();
   onMoveEnd = new EventEmitter<any>();
   onZoomLevelsChange = new EventEmitter<any>();
+  onZoomStart = new EventEmitter<any>();
+  onZoomEnd = new EventEmitter<any>();
+  onZoom = new EventEmitter<any>();
 
   onDrawEvent = new EventEmitter<any>();
 
@@ -31,12 +35,12 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
 
   constructor() {
     super();
-		/**
+    /**
 		 * When configuration is triggered
 		 * this subscription maps Leaflet events to OMap EventEmitters
 		 */
     this.onMapConfigured().subscribe(() => {
-      ['Click', 'Drag', 'Move', 'MoveEnd', 'ZoomLevelsChange'].forEach(eventName => {
+      ['Click', 'Drag', 'Move', 'MoveEnd', 'ZoomLevelsChange', 'ZoomStart', 'ZoomEnd', 'Zoom'].forEach(eventName => {
         this.getMapService().map.on(
           eventName.toLowerCase(),
           (evt) => {
@@ -44,7 +48,6 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
           }
         );
       });
-
     });
 
     this.onMapAfterViewInit().subscribe((oMap: OMapComponent) => {
@@ -56,6 +59,6 @@ export class OMapWEvents extends OMapBase implements OMapEvents {
         });
       }
     });
-
   }
+
 }

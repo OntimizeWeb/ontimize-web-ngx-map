@@ -51,6 +51,9 @@ const DEFAULT_OUTPUTS = [
   'onMove',
   'onMoveEnd',
   'onZoomLevelsChange',
+  'onZoomStart',
+  'onZoomEnd',
+  'onZoom',
 
   'onDrawEvent',
 
