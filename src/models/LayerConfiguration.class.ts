@@ -10,7 +10,7 @@ export class LayerConfiguration {
   public radius: number;
   public bounds: any;
   public popup: string;
-  public popupurl: string;
+  public popupUrl: string;
   public menuLabel: string;
   public menuLabelSecondary: string;
   public service: string;
