@@ -835,8 +835,10 @@ export class MapService {
 
         if (popup && Object.keys(feature.properties).length > 0 /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
-            const txt = L.Util.template(popup, feature.properties);
-            (<L.GeoJSON>layer).bindPopup(txt, popupOptions);
+            (<L.GeoJSON>layer).bindPopup('', popupOptions).on('popupopen', (e: any) => {
+              const txt = this.popupTemplate(popup, feature.properties);
+              e.popup.setContent(txt);
+            });
           } catch (error) {
             console.log(error);
           }
@@ -894,5 +896,18 @@ export class MapService {
     const popupOptions = Object.assign({}, this.popupOptions, options.popupOptions || {});
     delete options.popupOptions;
     return [options, popupOptions];
+  }
+
+  popupTemplate(str, data) {
+    const templateRe = /\{ *([\w_\-]+) *\}/g;
+    return str.replace(templateRe, (_str, key) => {
+      var value = data[key];
+      if (value === undefined) {
+        value = '';
+      } else if (typeof value === 'function') {
+        value = value(data);
+      }
+      return value;
+    });
   }
 }
