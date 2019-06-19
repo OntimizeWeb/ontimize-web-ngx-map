@@ -14,6 +14,7 @@
 * **o-map-layer**:
  * new `layer-options` attributes: `iconRetinaUrl`, `iconSize`, `iconAnchor`, `popupAnchor`, `tooltipAnchor`, `shadowUrl`, `shadowRetinaUrl`, `shadowSize`, `shadowAnchor`, `className` ([ad0d3f2](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/ad0d3f2))
  * new `query-features-in-bounds` input ([a7c97bf](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/a7c97bf))
+ * adding `popupOptions` to `layer-options` input ([e22b936]](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/e22b936]))
 
 ### BREAKING CHANGES
 * **o-map-layer**: `layer-options` attribute `icon` has been renamed to `iconUrl`.
