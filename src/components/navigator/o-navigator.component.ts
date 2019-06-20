@@ -1,5 +1,6 @@
 import { Component, forwardRef, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { InputConverter } from 'ontimize-web-ngx';
 
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
@@ -21,7 +22,9 @@ export class ONavigatorComponent extends ONavigatorDefault {
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
 
+  @InputConverter()
   public showSidenavButton: boolean = true;
+  @InputConverter()
   public showSearchInput: boolean = true;
 
   protected _rendered: boolean = false;

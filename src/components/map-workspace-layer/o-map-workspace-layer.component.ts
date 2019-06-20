@@ -1,6 +1,7 @@
 import { Component, Inject, forwardRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
 import { OSearchable, OSearchResult } from '../../interfaces';
+import { InputConverter } from 'ontimize-web-ngx';
 
 @Component({
   moduleId: module.id,
@@ -28,9 +29,13 @@ import { OSearchable, OSearchResult } from '../../interfaces';
   }
 })
 export class OMapWorkspaceLayerComponent implements OSearchable {
-  protected _selected: boolean = false;
-  protected _visible: boolean = false;
-  protected _inWS: boolean = false;
+  @InputConverter()
+  public selected: boolean = false;
+  @InputConverter()
+  public visible: boolean = true;
+  @InputConverter()
+  public inWS: boolean = true;
+
   protected _menuLabel: string;
   protected _menuLabelSecondary: string;
   refLayer: OMapLayerComponent;
@@ -95,30 +100,6 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
   onDragEnd() {
     this.dragging = false;
     this.refWorkspace.updateMapLayersPosition();
-  }
-
-  get selected(): boolean {
-    return this._selected;
-  }
-
-  set selected(val: boolean) {
-    this._selected = val;
-  }
-
-  get visible(): boolean {
-    return this._visible;
-  }
-
-  set visible(val: boolean) {
-    this._visible = val;
-  }
-
-  get inWS(): boolean {
-    return this._inWS;
-  }
-
-  set inWS(val: boolean) {
-    this._inWS = val;
   }
 
   get menuLabel(): string {

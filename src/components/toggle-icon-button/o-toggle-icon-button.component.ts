@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Util } from '../../utils';
+import { InputConverter } from 'ontimize-web-ngx';
 
 @Component({
   moduleId: module.id,
@@ -17,12 +18,15 @@ import { Util } from '../../utils';
   styleUrls: ['./o-toggle-icon-button.component.scss']
 })
 export class OToggleIconButtonComponent {
-  protected _buttonActive: boolean = false;
+  @InputConverter()
+  public buttonActive: boolean = false;
   protected _iconDark: boolean;
   protected _iconName: string;
   protected bgColor: string;
-  protected clickable: boolean;
-  protected _noInk: boolean = false;
+  @InputConverter()
+  public clickable: boolean;
+  @InputConverter()
+  public noInk: boolean = false;
 
   ngOnInit() {
     this.clickable = Util.parseBoolean(this.clickable ? this.clickable.toString() : 'yes', true);
@@ -49,14 +53,6 @@ export class OToggleIconButtonComponent {
     return false;
   }
 
-  get buttonActive(): boolean {
-    return this._buttonActive;
-  }
-
-  set buttonActive(val: boolean) {
-    this._buttonActive = val;
-  }
-
   get iconDark(): boolean {
     return this._iconDark;
   }
@@ -71,13 +67,5 @@ export class OToggleIconButtonComponent {
 
   set iconName(val: string) {
     this._iconName = val;
-  }
-
-  get noInk(): boolean {
-    return this._noInk;
-  }
-
-  set noInk(val: boolean) {
-    this._noInk = val;
   }
 }

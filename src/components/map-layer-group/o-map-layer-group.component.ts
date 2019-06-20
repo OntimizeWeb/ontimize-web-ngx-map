@@ -2,6 +2,7 @@ import { Component, forwardRef, Inject, ViewChildren, ViewEncapsulation } from '
 
 import { OMapComponent, OMapLayerComponent } from '../../components';
 import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../models';
+import { InputConverter } from 'ontimize-web-ngx';
 
 @Component({
   moduleId: module.id,
@@ -28,7 +29,8 @@ export class OMapLayerGroupComponent {
   idParent: string;
   name: string;
   protected _description: string;
-  protected _collapsed: boolean = false;
+  @InputConverter()
+  collapsed: boolean = false;
   refGroup: LayerGroupConfiguration;
 
   public mapLayers: Array<LayerConfiguration> = new Array<LayerConfiguration>();
@@ -90,14 +92,6 @@ export class OMapLayerGroupComponent {
 
   public toggleCollapse() {
     this.collapsed = !this.collapsed;
-  }
-
-  get collapsed(): boolean {
-    return this._collapsed;
-  }
-
-  set collapsed(val: boolean) {
-    this._collapsed = val;
   }
 
   get description(): string {

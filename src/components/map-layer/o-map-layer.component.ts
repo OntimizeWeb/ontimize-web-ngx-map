@@ -56,9 +56,12 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   sService: string;
 
   // Status of the label
+  @InputConverter()
   public selected: boolean = false;
+  @InputConverter()
   public visible: boolean = true;
-  protected _inWS: boolean = true;
+  @InputConverter()
+  public inWS: boolean = true;
   public inMenu: string;
 
   protected _layerId: string;
@@ -186,12 +189,14 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   getMapLayerFactory(): any {
     return new OMapLayerFactory();
   }
+
   getLayerConfiguration(): LayerConfiguration {
     if (this.layerConf === undefined) {
       this.layerConf = this.createLayerConfiguration();
     }
     return this.layerConf;
   }
+
   createLayerConfiguration(): LayerConfiguration {
     let layerConf = new LayerConfiguration();
     layerConf.layerId = this.layerId;
@@ -453,14 +458,6 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
 
   set icon(val: string) {
     this._icon = val;
-  }
-
-  get inWS(): boolean {
-    return this._inWS;
-  }
-
-  set inWS(val: boolean) {
-    this._inWS = val;
   }
 
   get menuLabelSecondary(): string {

@@ -2,6 +2,7 @@ import { Component, Inject, forwardRef, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs';
 import { OMapComponent } from '../../components';
 import { BaseLayer, OSearchable, OSearchResult } from '../../interfaces';
+import { InputConverter } from 'ontimize-web-ngx';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +20,9 @@ import { BaseLayer, OSearchable, OSearchResult } from '../../interfaces';
 export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSearchable {
 
   id: string;
-  protected _active: boolean = false;
+
+  @InputConverter()
+  active: boolean = false;
 
   protected _name: string;
   protected _urlTemplate: string;
@@ -71,14 +74,6 @@ export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSe
     this.oMap.unselectBaseLayers();
     this.oMap.getMapService().selectBaseLayer(this.id);
     return this.active = true;
-  }
-
-  get active(): boolean {
-    return this._active;
-  }
-
-  set active(val: boolean) {
-    this._active = val;
   }
 
   get urlTemplate(): string {
