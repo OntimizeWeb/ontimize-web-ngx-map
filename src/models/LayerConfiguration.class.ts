@@ -1,4 +1,6 @@
 import { Layer } from 'leaflet';
+
+import { OMapLayerOptions } from '../types/layer-options.type';
 import { Center } from './Center.class';
 
 export class LayerConfiguration {
@@ -15,8 +17,7 @@ export class LayerConfiguration {
   public menuLabelSecondary: string;
   public service: string;
   public baseUrl: string;
-  public icon: string;
-  public options: Object;
+  public options: OMapLayerOptions;
   public showInMenu: string;
   // Status of the label
   public selected: boolean = false;

@@ -11,6 +11,7 @@ import 'proj4leaflet';
 import { BaseLayerCollection, LayerConfigurationContextmenu } from '../models';
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
+import { OMapLayerOptions } from '../types/layer-options.type';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -177,7 +178,7 @@ export class MapService {
         if (this.controls[LAYERS_CONTROL_ID]) {
           this.controls[LAYERS_CONTROL_ID].addOverlay(layer, menuLabel);
         } else {
-          this.controls[LAYERS_CONTROL_ID] = L.control.layers(null, this.overlayMaps).addTo(this.map);
+          this.controls[LAYERS_CONTROL_ID] = L.control.layers(void 0, this.overlayMaps).addTo(this.map);
         }
         break;
 
@@ -348,7 +349,7 @@ export class MapService {
 	 * @return Leaflet icon object.
 	 */
   createIcon(options, type) {
-    var icon = null;
+    var icon = void 0;
     if (type) {
       var iconType = this.iconTypes[type];
       if (iconType) {
@@ -414,10 +415,10 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added WMS tile layer.
 	 */
-  addTileLayerWMS(id, baseUrl, optionsArg: Object = {}, hidden, showInMenu, menuLabel) {
-    const options = this.parseOptions(optionsArg)[0];
+  addTileLayerWMS(id, baseUrl, optionsArg: OMapLayerOptions = {}, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new WMS tile layer
-    const tileLayerWMS = new L.TileLayer.WMS(baseUrl, options);
+    const tileLayerWMS = new L.TileLayer.WMS(baseUrl, (optionsArg.layerOptions as any));
 
     // Add WMS tile layer to map
     this.addLayer(id, tileLayerWMS, hidden, showInMenu, menuLabel);
@@ -445,15 +446,15 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added marker.
 	 */
-  addMarker(id, latitude, longitude, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addMarker(id, latitude, longitude, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new marker
     let latLng = new L.LatLng(latitude, longitude);
-    var marker = L.marker(latLng, options);
+    var marker = L.marker(latLng, optionsArg.layerOptions);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      marker.bindPopup(popup, popupOptions);
+      marker.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add marker to map
@@ -488,11 +489,11 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added image.
 	 */
-  addImageOverlay(id, url, left, bottom, right, top, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const options = this.parseOptions(optionsArg)[0];
+  addImageOverlay(id, url, left, bottom, right, top, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new image overlay
     let bounds = new L.LatLngBounds([[bottom, left], [top, right]]);
-    var image = new L.ImageOverlay(url, bounds, options);
+    var image = new L.ImageOverlay(url, bounds, (optionsArg.layerOptions as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
@@ -523,14 +524,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added polyline.
 	 */
-  addPolyline(id, points, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel): L.Polyline<any> {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addPolyline(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel): L.Polyline<any> {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new polyline
-    var polyline: L.Polyline<any> = new L.Polyline(points, options);
+    var polyline: L.Polyline<any> = new L.Polyline(points, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polyline.bindPopup(popup, popupOptions);
+      polyline.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add polyline to map
@@ -557,14 +558,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added multi-polyline.
 	 */
-  addMultiPolyline(id, points, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addMultiPolyline(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new multi-polyline
-    var multiPolyline = new multiPolyline(points, options);
+    var multiPolyline = new multiPolyline(points, optionsArg.layerStyles);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolyline.bindPopup(popup, popupOptions);
+      multiPolyline.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add multi-polyline to map
@@ -591,14 +592,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added polygon.
 	 */
-  addPolygon(id, points, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addPolygon(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new polygon
-    var polygon = new L.Polygon(points, options);
+    var polygon = new L.Polygon(points, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polygon.bindPopup(popup, popupOptions);
+      polygon.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add polygon to map
@@ -625,14 +626,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added multi-polygon.
 	 */
-  addMultiPolygon(id, points, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addMultiPolygon(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new multi-polygon
-    var multiPolygon = new multiPolygon(points, options);
+    var multiPolygon = new multiPolygon(points, optionsArg.layerStyles);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolygon.bindPopup(popup, popupOptions);
+      multiPolygon.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add multi-polygon to map
@@ -665,15 +666,15 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added rectangle.
 	 */
-  addRectangle(id, left, bottom, right, top, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addRectangle(id, left, bottom, right, top, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new rectangle
     let bounds = new L.LatLngBounds([[bottom, left], [top, right]]);
-    var rectangle = new L.Rectangle(bounds, options);
+    var rectangle = new L.Rectangle(bounds, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      rectangle.bindPopup(popup, popupOptions);
+      rectangle.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add rectangle to map
@@ -704,14 +705,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added circle.
 	 */
-  addCircle(id, latitude, longitude, radius, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    const [options, popupOptions] = this.parseOptions(optionsArg);
+  addCircle(id, latitude, longitude, radius, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new circle
-    var circle = new L.Circle([latitude, longitude], radius, options);
+    var circle = new L.Circle([latitude, longitude], radius, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      circle.bindPopup(popup, popupOptions);
+      circle.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add circle to map
@@ -794,30 +795,27 @@ export class MapService {
    *          (optional) Label to identify this layer in the menu.
    * @return Added GeoJSON layer.
    */
-  public addGeoJSON(id, data, optionsArg: Object = {}, popup, hidden, showInMenu, menuLabel, contextmenu): L.GeoJSON {
-    let [options, popupOptions] = this.parseOptions(optionsArg);
+  public addGeoJSON(id, data, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel, contextmenu): L.GeoJSON {
+    optionsArg = optionsArg ? optionsArg : {};
     // Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
-    const iconOptions = MapServiceUtils.retrieveIconStyles(options);
-    const customIconFromProps = options['iconFromProperties'];
+    const iconOptions = optionsArg.iconOptions;
+    let customIconFromProps: string;
+    if (iconOptions) {
+      customIconFromProps = iconOptions.iconFromProperties;
+      delete iconOptions.iconFromProperties;
+    }
     const self = this;
     const geoJson = L.geoJSON(data, {
       pointToLayer: (_feature, latlng) => {
-        if (iconOptions['iconUrl']) {
-          return (L as any).marker(latlng, {
-            icon: new L.Icon(iconOptions)
-          });
-        } else if (customIconFromProps && _feature && _feature.properties[customIconFromProps]) {
-          iconOptions['iconUrl'] = _feature.properties[customIconFromProps];
-          return (L as any).marker(latlng, {
-            icon: new L.Icon(iconOptions)
-          });
-        } else {
-          // Default marker icon
-          return (L as any).marker(latlng);
+        optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
+        if (customIconFromProps && _feature && _feature.properties[customIconFromProps]) {
+          iconOptions.iconUrl = _feature.properties[customIconFromProps];
         }
+        optionsArg.layerOptions.icon = new L.Icon(iconOptions);
+        return (L as any).marker(latlng, optionsArg.layerOptions);
       },
       style: geoJsonFeature => {
-        return MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, options);
+        return (MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, optionsArg.layerStyles) as any);
       },
       onEachFeature: (feature, layer) => {
         if (contextmenu) {
@@ -835,7 +833,7 @@ export class MapService {
 
         if (popup && Object.keys(feature.properties).length > 0 /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
-            (<L.GeoJSON>layer).bindPopup('', popupOptions).on('popupopen', (e: any) => {
+            (<L.GeoJSON>layer).bindPopup('', optionsArg.popupOptions).on('popupopen', (e: any) => {
               const txt = this.popupTemplate(popup, feature.properties);
               e.popup.setContent(txt);
             });
@@ -891,16 +889,6 @@ export class MapService {
     });
   }
 
-  protected parseOptions(options: any): any[] {
-    // https://leafletjs.com/reference-1.5.0.html#popup-option
-    let popupOptions = this.popupOptions;
-    if (options && options.hasOwnProperty('popupOptions')) {
-      popupOptions = Object.assign({}, this.popupOptions, options.popupOptions || {});
-      delete options.popupOptions;
-    }
-    return [options, popupOptions];
-  }
-
   popupTemplate(str, data) {
     const templateRe = /\{ *([\w_\-]+) *\}/g;
     return str.replace(templateRe, (_str, key) => {
@@ -913,4 +901,5 @@ export class MapService {
       return value;
     });
   }
+
 }

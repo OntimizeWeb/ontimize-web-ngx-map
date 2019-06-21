@@ -53,7 +53,7 @@ export class OMapLayerFactory {
     let layer;
     var success = ((id !== null) && layerConf.center);
     if (success) {
-      layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, null,
+      layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, void 0,
         layerConf.popup, !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
     }
     return layer;
@@ -75,15 +75,11 @@ export class OMapLayerFactory {
     }
     let layer;
     if (id !== null) {
-      let opt = {
-        'icon': layerConf.icon
-      };
       if (layerConf.options === undefined) {
         layerConf.options = {};
       }
-      layerConf.options = Object.assign(opt, layerConf.options);
 
-      layer = mapService.addGeoJSON(id, null, layerConf.options, layerConf.popup,
+      layer = mapService.addGeoJSON(id, void 0, layerConf.options, layerConf.popup,
         !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel, layerConf.contextmenu);
     }
 
