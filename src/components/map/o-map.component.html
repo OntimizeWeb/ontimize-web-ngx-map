@@ -18,9 +18,9 @@
           </mat-expansion-panel-header>
 
           <!-- TODO replace this div with o-grid if it goes into the framework. Block with a grid of Base Layers -->
-          <div class="o-map-base-layer-group group-ref">
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" class="group-ref">
             <o-map-base-layer #mainBaseLayerGroup *ngFor="let baseLayer of baseLayers" [layer-id]="baseLayer.id"
-              [title]="baseLayer.name" [src]="baseLayer.urlTemplate" [active]="baseLayer.active">
+              [title]="baseLayer.name" [src]="baseLayer.urlTemplate" [active]="baseLayer.active" fxLayout fxLayoutAlign="center center">
             </o-map-base-layer>
           </div>
         </mat-expansion-panel>
