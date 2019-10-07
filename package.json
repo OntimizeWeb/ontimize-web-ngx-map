@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "4.0.1-9-SNAPSHOT",
+  "version": "4.0.1",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"
@@ -80,8 +80,8 @@
     "gulp-inline-ng2-template": "5.0.1",
     "json-loader": "^0.5.7",
     "node-sass": "4.9.4",
-    "ontimize-web-ngx": "4.0.0",
-    "ontimize-web-ngx-library-tools": "4.0.0",
+    "ontimize-web-ngx": "4.0.7",
+    "ontimize-web-ngx-library-tools": "4.0.2",
     "reflect-metadata": "0.1.12",
     "rimraf": "2.6.2",
     "rollup-plugin-json": "2.3.0",
