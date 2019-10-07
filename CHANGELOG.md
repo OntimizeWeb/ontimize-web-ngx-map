@@ -26,7 +26,7 @@
 
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx-library-tools@4.0.2 (This change does not affect to user)
-* **Updated**: ontimize-web-ngx@4.0.0 (This change does not affect to user)
+* **Updated**: ontimize-web-ngx@4.0.7 (This change does not affect to user)
 
 ## 4.0.0 (2019-02-22)
 ### DEPENDENCY UPDATES
