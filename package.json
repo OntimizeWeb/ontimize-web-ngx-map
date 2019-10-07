@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"
@@ -23,14 +23,15 @@
   "es2015": "./esm2015/ontimize-web-ngx-map.js",
   "typings": "./index.d.ts",
   "dependencies": {
+    "@churchs19/ng2-dnd": "6.0.0",
     "leaflet": "1.2.0",
+    "leaflet-contextmenu": "1.4.0",
     "leaflet-draw": "0.4.13",
     "leaflet-providers": "1.1.17",
-    "leaflet.markercluster": "1.0.6",
     "leaflet.heat": "0.2.0",
+    "leaflet.markercluster": "1.0.6",
     "proj4": "2.4.4",
-    "proj4leaflet": "1.0.2",
-    "@churchs19/ng2-dnd": "6.0.0"
+    "proj4leaflet": "1.0.2"
   },
   "peerDependencies": {
     "core-js": "2.5.7",
@@ -79,8 +80,8 @@
     "gulp-inline-ng2-template": "5.0.1",
     "json-loader": "^0.5.7",
     "node-sass": "4.9.4",
-    "ontimize-web-ngx": "4.0.0",
-    "ontimize-web-ngx-library-tools": "4.0.0",
+    "ontimize-web-ngx": "4.0.7",
+    "ontimize-web-ngx-library-tools": "4.0.2",
     "reflect-metadata": "0.1.12",
     "rimraf": "2.6.2",
     "rollup-plugin-json": "2.3.0",

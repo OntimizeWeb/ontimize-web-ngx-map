@@ -12,6 +12,7 @@ export * from './src/interfaces';
 export * from './src/services';
 export * from './src/models';
 export * from './src/components';
+export * from './src/types';
 
 @NgModule({
   imports: [

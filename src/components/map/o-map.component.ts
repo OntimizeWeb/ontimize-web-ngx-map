@@ -1,15 +1,19 @@
-import { Component, Injector, ElementRef, ViewChild, ViewChildren, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { MatSidenav, MatTabGroup, MatTab } from '@angular/material';
-import { Subscription } from 'rxjs';
-import { OMapBaseLayerComponent, OMapLayerGroupComponent, OMapWorkspaceComponent } from '../../components';
-import { OMarkerComponent } from '../marker/o-marker.component';
-import { MapService, GeocodingService, TranslateMapService } from '../../services';
-import { Util } from '../../utils';
-import { OMapWSearch } from './o-map-w-search.class';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, ContentChildren, ElementRef, EventEmitter, Injector, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { MatSidenav, MatTab, MatTabGroup } from '@angular/material';
 import * as L from 'leaflet';
+import { InputConverter } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
+import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.class';
+import { GeocodingService, MapService, TranslateMapService } from '../../services';
+import { Util } from '../../utils';
+import { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
 import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
-
-//TODO import {Control} from 'leaflet-draw';
+import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-container.component';
+import { OMapLayerGroupComponent } from '../map-layer-group/o-map-layer-group.component';
+import { OMapWorkspaceComponent } from '../map-workspace/o-map-workspace.component';
+import { OMarkerComponent } from '../marker/o-marker.component';
+import { OMapWSearch } from './o-map-w-search.class';
 
 const DEFAULT_INPUTS = [
   'sAttr: attr',
@@ -25,7 +29,16 @@ const DEFAULT_INPUTS = [
 
   // Array of provider Id's separated by ';'. The providers are extracted from
   // https://github.com/leaflet-extras/leaflet-providers#providers
-  'sBaseLayerIds: base-layer-ids'
+  'sBaseLayerIds: base-layer-ids',
+
+  'sidenavMode: sidenav-mode',
+
+  'showBaseLayersMenu: show-base-layers-menu',
+  'showLayersMenu: show-layers-menu',
+  'showWorkspaceMenu: show-workspace-menu',
+  'contextMenu : layer-contextmenu',
+
+  'queryFeaturesInBounds: query-features-in-bounds'
 ];
 
 const DEFAULT_OUTPUTS = [
@@ -38,6 +51,9 @@ const DEFAULT_OUTPUTS = [
   'onMove',
   'onMoveEnd',
   'onZoomLevelsChange',
+  'onZoomStart',
+  'onZoomEnd',
+  'onZoom',
 
   'onDrawEvent',
 
@@ -64,7 +80,23 @@ const DEFAULT_OUTPUTS = [
   outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',
   styleUrls: ['./o-map.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('navigatorState', [
+      state('collapsed', style({
+        position: 'absolute',
+        left: '0px'
+      })),
+      state('expanded', style({
+        position: 'absolute',
+        left: '{{navigatorExpandedPosition}}'
+      }), { params: { navigatorExpandedPosition: '0px' } }),
+      transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+    ])
+  ],
+  host: {
+    '[class.o-map]': 'true'
+  }
 })
 export class OMapComponent extends OMapWSearch {
 
@@ -76,6 +108,10 @@ export class OMapComponent extends OMapWSearch {
   @ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
   @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroupComponent;
   @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspaceComponent;
+  @ViewChild('navigatorContainer') navigatorContainer: ElementRef;
+  @ContentChildren(OMapLayerContainerComponent)
+  protected mapLayerContainerQueryList: QueryList<OMapLayerContainerComponent>;
+  mapLayerContainerComponent: OMapLayerContainerComponent;
 
   onToggleWSLayerSelected: EventEmitter<Object> = new EventEmitter<Object>();
   onToggleWSLayerVisibility: EventEmitter<Object> = new EventEmitter<Object>();
@@ -94,6 +130,19 @@ export class OMapComponent extends OMapWSearch {
   public sDrawControl: string;
   public sLayerPanelVisible: string;
   public sBaseLayerIds: string;
+  private _sidenavMode: 'over' | 'push' | 'side' = 'over';
+  get sidenavMode(): 'over' | 'push' | 'side' { return this._sidenavMode; }
+  set sidenavMode(value: 'over' | 'push' | 'side') {
+    this._sidenavMode = value;
+  }
+  @InputConverter()
+  public showBaseLayersMenu: boolean = true;
+  @InputConverter()
+  public showLayersMenu: boolean = true;
+  @InputConverter()
+  public showWorkspaceMenu: boolean = true;
+  @InputConverter()
+  public queryFeaturesInBounds: boolean = true;
 
   mapId: string;
   protected baseLayerIds: Array<string>;
@@ -101,8 +150,10 @@ export class OMapComponent extends OMapWSearch {
   protected tabContainer: MatTab;
   protected tabGroupSubscription: Subscription;
   protected _waitForBuild: boolean = false;
+  protected _searchControl: boolean = true;
   protected _searchControlButtonVisible: boolean = true;
   protected crsComponent: OMapCrsComponent;
+  protected _contextmenu: any;
 
   constructor(
     protected elRef: ElementRef,
@@ -140,18 +191,9 @@ export class OMapComponent extends OMapWSearch {
     } else if (this.waitForBuild) {
       this.initialize();
     }
-    const self = this;
-    setTimeout(() => {
-      if (!self.mapService.map) {
-        // console.debug('Initializing map...');
-        self.configureMap();
-      }
-      if (self.drawDefaultControl && !self.drawControlComponent) {
-        self.configureDefaultDrawControl(self.mapService.getMap());
-      }
-      self.onMapAfterViewInit().emit(self);
-      self.onMapReady().next(self);
-    }, 0);
+    if (this.mapLayerContainerQueryList && this.mapLayerContainerQueryList.length > 0) {
+      this.mapLayerContainerComponent = this.mapLayerContainerQueryList.first;
+    }
   }
 
   initialize() {
@@ -169,6 +211,19 @@ export class OMapComponent extends OMapWSearch {
 
     this.baseLayerIds = Util.parseArray(this.sBaseLayerIds);
     this.mapService.configureBaseLayers(this.baseLayerIds);
+
+    const self = this;
+    setTimeout(() => {
+      if (!self.mapService.map) {
+        // console.debug('Initializing map...');
+        self.configureMap();
+      }
+      if (self.drawDefaultControl && !self.drawControlComponent) {
+        self.configureDefaultDrawControl(self.mapService.getMap());
+      }
+      self.onMapAfterViewInit().emit(self);
+      self.onMapReady().next(self);
+    }, 0);
   }
 
   registerCRSComponent(crsComp: OMapCrsComponent) {
@@ -236,6 +291,12 @@ export class OMapComponent extends OMapWSearch {
       maxZoom: this.zoom.max || 19,
       layers: this.mapService.baseLayers.getLayersArray()
     };
+    //Added contextmenu option in mapOptions
+    if (this.contextMenu) {
+      mapOptions['contextmenu'] = true;
+      mapOptions['contextmenuWidth'] = this.contextMenu.contextmenuWidth;
+      mapOptions['contextmenuItems'] = this.contextMenu.contextmenuItems;
+    }
 
     if (this.crsComponent) {
       let crsConf = this.crsComponent.getCRS();
@@ -254,6 +315,14 @@ export class OMapComponent extends OMapWSearch {
     this.onMapConfigured().emit(true);
   }
 
+  get searchControl(): boolean {
+    return this._searchControl;
+  }
+
+  set searchControl(val: boolean) {
+    this._searchControl = val;
+  }
+
   get isSearchControlButtonVisible(): boolean {
     return this._searchControlButtonVisible;
   }
@@ -262,4 +331,46 @@ export class OMapComponent extends OMapWSearch {
     this._searchControlButtonVisible = val;
   }
 
+  get isNavigatorVisible(): boolean {
+    return this._searchControl || this._searchControlButtonVisible;
+  }
+
+  get navigatorState(): any {
+    let value = 'none';
+    if (this.sidenavMode === 'over' && this.sideNavCmp) {
+      value = this.sideNavCmp.opened ? 'expanded' : 'collapsed';
+    }
+    return {
+      value: value,
+      params: {
+        navigatorExpandedPosition: this.navigatorExpandedPosition
+      }
+    };
+  }
+
+  get navigatorExpandedPosition(): string {
+    let result = 0;
+    if (this.sideNavCmp && this.sideNavCmp.opened) {
+      result = this.sideNavCmp._width;
+    }
+    return result + 'px';
+  }
+
+  set contextMenu(val: LayerConfigurationContextmenu) {
+    if (!val) {
+      return;
+    }
+    this._contextmenu = val;
+    if (val.defaultContextmenuItems) {
+      this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(this.getMapService().defaultContextMenu.contextmenuItems);
+    }
+    if (!this._contextmenu.contextmenuItems) {
+      return;
+    }
+    this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems);
+  }
+
+  get contextMenu(): LayerConfigurationContextmenu {
+    return this._contextmenu;
+  }
 }

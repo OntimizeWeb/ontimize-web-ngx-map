@@ -1,15 +1,17 @@
-import { Injectable, EventEmitter, Injector } from '@angular/core';
-import { BaseLayerCollection } from '../models';
+
+import { EventEmitter, Injectable, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
+import 'leaflet-contextmenu';
 import 'leaflet-draw';
 import 'leaflet-providers';
-import 'leaflet.markercluster';
 import 'leaflet.heat';
+import 'leaflet.markercluster';
 import 'proj4leaflet';
-
+import { BaseLayerCollection, LayerConfigurationContextmenu } from '../models';
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
+import { OMapLayerOptions } from '../types/layer-options.type';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -30,10 +32,42 @@ export class MapService {
     maxHeight: 200
   };
 
+  defaultContextMenu: LayerConfigurationContextmenu = {
+    contextmenuItems: [{
+      attr: 'centerMap',
+      label: 'CONTEXTMENU.CENTER_MAP',
+      callback: (e) => this.centerMap(e)
+    }, {
+      label: '',
+      separator: true
+    }, {
+      attr: 'zoomIn',
+      label: 'CONTEXTMENU.ZOOM_IN',
+      icon: 'assets/zoom-in.png',
+      callback: () => this.zoomIn()
+    }, {
+      attr: 'zoomOut',
+      label: 'CONTEXTMENU.ZOOM_OUT',
+      icon: 'assets/zoom-out.png',
+      callback: () => this.zoomOut()
+    }]
+  };
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(protected injector: Injector) {
     this.translateMapService = this.injector.get(TranslateMapService);
+  }
+
+  public centerMap(e) {
+    this.getMap().panTo(e.latlng);
+  }
+
+  public zoomIn() {
+    this.getMap().zoomIn();
+  }
+
+  public zoomOut() {
+    this.getMap().zoomOut();
   }
 
   disableMouseEvent(tag: string) {
@@ -88,6 +122,10 @@ export class MapService {
     return this.getZoom();
   }
 
+  getDefaultContextmenuItems() {
+    return this.defaultContextMenu;
+  }
+
   /**
 	 * Adds a layer (tiles, marker, circle, polygon...) to the map.
 	 * @param id
@@ -140,7 +178,7 @@ export class MapService {
         if (this.controls[LAYERS_CONTROL_ID]) {
           this.controls[LAYERS_CONTROL_ID].addOverlay(layer, menuLabel);
         } else {
-          this.controls[LAYERS_CONTROL_ID] = L.control.layers(null, this.overlayMaps).addTo(this.map);
+          this.controls[LAYERS_CONTROL_ID] = L.control.layers(void 0, this.overlayMaps).addTo(this.map);
         }
         break;
 
@@ -311,7 +349,7 @@ export class MapService {
 	 * @return Leaflet icon object.
 	 */
   createIcon(options, type) {
-    var icon = null;
+    var icon = void 0;
     if (type) {
       var iconType = this.iconTypes[type];
       if (iconType) {
@@ -377,9 +415,10 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added WMS tile layer.
 	 */
-  addTileLayerWMS(id, baseUrl, options, hidden, showInMenu, menuLabel) {
+  addTileLayerWMS(id, baseUrl, optionsArg: OMapLayerOptions = {}, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new WMS tile layer
-    var tileLayerWMS = new L.TileLayer.WMS(baseUrl, options);
+    const tileLayerWMS = new L.TileLayer.WMS(baseUrl, (optionsArg.layerOptions as any));
 
     // Add WMS tile layer to map
     this.addLayer(id, tileLayerWMS, hidden, showInMenu, menuLabel);
@@ -407,14 +446,15 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added marker.
 	 */
-  addMarker(id, latitude, longitude, options, popup, hidden, showInMenu, menuLabel) {
+  addMarker(id, latitude, longitude, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new marker
     let latLng = new L.LatLng(latitude, longitude);
-    var marker = L.marker(latLng, options);
+    var marker = L.marker(latLng, optionsArg.layerOptions);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      marker.bindPopup(popup, this.popupOptions);
+      marker.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add marker to map
@@ -449,11 +489,11 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added image.
 	 */
-  addImageOverlay(id, url, left, bottom, right, top, options, popup, hidden, showInMenu,
-    menuLabel) {
+  addImageOverlay(id, url, left, bottom, right, top, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new image overlay
     let bounds = new L.LatLngBounds([[bottom, left], [top, right]]);
-    var image = new L.ImageOverlay(url, bounds, options);
+    var image = new L.ImageOverlay(url, bounds, (optionsArg.layerOptions as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
@@ -484,13 +524,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added polyline.
 	 */
-  addPolyline(id, points, options, popup, hidden, showInMenu, menuLabel): L.Polyline<any> {
+  addPolyline(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel): L.Polyline<any> {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new polyline
-    var polyline: L.Polyline<any> = new L.Polyline(points, options);
+    var polyline: L.Polyline<any> = new L.Polyline(points, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polyline.bindPopup(popup, this.popupOptions);
+      polyline.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add polyline to map
@@ -517,14 +558,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added multi-polyline.
 	 */
-  addMultiPolyline(id, points, options, popup, hidden, showInMenu, menuLabel) {
+  addMultiPolyline(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new multi-polyline
-
-    var multiPolyline = new multiPolyline(points, options);
+    var multiPolyline = new multiPolyline(points, optionsArg.layerStyles);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolyline.bindPopup(popup, this.popupOptions);
+      multiPolyline.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add multi-polyline to map
@@ -551,13 +592,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added polygon.
 	 */
-  addPolygon(id, points, options, popup, hidden, showInMenu, menuLabel) {
+  addPolygon(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new polygon
-    var polygon = new L.Polygon(points, options);
+    var polygon = new L.Polygon(points, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      polygon.bindPopup(popup, this.popupOptions);
+      polygon.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add polygon to map
@@ -584,13 +626,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added multi-polygon.
 	 */
-  addMultiPolygon(id, points, options, popup, hidden, showInMenu, menuLabel) {
+  addMultiPolygon(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new multi-polygon
-    var multiPolygon = new multiPolygon(points, options);
+    var multiPolygon = new multiPolygon(points, optionsArg.layerStyles);
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      multiPolygon.bindPopup(popup, this.popupOptions);
+      multiPolygon.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add multi-polygon to map
@@ -623,14 +666,15 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added rectangle.
 	 */
-  addRectangle(id, left, bottom, right, top, options, popup, hidden, showInMenu, menuLabel) {
+  addRectangle(id, left, bottom, right, top, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new rectangle
     let bounds = new L.LatLngBounds([[bottom, left], [top, right]]);
-    var rectangle = new L.Rectangle(bounds, options);
+    var rectangle = new L.Rectangle(bounds, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      rectangle.bindPopup(popup, this.popupOptions);
+      rectangle.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add rectangle to map
@@ -661,13 +705,14 @@ export class MapService {
 	 *          (optional) Label to identify this layer in the menu.
 	 * @return Added circle.
 	 */
-  addCircle(id, latitude, longitude, radius, options, popup, hidden, showInMenu, menuLabel) {
+  addCircle(id, latitude, longitude, radius, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
+    optionsArg = optionsArg ? optionsArg : {};
     // Create new circle
-    var circle = new L.Circle([latitude, longitude], radius, options);
+    var circle = new L.Circle([latitude, longitude], radius, (optionsArg.layerStyles as any));
 
     // Bind popup message
     if (typeof (popup) === 'string') {
-      circle.bindPopup(popup, this.popupOptions);
+      circle.bindPopup(popup, optionsArg.popupOptions);
     }
 
     // Add circle to map
@@ -733,59 +778,68 @@ export class MapService {
   }
 
   /**
-	 * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
-	 * @param id
-	 *          Unique identifier.
-	 * @param data
-	 *          (optional) GeoJSON data (http://geojson.org/geojson-spec.html).
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#geojson-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added GeoJSON layer.
-	 */
-  addGeoJSON(id, data, options: Object = {}, popup, hidden, showInMenu, menuLabel) {
-    // Create new GeoJSON layer
-    let d = data ? data : null;
-
-    //Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
-    var customIcon = null;
-    if (options['icon']) {
-      customIcon = new L.Icon({
-        iconUrl: options['icon']
-      });
+   * Adds a GeoJSON layer. Allows to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+   * @param id
+   *          Unique identifier.
+   * @param data
+   *          (optional) GeoJSON data (http://geojson.org/geojson-spec.html).
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#geojson-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added GeoJSON layer.
+   */
+  public addGeoJSON(id, data, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel, contextmenu): L.GeoJSON {
+    optionsArg = optionsArg ? optionsArg : {};
+    // Right now overrides 'onEachFeature' method. In the future try to concatenate with possible user method.
+    const iconOptions = optionsArg.iconOptions;
+    let customIconFromProps: string;
+    if (iconOptions) {
+      customIconFromProps = iconOptions.iconFromProperties;
+      delete iconOptions.iconFromProperties;
     }
-
-    var geoJson = L.geoJSON(d, {
-      pointToLayer: function (_feature, latlng) {
-        if (customIcon) {
-          return L.marker(latlng, {
-            icon: customIcon
-          });
-        } else {
-          // Default marker icon
-          return L.marker(latlng);
+    const self = this;
+    const geoJson = L.geoJSON(data, {
+      pointToLayer: (_feature, latlng) => {
+        optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
+        if (customIconFromProps && _feature && _feature.properties[customIconFromProps]) {
+          iconOptions.iconUrl = _feature.properties[customIconFromProps];
         }
+        optionsArg.layerOptions.icon = new L.Icon(iconOptions);
+        return (L as any).marker(latlng, optionsArg.layerOptions);
       },
-      style: function (geoJsonFeature) {
-        return MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, options);
+      style: geoJsonFeature => {
+        return (MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, optionsArg.layerStyles) as any);
       },
-      onEachFeature: function (feature, layer) {
-        if (popup && Object.keys(feature.properties).length > 0
-          /*&& Util.isGeoJSONLayer(layer)*/) {
+      onEachFeature: (feature, layer) => {
+        if (contextmenu) {
+          if (contextmenu.callback) {
+            contextmenu['contextmenuItems'] = self.parseContextmenuItems(contextmenu.callback(layer));
+          }
+
+          (layer as any).bindContextMenu({
+            contextmenu: true,
+            contextmenuItems: contextmenu['contextmenuItems'],
+            contextmenuWidth: contextmenu['contextmenuWidth'],
+            contextmenuInheritItems: false
+          });
+        }
+
+        if (popup && Object.keys(feature.properties).length > 0 /*&& Util.isGeoJSONLayer(layer)*/) {
           try {
-            let txt = L.Util.template(popup, feature.properties);
-            (<L.GeoJSON>layer).bindPopup(txt, this.popupOptions);
+            (<L.GeoJSON>layer).bindPopup('', optionsArg.popupOptions).on('popupopen', (e: any) => {
+              const txt = this.popupTemplate(popup, feature.properties);
+              e.popup.setContent(txt);
+            });
           } catch (error) {
             console.log(error);
           }
-
         }
       }
     });
@@ -799,6 +853,53 @@ export class MapService {
     // // this.map.addLayer(markers);
     // this.addLayer(id, markers, hidden, showInMenu, menuLabel);
     return geoJson;
+  }
+
+  parseContextmenuItems(items: Array<any>): Array<any> {
+    return items.map((element) => {
+      let item = new Object();
+      if (element instanceof Object) {
+        //label: The label to use for the menu item (required).
+        if (element.hasOwnProperty('label')) {
+          item['text'] = this.translateMapService.get(element.label);
+        }
+        //icon: Url for a 16x16px icon to display to the left of the label.
+        if (element.hasOwnProperty('icon') && element.icon) {
+          item['icon'] = element.icon;
+        }
+        //iconCls: A CSS class which sets the background image for the icon (exclusive of the icon option).
+        if (element.hasOwnProperty('iconCls') && element.iconCls) {
+          item['iconCls'] = element.iconCls;
+        }
+        //callback:A callback function to be invoked when the menu item is clicked. The callback is passed an object with properties identifying the location the menu was opened at: latlng, layerPoint and containerPoint.
+        if (element.hasOwnProperty('callback') && element.callback) {
+          item['callback'] = element.callback;
+        }
+        if (element.hasOwnProperty('index') && element.index) {
+          item['index'] = element.index;
+        }
+        //If true a separator will be created instead of a menu item.
+        if (element.hasOwnProperty('separator') && element.separator) {
+          item['separator'] = element.separator;
+        }
+        return item;
+      } else {
+        return element;
+      }
+    });
+  }
+
+  popupTemplate(str, data) {
+    const templateRe = /\{ *([\w_\-]+) *\}/g;
+    return str.replace(templateRe, (_str, key) => {
+      var value = data[key];
+      if (value === undefined) {
+        value = '';
+      } else if (typeof value === 'function') {
+        value = value(data);
+      }
+      return value;
+    });
   }
 
 }

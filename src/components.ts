@@ -10,6 +10,7 @@ import { OToggleIconButtonComponent } from './components/toggle-icon-button/o-to
 import { OMarkerComponent } from './components/marker/o-marker.component';
 import { ONavigatorComponent } from './components/navigator/o-navigator.component';
 import { ONavigatorItemComponent } from './components/navigator/o-navigator-item.component';
+import { OMapLayerContainerComponent } from './components/map-layer-container/o-map-layer-container.component';
 
 export * from './components/map/o-map.component';
 export * from './components/map-base-layer/o-map-base-layer.component';
@@ -24,6 +25,7 @@ export * from './components/toggle-icon-button/o-toggle-icon-button.component';
 export * from './components/marker/o-marker.component';
 export * from './components/navigator/o-navigator.component';
 export * from './components/navigator/o-navigator-item.component';
+export * from './components/map-layer-container/o-map-layer-container.component';
 
 export const OMAP_DIRECTIVES: any[] = [
   OMapComponent,
@@ -37,5 +39,6 @@ export const OMAP_DIRECTIVES: any[] = [
   OToggleIconButtonComponent,
   OMarkerComponent,
   ONavigatorComponent,
-  ONavigatorItemComponent
+  ONavigatorItemComponent,
+  OMapLayerContainerComponent
 ];

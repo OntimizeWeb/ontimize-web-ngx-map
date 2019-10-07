@@ -6,6 +6,9 @@ export interface OMapEvents {
   onMove: EventEmitter<any>;
   onMoveEnd: EventEmitter<any>;
   onZoomLevelsChange: EventEmitter<any>;
+  onZoomStart: EventEmitter<any>;
+  onZoomEnd: EventEmitter<any>;
+  onZoom: EventEmitter<any>;
 
   onDrawEvent: EventEmitter<any>;
 

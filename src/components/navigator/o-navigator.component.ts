@@ -1,11 +1,14 @@
-import { Component, Inject, forwardRef } from '@angular/core';
+import { Component, forwardRef, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { InputConverter } from 'ontimize-web-ngx';
+
 import { OMapComponent } from '../../components';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
 
 const DEFAULT_INPUTS = [
-  'showSidenavButton: show-sidenav-button'
+  'showSidenavButton: show-sidenav-button',
+  'showSearchInput: show-search-input'
 ];
 
 @Component({
@@ -19,7 +22,10 @@ export class ONavigatorComponent extends ONavigatorDefault {
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
 
+  @InputConverter()
   public showSidenavButton: boolean = true;
+  @InputConverter()
+  public showSearchInput: boolean = true;
 
   protected _rendered: boolean = false;
   protected oMapConfigurationSubscription: Subscription;
@@ -30,22 +36,14 @@ export class ONavigatorComponent extends ONavigatorDefault {
     @Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
   ) {
     super(geocoder, translateMapService, oMap);
-    // if (this.oMap.waitForBuild) {
     this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {
-      //this.oMap.getMapService().disableMouseEvent('goto');
-      this.oMap.getMapService().disableMouseEvent('place-input');
+      if (this.isSearchInputVisible) {
+        this.oMap.getMapService().disableMouseEvent('place-input');
+      }
     });
-    // }
   }
 
-  ngOnInit() {
-    // if (!this.oMap.waitForBuild) {
-    //   //this.oMap.getMapService().disableMouseEvent('goto');
-    //   this.oMap.getMapService().disableMouseEvent('place-input');
-    // }
-  }
-
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (this.oMapConfigurationSubscription) {
       this.oMapConfigurationSubscription.unsubscribe();
     }
@@ -58,9 +56,9 @@ export class ONavigatorComponent extends ONavigatorDefault {
     return text;
   }
 
-	/**
-	 * Update search results using the new value of address
-	 */
+  /**
+   * Update search results using the new value of address
+   */
   get address(): string {
     return this.cachedAddress;
   }
@@ -68,17 +66,17 @@ export class ONavigatorComponent extends ONavigatorDefault {
   set address(address: string) {
     this.cachedAddress = address;
     this.rendered = this.search();
-    //this.goto();
+    // this.goto();
   }
 
-	/**
+  /**
 	 * Toggle OMap sidebar state
 	 */
-  public toggleSidenav() {
-    this.oMap.toggleSidenav();
+  public toggleSidenav(e: MouseEvent) {
+    this.oMap.toggleSidenav(e);
   }
 
-	/**
+  /**
 	 * Hide search results when cursor goes out
 	 */
   public onBlur() {
@@ -90,7 +88,7 @@ export class ONavigatorComponent extends ONavigatorDefault {
     }, 350);
   }
 
-	/**
+  /**
 	 * Load search results when cursor goes in
 	 */
   public onFocus() {
@@ -107,6 +105,14 @@ export class ONavigatorComponent extends ONavigatorDefault {
     this._rendered = val;
   }
 
+  get isSearchInputVisible(): boolean {
+    return this.showSearchInput;
+  }
+
+  set isSearchInputVisible(val: boolean) {
+    this.showSearchInput = val;
+  }
+
   get isSidenavButtonVisible(): boolean {
     return this.showSidenavButton;
   }
@@ -114,4 +120,5 @@ export class ONavigatorComponent extends ONavigatorDefault {
   set isSidenavButtonVisible(val: boolean) {
     this.showSidenavButton = val;
   }
+
 }

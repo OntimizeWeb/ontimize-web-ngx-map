@@ -1,5 +1,4 @@
 import * as L from 'leaflet';
-
 import { LayerConfiguration } from '../../models';
 import { MapService } from '../../services';
 
@@ -52,9 +51,9 @@ export class OMapLayerFactory {
     }
 
     let layer;
-    var success = ((id !== null) && layerConf.hasOwnProperty('center'));
+    var success = ((id !== null) && layerConf.center);
     if (success) {
-      layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, null,
+      layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, void 0,
         layerConf.popup, !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
     }
     return layer;
@@ -70,24 +69,18 @@ export class OMapLayerFactory {
    */
   public createGeoJSON(layerConf: LayerConfiguration, mapService: MapService): L.GeoJSON {
     // Get id
-    var id = null;
+    let id = null;
     if (layerConf.layerId) {
       id = layerConf.layerId;
     }
-
-    var layer;
-    var success = (id !== null);
-    if (success) {
-      let opt = {
-        'icon': layerConf.icon
-      };
+    let layer;
+    if (id !== null) {
       if (layerConf.options === undefined) {
         layerConf.options = {};
       }
-      layerConf.options = Object.assign(layerConf.options, opt);
 
-      layer = mapService.addGeoJSON(id, null, layerConf.options, layerConf.popup,
-        !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
+      layer = mapService.addGeoJSON(id, void 0, layerConf.options, layerConf.popup,
+        !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel, layerConf.contextmenu);
     }
 
     return layer;

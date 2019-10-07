@@ -1,3 +1,6 @@
+import { Layer } from 'leaflet';
+
+import { OMapLayerOptions } from '../types/layer-options.type';
 import { Center } from './Center.class';
 
 export class LayerConfiguration {
@@ -9,16 +12,36 @@ export class LayerConfiguration {
   public radius: number;
   public bounds: any;
   public popup: string;
-  public popupurl: string;
+  public popupUrl: string;
   public menuLabel: string;
   public menuLabelSecondary: string;
   public service: string;
   public baseUrl: string;
-  public icon: string;
-  public options: Object;
+  public options: OMapLayerOptions;
   public showInMenu: string;
   // Status of the label
   public selected: boolean = false;
   public visible: boolean = false;
   public inWS: boolean = false;
+  public contextmenu: LayerConfigurationContextmenu;
+}
+
+export type LayerConfigurationFunction = (e: Layer) => LayerConfigurationContextmenuItem[];
+
+export class LayerConfigurationContextmenu {
+  contextmenuWidth?: number;
+  contextmenuItems?: LayerConfigurationContextmenuItem[];
+  contextmenuCallback?: Function;
+  defaultContextmenuItems?: boolean = true;
+  callback?: LayerConfigurationFunction;
+}
+
+export class LayerConfigurationContextmenuItem {
+  label: string;
+  attr?: string;
+  index?: number;
+  defaultContextmenuItems?: boolean = true;
+  callback?: Function;
+  icon?: string;
+  separator?: boolean;
 }

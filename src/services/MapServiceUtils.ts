@@ -2,12 +2,7 @@ import * as L from 'leaflet';
 
 import { BaseLayer } from '../interfaces';
 import { BaseLayerDefault } from '../models';
-
-const AVAILABLE_STYLE_ATTRIBUTE_KEYS = [
-  'stroke', 'color', 'weight', 'opacity', 'lineCap',
-  'lineJoin', 'dashArray', 'dashOffset', 'fill',
-  'fillColor', 'fillOpacity', 'fillRule'
-];
+import { OLayerStyles } from '../types/layer-options.type';
 
 const DEFAULT_BASE_LAYERS = {
   'OpenStreetMap': {
@@ -37,19 +32,23 @@ const DEFAULT_BASE_LAYERS = {
 
 export class MapServiceUtils {
 
-  public static retrieveGeoJSONStyles(geoJsonFeature: any, options: Object) {
-    let style = {};
-    // By convention, styles configured on geoJsonFeature has priority over option styles.
-    AVAILABLE_STYLE_ATTRIBUTE_KEYS.forEach((item) => {
-      if (options[item]) {
-        style[item] = options[item];
-      }
-      if (geoJsonFeature['properties'] &&
-        geoJsonFeature['properties'][item])
-        style[item] = geoJsonFeature['properties'][item];
-    });
-
-    return style;
+  public static retrieveGeoJSONStyles(geoJsonFeature: any, options: OLayerStyles) {
+    if (options && geoJsonFeature['properties']) {
+      if (geoJsonFeature['properties']['stroke']) options.stroke = geoJsonFeature['properties']['stroke'];
+      if (geoJsonFeature['properties']['color']) options.color = geoJsonFeature['properties']['color'];
+      if (geoJsonFeature['properties']['weight']) options.weight = geoJsonFeature['properties']['weight'];
+      if (geoJsonFeature['properties']['opacity']) options.opacity = geoJsonFeature['properties']['opacity'];
+      if (geoJsonFeature['properties']['lineCap']) options.lineCap = geoJsonFeature['properties']['lineCap'];
+      if (geoJsonFeature['properties']['lineJoin']) options.lineJoin = geoJsonFeature['properties']['lineJoin'];
+      if (geoJsonFeature['properties']['dashArray']) options.dashArray = geoJsonFeature['properties']['dashArray'];
+      if (geoJsonFeature['properties']['dashOffset']) options.dashOffset = geoJsonFeature['properties']['dashOffset'];
+      if (geoJsonFeature['properties']['fill']) options.fill = geoJsonFeature['properties']['fill'];
+      if (geoJsonFeature['properties']['fillColor']) options.fillColor = geoJsonFeature['properties']['fillColor'];
+      if (geoJsonFeature['properties']['fillOpacity']) options.fillOpacity = geoJsonFeature['properties']['fillOpacity'];
+      if (geoJsonFeature['properties']['fillRule']) options.fillRule = geoJsonFeature['properties']['fillRule'];
+      if (geoJsonFeature['properties']['className']) options.className = geoJsonFeature['properties']['className'];
+    }
+    return options;
   }
 
   public static createDefaultBaseLayer(id: string, active: boolean = false): BaseLayer | L.TileLayer {
@@ -59,24 +58,39 @@ export class MapServiceUtils {
       // First, search into known providers
       let tileLayer: L.TileLayer = L.tileLayer['provider'](id);
       if (tileLayer !== undefined) {
+        let _url = tileLayer['_url'];
+        if (window.location.protocol === 'https:') {
+          _url = _url.replace('http:', 'https:');
+        }
         baseLayer = new BaseLayerDefault({
           id: id,
           name: id,
-          urlTemplate: tileLayer['_url'],
+          urlTemplate: _url,
           active: active,
           options: tileLayer['options'],
           tileLayer: tileLayer
         });
       } else if (!baseLayer && Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
-        baseLayer = new BaseLayerDefault(DEFAULT_BASE_LAYERS[id]);
+        baseLayer = new BaseLayerDefault(this.getDefaultBaseLayerConfiguration(id));
       }
     } catch (e) {
       // If not found, try to create new tile layer
       if (Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
-        baseLayer = new BaseLayerDefault(DEFAULT_BASE_LAYERS[id]);
+        baseLayer = new BaseLayerDefault(this.getDefaultBaseLayerConfiguration(id));
       }
     }
     return baseLayer;
+  }
+
+  private static getDefaultBaseLayerConfiguration(id: string): Object {
+    if (Object.keys(DEFAULT_BASE_LAYERS).indexOf(id) > -1) {
+      let conf = DEFAULT_BASE_LAYERS[id];
+      if (window.location.protocol === 'https:') {
+        conf['urlTemplate'] = conf['urlTemplate'].replace('http:', 'https:');
+      }
+      return conf;
+    }
+    return void 0;
   }
 
 }

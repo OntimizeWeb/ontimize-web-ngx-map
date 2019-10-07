@@ -66,7 +66,7 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
 
   drawControlEvents: OMapDrawControlsEvents;
 
-  protected editableLayers: L.FeatureGroup;
+  private _editableLayers: L.FeatureGroup;
 
   protected onMapReadySubscription: Subscription;
   @InputConverter()
@@ -192,5 +192,12 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
     map.addControl(this.drawControl);
     let mapService: MapService = this.getMapService();
     mapService.addDrawLayer(this.editableLayers);
+  }
+
+  public get editableLayers(): L.FeatureGroup {
+    return this._editableLayers;
+  }
+  public set editableLayers(value: L.FeatureGroup) {
+    this._editableLayers = value;
   }
 }

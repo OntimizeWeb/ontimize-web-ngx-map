@@ -1,3 +1,33 @@
+## 4.0.1 (2019-10-07)
+### Features
+* **Controls**: added new variables to show/hide controls in navigator control ([2b2d775](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/2b2d775))
+* **DrawControl**: exposing `editableLayers` of drawControl ([edf8510](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/edf8510))
+* **DrawControl**: make `drawControlComponent` public ([0e2b1b3](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/0e2b1b3))
+* **Default Base Layers**: configure default base layers protocol automatically ([40f73f0](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/40f73f0))
+* **GeoJson layer options**: new parameter 'iconFromProperties' for setting icon url from properties([82b2461](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/82b2461))
+* **o-map-layer-container**: new `o-map-layer-container` component ([205b154](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/205b154))
+* **o-map**:
+  * new `sidenav-mode`, `show-base-layers-menu`, `show-layers-menu` and `show-workspace-menu` inputs ([59053be](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/59053be))
+  * Using expansion panels in sidenav menu ([59053be](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/59053be))
+  * new `query-features-in-bounds` input ([a7c97bf](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/a7c97bf))
+  * new outputs `onZoomStart`, `onZoomEnd`, `onZoom` ([0f0fa06](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/0f0fa06))
+* **GeoJson layer options**: new parameter 'iconFromProperties' for setting icon url from properties ([82b2461](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/82b2461))
+* **o-map-layer**:
+ * new `layer-options` attributes: `iconRetinaUrl`, `iconSize`, `iconAnchor`, `popupAnchor`, `tooltipAnchor`, `shadowUrl`, `shadowRetinaUrl`, `shadowSize`, `shadowAnchor`, `className` ([ad0d3f2](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/ad0d3f2))
+ * new `query-features-in-bounds` input ([a7c97bf](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/a7c97bf))
+ * adding `popupOptions` to `layer-options` input ([e22b936]](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/e22b936]))
+
+### BREAKING CHANGES
+* **o-map-layer**: `layer-options` attribute `icon` has been renamed to `iconUrl`.
+
+### Bug Fixes
+* **o-layer-options**: fixing bugs on merging layer options ([97ba9d0](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/97ba9d0))
+* **o-map**: fixing bug initializing map when it is inside a tab ([ab633e1](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/ab633e1))
+
+### DEPENDENCY UPDATES
+* **Updated**: ontimize-web-ngx-library-tools@4.0.2 (This change does not affect to user)
+* **Updated**: ontimize-web-ngx@4.0.0 (This change does not affect to user)
+
 ## 4.0.0 (2019-02-22)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@4.0.0 (This change does not affect to user)

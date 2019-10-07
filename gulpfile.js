@@ -51,6 +51,7 @@ const LEAFLET_FILES = [
   'node_modules/leaflet/dist/leaflet.css',
   'node_modules/leaflet.markercluster/dist/MarkerCluster.css',
   'node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
+  'node_modules/leaflet-contextmenu/dist/leaflet.contextmenu.css',
   'tmp/assets/dependencies/leaflet'
 ];
 
@@ -81,6 +82,15 @@ gulp.task('copy.leaflet.draw.images', (callback) => {
   copyfiles(LEAFLET_DRAW_IMAGES, true, callback);
 });
 
+const LEAFLET_CONTEXTMENU_IMAGES = [
+  'src/images/contextmenu/*',
+  'dist/images/'
+];
+
+gulp.task('copy.leaflet-contextmenu.images', (callback) => {
+  copyfiles(LEAFLET_CONTEXTMENU_IMAGES, true, callback);
+});
+
 const LEAFLET_DRAW_FILES = [
   'node_modules/leaflet-draw/dist/leaflet.draw.css',
   'tmp/assets/dependencies/leaflet'
@@ -97,7 +107,8 @@ gulp.task('copy-files',
     'copy.leaflet.assets',
     'copy.leaflet.draw.images',
     'copy.leaflet.draw.assets',
-    'copy-dependencies-assets')
+    'copy-dependencies-assets',
+    'copy.leaflet-contextmenu.images')
 );
 
 

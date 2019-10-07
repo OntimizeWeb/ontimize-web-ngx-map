@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef, EventEmitter } from '@angular/core';
+import { Component, Inject, forwardRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { OMapComponent, OMapLayerComponent } from '../../components';
 import { OSearcher, OSearchable } from '../../interfaces';
@@ -13,7 +13,11 @@ import { OSearcher, OSearchable } from '../../interfaces';
     'onToggleWSLayerInWS'
   ],
   templateUrl: './o-map-workspace.component.html',
-  styleUrls: ['./o-map-workspace.component.scss']
+  styleUrls: ['./o-map-workspace.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.o-map-workspace]': 'true'
+  }
 })
 export class OMapWorkspaceComponent implements OSearcher {
 
@@ -52,7 +56,7 @@ export class OMapWorkspaceComponent implements OSearcher {
     return result;
   }
 
-	/**
+  /**
 	 * OSearcher implementation
 	 */
   search(_oSearchValue: string): Observable<Array<OSearchable>> {

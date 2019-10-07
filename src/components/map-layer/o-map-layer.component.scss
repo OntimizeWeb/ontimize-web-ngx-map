@@ -1,23 +1,37 @@
-button.o-map-layer-item {
-	font-size: 0.8em;
-	visibility: initial;
-	width: 100%;
-	padding: 0;
-	display: flex;
-	line-height: normal;
-	overflow: hidden;
-	> span {
-		display: flex;
-    box-sizing: border-box;
-    flex-direction: row;
-    width: 100%;
-	}
-}
+.o-map-layer {
+  > button {
+    .mat-button-focus-overlay {
+      display: none;
+    }
 
-.layer-icon {
-	height: 24px;
-	width: 24px;
-	margin: 15px;
-	margin-left: 0;
-	margin-right: 4px;
+    o-toggle-icon-button {
+      .mat-button-focus-overlay,
+      .mat-button-ripple {
+        display: none;
+      }
+    }
+  }
+
+  button.o-map-layer-item {
+    font-size: .8em;
+    visibility: initial;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    line-height: normal;
+    overflow: hidden;
+
+    > span {
+      display: flex;
+      box-sizing: border-box;
+      flex-direction: row;
+      width: 100%;
+    }
+  }
+
+  .layer-icon {
+    height: 24px;
+    width: 24px;
+    margin: 15px 4px 15px 0;
+  }
 }
