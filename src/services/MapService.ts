@@ -822,13 +822,27 @@ export class MapService {
           if (contextmenu.callback) {
             contextmenu['contextmenuItems'] = self.parseContextmenuItems(contextmenu.callback(layer));
           }
-
-          (layer as any).bindContextMenu({
+          const layerAsAny = (layer as any);
+          layerAsAny.bindContextMenu({
             contextmenu: true,
             contextmenuItems: contextmenu['contextmenuItems'],
             contextmenuWidth: contextmenu['contextmenuWidth'],
             contextmenuInheritItems: false
           });
+
+          // workaround
+          layerAsAny._hideContextMenu = (arg) => {
+            if (arg.contextmenu._map) {
+              for (var i = 0, l = layerAsAny._items.length; i < l; i++) {
+                arg.contextmenu._map.contextmenu.removeItem(layerAsAny._items[i]);
+              }
+              layerAsAny._items.length = 0;
+
+              if (!layerAsAny.options.contextmenuInheritItems) {
+                arg.contextmenu._map.contextmenu.showAllItems();
+              }
+            }
+          };
         }
 
         if (popup && Object.keys(feature.properties).length > 0 /*&& Util.isGeoJSONLayer(layer)*/) {
