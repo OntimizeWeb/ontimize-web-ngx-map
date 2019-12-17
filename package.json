@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "An implementation of leaflet map for Ontimize Web",
   "scripts": {
     "build": "o-ngx-lib-builder build --package ontimize-web-ngx-map --ng-library ng.ontimizeWebMap"

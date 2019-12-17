@@ -1,3 +1,7 @@
+## 4.0.2 (2019-12-17)
+### Bug Fixes
+* **o-map**: Fixing context menu bugs
+
 ## 4.0.1 (2019-10-07)
 ### Features
 * **Controls**: added new variables to show/hide controls in navigator control ([2b2d775](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/2b2d775))

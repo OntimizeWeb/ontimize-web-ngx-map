@@ -479,14 +479,14 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable {
   }
 
   set contextMenu(val: LayerConfigurationContextmenu) {
-    if (!val) {
+    if (Util.isBlank(val)) {
       return;
     }
     this._contextmenu = val;
     if (val.defaultContextmenuItems) {
       this._contextmenu.contextmenuItems = this._contextmenu.contextmenuItems.concat(this.getMapService().defaultContextMenu.contextmenuItems);
     }
-    if (!this._contextmenu.contextmenuItems) {
+    if (Util.isBlank(this._contextmenu.contextmenuItems)) {
       return;
     }
     this._contextmenu.contextmenuItems = this.getMapService().parseContextmenuItems(this._contextmenu.contextmenuItems);
