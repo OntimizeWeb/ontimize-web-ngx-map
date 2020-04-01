@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ontimize-web-ngx-map": [
+        "dist/ontimize-web-ngx-map"
+      ],
+      "ontimize-web-ngx-map/*": [
+        "dist/ontimize-web-ngx-map/*"
+      ]
+    }
   }
 }
