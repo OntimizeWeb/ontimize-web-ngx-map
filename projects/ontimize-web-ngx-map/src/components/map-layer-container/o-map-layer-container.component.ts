@@ -1,4 +1,4 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -15,7 +15,7 @@ export class OMapLayerContainerComponent {
 
   public label: string;
 
-  @ViewChild('headerTemplateref', { read: TemplateRef })
+  @ViewChild('headerTemplateref', { read: TemplateRef, static: false })
   public headerTemplateref: TemplateRef<any>;
 
   constructor() {

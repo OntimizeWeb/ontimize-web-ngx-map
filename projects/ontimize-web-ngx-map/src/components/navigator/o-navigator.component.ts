@@ -1,8 +1,8 @@
 import { Component, forwardRef, Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { InputConverter } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
 
-import { OMapComponent } from '../../components';
+import { OMapComponent } from '../../components/map/o-map.component';
 import { GeocodingService, TranslateMapService } from '../../services';
 import { ONavigatorDefault } from './o-navigator.class';
 

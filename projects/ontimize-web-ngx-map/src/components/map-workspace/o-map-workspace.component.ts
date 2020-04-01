@@ -1,7 +1,9 @@
-import { Component, Inject, forwardRef, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Inject, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { OMapComponent, OMapLayerComponent } from '../../components';
-import { OSearcher, OSearchable } from '../../interfaces';
+
+import { OMapLayerComponent } from '../../components/map-layer/o-map-layer.component';
+import { OMapComponent } from '../../components/map/o-map.component';
+import { OSearchable, OSearcher } from '../../interfaces';
 
 @Component({
   moduleId: module.id,

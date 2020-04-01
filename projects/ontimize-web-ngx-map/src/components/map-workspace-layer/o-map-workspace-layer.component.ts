@@ -1,7 +1,9 @@
-import { Component, Inject, forwardRef, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { OMapLayerComponent, OMapWorkspaceComponent } from '../../components';
-import { OSearchable, OSearchResult } from '../../interfaces';
+import { Component, EventEmitter, forwardRef, Inject, ViewEncapsulation } from '@angular/core';
 import { InputConverter } from 'ontimize-web-ngx';
+
+import { OMapLayerComponent } from '../../components/map-layer/o-map-layer.component';
+import { OMapWorkspaceComponent } from '../../components/map-workspace/o-map-workspace.component';
+import { OSearchable, OSearchResult } from '../../interfaces';
 
 @Component({
   moduleId: module.id,

@@ -1,8 +1,9 @@
-import { Component, Inject, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { OMapComponent } from '../../components';
-import { BaseLayer, OSearchable, OSearchResult } from '../../interfaces';
+import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { InputConverter } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
+
+import { OMapComponent } from '../../components/map/o-map.component';
+import { BaseLayer, OSearchable, OSearchResult } from '../../interfaces';
 
 @Component({
   moduleId: module.id,

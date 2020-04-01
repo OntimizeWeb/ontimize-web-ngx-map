@@ -1,12 +1,11 @@
-import { Component, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import * as L from 'leaflet';
+import { InputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
-import * as L from 'leaflet';
-import { OMapComponent } from '../../components';
-
-import { OMapDrawControlsEvents } from './o-map-draw-controls-events.class';
+import { OMapComponent } from '../../components/map/o-map.component';
 import { MapService } from '../../services/MapService';
-import { InputConverter } from 'ontimize-web-ngx';
+import { OMapDrawControlsEvents } from './o-map-draw-controls-events.class';
 
 const DEFAULT_INPUTS = [
   'position',

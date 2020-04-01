@@ -1,6 +1,7 @@
-import { Component, Inject, forwardRef } from '@angular/core';
-import { OMapComponent } from '../../components';
-import { ICRSConfiguration, OMapCrsConfigurationClass, ICRSConfigurationParameter } from './o-map-crs-configuration.class';
+import { Component, forwardRef, Inject } from '@angular/core';
+
+import { OMapComponent } from '../../components/map/o-map.component';
+import { ICRSConfiguration, ICRSConfigurationParameter, OMapCrsConfigurationClass } from './o-map-crs-configuration.class';
 
 const DEFAULT_INPUTS = [
   'crs',

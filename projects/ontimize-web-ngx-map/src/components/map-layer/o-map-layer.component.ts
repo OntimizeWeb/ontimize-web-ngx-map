@@ -1,11 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, EventEmitter, forwardRef, Inject, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Inject,
+  Injector,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import * as L from 'leaflet';
 import { InputConverter } from 'ontimize-web-ngx';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { OMapComponent, OMapLayerFactory } from '../../components';
+import { OMapLayerFactory } from '../../components/map-layer/o-map-layer.factory';
+import { OMapComponent } from '../../components/map/o-map.component';
 import { ILayerService, OSearchable, OSearchResult } from '../../interfaces';
 import { Center, LayerConfiguration } from '../../models';
 import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.class';

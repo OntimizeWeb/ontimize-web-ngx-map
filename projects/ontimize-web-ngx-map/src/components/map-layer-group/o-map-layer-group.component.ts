@@ -1,8 +1,9 @@
 import { Component, forwardRef, Inject, ViewChildren, ViewEncapsulation } from '@angular/core';
-
-import { OMapComponent, OMapLayerComponent } from '../../components';
-import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../models';
 import { InputConverter } from 'ontimize-web-ngx';
+
+import { OMapLayerComponent } from '../../components/map-layer/o-map-layer.component';
+import { OMapComponent } from '../../components/map/o-map.component';
+import { LayerConfiguration, LayerGroupConfiguration, OMapLayerGroupsWarehouse } from '../../models';
 
 @Component({
   moduleId: module.id,

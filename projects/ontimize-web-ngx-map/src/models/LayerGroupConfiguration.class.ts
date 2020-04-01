@@ -1,4 +1,4 @@
-import { OMapLayerGroupsWarehouse } from '../models';
+import { OMapLayerGroupsWarehouse } from '../models/LayerGroupsWarehouse.class';
 import { LayerConfiguration } from './LayerConfiguration.class';
 
 export class LayerGroupConfiguration {

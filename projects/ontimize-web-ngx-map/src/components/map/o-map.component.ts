@@ -1,9 +1,20 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ContentChildren, ElementRef, EventEmitter, Injector, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  Injector,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatSidenav, MatTab, MatTabGroup } from '@angular/material';
 import * as L from 'leaflet';
 import { InputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
+
 import { LayerConfigurationContextmenu } from '../../models/LayerConfiguration.class';
 import { GeocodingService, MapService, TranslateMapService } from '../../services';
 import { Util } from '../../utils';
@@ -103,12 +114,12 @@ export class OMapComponent extends OMapWSearch {
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
   public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
 
-  @ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
-  @ViewChild('sidenav') sideNavCmp: MatSidenav;
+  @ViewChild(OMarkerComponent, { static: false }) markerComponent: OMarkerComponent;
+  @ViewChild('sidenav', { static: false }) sideNavCmp: MatSidenav;
   @ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
-  @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroupComponent;
-  @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspaceComponent;
-  @ViewChild('navigatorContainer') navigatorContainer: ElementRef;
+  @ViewChild('mainLayerGroup', { static: false }) mapLayerGroup: OMapLayerGroupComponent;
+  @ViewChild('oMapWorkspace', { static: false }) mapWorkspace: OMapWorkspaceComponent;
+  @ViewChild('navigatorContainer', { static: false }) navigatorContainer: ElementRef;
   @ContentChildren(OMapLayerContainerComponent)
   protected mapLayerContainerQueryList: QueryList<OMapLayerContainerComponent>;
   mapLayerContainerComponent: OMapLayerContainerComponent;
