@@ -1,0 +1,13 @@
+<div class="search-result" fxLayout="row">
+	<i class="material-icons" *ngIf="searchResult.icon">{{ searchResult.icon }}</i>
+	<div fxFlex fxLayout="column" fxLayoutAlign="center start">
+		<span *ngIf="searchResult.label">{{ searchResult.label }}</span>
+		<span class="sub-label" *ngIf="searchResult.sublabel">{{ searchResult.sublabel }}</span>
+	</div>
+	<o-toggle-icon-button *ngFor="let button of actions"
+		icon-dark="true" clickable="false"
+		[icon-name]="getIcon(button)"
+		[button-active]="button.status()"
+		(click)="button.callback()">
+	</o-toggle-icon-button>
+</div>

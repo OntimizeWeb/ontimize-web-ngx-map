@@ -1,0 +1,97 @@
+<!--
+	TODO replace this div with o-frame if it goes into the framework
+	Frame to create the sidebar
+-->
+<mat-sidenav-container fxFlexFill hasBackdrop="false">
+  <mat-sidenav #sidenav id="layers" name="layers" [mode]="sidenavMode" [opened]="isSidenavVisible">
+    <div fxLayout="column" fxFlexFill fxLayoutAlign="start stretch">
+
+      <ng-container *ngIf="showBaseLayersMenu">
+        <!-- Header for Layer Base -->
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header [collapsedHeight]="'34px'" [expandedHeight]="'34px'">
+            <span class="mat-expansion-indicator o-close-sidenav" (click)="toggleSidenav($event)">
+            </span>
+            <mat-panel-title>
+              {{ getText('MAP_BASE_LAYERS') }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <!-- TODO replace this div with o-grid if it goes into the framework. Block with a grid of Base Layers -->
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" class="group-ref">
+            <o-map-base-layer #mainBaseLayerGroup *ngFor="let baseLayer of baseLayers" [layer-id]="baseLayer.id"
+              [title]="baseLayer.name" [src]="baseLayer.urlTemplate" [active]="baseLayer.active" fxLayout fxLayoutAlign="center center">
+            </o-map-base-layer>
+          </div>
+        </mat-expansion-panel>
+      </ng-container>
+
+      <ng-container *ngIf="showLayersMenu">
+        <!-- Header for Layers -->
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header [collapsedHeight]="'34px'" [expandedHeight]="'34px'">
+            <mat-panel-title>
+              {{ getText('MAP_LAYERS') }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <!-- TODO replace this div with o-tree-list if it goes into the framework. Block with a hierarquical list of Layers and LayerGroups -->
+          <div class="group-ref">
+            <ng-content></ng-content>
+            <o-map-layer-group class="o-map-layer-group" #mainLayerGroup></o-map-layer-group>
+          </div>
+        </mat-expansion-panel>
+      </ng-container>
+
+      <ng-container *ngIf="showWorkspaceMenu">
+        <!-- Header for Workspace -->
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header [collapsedHeight]="'34px'" [expandedHeight]="'34px'">
+            <mat-panel-title>
+              {{ getText('MAP_WORKSPACE_LAYERS') }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <!-- TODO replace this div with o-list if it goes into the framework. Block with a simple list of WorkspaceLayers -->
+          <o-map-workspace #oMapWorkspace (onToggleWSLayerSelected)="onWSLayerSelected($event)"
+            (onToggleWSLayerVisibility)="onWSLayerVisibilityToggled($event)"
+            (onToggleWSLayerInWS)="onWSLayerInWSToggled($event)">
+          </o-map-workspace>
+        </mat-expansion-panel>
+      </ng-container>
+
+      <ng-container *ngIf="mapLayerContainerComponent">
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header [collapsedHeight]="'34px'" [expandedHeight]="'34px'">
+
+            <ng-template #headerContent [ngTemplateOutlet]="mapLayerContainerComponent.headerTemplateref">
+            </ng-template>
+
+            <mat-panel-title>
+              {{ mapLayerContainerComponent.label }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-content select="o-map-layer-container"></ng-content>
+        </mat-expansion-panel>
+      </ng-container>
+    </div>
+  </mat-sidenav>
+  <!--
+		TODO o-frame sidebar container
+		Map Section
+	-->
+  <div fxLayout="column" fxLayoutAlign="top start" fxFlexFill>
+    <!--
+      Map container for Leaflet
+    -->
+    <div [id]="mapId" class="leaflet-map-container"></div>
+    <!--
+      Omnibar o-navigator
+    -->
+    <div *ngIf="isNavigatorVisible" #navigatorContainer [@navigatorState]="navigatorState" fxLayout="row"
+      fxLayoutAlign="start center">
+      <o-navigator [show-search-input]="searchControl" [show-sidenav-button]="isSearchControlButtonVisible">
+      </o-navigator>
+    </div>
+  </div>
+</mat-sidenav-container>

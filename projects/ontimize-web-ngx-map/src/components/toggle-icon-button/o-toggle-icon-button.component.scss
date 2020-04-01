@@ -1,0 +1,28 @@
+button {
+	color: rgba(255, 255, 255, 1);
+	transition: 350ms ease-in-out;
+	opacity: 0.38;
+	min-width: 48px;
+	height: 48px;
+	padding: 0;
+}
+
+button.active {
+	opacity: 1;
+}
+
+button:hover::after {
+	background-color: rgba(255, 255, 255, 0.12);
+}
+
+button.dark {
+	color: rgba(0, 0, 0, 1);
+}
+
+button.dark:hover::after {
+	background-color: rgba(0, 0, 0, 0.12);
+}
+
+button.mat-no-ink:hover::after {
+	background: transparent !important;
+}

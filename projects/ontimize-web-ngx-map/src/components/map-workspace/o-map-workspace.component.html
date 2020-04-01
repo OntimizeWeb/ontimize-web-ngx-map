@@ -1,0 +1,14 @@
+<mat-content dnd-sortable-container [sortableData]="oSearchableCollection">
+	<o-map-workspace-layer *ngFor="let layer of oSearchableCollection; let x = index"
+		[layer-index]									= "x"
+		[layer-selected]              = "layer.selected"
+		[layer-visible]               = "layer.visible"
+		[layer-in-ws]                 = "layer.inWS"
+		[layer-menu-label]            = "layer.menuLabel"
+		[layer-menu-label-secondary]  = "layer.menuLabelSecondary"
+		[layer-ref]                   = "layer"
+		(onToggleSelected)            = "onWSLayerSelected($event)"
+		(onToggleVisibility)          = "onWSLayerVisibilityToggled($event)"
+		(onToggleInWS)                = "onWSLayerInWSToggled($event)">
+	</o-map-workspace-layer>
+</mat-content>

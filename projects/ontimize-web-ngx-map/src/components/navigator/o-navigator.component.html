@@ -1,0 +1,16 @@
+<div fxLayout="row" layout-padding layout-wrap ng-cloak>
+  <div class="search-panel on-map mat-elevation-z2" fxLayout="row" fxLayoutAlign="start center">
+    <button *ngIf="isSidenavButtonVisible" mat-button class="mat-button" (click)="toggleSidenav($event)">
+      <i class="material-icons">menu</i>
+    </button>
+    <input *ngIf="isSearchInputVisible" id="place-input" class="on-map" type="text" fxFlex
+      [placeholder]="getText('SEARCH_PLACEHOLDER')" [(ngModel)]="address" (blur)="onBlur()" (click)="onFocus()">
+  </div>
+</div>
+<div *ngIf="searchResults.length > 0" fxLayout="row" layout-padding fxLayoutWrap ng-cloak>
+  <div class="search-results on-map mat-elevation-z2" fxFlex fxLayout="column" fxLayoutAlign="start center"
+    [class.rendered]="rendered">
+    <o-navigator-item *ngFor="let item of searchResults" [search-result]="item.oSearchResult">
+    </o-navigator-item>
+  </div>
+</div>

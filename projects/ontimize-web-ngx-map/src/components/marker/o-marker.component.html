@@ -1,0 +1,18 @@
+<button mat-button id="add-marker"
+	class="mat-icon-button mat-primary on-map-absolute"
+	[class.btn-default]="!editing"
+	[class.btn-primary]="editing"
+	[disabled]="removing"
+	title="Add Marker"
+	(click)="toggleEditing()">
+		<i class="material-icons">add_location</i>
+</button>
+<button mat-button id="remove-marker"
+	class="mat-icon-button mat-primary on-map-absolute"
+	[class.btn-default]="!removing"
+	[class.btn-primary]="removing"
+	[disabled]="editing"
+	title="Remove Marker"
+	(click)="toggleRemoving()">
+		<i class="material-icons">delete</i>
+</button>
