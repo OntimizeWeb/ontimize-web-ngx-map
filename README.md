@@ -1,1 +1,0 @@
-# Ontimize Web Map QuickStart
