@@ -1,6 +1,16 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "8.0.0",
+  "version": "0.0.1",
+  "dependencies": {
+    "leaflet": "1.2.0",
+    "leaflet-contextmenu": "1.4.0",
+    "leaflet-draw": "0.4.13",
+    "leaflet-providers": "1.1.17",
+    "leaflet.heat": "0.2.0",
+    "leaflet.markercluster": "1.0.6",
+    "proj4": "2.4.4",
+    "proj4leaflet": "1.0.2"
+  },
   "peerDependencies": {
     "@angular/common": "^8.0.3",
     "@angular/core": "^8.0.3"
@@ -14,7 +24,7 @@
     "@angular/core": "^8.2.14",
     "@angular/flex-layout": "^8.0.0-beta.27",
     "@angular/forms": "^8.2.14",
-    "@angular/http": "^7.2.16",
+    "@angular/http": "6.1.10",
     "@angular/material": "^8.2.3",
     "@angular/material-moment-adapter": "^8.2.3",
     "@angular/platform-browser": "8.2.14",
@@ -26,12 +36,19 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@types/node": "^13.9.8",
     "hammerjs": "^2.0.8",
-    "leaflet": "^1.6.0",
     "moment": "^2.22.2",
     "ontimize-web-ngx": "file:ontimize-web-ngx-8.0.0.tgz",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
     "typescript": "^3.5.3",
-    "zone.js": "^0.9.1"
+    "zone.js": "^0.9.1",
+    "leaflet": "1.2.0",
+    "leaflet-contextmenu": "1.4.0",
+    "leaflet-draw": "0.4.13",
+    "leaflet-providers": "1.1.17",
+    "leaflet.heat": "0.2.0",
+    "leaflet.markercluster": "1.0.6",
+    "proj4": "2.4.4",
+    "proj4leaflet": "1.0.2"
   }
 }

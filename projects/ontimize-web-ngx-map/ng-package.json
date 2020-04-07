@@ -3,5 +3,14 @@
   "dest": "../../dist/ontimize-web-ngx-map",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "leaflet",
+    "leaflet-contextmenu",
+    "leaflet-draw",
+    "leaflet-providers",
+    "leaflet.heat",
+    "leaflet.markercluster",
+    "proj4"
+  ]
 }

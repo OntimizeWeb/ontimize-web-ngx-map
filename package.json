@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && scss-bundle -c scss-bundle-ontimize-map.json && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet/dist/images/layers.png dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet/dist/images/layers-2x.png dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet-draw/dist/images/marker-icon.png dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet-draw/dist/images/marker-icon-2x.png dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet-draw/dist/images/spritesheet.png dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet-draw/dist/images/spritesheet-2x.png dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet-draw/dist/images/spritesheet.svg dist/ontimize-web-ngx-map/images/ && copyfiles -f projects/ontimize-web-ngx-map/node_modules/leaflet/dist/images/marker-shadow.png dist/ontimize-web-ngx-map/images/",
+    "postbuild": "cd dist/ontimize-web-ngx-map && npm pack",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
+    "@angular/http": "6.1.10",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -33,6 +35,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.9.5",
     "codelyzer": "^5.0.0",
+    "copyfiles": "^2.2.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -42,6 +45,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^4.1.0",
     "protractor": "~5.4.0",
+    "scss-bundle": "^3.0.2",
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.15.0",
