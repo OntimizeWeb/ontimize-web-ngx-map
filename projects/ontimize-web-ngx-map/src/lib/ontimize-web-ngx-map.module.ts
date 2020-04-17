@@ -4,15 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { OCustomMaterialModule } from 'ontimize-web-ngx';
 
-import { OMAP_DIRECTIVES } from '../components';
-import { OMAP_PROVIDERS } from '../services';
+import { OMAP_COMPONENTS } from './components/export';
+import { OMAP_PROVIDERS } from './services/providers';
 
 // import { DndModule } from '@churchs19/ng2-dnd';
-export * from '../interfaces';
-export * from '../services';
-export * from '../models';
-export * from '../components';
-export * from '../types';
 
 @NgModule({
   imports: [
@@ -22,8 +17,8 @@ export * from '../types';
     FlexLayoutModule,
     // DndModule
   ],
-  declarations: OMAP_DIRECTIVES,
-  exports: OMAP_DIRECTIVES,
+  declarations: OMAP_COMPONENTS,
+  exports: OMAP_COMPONENTS,
   providers: OMAP_PROVIDERS,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
