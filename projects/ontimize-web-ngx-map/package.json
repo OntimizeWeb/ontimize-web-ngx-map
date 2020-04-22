@@ -31,8 +31,6 @@
     "proj4leaflet": "1.0.2"
   },
   "peerDependencies": {
-    "rxjs": "~6.4.0",
-    "zone.js": "0.9.1",
     "ontimize-web-ngx": "file:ontimize-web-ngx-8.0.0.tgz"
   }
 }
