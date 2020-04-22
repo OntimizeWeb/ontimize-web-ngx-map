@@ -1,26 +1,35 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/lib",
+    "baseUrl": "./",
     "target": "es2015",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": false,
     "declaration": true,
-    "inlineSources": true,
-    "types": [],
+    "noImplicitReturns": true,
+    "listFiles": true,
+    "pretty": true,
+    "stripInternal": true,
+    "outDir": "dist",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "lib": [
       "dom",
-      "es2018"
-    ]
-  },
-  "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
-    "enableResourceInlining": true
+      "es2015"
+    ],
   },
   "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts"
-  ]
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "src/lib/ontimize-web-ngx-map.module.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipMetadataEmit": false,
+    "strictMetadataEmit": true
+  }
 }

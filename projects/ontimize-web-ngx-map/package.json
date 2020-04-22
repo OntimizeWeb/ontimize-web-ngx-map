@@ -1,8 +1,38 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "0.0.1",
+  "version": "8.0.0",
+  "description": "An implementation of leaflet map for Ontimize Web",
+  "keywords": [
+    "angular",
+    "ontimize-web-ngx",
+    "ontimize-web-ngx-map",
+    "map"
+  ],
+  "author": "IMATIA S.L.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:OntimizeWeb/ontimize-web-ngx-map.git"
+  },
+  "license": "Apache-2.0",
+  "readmeFilename": "README.md",
+  "main": "./bundles/ontimize-web-ngx-map.umd.js",
+  "metadata": "./index.metadata.json",
+  "module": "./index.js",
+  "es2015": "./esm2015/ontimize-web-ngx-map.js",
+  "typings": "./index.d.ts",
+  "dependencies": {
+    "leaflet": "1.2.0",
+    "leaflet-contextmenu": "1.4.0",
+    "leaflet-draw": "0.4.13",
+    "leaflet-providers": "1.1.17",
+    "leaflet.heat": "0.2.0",
+    "leaflet.markercluster": "1.0.6",
+    "proj4": "2.4.4",
+    "proj4leaflet": "1.0.2"
+  },
   "peerDependencies": {
-    "@angular/common": "^8.0.3",
-    "@angular/core": "^8.0.3"
+    "rxjs": "~6.4.0",
+    "zone.js": "0.9.1",
+    "ontimize-web-ngx": "file:ontimize-web-ngx-8.0.0.tgz"
   }
 }

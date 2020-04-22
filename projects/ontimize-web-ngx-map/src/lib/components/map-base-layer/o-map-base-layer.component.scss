@@ -1,0 +1,36 @@
+:host {
+	float: left;
+	width: 112px;
+}
+
+button {
+	all: unset;
+	position: relative;
+	width: 100%;
+	.image {
+		height: 112px;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.image-title {
+		display: none;
+		position: absolute;
+		top: 0;
+		line-height: 112px;
+		width: 100%;
+		font-size: 12px;
+		text-align: center;
+		background: rgba(255, 255, 255, 0.38);
+	}
+}
+
+button:hover {
+	.image-title {
+		display: block;
+	}
+}
+
+button.active {
+	border: 1px solid black;
+}

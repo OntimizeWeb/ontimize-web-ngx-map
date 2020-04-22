@@ -2,6 +2,19 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ontimize-web-ngx-map",
   "lib": {
-    "entryFile": "src/public-api.ts"
-  }
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "leaflet": "L",
+      "ontimize-web-ngx": "ontimizeWebNgx"
+    }
+  },
+  "whitelistedNonPeerDependencies": [
+    "leaflet",
+    "leaflet-contextmenu",
+    "leaflet-draw",
+    "leaflet-providers",
+    "leaflet.heat",
+    "leaflet.markercluster",
+    "proj4"
+  ]
 }

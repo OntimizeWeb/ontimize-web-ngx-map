@@ -1,0 +1,40 @@
+@import "assets/dependencies/leaflet/leaflet.scss";
+@import "assets/dependencies/leaflet/leaflet.draw.scss";
+@import "assets/dependencies/leaflet/MarkerCluster.scss";
+@import "assets/dependencies/leaflet/MarkerCluster.Default.scss";
+@import "assets/dependencies/leaflet/leaflet.contextmenu.scss";
+
+o-map {
+	position: relative;
+
+	.mat-sidenav-content {
+		width: 100%;
+	}
+}
+
+.on-map {
+	z-index: 400;
+}
+
+.on-map-absolute {
+	position: absolute;
+	z-index: 400;
+}
+
+.map-button {
+	width: 35px;
+	height: 35px;
+	text-align: center;
+}
+
+.leaflet-clickable {
+	cursor: crosshair !important;
+}
+
+.leaflet-container {
+	cursor: help !important;
+}
+
+.group-ref>div.expanded:first-child {
+	border: none !important;
+}
