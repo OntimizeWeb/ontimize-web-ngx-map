@@ -1,0 +1,35 @@
+@mixin example-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .example-comp {
+    & > section {
+      background: #fafafa;
+
+      .playground-toolbar.mat-toolbar {
+        background: #eeeeee;
+        color: #212121;
+        border-bottom: 1px solid #e0e0e0;
+
+        .comp-description {
+          color: #616161;
+        }
+      }
+
+      .comp-note {
+        p {
+          mat-icon {
+            color: mat-color($primary, 0.84);
+          }
+        }
+      }
+
+      .playground-tabs {
+        border-bottom: 1px solid #e0e0e0;
+      }
+    }
+  }
+}

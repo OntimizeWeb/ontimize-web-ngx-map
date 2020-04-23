@@ -1,0 +1,22 @@
+{
+  "APP_TITLE" : "Map",
+  "VERSION" : "Version",
+
+  "INTRODUCTION": "Introduction",
+  "BASIC" : "Basic usage",
+  "LAYERS" : "Layers",
+  "MARKER" : "Marker",
+  "GEOJSON" : "GeoJson",
+  "WMS" : "WMS",
+  "EVENTS" : "Events",
+  "BASIC.BASIC_USAGE":"Map (Basic usage)",
+  "BASIC.BASIC_USAGE.DESC":"Basic configuration of the map. In this example is shown how to define the map component, setting the center and zoom levels.",
+  "BASIC.BASIC_LAYERS":"Map (Base layers)",
+  "BASIC.BASIC_LAYERS.DESC":"It can be configured which layer or layers will be the base layers of the map. By default, if none is provided it is used 'OpenStreetMap' base layer.",
+  "BASIC.BASIC_LAYERS.NOTE":"The different base layer/s are taken from the extension <a href=\"https://github.com/leaflet-extras/leaflet-providers/blob/master/README.md\" target=\"_blank\"> 'leaflet-providers'</a> that contains configurations for various free tile providers. Please, for production environments take into account what leaflet-providers developers says: <figure>   <blockquote>We try to maintain leaflet-providers in such a way that you'll be able to use the layers we include without paying  money. This doesn't mean no limits apply, you should always check before using these layers for anything serious.</blockquote></figure>",
+  "LAYERS.MARKER.BASIC_USAGE":"Marker layers",
+  "LAYERS.MARKER.BASIC_USAGE.DESC":"It is possible to add markers to our map in the map definition itself.",
+  "LAYERS.GEOJSON.BASIC_USAGE":"GeoJson layers",
+  "LAYERS.WMSLAYERS.BASIC_USAGE":"WMS layers",
+  "LAYERS.EVENTS.BASIC_USAGE": "Map events"
+}
