@@ -813,7 +813,11 @@ export class MapService {
         if (customIconFromProps && feature && feature.properties[customIconFromProps]) {
           iconOptions.iconUrl = feature.properties[customIconFromProps];
         }
-        optionsArg.layerOptions.icon = new L.Icon(iconOptions);
+        if (iconOptions) {
+          optionsArg.layerOptions.icon = new L.Icon(iconOptions);
+        } else {
+          optionsArg.layerOptions.icon = new L.Icon.Default();
+        }
         return (L as any).marker(latlng, optionsArg.layerOptions);
       },
       style: geoJsonFeature => {

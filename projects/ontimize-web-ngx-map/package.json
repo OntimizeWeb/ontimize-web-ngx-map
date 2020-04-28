@@ -31,6 +31,6 @@
     "proj4leaflet": "1.0.2"
   },
   "peerDependencies": {
-    "ontimize-web-ngx": "file:ontimize-web-ngx-8.0.0.tgz"
+    "ontimize-web-ngx": "8.0.0"
   }
 }
