@@ -21,13 +21,13 @@
   "es2015": "./esm2015/ontimize-web-ngx-map.js",
   "typings": "./index.d.ts",
   "dependencies": {
-    "leaflet": "1.2.0",
+    "leaflet": "1.6.0",
     "leaflet-contextmenu": "1.4.0",
-    "leaflet-draw": "0.4.13",
-    "leaflet-providers": "1.1.17",
+    "leaflet-draw": "0.4.14",
+    "leaflet-providers": "1.9.1",
     "leaflet.heat": "0.2.0",
-    "leaflet.markercluster": "1.0.6",
-    "proj4": "2.4.4",
+    "leaflet.markercluster": "1.4.1",
+    "proj4": "2.6.1",
     "proj4leaflet": "1.0.2"
   },
   "peerDependencies": {
