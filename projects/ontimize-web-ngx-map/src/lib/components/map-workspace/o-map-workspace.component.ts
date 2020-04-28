@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, forwardRef, Inject, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -79,6 +80,11 @@ export class OMapWorkspaceComponent implements OSearcher, OMapWorkspace {
     } else if (!inWS && inML) {
       this.wsMapLayers.splice(p, 1);
     }
+  }
+
+  onListitemDragDrop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.oSearchableCollection, event.previousIndex, event.currentIndex);
+    this.updateMapLayersPosition();
   }
 
   public updateMapLayers() {

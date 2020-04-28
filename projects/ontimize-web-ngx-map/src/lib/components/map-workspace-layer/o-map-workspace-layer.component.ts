@@ -94,14 +94,14 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
     this.onToggleInWS.emit(this);
   }
 
-  onDragStart() {
-    this.dragging = true;
-  }
+  // onDragStart() {
+  //   this.dragging = true;
+  // }
 
-  onDragEnd() {
-    this.dragging = false;
-    this.refWorkspace.updateMapLayersPosition();
-  }
+  // onDragEnd() {
+  //   this.dragging = false;
+  //   this.refWorkspace.updateMapLayersPosition();
+  // }
 
   get menuLabel(): string {
     return this._menuLabel;

@@ -1,5 +1,5 @@
-<mat-content dnd-sortable-container [sortableData]="oSearchableCollection">
-	<o-map-workspace-layer *ngFor="let layer of oSearchableCollection; let x = index"
+<div cdkDropList (cdkDropListDropped)="onListitemDragDrop($event)">
+	<o-map-workspace-layer *ngFor="let layer of oSearchableCollection; let x = index" cdkDrag
 		[layer-index]									= "x"
 		[layer-selected]              = "layer.selected"
 		[layer-visible]               = "layer.visible"
@@ -11,4 +11,4 @@
 		(onToggleVisibility)          = "onWSLayerVisibilityToggled($event)"
 		(onToggleInWS)                = "onWSLayerInWSToggled($event)">
 	</o-map-workspace-layer>
-</mat-content>
+</div>
