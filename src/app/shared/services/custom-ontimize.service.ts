@@ -23,8 +23,8 @@ export class CustomOntimizeService extends OntimizeService {
   // }
 
   public getDefaultServiceConfiguration(serviceName?: string): Object {
-    let loginService = this.injector.get(LoginService);
-    let configuration = this._config.getServiceConfiguration();
+    const loginService = this.injector.get(LoginService);
+    const configuration = this._config.getServiceConfiguration();
 
     let servConfig = {};
     if (serviceName && configuration.hasOwnProperty(serviceName)) {
