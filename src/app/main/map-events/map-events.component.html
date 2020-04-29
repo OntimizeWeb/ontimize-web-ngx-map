@@ -1,26 +1,26 @@
-<div fxLayout="row" fxLayoutAlign="center start">
-  <example-comp comp-name="LAYERS.EVENTS.BASIC_USAGE" [files]="getFiles()" fxFlex="100">
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
-      <o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes"
-        search-control="no" layer-panel-visible="no" fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
-        <!-- [crs-configuration]="objeto" -->
-        <o-map-crs crs="EPSG4326"></o-map-crs>
+<div fxLayout="column" fxLayoutAlign="center top" fxFlex>
+  <div fxLaout="row" fxLayoutGap="20" fxFlex>
+    <example-comp comp-name="LAYERS.EVENTS.BASIC_USAGE" [files]="getFiles()" fxFlex="75">
+        <o-map #oMap center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes"
+          search-control="no" layer-panel-visible="no" fxFlex draw-control="no" (onDrawEvent)="addDrawEvent($event)">
+          <!-- [crs-configuration]="objeto" -->
+          <!-- <o-map-crs crs="EPSG4326"></o-map-crs> -->
 
-        <!-- crs="26915" -->
-        <o-map-draw-controls></o-map-draw-controls>
-        <!-- <o-map-projection projection="26915"></o-map-projection> -->
-        <!-- crs="9857"  -->
+          <!-- crs="26915" -->
+          <o-map-draw-controls></o-map-draw-controls>
+          <!-- <o-map-projection projection="26915"></o-map-projection> -->
+          <!-- crs="9857"  -->
 
-      </o-map>
-    </div>
-    <div class="body-text-container" layout-padding>
+        </o-map>
+    </example-comp>
+    <div class="body-text-container" layout-padding fxFlex="25">
       <h3>Triggering draw events</h3>
       <mat-divider></mat-divider>
       <div fxLayout="column" fxLayoutAlign="center start">
-        <span class="body-text" *ngFor="let event of eventsArray" layout-padding>
-          {{ event.type }}
-        </span>
+        <div fxLayout="row" fxLayoutGap="8px" class="body-text" *ngFor="let event of eventsArray" layout-padding>
+          <span class="event-text">Event type: </span> <span>{{ event.type }}</span>
+        </div>
       </div>
     </div>
-  </example-comp>
+  </div>
 </div>

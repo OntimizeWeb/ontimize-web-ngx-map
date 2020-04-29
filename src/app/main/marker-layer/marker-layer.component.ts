@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 const MARKER_LAYER_HTML_DATA = `
 <o-map #oMapMarker center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20"
@@ -10,7 +10,12 @@ layer-menu-label="Office headquarters " layer-menu-label-secondary="Location of 
 
 @Component({
   selector: 'marker-layer',
-  templateUrl: './marker-layer.component.html'
+  templateUrl: './marker-layer.component.html',
+  styleUrls: ['./marker-layer.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.marker-layer-page]': 'true'
+  }
 })
 export class MarkerLayerComponent {
 

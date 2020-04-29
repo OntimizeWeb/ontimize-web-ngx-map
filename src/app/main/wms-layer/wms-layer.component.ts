@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 const HTML_DATA = `
 <o-map #oMapWMS center="40.712784,-74.005941" zoom="10" min-zoom="6" max-zoom="20" base-layer-ids="basemap.nationalmap.gov"
@@ -38,7 +38,12 @@ export class WMSLayerComponent  {
 
 @Component({
   selector: 'wms-layer',
-  templateUrl: './wms-layer.component.html'
+  templateUrl: './wms-layer.component.html',
+  styleUrls: ['./wms-layer.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.wms-layer-page]': 'true'
+  }
 })
 export class WMSLayerComponent {
 
