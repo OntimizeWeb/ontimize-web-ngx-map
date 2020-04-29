@@ -35,7 +35,7 @@
     "leaflet-providers": "1.1.17",
     "leaflet.heat": "0.2.0",
     "leaflet.markercluster": "1.0.6",
-    "ontimize-web-ngx": "file:C:/workspaces/ontimizeWeb/v8/ontimize-web-ngx/dist/ontimize-web-ngx/ontimize-web-ngx-8.0.0.tgz",
+    "ontimize-web-ngx": "file:ontimize-web-ngx-8.0.0.tgz",
     "proj4": "2.4.4",
     "proj4leaflet": "1.0.2",
     "rxjs": "~6.4.0",
