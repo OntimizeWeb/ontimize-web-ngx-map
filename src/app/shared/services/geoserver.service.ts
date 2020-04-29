@@ -60,6 +60,7 @@ export class GeoServerService implements IGeoJSONLayerService {
 
         let features = data.features;
         if (features) {
+          this.dataStore.features = [];
           // Filtering features to show only Galician features...
           features.forEach((feature: any, index: number) => {
             if (feature && feature.geometry) {

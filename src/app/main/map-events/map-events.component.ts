@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 
 const MARKER_LAYER_HTML_DATA = `
@@ -50,6 +50,10 @@ export class MapEventsComponent {
   selector: 'map-events',
   templateUrl: './map-events.component.html',
   styleUrls: ['./map-events.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '[class.map-events-page]': 'true'
+  }
 })
 export class MapEventsComponent {
   _eventsArray: Array<any> = [];
