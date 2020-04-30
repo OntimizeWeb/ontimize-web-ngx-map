@@ -1,13 +1,12 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "8.0.0",
+  "version": "8.0.0-SNAPSHOT-0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build && npm run build-styles && npm run copy-files",
     "build-styles": "scss-bundle -c scss-bundle-ontimize-map.json",
     "copy-files": "copyfiles -f node_modules/leaflet/dist/images/layers.png dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet/dist/images/layers-2x.png dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/marker-icon.png dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/marker-icon-2x.png dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/spritesheet.png dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/spritesheet-2x.png dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/spritesheet.svg dist/ontimize-web-ngx-map/images/ && copyfiles -f node_modules/leaflet/dist/images/marker-shadow.png dist/ontimize-web-ngx-map/images/",
-    "postbuild": "cd dist/ontimize-web-ngx-map && npm pack",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
