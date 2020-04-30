@@ -1,7 +1,7 @@
 {
   "bundlerOptions": {
     "entryFile": "./projects/ontimize-web-ngx-map/styles.scss",
-    "outFile": "./dist/ontimize-web-ngx-map/styles.scss",
+    "outFile": "./dist/styles.scss",
     "logLevel": "trace"
   }
 }
