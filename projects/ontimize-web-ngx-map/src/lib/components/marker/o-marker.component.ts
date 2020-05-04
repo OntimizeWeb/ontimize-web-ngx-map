@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LeafletMouseEvent } from 'leaflet';
 import * as L from 'leaflet';
 
-import { MapService } from '../../services';
+import { MapService } from '../../services/MapService';
 
 @Component({
   selector: 'o-marker',
