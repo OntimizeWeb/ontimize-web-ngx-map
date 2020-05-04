@@ -8,12 +8,14 @@ import { HighlightComponent } from './highlight/highlight.component';
 import { CustomMapComponent } from './map/custom.map.component';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
+import { MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     OntimizeWebModule,
     HighlightJsModule,
-    OMapModule
+    OMapModule,
+    MatTabsModule
   ],
   declarations: [
     ExampleComponent,
