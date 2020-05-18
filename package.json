@@ -29,8 +29,6 @@
     "@angular/router": "~8.2.14",
     "@angular/service-worker": "~8.2.14",
     "@angular/upgrade": "^8.2.14",
-    "@ngx-translate/core": "^12.1.1",
-    "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^3.6.4",
     "ngx-material-timepicker": "5.4.3",
     "ontimize-web-ngx": "8.0.0-SNAPSHOT-0",
