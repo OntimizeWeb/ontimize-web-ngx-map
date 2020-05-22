@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "production": "ng build --prod=true --baseHref==/ontimize-web-ngx-map/",
-    "production-aot-server": "ng build --prod=true --baseHref=/"
+    "production-aot-server": "ng build --prod=true --baseHref=/ontimizeweb/v8/map/"
   },
   "private": true,
   "dependencies": {
