@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "8.0.0-SNAPSHOT-0",
+  "version": "8.0.0-rc.0",
   "description": "An implementation of leaflet map for Ontimize Web",
   "keywords": [
     "angular",
@@ -31,6 +31,6 @@
     "proj4leaflet": "1.0.2"
   },
   "peerDependencies": {
-    "ontimize-web-ngx": "8.0.0"
+    "ontimize-web-ngx": "8.0.0-rc.0"
   }
 }
