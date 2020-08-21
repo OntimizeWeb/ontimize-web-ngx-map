@@ -6,13 +6,13 @@ import { CustomOntimizeService, NavigationBarService } from '../../shared/index'
 
 const BASIC_USAGE_HTML_DATA = `
 <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
-  zoom-control="yes" search-control="yes" fxFlex>
+  zoom-control="yes" search-control="no" fxFlex>
 </o-map>
 `;
 
 const BASE_LAYERS_HTML_DATA = `
 <o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
-  base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite" zoom-control="yes" search-control="yes" fxFlex>
+  base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite" zoom-control="yes" search-control="no" fxFlex>
 </o-map>
 `;
 

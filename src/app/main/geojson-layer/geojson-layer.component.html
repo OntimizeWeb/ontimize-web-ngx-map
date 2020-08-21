@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="center top" fxFlex>
   <example-comp comp-name="LAYERS.GEOJSON.BASIC_USAGE" [files]="getFiles()" fxFlex="100">
     <o-map #oMapGeoJSON center="42.940599, -7.120727" zoom="8" min-zoom="3" max-zoom="20" zoom-control="yes"
-      search-control="yes" layer-panel-visible="no" fxFlex>
+      search-control="no" layer-panel-visible="no" fxFlex>
       <o-map-layer layer-type="geoJSON" layer-service="geojson-train-lines" layer-id="train-lines"
         layer-menu-label="Train lines" layer-menu-label-secondary="Spain's' train lines."></o-map-layer>
       <o-map-layer layer-type="geoJSON" layer-service="geojson-train-stations" layer-id="train-stations"

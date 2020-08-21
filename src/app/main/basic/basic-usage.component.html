@@ -1,13 +1,13 @@
 <div fxLayout="column" fxLayoutAlign="center top">
   <example-comp comp-name="BASIC.BASIC_USAGE" comp-desc="BASIC.BASIC_USAGE.DESC" [files]="getBasicUsageFiles()" fxFlex="100">
     <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
-      zoom-control="yes" search-control="yes" fxFlex></o-map>
+      zoom-control="yes" search-control="no" fxFlex></o-map>
   </example-comp>
 
   <example-comp comp-name="BASIC.BASIC_LAYERS" comp-desc="BASIC.BASIC_LAYERS.DESC" comp-note="BASIC.BASIC_LAYERS.NOTE"
     [files]="getBaseLayersFiles()" fxFlex="100">
     <o-map #oMapBaseLayers attr="base-layers-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20"
       base-layer-ids="CartoDB.Positron;Esri;OpenStreetMap.HOT;OpenStreetMap.BlackAndWhite" zoom-control="yes"
-      search-control="yes" fxFlex></o-map>
+      search-control="no" fxFlex></o-map>
   </example-comp>
 </div>
