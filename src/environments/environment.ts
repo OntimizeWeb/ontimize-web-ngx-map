@@ -4,5 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  versions: {
+    core: '4.1.3',
+    map: '4.0.3',
+    theming: '4.0.2'
+  }
 };
