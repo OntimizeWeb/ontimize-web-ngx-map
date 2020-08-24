@@ -9,6 +9,7 @@ export const routes: Routes = [
     component: MainComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
       { path: 'basic', loadChildren: () => import('./basic/basic.module').then(m => m.BasicModule) },
       { path: 'geojson', loadChildren: () => import('./geojson-layer/geojson-layer.module').then(m => m.GeoJsonLayerModule) },
       { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },

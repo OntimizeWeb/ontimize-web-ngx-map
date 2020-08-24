@@ -16,7 +16,8 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: 'marker', name: 'MARKER', icon: 'place', route: '/main/marker' },
       { id: 'geojson', name: 'GEOJSON', icon: 'my_location', route: '/main/geojson' },
       { id: 'wms', name: 'WMS', icon: 'language', route: '/main/wms' }]
-  }
+  },
+  { id: 'about', name: 'ABOUT', route: '/main/about', icon: 'help_outline' }
 ];
 
 
