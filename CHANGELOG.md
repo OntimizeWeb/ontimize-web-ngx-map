@@ -1,3 +1,7 @@
+## 4.1.3 (2020-08-24)
+### DEPENDENCY UPDATES
+* **Updated**: ontimize-web-ngx@4.1.3
+
 ## 4.0.2 (2019-12-17)
 ### Bug Fixes
 * **o-map**: Fixing context menu bugs
