@@ -1,4 +1,5 @@
 import * as L from 'leaflet';
+
 import { LayerConfiguration } from '../../models';
 import { MapService } from '../../services';
 
@@ -53,7 +54,7 @@ export class OMapLayerFactory {
     let layer;
     var success = ((id !== null) && layerConf.center);
     if (success) {
-      layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, void 0,
+      layer = mapService.addMarker(id, layerConf.center.latitude, layerConf.center.longitude, layerConf.options,
         layerConf.popup, !layerConf.visible, layerConf.showInMenu, layerConf.menuLabel);
     }
     return layer;
