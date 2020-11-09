@@ -11,7 +11,7 @@ import 'proj4leaflet';
 import { BaseLayerCollection, LayerConfigurationContextmenu } from '../models';
 import { MapServiceUtils } from './MapServiceUtils';
 import { TranslateMapService } from './TranslateMapService';
-import { OMapLayerOptions } from '../types/layer-options.type';
+import { OMapLayerOptions, OIconOptions } from '../types/layer-options.type';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -78,10 +78,10 @@ export class MapService {
   }
 
   /**
-	 * Gets or creates the map
-	 * @param id Id of the map
-	 * @param options Leaflet option for the map
-	 */
+   * Gets or creates the map
+   * @param id Id of the map
+   * @param options Leaflet option for the map
+   */
   getMap(id?: string, options?: L.MapOptions): Map {
     if (!!id && !this.map) {
       this.map = new L.Map(id, options);
@@ -90,34 +90,34 @@ export class MapService {
   }
 
   /**
-	 * Sets center of map.
-	 * @param latitude Center latitude.
-	 * @param longitude  Center longitude.
-	 */
+   * Sets center of map.
+   * @param latitude Center latitude.
+   * @param longitude  Center longitude.
+   */
   setCenter(latitude: number, longitude: number) {
     this.map.setView([latitude, longitude], this.map.getZoom());
   }
 
   /**
-	 * Returns the geographical center of the map view.
-	 * @return Map center geographical coordinates.
-	 */
+   * Returns the geographical center of the map view.
+   * @return Map center geographical coordinates.
+   */
   getCenter(): L.LatLng {
     return this.map.getCenter();
   }
 
   /**
-	 * Sets map zoom.
-	 * @param zoom  Zoom value
-	 */
+   * Sets map zoom.
+   * @param zoom  Zoom value
+   */
   setZoom(zoom: number) {
     this.map.setZoom(zoom);
   }
 
   /**
-	* Returns map current zoom.
-	* @return Map zoom.
-	*/
+  * Returns map current zoom.
+  * @return Map zoom.
+  */
   getZoom() {
     return this.getZoom();
   }
@@ -127,18 +127,18 @@ export class MapService {
   }
 
   /**
-	 * Adds a layer (tiles, marker, circle, polygon...) to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param layer
-	 *          Layer to be added.
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 */
+   * Adds a layer (tiles, marker, circle, polygon...) to the map.
+   * @param id
+   *          Unique identifier.
+   * @param layer
+   *          Layer to be added.
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   */
   addLayer(id, layer, hidden: boolean = false, showInMenu: string = '', menuLabel: string) {
     // If exists any layer with same id, remove it first
     if (this.layers[id]) {
@@ -208,10 +208,10 @@ export class MapService {
     return this.overlayMaps[this.layers[this.drawLayerId]];
   }
   /**
-	 * Configures default base layers of the map
-	 * @param baseLayerIds Array of base layer identifiers ('OpenStreetMap' | 'Esri' | 'CartoDB' ...)
-	 *	@see https://github.com/leaflet-extras/leaflet-providers#providers
-	 */
+   * Configures default base layers of the map
+   * @param baseLayerIds Array of base layer identifiers ('OpenStreetMap' | 'Esri' | 'CartoDB' ...)
+   *	@see https://github.com/leaflet-extras/leaflet-providers#providers
+   */
   configureBaseLayers(baseLayerIds: Array<string>) {
     if (baseLayerIds && baseLayerIds.length > 0) {
       baseLayerIds.forEach((id, index) => {
@@ -230,9 +230,9 @@ export class MapService {
   }
 
   /**
-	 * Selects a layer by adding it again to the map
-	 * @param id Unique identifier
-	 */
+   * Selects a layer by adding it again to the map
+   * @param id Unique identifier
+   */
   selectBaseLayer(id: string) {
     let l = this.baseLayers.getTileLayer(id);
     if (!!l) {
@@ -244,8 +244,8 @@ export class MapService {
   }
 
   /**
-	 * Upload base layers in the map
-	 */
+   * Upload base layers in the map
+   */
   uploadBaseLayers() {
     let lM = this.baseLayers.getLayersMap();
     this.clearBaseLayers();
@@ -253,8 +253,8 @@ export class MapService {
   }
 
   /**
-	 * Deletes all base layers.
-	 */
+   * Deletes all base layers.
+   */
   clearBaseLayers(): void {
     let lM = this.baseLayers.getLayersMap();
     for (var layerId in lM) {
@@ -266,11 +266,11 @@ export class MapService {
   }
 
   /**
-	 * Removes a layer (tiles, marker, circle, polygon...) from the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @return True if success, else false.
-	 */
+   * Removes a layer (tiles, marker, circle, polygon...) from the map.
+   * @param id
+   *          Unique identifier.
+   * @return True if success, else false.
+   */
   removeLayer(id: string): boolean {
     var success = false;
     var layer;
@@ -295,8 +295,8 @@ export class MapService {
   }
 
   /**
-	 * Deletes all layers.
-	 */
+   * Deletes all layers.
+   */
   clearLayers(): void {
     for (var layerId in this.layers) {
       if (this.layers.hasOwnProperty(layerId)) {
@@ -307,11 +307,11 @@ export class MapService {
   }
 
   /**
-	 * Returns concrete map layer.
-	 * @param id
-	 *          Layer identifier.
-	 * @return Layer object if exists, else undefined.
-	 */
+   * Returns concrete map layer.
+   * @param id
+   *          Layer identifier.
+   * @return Layer object if exists, else undefined.
+   */
   getLayer(id: string) {
     let layer;
     if ((typeof (this.layers[id]) === 'string') && this.controls[LAYERS_CONTROL_ID]) {
@@ -326,13 +326,13 @@ export class MapService {
   }
 
   /**
-	* Creates Leaflet icon type, which can be used to create new icons.
-	* @param id
-	*          Unique identifier.
-	* @param options
-	*          Object with options (http://leafletjs.com/reference.html#icon-options).
-	* @return Leaflet icon type object.
-	*/
+  * Creates Leaflet icon type, which can be used to create new icons.
+  * @param id
+  *          Unique identifier.
+  * @param options
+  *          Object with options (http://leafletjs.com/reference.html#icon-options).
+  * @return Leaflet icon type object.
+  */
   createIconType(id, options) {
     this.iconTypes[id] = L.Icon.extend({
       options: options
@@ -341,13 +341,13 @@ export class MapService {
   }
 
   /**
-	 * Creates Leaflet icon, which can be used in layers.
-	 * @param options
-	 *          Object with options (http://leafletjs.com/reference.html#icon-options).
-	 * @param type
-	 *          (optional) Icon type, previously created with createIconType function.
-	 * @return Leaflet icon object.
-	 */
+   * Creates Leaflet icon, which can be used in layers.
+   * @param options
+   *          Object with options (http://leafletjs.com/reference.html#icon-options).
+   * @param type
+   *          (optional) Icon type, previously created with createIconType function.
+   * @return Leaflet icon object.
+   */
   createIcon(options, type) {
     var icon = void 0;
     if (type) {
@@ -362,22 +362,22 @@ export class MapService {
   }
 
   /**
-	* Adds a tile layer to the map.
-	* @param id
-	*          Unique identifier.
-	* @param template
-	*          Known Leaflet provider name (leaflet-providers.js) or URL template
-	*          (http://leafletjs.com/reference.html#tilelayer).
-	* @param options
-	*          (optional) Object with options (http://leafletjs.com/reference.html#tilelayer-options).
-	* @param hidden
-	*          (optional) Set this property to true to do not show the layer.
-	* @param showInMenu
-	*          (optional) Set to 'base' or 'overlay' to appear in menu.
-	* @param menuLabel
-	*          (optional) Label to identify this layer in the menu.
-	* @return Added tile layer.
-	*/
+  * Adds a tile layer to the map.
+  * @param id
+  *          Unique identifier.
+  * @param template
+  *          Known Leaflet provider name (leaflet-providers.js) or URL template
+  *          (http://leafletjs.com/reference.html#tilelayer).
+  * @param options
+  *          (optional) Object with options (http://leafletjs.com/reference.html#tilelayer-options).
+  * @param hidden
+  *          (optional) Set this property to true to do not show the layer.
+  * @param showInMenu
+  *          (optional) Set to 'base' or 'overlay' to appear in menu.
+  * @param menuLabel
+  *          (optional) Label to identify this layer in the menu.
+  * @return Added tile layer.
+  */
   addTileLayer(id, template, options, hidden, showInMenu, menuLabel) {
     var tileLayer = null;
 
@@ -400,21 +400,21 @@ export class MapService {
   }
 
   /**
-	 * Used to display WMS services as tile layers on the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param baseUrl
-	 *          Base URL of the WMS service.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#tilelayer-wms-options).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added WMS tile layer.
-	 */
+   * Used to display WMS services as tile layers on the map.
+   * @param id
+   *          Unique identifier.
+   * @param baseUrl
+   *          Base URL of the WMS service.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#tilelayer-wms-options).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added WMS tile layer.
+   */
   addTileLayerWMS(id, baseUrl, optionsArg: OMapLayerOptions = {}, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new WMS tile layer
@@ -427,29 +427,36 @@ export class MapService {
   }
 
   /**
-	 * Adds a marker to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param latitude
-	 *          Latitude.
-	 * @param longitude
-	 *          Longitude.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#marker-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added marker.
-	 */
+   * Adds a marker to the map.
+   * @param id
+   *          Unique identifier.
+   * @param latitude
+   *          Latitude.
+   * @param longitude
+   *          Longitude.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#marker-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added marker.
+   */
   addMarker(id, latitude, longitude, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new marker
     let latLng = new L.LatLng(latitude, longitude);
+
+    if (optionsArg.iconOptions) {
+      var iconOptions: L.IconOptions = { iconUrl: '' };
+      Object.assign(iconOptions, optionsArg.iconOptions);
+      optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
+      optionsArg.layerOptions.icon = L.icon(iconOptions);
+    }
     var marker = L.marker(latLng, optionsArg.layerOptions);
 
     // Bind popup message
@@ -464,31 +471,31 @@ export class MapService {
   }
 
   /**
-	 * Displays a single image over specific bounds of the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param url
-	 *          Image URL.
-	 * @param left
-	 *          Geographical coordinate of left bound.
-	 * @param bottom
-	 *          Geographical coordinate of bottom bound.
-	 * @param right
-	 *          Geographical coordinate of right bound.
-	 * @param top
-	 *          Geographical coordinate of top bound.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#imageoverlay-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added image.
-	 */
+   * Displays a single image over specific bounds of the map.
+   * @param id
+   *          Unique identifier.
+   * @param url
+   *          Image URL.
+   * @param left
+   *          Geographical coordinate of left bound.
+   * @param bottom
+   *          Geographical coordinate of bottom bound.
+   * @param right
+   *          Geographical coordinate of right bound.
+   * @param top
+   *          Geographical coordinate of top bound.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#imageoverlay-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added image.
+   */
   addImageOverlay(id, url, left, bottom, right, top, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new image overlay
@@ -507,23 +514,23 @@ export class MapService {
   }
 
   /**
-	 * Adds a polyline to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param points
-	 *          Array of geographical points.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added polyline.
-	 */
+   * Adds a polyline to the map.
+   * @param id
+   *          Unique identifier.
+   * @param points
+   *          Array of geographical points.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added polyline.
+   */
   addPolyline(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel): L.Polyline<any> {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new polyline
@@ -541,23 +548,23 @@ export class MapService {
   }
 
   /**
-	 * Adds a multi-polyline to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param points
-	 *          Array of arrays of geographical points (one for each individual polyline).
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added multi-polyline.
-	 */
+   * Adds a multi-polyline to the map.
+   * @param id
+   *          Unique identifier.
+   * @param points
+   *          Array of arrays of geographical points (one for each individual polyline).
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added multi-polyline.
+   */
   addMultiPolyline(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new multi-polyline
@@ -575,23 +582,23 @@ export class MapService {
   }
 
   /**
-	 * Adds a polygon to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param points
-	 *          Array of geographical points.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added polygon.
-	 */
+   * Adds a polygon to the map.
+   * @param id
+   *          Unique identifier.
+   * @param points
+   *          Array of geographical points.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added polygon.
+   */
   addPolygon(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new polygon
@@ -609,23 +616,23 @@ export class MapService {
   }
 
   /**
-	 * Adds a multi-polygon to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param points
-	 *          Array of arrays of geographical points (one for each individual polygon).
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added multi-polygon.
-	 */
+   * Adds a multi-polygon to the map.
+   * @param id
+   *          Unique identifier.
+   * @param points
+   *          Array of arrays of geographical points (one for each individual polygon).
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#polyline-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added multi-polygon.
+   */
   addMultiPolygon(id, points, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new multi-polygon
@@ -643,29 +650,29 @@ export class MapService {
   }
 
   /**
-	 * Adds a rectangle to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param left
-	 *          Geographical coordinate of left bound.
-	 * @param bottom
-	 *          Geographical coordinate of bottom bound.
-	 * @param right
-	 *          Geographical coordinate of right bound.
-	 * @param top
-	 *          Geographical coordinate of top bound.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#path-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added rectangle.
-	 */
+   * Adds a rectangle to the map.
+   * @param id
+   *          Unique identifier.
+   * @param left
+   *          Geographical coordinate of left bound.
+   * @param bottom
+   *          Geographical coordinate of bottom bound.
+   * @param right
+   *          Geographical coordinate of right bound.
+   * @param top
+   *          Geographical coordinate of top bound.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#path-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added rectangle.
+   */
   addRectangle(id, left, bottom, right, top, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new rectangle
@@ -684,27 +691,27 @@ export class MapService {
   }
 
   /**
-	 * Adds a circle to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param latitude
-	 *          Center latitude.
-	 * @param longitude
-	 *          Center longitude.
-	 * @param radius
-	 *          Radius in pixels.
-	 * @param options
-	 *          (optional) Object with options (http://leafletjs.com/reference.html#path-options).
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added circle.
-	 */
+   * Adds a circle to the map.
+   * @param id
+   *          Unique identifier.
+   * @param latitude
+   *          Center latitude.
+   * @param longitude
+   *          Center longitude.
+   * @param radius
+   *          Radius in pixels.
+   * @param options
+   *          (optional) Object with options (http://leafletjs.com/reference.html#path-options).
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added circle.
+   */
   addCircle(id, latitude, longitude, radius, optionsArg: OMapLayerOptions = {}, popup, hidden, showInMenu, menuLabel) {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new circle
@@ -722,19 +729,19 @@ export class MapService {
   }
 
   /**
-	 * Adds a layer group to the map.
-	 * @param id
-	 *          Unique identifier.
-	 * @param layers
-	 *          (optional) Array with layers of the group.
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added layer group.
-	 */
+   * Adds a layer group to the map.
+   * @param id
+   *          Unique identifier.
+   * @param layers
+   *          (optional) Array with layers of the group.
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added layer group.
+   */
   addLayerGroup(id, layers, hidden, showInMenu, menuLabel) {
     // Create new layer group
     var layerGroup = L.layerGroup(layers);
@@ -746,22 +753,22 @@ export class MapService {
   }
 
   /**
-	 * Adds a extended layer group that also has mouse events (propagated from members of the group) and a shared
-	 * bindPopup method.
-	 * @param id
-	 *          Unique identifier.
-	 * @param layers
-	 *          (optional) Array with layers of the group.
-	 * @param popup
-	 *          (optional) Pop up message (accepts HTML code).
-	 * @param hidden
-	 *          (optional) Set this property to true to do not show the layer.
-	 * @param showInMenu
-	 *          (optional) Set to 'base' or 'overlay' to appear in menu.
-	 * @param menuLabel
-	 *          (optional) Label to identify this layer in the menu.
-	 * @return Added layer group.
-	 */
+   * Adds a extended layer group that also has mouse events (propagated from members of the group) and a shared
+   * bindPopup method.
+   * @param id
+   *          Unique identifier.
+   * @param layers
+   *          (optional) Array with layers of the group.
+   * @param popup
+   *          (optional) Pop up message (accepts HTML code).
+   * @param hidden
+   *          (optional) Set this property to true to do not show the layer.
+   * @param showInMenu
+   *          (optional) Set to 'base' or 'overlay' to appear in menu.
+   * @param menuLabel
+   *          (optional) Label to identify this layer in the menu.
+   * @return Added layer group.
+   */
   addFeatureGroup(id, layers, popup, hidden, showInMenu, menuLabel) {
     // Create new feature group
     var featureGroup = L.featureGroup(layers);

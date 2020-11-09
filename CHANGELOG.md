@@ -1,4 +1,8 @@
-## 4.1.3 (2020-08-24)
+## 4.0.4
+### Bug Fixes
+* **o-map-layer**: show custom icon in marker layers ([6afe7e6](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/6afe7e6))
+
+## 4.0.3 (2020-08-24)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@4.1.3
 
