@@ -452,6 +452,13 @@ export class MapService {
     optionsArg = optionsArg ? optionsArg : {};
     // Create new marker
     const latLng = new L.LatLng(latitude, longitude);
+
+    if (optionsArg.iconOptions) {
+      var iconOptions: L.IconOptions = { iconUrl: '' };
+      Object.assign(iconOptions, optionsArg.iconOptions);
+      optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
+      optionsArg.layerOptions.icon = L.icon(iconOptions);
+    }
     const marker = L.marker(latLng, optionsArg.layerOptions);
 
     // Bind popup message
