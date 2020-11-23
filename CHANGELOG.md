@@ -1,3 +1,6 @@
+## 8.0.1 (2020-11-23)
+### Bug Fixes
+* **o-map-layer**: show custom icon in marker layers
 ## 8.0.0(2020-08-21)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@8.0.0
