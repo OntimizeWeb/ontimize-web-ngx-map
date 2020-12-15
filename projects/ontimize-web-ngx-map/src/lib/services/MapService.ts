@@ -819,15 +819,13 @@ export class MapService {
       delete iconOptions.iconFromProperties;
     }
     const self = this;
-    if(this.groupMarkers) {
-      const markers = L.markerClusterGroup({
-        spiderfyOnMaxZoom: true,
-        showCoverageOnHover: false,
-        zoomToBoundsOnClick: true,
-        removeOutsideVisibleBounds: true,
-        chunkedLoading: true
-      });
-    }
+    const markers = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      removeOutsideVisibleBounds: true,
+      chunkedLoading: true
+    });
     const geoJson = L.geoJSON(data, {
       pointToLayer: (feature, latlng) => {
         optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
