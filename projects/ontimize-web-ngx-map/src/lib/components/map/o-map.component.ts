@@ -54,7 +54,8 @@ const DEFAULT_INPUTS = [
   'showWorkspaceMenu: show-workspace-menu',
   'contextMenu : layer-contextmenu',
 
-  'queryFeaturesInBounds: query-features-in-bounds'
+  'queryFeaturesInBounds: query-features-in-bounds',
+  'groupMarkers : group-markers'
 ];
 
 const DEFAULT_OUTPUTS = [
@@ -158,6 +159,9 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   public showWorkspaceMenu: boolean = true;
   @InputConverter()
   public queryFeaturesInBounds: boolean = true;
+
+  @InputConverter()
+  public groupMarkers: boolean = false;
 
   mapId: string;
   protected baseLayerIds: Array<string>;

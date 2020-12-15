@@ -13,6 +13,7 @@ import { TranslateMapService } from './TranslateMapService';
 import { OMapLayerOptions } from '../types/layer-options.type';
 import { BaseLayerCollection } from '../models/BaseLayerCollection.class';
 import { LayerConfigurationContextmenu } from '../models/LayerConfiguration.class';
+import { OMapComponent } from '../components';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -468,8 +469,8 @@ export class MapService {
 
     // Add marker to map
     this.addLayer(id, marker, hidden, showInMenu, menuLabel);
-
     return marker;
+
   }
 
   /**
@@ -814,6 +815,13 @@ export class MapService {
       delete iconOptions.iconFromProperties;
     }
     const self = this;
+    const markers = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      removeOutsideVisibleBounds: true,
+      chunkedLoading: true
+    });
     const geoJson = L.geoJSON(data, {
       pointToLayer: (feature, latlng) => {
         optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
@@ -825,7 +833,9 @@ export class MapService {
         } else {
           optionsArg.layerOptions.icon = new L.Icon.Default();
         }
-        return (L as any).marker(latlng, optionsArg.layerOptions);
+        const marker = L.marker(latlng, optionsArg.layerOptions);
+        markers.addLayer(marker);
+        return marker;
       },
       style: geoJsonFeature => {
         return (MapServiceUtils.retrieveGeoJSONStyles(geoJsonFeature, optionsArg.layerStyles) as any);
@@ -835,7 +845,6 @@ export class MapService {
           if (contextmenu.callback) {
             contextmenu['contextmenuItems'] = self.parseContextmenuItems(contextmenu.callback(layer));
           }
-
           (layer as any).bindContextMenu({
             contextmenu: true,
             contextmenuItems: contextmenu['contextmenuItems'],
@@ -858,13 +867,11 @@ export class MapService {
     });
 
     // Add GeoJSON layer to map
-    this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
-
-    // // Add MarkerCluster to layer
-    // let markers = (<any>L).markerClusterGroup();
-    // markers.addLayer(geoJson);
-    // // this.map.addLayer(markers);
-    // this.addLayer(id, markers, hidden, showInMenu, menuLabel);
+    // if() {
+      this.map.addLayer(markers);
+    // } else {
+      // this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
+    // }
     return geoJson;
   }
 
