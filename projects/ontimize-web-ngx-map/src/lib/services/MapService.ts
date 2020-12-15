@@ -1,5 +1,5 @@
 
-import { EventEmitter, Injectable, Injector } from '@angular/core';
+import { EventEmitter, forwardRef, Inject, Injectable, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import { Map } from 'leaflet';
 import 'leaflet-contextmenu';
@@ -13,7 +13,7 @@ import { TranslateMapService } from './TranslateMapService';
 import { OMapLayerOptions } from '../types/layer-options.type';
 import { BaseLayerCollection } from '../models/BaseLayerCollection.class';
 import { LayerConfigurationContextmenu } from '../models/LayerConfiguration.class';
-import { OMapComponent } from '../components';
+import { OMapComponent } from '../components/map/o-map.component';
 
 const LAYERS_CONTROL_ID: string = 'layers';
 
@@ -26,6 +26,8 @@ export class MapService {
   baseLayers: BaseLayerCollection = new BaseLayerCollection();
   overlayMaps: L.Control.LayersObject = {};
   iconTypes: Object = {};
+
+  groupMarkers: boolean;
 
   drawLayerId: string;
   translateMapService: TranslateMapService;
@@ -56,7 +58,9 @@ export class MapService {
   };
   public baseLayerSelected: EventEmitter<any> = new EventEmitter();
 
-  constructor(protected injector: Injector) {
+  constructor(
+    protected injector: Injector
+  ) {
     this.translateMapService = this.injector.get(TranslateMapService);
   }
 
@@ -815,13 +819,15 @@ export class MapService {
       delete iconOptions.iconFromProperties;
     }
     const self = this;
-    const markers = L.markerClusterGroup({
-      spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
-      removeOutsideVisibleBounds: true,
-      chunkedLoading: true
-    });
+    if(this.groupMarkers) {
+      const markers = L.markerClusterGroup({
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        zoomToBoundsOnClick: true,
+        removeOutsideVisibleBounds: true,
+        chunkedLoading: true
+      });
+    }
     const geoJson = L.geoJSON(data, {
       pointToLayer: (feature, latlng) => {
         optionsArg.layerOptions = optionsArg.layerOptions ? optionsArg.layerOptions : {};
@@ -834,7 +840,9 @@ export class MapService {
           optionsArg.layerOptions.icon = new L.Icon.Default();
         }
         const marker = L.marker(latlng, optionsArg.layerOptions);
-        markers.addLayer(marker);
+        if(this.groupMarkers) {
+          markers.addLayer(marker); 
+        }
         return marker;
       },
       style: geoJsonFeature => {
@@ -867,11 +875,12 @@ export class MapService {
     });
 
     // Add GeoJSON layer to map
-    // if() {
+    if(this.groupMarkers) {
       this.map.addLayer(markers);
-    // } else {
-      // this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
-    // }
+    } else {
+      this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
+    }
+    
     return geoJson;
   }
 

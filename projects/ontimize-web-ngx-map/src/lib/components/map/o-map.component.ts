@@ -176,7 +176,8 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
 
   constructor(
     protected elRef: ElementRef,
-    protected injector: Injector
+    protected injector: Injector,
+    service: MapService
   ) {
     super();
     this.mapService = this.injector.get(MapService);
@@ -197,6 +198,7 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   }
 
   ngOnInit() {
+    this.mapService.groupMarkers = this.groupMarkers;
     if (!this.waitForBuild) {
       this.initialize();
     } else {
