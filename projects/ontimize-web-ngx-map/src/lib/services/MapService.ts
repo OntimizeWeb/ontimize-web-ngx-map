@@ -28,6 +28,7 @@ export class MapService {
   iconTypes: Object = {};
 
   groupMarkers: boolean;
+  markers: any;
 
   drawLayerId: string;
   translateMapService: TranslateMapService;
@@ -148,7 +149,11 @@ export class MapService {
   addLayer(id, layer, hidden: boolean = false, showInMenu: string = '', menuLabel: string) {
     // If exists any layer with same id, remove it first
     if (this.layers[id]) {
-      this.map.removeLayer(this.layers[id]);
+      if(this.groupMarkers) {
+        this.markers.removeLayer(this.layers[id]);
+      } else {
+        this.map.removeLayer(this.layers[id]);
+      }
     }
 
     // Translate menu label
@@ -157,7 +162,6 @@ export class MapService {
     } else {
       menuLabel = id;
     }
-
     // Check if layer has to be added to control
     switch (showInMenu) {
       case 'base':
@@ -196,7 +200,11 @@ export class MapService {
 
     // Show layer on map
     if (!hidden) {
-      layer.addTo(this.map);
+      if(this.groupMarkers) {
+        layer.addTo(this.markers);
+      } else {
+        layer.addTo(this.map);
+      }
     }
   }
 
@@ -267,6 +275,7 @@ export class MapService {
     for (let layerId in lM) {
       if (lM.hasOwnProperty(layerId)) {
         const layer = this.baseLayers.getTileLayer(layerId);
+        
         this.map.removeLayer(layer);
       }
     }
@@ -293,7 +302,17 @@ export class MapService {
 
       if (!!layer) {
         this.controls[LAYERS_CONTROL_ID].removeLayer(layer);
-        this.map.removeLayer(layer);
+        if(this.groupMarkers) {
+          this.markers.removeLayer(layer);
+          // Comment this for supposed behaviour
+          // var currentMarkers = this.markers.getLayers();
+          // this.markers.clearLayers(); // clear any layers in clusters just in case
+          // currentMarkers.forEach(function(item) {  //loop through the current layers and add them to clusters
+          //     this.markers.addLayer(item);
+          // });
+        } else {
+          this.map.removeLayer(layer);
+        }
         success = true;
       }
       delete this.layers[id];
@@ -819,12 +838,12 @@ export class MapService {
       delete iconOptions.iconFromProperties;
     }
     const self = this;
-    const markers = L.markerClusterGroup({
+
+    this.markers = L.markerClusterGroup({
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
-      removeOutsideVisibleBounds: true,
-      chunkedLoading: true
+      removeOutsideVisibleBounds: true
     });
     const geoJson = L.geoJSON(data, {
       pointToLayer: (feature, latlng) => {
@@ -839,7 +858,7 @@ export class MapService {
         }
         const marker = L.marker(latlng, optionsArg.layerOptions);
         if(this.groupMarkers) {
-          markers.addLayer(marker); 
+          this.markers.addLayer(marker);
         }
         return marker;
       },
@@ -874,11 +893,11 @@ export class MapService {
 
     // Add GeoJSON layer to map
     if(this.groupMarkers) {
-      this.map.addLayer(markers);
+      this.markers.addTo(this.map);
+      this.addLayer(id, this.markers, true, showInMenu, menuLabel);
     } else {
       this.addLayer(id, geoJson, hidden, showInMenu, menuLabel);
     }
-    
     return geoJson;
   }
 
