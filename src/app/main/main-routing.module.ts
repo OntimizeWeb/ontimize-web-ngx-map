@@ -36,7 +36,7 @@ export function loadMapEventsModule() {
   return MapEventsModule;
 }
 export function loadAboutModule() {
-  return AboutModule
+  return AboutModule;
 }
 
 export const routes: Routes = [{
