@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { LoginService, OntimizeService, Util } from 'ontimize-web-ngx';
+import { OntimizeService, Util } from 'ontimize-web-ngx';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 
@@ -11,28 +11,13 @@ export class CustomOntimizeService extends OntimizeService {
     super(injector);
   }
 
-  // public getDefaultServiceConfiguration(serviceName?: string): Object {
-
-  //   let loginService = this.injector.get(LoginService);
-  //   let configuration = this.injector.get(SERVICE_CONFIG);
-
-  //   let servConfig = {};
-  //   if (serviceName && configuration.hasOwnProperty(serviceName)) {
-  //     servConfig = configuration[serviceName];
-  //   }
-  //   servConfig['session'] = loginService.getSessionInfo();
-  //   return servConfig;
-  // }
-
-  public getDefaultServiceConfiguration(serviceName?: string): Object {
-    const loginService = this.injector.get(LoginService);
+  public getDefaultServiceConfiguration(serviceName?: string): object {
     const configuration = this._config.getServiceConfiguration();
 
     let servConfig = {};
     if (serviceName && configuration.hasOwnProperty(serviceName)) {
       servConfig = configuration[serviceName];
     }
-    servConfig['session'] = loginService.getSessionInfo();
     return servConfig;
   }
 
@@ -53,8 +38,7 @@ export class CustomOntimizeService extends OntimizeService {
     return undefined;
   }
 
-  public query(kv?: Object, av?: Array<string>, entity?: string,
-    sqltypes?: Object): Observable<any> {
+  public query(kv?: object, av?: Array<string>, entity?: string, sqltypes?: object): Observable<any> {
     entity = (Util.isDefined(entity)) ? entity : this.entity;
 
     let url = this.customUrlBase;
@@ -74,13 +58,12 @@ export class CustomOntimizeService extends OntimizeService {
       headers: this.buildHeaders()
     };
 
-    const self = this;
     let innerObserver: any;
     const dataObservable = new Observable(observer => innerObserver = observer).pipe(share());
 
     this.httpClient.get(url, options).subscribe((resp: any) => {
       if (resp && resp.code === 3) {
-        self.redirectLogin(true);
+        this.authService.logout();
       } else if (resp.code === 1) {
         innerObserver.error(resp.message);
       } else if (resp.code === 0) {
@@ -95,21 +78,20 @@ export class CustomOntimizeService extends OntimizeService {
     return dataObservable;
   }
 
-  public advancedQuery(kv?: Object, av?: Array<string>, entity?: string, sqltypes?: Object,
-    offset?: number, pagesize?: number, orderby?: Array<Object>): Observable<any> {
+  public advancedQuery(kv?: object, av?: Array<string>, entity?: string, sqltypes?: object, offset?: number, pagesize?: number,
+    orderby?: object[]): Observable<any> {
     return undefined;
   }
 
-  public insert(av: Object = {}, entity?: string, sqltypes?: Object): Observable<any> {
+  public insert(av: object = {}, entity?: string, sqltypes?: object): Observable<any> {
     return undefined;
   }
 
-  public update(kv: Object = {}, av: Object = {}, entity?: string,
-    sqltypes?: Object): Observable<any> {
+  public update(kv: object = {}, av: object = {}, entity?: string, sqltypes?: object): Observable<any> {
     return undefined;
   }
 
-  public delete(kv: Object = {}, entity?: string, sqltypes?: Object): Observable<any> {
+  public delete(kv: object = {}, entity?: string, sqltypes?: object): Observable<any> {
     return undefined;
   }
 
