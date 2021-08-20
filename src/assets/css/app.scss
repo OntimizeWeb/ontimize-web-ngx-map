@@ -9,9 +9,6 @@
 @import "node_modules/ontimize-web-ngx/theme.scss";
 @include o-material-theme($theme);
 
-@import "../../app/main/main-theme.scss";
-@include main-theme($theme);
-
 @import "../../app/shared/example/example.theme.scss";
 @include example-component-theme($theme);
 
