@@ -7,7 +7,7 @@
 // @include ontimize-theme-styles-lite($theme);
 
 @import "node_modules/ontimize-web-ngx/theme.scss";
-@include o-material-theme($theme);
+@include o-material-theme($theme, $default-typography);
 
 @import "../../app/shared/example/example.theme.scss";
 @include example-component-theme($theme);
