@@ -20,6 +20,10 @@
   "module": "./index.js",
   "es2015": "./esm2015/ontimize-web-ngx-map.js",
   "typings": "./index.d.ts",
+  "scripts": {
+    "test": "karma start",
+    "test-watch": "karma start --singleRun=false --autoWatch=true"
+  },
   "dependencies": {
     "leaflet": "1.6.0",
     "leaflet-contextmenu": "1.4.0",
