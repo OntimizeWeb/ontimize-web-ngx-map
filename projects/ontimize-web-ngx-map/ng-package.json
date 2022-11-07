@@ -5,7 +5,7 @@
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
       "leaflet": "L",
-      "ontimize-web-ngx": "ontimizeWebNgx"
+      "ontimize-web-ngx": "ontimize-web-ngx"
     }
   },
   "whitelistedNonPeerDependencies": [
