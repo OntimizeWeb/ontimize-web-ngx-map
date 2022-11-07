@@ -61,7 +61,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "~1.4.0",
     "karma-sonarqube-unit-reporter": "0.0.23",
-    "ng-packagr": "^5.4.0",
+    "ng-packagr": "^14.2.2",
     "protractor": "~7.0.0",
     "sonarqube-scanner": "^2.8.1",
     "scss-bundle": "3.1.1",
