@@ -1,0 +1,40 @@
+.o-map-workspace-layer {
+	opacity: 1;
+	display: block;
+	& > div {
+		position: relative;
+		padding: 8px;
+		margin: 0px;
+		box-shadow: 0 0px 0px 0px;
+		border-radius: 0px;
+		border-width: 0px;
+		transition: 350ms;
+		border: 0px solid rgba(200, 200, 200, 0.38);
+
+		&.selected {
+			background: rgba(0, 0, 0, 0.2);
+		}
+	}
+	&.cdk-drag-placeholder {
+		opacity: 0;
+	}
+	&.cdk-drag-animating {
+		transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+	}
+	&.cdk-drag-preview {
+		.mat-content {		
+			margin: 0 8px 8px;
+			box-shadow: 0 4px 8px -4px;
+			border-radius: 4px;
+			border-width: 1px;
+
+			o-toggle-icon-button {
+				display: none;
+			}
+
+			o-toggle-icon-button.drag-handle {
+				display: initial;
+			}
+		}
+	}
+}

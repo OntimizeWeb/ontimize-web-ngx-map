@@ -1,0 +1,39 @@
+.search-panel {
+	height: 48px;
+	// width: 350px;
+	background: white;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+input {
+	border: none;
+	font-size: 16px;
+	color: #8e8e8e;
+	padding: 0.1em 0.25em;
+	outline: none;
+}
+
+button {
+	width: 54px;
+	height: 48px;
+	min-width: initial;
+	i {
+		line-height: 48px;
+	}
+}
+
+.search-results {
+	padding: 0;
+	background: white;
+	border-radius: 4px;
+	max-height: 0;
+	overflow: hidden;
+	transition: 350ms;
+	transition-timing-function: ease-in-out;
+
+	&.rendered {
+		max-height: 70vh;
+		overflow: auto;
+	}
+}

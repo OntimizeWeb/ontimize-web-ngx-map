@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ontimize-web-ngx-map": {
+      "projectType": "library",
+      "root": "projects/ontimize-web-ngx-map",
+      "sourceRoot": "projects/ontimize-web-ngx-map/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ontimize-web-ngx-map/tsconfig.lib.json",
+            "project": "projects/ontimize-web-ngx-map/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ontimize-web-ngx-map/src/test.ts",
+            "tsConfig": "projects/ontimize-web-ngx-map/tsconfig.spec.json",
+            "karmaConfig": "projects/ontimize-web-ngx-map/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ontimize-web-ngx-map/tsconfig.lib.json",
+              "projects/ontimize-web-ngx-map/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "ontimize-web-ngx-map"
+}
