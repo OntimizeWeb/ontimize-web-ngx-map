@@ -14,7 +14,7 @@ export class OMapLayerContainerComponent {
 
   public label: string;
 
-  @ViewChild('headerTemplateref', { read: TemplateRef, static: false })
+  @ViewChild('headerTemplateref', { read: TemplateRef })
   public headerTemplateref: TemplateRef<any>;
 
   constructor() {

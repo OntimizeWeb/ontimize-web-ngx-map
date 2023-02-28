@@ -118,12 +118,12 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
   public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
 
-  @ViewChild(OMarkerComponent, { static: false }) markerComponent: OMarkerComponent;
-  @ViewChild('sidenav', { static: false }) sideNavCmp: MatSidenav;
+  @ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
+  @ViewChild('sidenav') sideNavCmp: MatSidenav;
   @ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
-  @ViewChild('mainLayerGroup', { static: false }) mapLayerGroup: OMapLayerGroup;
-  @ViewChild('oMapWorkspace', { static: false }) mapWorkspace: OMapWorkspace;
-  @ViewChild('navigatorContainer', { static: false }) navigatorContainer: ElementRef;
+  @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroup;
+  @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspace;
+  @ViewChild('navigatorContainer') navigatorContainer: ElementRef;
   @ContentChildren(OMapLayerContainerComponent)
   protected mapLayerContainerQueryList: QueryList<OMapLayerContainerComponent>;
   mapLayerContainerComponent: OMapLayerContainerComponent;
