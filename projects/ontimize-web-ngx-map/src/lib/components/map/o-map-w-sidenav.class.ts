@@ -1,4 +1,4 @@
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { OMapWEvents } from './o-map-w-events.class';
 

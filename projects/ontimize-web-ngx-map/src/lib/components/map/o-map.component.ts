@@ -13,7 +13,8 @@ import {
   ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatSidenav, MatTab, MatTabGroup } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import * as L from 'leaflet';
 import { InputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
