@@ -24,8 +24,7 @@ export class OMapWSidenav extends OMapWEvents {
       setTimeout(() => {
         this.getMapService().map.invalidateSize(true);
         if (!this.sideNavCmp.opened) {
-          const evt = window.document.createEvent('UIEvents');
-          evt.initUIEvent('resize', true, false, window, 0);
+          const evt = new UIEvent('resize');
           window.dispatchEvent(evt);
         }
       }, 0);
