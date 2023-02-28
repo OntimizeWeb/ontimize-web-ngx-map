@@ -37,8 +37,8 @@
     "proj4": "2.6.1",
     "proj4leaflet": "1.0.2",
     "rxjs": "~6.6.7",
-    "tslib": "~1.10.0",
-    "zone.js": "0.10.3"
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.15",
@@ -50,8 +50,8 @@
     "@types/hammerjs": "~2.0.36",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
-    "codelyzer": "5.2.1",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
     "copyfiles": "~2.2.0",
     "jasmine-core": "3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -61,12 +61,11 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "~1.4.0",
     "karma-sonarqube-unit-reporter": "0.0.23",
-    "ng-packagr": "^9.1.5",
+    "ng-packagr": "^9.0.0",
     "protractor": "~7.0.0",
     "sonarqube-scanner": "^2.8.1",
     "scss-bundle": "3.1.1",
     "ts-node": "~7.0.0",
-    "tsickle": "~0.37.0",
     "typescript": "~3.8.3"
   }
 }

@@ -15,7 +15,12 @@
             "tsConfig": "projects/ontimize-web-ngx-map/tsconfig.lib.json",
             "project": "projects/ontimize-web-ngx-map/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ontimize-web-ngx-map/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
