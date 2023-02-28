@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { forwardRef, Inject } from '@angular/core';
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 
 import { Location } from '../models/Location.class';
 
+@Injectable()
 export class GeocodingService {
 
   constructor(@Inject(forwardRef(() => HttpClient)) private httpClient: HttpClient) { }
