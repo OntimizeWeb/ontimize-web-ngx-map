@@ -1,0 +1,46 @@
+<section fxLayout="column" class="mat-elevation-z2" fxLayoutAlign="start stretch" fxFlex>
+
+  <mat-toolbar fxLayout="row" color="primary" class="playground-toolbar">
+    <div fxLayout="column" fxFlex>
+      <span>{{ compName | oTranslate }}</span>
+      <span class="comp-description">{{ compDesc | oTranslate }}</span>
+    </div>
+    <button *ngIf="!collapsed" mat-icon-button aria-label="View Source" (click)="toggleShowSource()">
+      <mat-icon class="mat-24">code</mat-icon>
+    </button>
+    <button *ngIf="collapsible" mat-icon-button aria-label="Collapse" (click)="collapsed = !collapsed">
+      <mat-icon *ngIf="!collapsed" class="mat-24">keyboard_arrow_up</mat-icon>
+      <mat-icon *ngIf="collapsed" class="mat-24">keyboard_arrow_down</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div fxLayout *ngIf="showSource" [style.height]="tabHeight">
+    <mat-tab-group fxFlex class="playground-tabs">
+      <mat-tab label="{{ 'html' | uppercase }}" *ngIf="html">
+        <highlight-comp [template-content]="html" template-type="html"></highlight-comp>
+      </mat-tab>
+      <mat-tab label="{{ 'scss' | uppercase }}" *ngIf="files.scss && files.scss.data">
+        <highlight-comp [template-content]="files.scss.data" template-type="scss"></highlight-comp>
+      </mat-tab>
+      <mat-tab label="{{ 'typescript' | uppercase }}" *ngIf="files.typescript && files.typescript.data">
+        <highlight-comp [template-content]="files.typescript.data" template-type="typescript"></highlight-comp>
+      </mat-tab>
+      <mat-tab *ngFor="let file of aditionalTabs" [label]="file.label">
+        <highlight-comp [template-content]="file.data" [template-type]="file.type"></highlight-comp>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <!-- Live Demos -->
+  <div fxFlex="grow" [class.collapsed]="collapsed" [class.collapsible]="collapsible" class="playground-examples">
+    <ng-content></ng-content>
+  </div>
+  <div class="comp-note" *ngIf="compNote">
+    <mat-divider></mat-divider>
+    <p fxLayout="row">
+      <mat-icon>thumb_up</mat-icon>
+      <span [innerHTML]="compNote | oTranslate"> </span>
+    </p>
+  </div>
+
+
+</section>
