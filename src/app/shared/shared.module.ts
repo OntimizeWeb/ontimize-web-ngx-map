@@ -8,7 +8,7 @@ import { HighlightComponent } from './highlight/highlight.component';
 import { CustomMapComponent } from './map/custom.map.component';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
-import { MatTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
