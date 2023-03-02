@@ -24,7 +24,7 @@ const BASE_LAYERS_HTML_DATA = `
 })
 export class BasicUsageComponent implements OnInit {
 
-  @ViewChild('oMapBasic', { static: false })
+  @ViewChild('oMapBasic')
   protected mapBasic: OMapComponent;
 
   constructor(
