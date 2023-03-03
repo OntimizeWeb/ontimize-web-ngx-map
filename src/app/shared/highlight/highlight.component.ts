@@ -17,7 +17,17 @@ export class HighlightComponent {
 
   templateContent: any;
   templateType: any;
+  templateTypeArray: Array<string>;
+
   constructor() {
+  }
+
+  ngOnInit(): void {
+    this.templateTypeArray = this.parseTemplateType();
+  }
+
+  parseTemplateType() {
+    return [this.templateType === 'scss' ? 'css' : this.templateType];
   }
 
   showTooltip() {
