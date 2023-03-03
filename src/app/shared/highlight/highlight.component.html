@@ -3,6 +3,6 @@
       <button mat-icon-button id="copy-btn" class="copy-btn"[cdkCopyToClipboard]="templateContent" (cdkCopyToClipboardCopied)="showTooltip()">
         <mat-icon aria-label="Copy to clipboard">file_copy</mat-icon>
       </button>
-    <code id="code" [highlight]="templateContent" [languages]="templateTypeArray" [lineNumbers]="true"></code>
+    <code id="code" class="highlight" [highlight]="templateContent" [languages]="templateTypeArray" [lineNumbers]="true"></code>
   </pre>
 </section>

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ViewEncapsulation
 } from '@angular/core';
@@ -11,7 +12,8 @@ import {
     'templateContent: template-content',
     'templateType: template-type'
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HighlightComponent {
 
