@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { OMapModule } from 'ontimize-web-ngx-map';
 
@@ -17,6 +18,14 @@ export const customProviders: any = [
   ...appProviders
 ];
 
+export function getHighlightLanguages() {
+  return {
+    typescript: () => import('highlight.js/lib/languages/typescript'),
+    css: () => import('highlight.js/lib/languages/css'),
+    xml: () => import('highlight.js/lib/languages/xml')
+  };
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -24,6 +33,7 @@ export const customProviders: any = [
     OntimizeWebModule.forRoot(CONFIG),
     OMapModule,
     AppRoutingModule,
+    HighlightModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [
@@ -32,8 +42,14 @@ export const customProviders: any = [
   bootstrap: [
     AppComponent
   ],
-  providers: [
-    ...customProviders
+  providers: [{
+    provide: HIGHLIGHT_OPTIONS,
+    useValue: {
+      lineNumbers: true,
+      languages: getHighlightLanguages()
+    }
+  },
+  ...customProviders
   ],
 })
 export class AppModule { }
