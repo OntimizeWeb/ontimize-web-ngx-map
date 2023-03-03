@@ -15,9 +15,10 @@ import {
 })
 export class HighlightComponent {
 
+  templateContent: any;
+  templateType: any;
   constructor() {
   }
-
 
   showTooltip() {
     // TODO show tooltip (solve problem of repainting that does not show tooltip)
