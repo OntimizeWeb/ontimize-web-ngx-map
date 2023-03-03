@@ -32,7 +32,7 @@
     "core-js": "^3.6.4",
     "ngx-material-timepicker": "5.4.3",
     "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-9.0.0.tgz",
-    "ontimize-web-ngx-map": "../ontimize-web-ngx-map/ontimize-web-ngx-map-8.0.1.tgz",
+    "ontimize-web-ngx-map": "../ontimize-web-ngx-map-8.0.1.tgz",
     "ontimize-web-ngx-theming": "8.1.0",
     "reflect-metadata": "0.1.13",
     "rxjs": "~6.6.7",
