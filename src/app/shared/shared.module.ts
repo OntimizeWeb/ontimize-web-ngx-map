@@ -9,13 +9,15 @@ import { CustomMapComponent } from './map/custom.map.component';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   imports: [
     OntimizeWebModule,
     HighlightJsModule,
     OMapModule,
-    MatTabsModule
+    MatTabsModule,
+    ClipboardModule
   ],
   declarations: [
     ExampleComponent,

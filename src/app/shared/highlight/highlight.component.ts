@@ -1,8 +1,5 @@
 import {
   Component,
-  ElementRef,
-  OnInit,
-  OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -16,41 +13,16 @@ import {
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class HighlightComponent implements OnInit, OnDestroy {
+export class HighlightComponent {
 
-  protected clipboard: any;
-  templateContent: any;
-  templateType: any;
-  constructor(protected elRef: ElementRef) {
+  constructor() {
   }
 
-  ngOnInit() {
-    if (window['Clipboard'] && !this.clipboard) {
-      const copyBtn = this.elRef.nativeElement.querySelectorAll('button#copy-btn');
-      if (copyBtn.length) {
-        const self = this;
-        const element = copyBtn[0];
-        this.clipboard = new window['Clipboard'](element);
-        this.clipboard.on('success', function (e) {
-          self.showTooltip(e.trigger, 'Copied!');
-        });
-        // this.clipboard.on('error', function(e) {
-        //     console.log(e);
-        // });
-      }
 
-    }
-  }
-
-  showTooltip(elem, msg) {
+  showTooltip() {
     // TODO show tooltip (solve problem of repainting that does not show tooltip)
     alert('Copied!');
   }
 
-  ngOnDestroy() {
-    if (this.clipboard) {
-      this.clipboard.destroy();
-    }
-  }
 
 }
