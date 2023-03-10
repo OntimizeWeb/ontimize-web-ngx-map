@@ -5,31 +5,26 @@ import { OMapModule } from 'ontimize-web-ngx-map';
 
 import { ExampleComponent } from './example/example.component';
 import { HighlightComponent } from './highlight/highlight.component';
-import { CustomMapComponent } from './map/custom.map.component';
-
-import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
-import { MatTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @NgModule({
   imports: [
     OntimizeWebModule,
-    HighlightJsModule,
+    HighlightModule,
     OMapModule,
-    MatTabsModule
+    MatTabsModule,
+    ClipboardModule
   ],
   declarations: [
     ExampleComponent,
-    HighlightComponent,
-    CustomMapComponent
+    HighlightComponent
   ],
   exports: [
     CommonModule,
     ExampleComponent,
-    HighlightComponent,
-    CustomMapComponent
-  ],
-  providers: [
-    HighlightJsService
+    HighlightComponent
   ]
 })
 export class SharedModule { }

@@ -58,7 +58,7 @@ export class MapEventsComponent {
 export class MapEventsComponent {
   _eventsArray: Array<any> = [];
 
-  @ViewChild('oMap', { static: false })
+  @ViewChild('oMap')
   protected oMap: OMapComponent;
 
   constructor() { }

@@ -15,7 +15,7 @@
   </mat-toolbar>
 
   <div fxLayout *ngIf="showSource" [style.height]="tabHeight">
-    <mat-tab-group fxFlex class="playground-tabs">
+    <mat-tab-group fxFlex class="playground-tabs" fxFill>
       <mat-tab label="{{ 'html' | uppercase }}" *ngIf="html">
         <highlight-comp [template-content]="html" template-type="html"></highlight-comp>
       </mat-tab>
