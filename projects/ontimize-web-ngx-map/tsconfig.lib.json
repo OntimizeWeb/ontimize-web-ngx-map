@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "es2015",
-    "module": "esnext",
+    "target": "es2018",
+    "module": "es2020",
     "moduleResolution": "node",
     "removeComments": true,
     "emitDecoratorMetadata": true,

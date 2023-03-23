@@ -32,7 +32,8 @@
     "leaflet.heat": "0.2.0",
     "leaflet.markercluster": "1.4.1",
     "proj4": "2.6.1",
-    "proj4leaflet": "1.0.2"
+    "proj4leaflet": "1.0.2",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-9.0.0.tgz"
