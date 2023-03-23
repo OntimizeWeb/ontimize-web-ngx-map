@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": "./",
     "target": "es2018",
-    "module": "es2020",
     "moduleResolution": "node",
     "removeComments": true,
     "emitDecoratorMetadata": true,
