@@ -367,7 +367,7 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   get navigatorExpandedPosition(): string {
     let result = 0;
     if (this.sideNavCmp && this.sideNavCmp.opened) {
-      result = this.sideNavCmp._width;
+      result = this.sideNavCmp._getWidth();
     }
     return result + 'px';
   }
