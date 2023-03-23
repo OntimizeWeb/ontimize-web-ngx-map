@@ -36,6 +36,6 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-9.0.0.tgz"
+    "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-10.0.0.tgz"
   }
 }
