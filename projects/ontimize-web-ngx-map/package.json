@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "description": "An implementation of leaflet map for Ontimize Web",
   "keywords": [
     "angular",
@@ -36,6 +36,6 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-10.0.0.tgz"
+    "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-11.0.0.tgz"
   }
 }
