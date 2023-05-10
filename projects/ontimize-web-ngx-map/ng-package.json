@@ -8,7 +8,7 @@
       "ontimize-web-ngx": "ontimize-web-ngx"
     }
   },
-  "whitelistedNonPeerDependencies": [
+  "allowedNonPeerDependencies": [
     "leaflet",
     "leaflet-contextmenu",
     "leaflet-draw",
