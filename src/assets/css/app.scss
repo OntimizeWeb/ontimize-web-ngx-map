@@ -1,17 +1,14 @@
-@import "node_modules/ontimize-web-ngx-theming/src/themes/ontimize.scss";
+@use "ontimize-web-ngx-theming/src/themes/ontimize.scss"as theme;
+@use "ontimize-web-ngx-theming/ontimize-theme.scss";
+@use "ontimize-web-ngx/theme.scss"as ontimize-web-ngx-theme;
+@use "../../app/shared/example/example.theme.scss"as example;
 
-@import "node_modules/ontimize-web-ngx-theming/ontimize-theme.scss";
-@include ontimize-theme-styles($theme);
+@include ontimize-theme.ontimize-theme-styles(theme.$theme);
 
-// @import 'node_modules/ontimize-web-ngx-theming/ontimize-theme-lite.scss';
-// @include ontimize-theme-styles-lite($theme);
+// @use 'ontimize-web-ngx-theming/ontimize-theme-lite.scss';
+// @include ontimize-theme-lite.ontimize-theme-styles-lite(theme.$theme, ontimize-theme-lite.$typography);
 
-@import "node_modules/ontimize-web-ngx/theme.scss";
-@include o-material-theme($theme, $default-typography);
+@include ontimize-web-ngx-theme.o-material-theme(theme.$theme, ontimize-theme.$typography);
 
-@import "../../app/shared/example/example.theme.scss";
-@include example-component-theme($theme);
+@include example.example-component-theme(theme.$theme);
 
-o-map {
-  min-height: 600px;
-}
