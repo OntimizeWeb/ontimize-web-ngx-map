@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @mixin example-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -22,7 +23,7 @@
       .comp-note {
         p {
           mat-icon {
-            color: mat-color($primary, 0.84);
+            color: mat.get-color-from-palette($primary, 0.84);
           }
         }
       }
