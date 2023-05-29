@@ -6,7 +6,6 @@
     "declarationMap": true,
     "moduleResolution": "node",
     "removeComments": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
     "noImplicitReturns": true,
