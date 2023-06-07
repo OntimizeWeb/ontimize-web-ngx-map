@@ -46,6 +46,12 @@
               "src/assets/css/app.scss",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "./node_modules"
+              ]
+            },
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
