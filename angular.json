@@ -28,9 +28,21 @@
             "tsConfig": "projects/ontimize-web-ngx-map/tsconfig.spec.json",
             "karmaConfig": "projects/ontimize-web-ngx-map/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ontimize-web-ngx-map/**/*.ts",
+              "projects/ontimize-web-ngx-map/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "ontimize-web-ngx-map"
+  "defaultProject": "ontimize-web-ngx-map",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
