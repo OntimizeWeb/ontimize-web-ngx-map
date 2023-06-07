@@ -139,9 +139,21 @@
               "devServerTarget": "ontimize-web-ngx-map-quickstart:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "ontimize-web-ngx-map-quickstart"
+  "defaultProject": "ontimize-web-ngx-map-quickstart",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
