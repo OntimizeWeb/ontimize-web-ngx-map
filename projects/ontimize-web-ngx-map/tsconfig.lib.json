@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "es2015",
     "declarationMap": true,
     "moduleResolution": "node",
     "removeComments": true,
@@ -15,11 +14,7 @@
     "stripInternal": true,
     "outDir": "dist",
     "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "lib": [
-      "dom",
-      "es2015"
-    ],
+    "noUnusedParameters": false
   },
   "exclude": [
     "node_modules",
