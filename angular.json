@@ -150,8 +150,9 @@
       }
     }
   },
-  "defaultProject": "ontimize-web-ngx-map-quickstart",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
