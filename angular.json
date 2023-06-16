@@ -14,6 +14,10 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "moment",
+              "google-libphonenumber",
+              "leaflet",
+              "leaflet.markercluster",
               "leaflet-providers",
               "proj4leaflet",
               "leaflet-contextmenu"
@@ -61,7 +65,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
@@ -150,8 +153,9 @@
       }
     }
   },
-  "defaultProject": "ontimize-web-ngx-map-quickstart",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
