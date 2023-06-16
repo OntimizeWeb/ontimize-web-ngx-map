@@ -14,6 +14,10 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "moment",
+              "google-libphonenumber",
+              "leaflet",
+              "leaflet.markercluster",
               "leaflet-providers",
               "proj4leaflet",
               "leaflet-contextmenu"
