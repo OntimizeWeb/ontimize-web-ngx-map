@@ -1,10 +1,12 @@
 .o-map-layer {
   > button {
+    /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
     .mat-button-focus-overlay {
       display: none;
     }
 
     o-toggle-icon-button {
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
       .mat-button-focus-overlay,
       .mat-button-ripple {
         display: none;
