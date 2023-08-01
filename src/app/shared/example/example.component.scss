@@ -1,5 +1,5 @@
 .example-comp {
-  & > section {
+  &>section {
     margin: 12px;
   }
 
@@ -48,8 +48,9 @@
     position: relative;
     padding-top: 8px;
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-  .mat-tab-body-wrapper {
+
+  .mat-mdc-tab-body-wrapper {
     height: 100%;
+    padding: 8px
   }
 }
