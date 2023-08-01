@@ -1,6 +1,6 @@
-@use "ontimize-web-ngx-theming/src/themes/ontimize.scss"as theme;
-@use "ontimize-web-ngx-theming/ontimize-theme.scss";
-@use "ontimize-web-ngx/theme.scss"as ontimize-web-ngx-theme;
+@use "ontimize-web-ngx/theming/themes/ontimize.scss"as theme;
+@use 'ontimize-web-ngx/theming/ontimize-theme.scss';
+@use 'ontimize-web-ngx/theme.scss'as ontimize-web-ngx-theme;
 @use "../../app/shared/example/example.theme.scss"as example;
 
 @include ontimize-theme.ontimize-theme-styles(theme.$theme);
@@ -11,4 +11,3 @@
 @include ontimize-web-ngx-theme.o-material-theme(theme.$theme, ontimize-theme.$typography);
 
 @include example.example-component-theme(theme.$theme);
-
