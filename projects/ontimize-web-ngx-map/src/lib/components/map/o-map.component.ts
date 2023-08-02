@@ -99,11 +99,11 @@ const DEFAULT_OUTPUTS = [
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('navigatorState', [
-      state('collapsed', style({
+      state('closed', style({
         position: 'absolute',
         left: '0px'
       })),
-      state('expanded', style({
+      state('open', style({
         position: 'absolute',
         left: '{{navigatorExpandedPosition}}'
       }), { params: { navigatorExpandedPosition: '0px' } }),
@@ -354,7 +354,7 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   get navigatorState(): any {
     let value = 'none';
     if (this.sidenavMode === 'over' && this.sideNavCmp) {
-      value = this.sideNavCmp.opened ? 'expanded' : 'collapsed';
+      value = this.sideNavCmp.opened ? 'open' : 'closed';
     }
     return {
       value: value,
