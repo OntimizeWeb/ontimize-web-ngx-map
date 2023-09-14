@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map-quickstart",
-  "version": "15.0.0",
+  "version": "15.0.0-SNAPSHOT-0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 41506",
@@ -32,12 +32,11 @@
     "core-js": "^3.6.4",
     "highlight.js": "^11.7.0",
     "ngx-highlightjs": "^4.1.0-beta",
-    "ontimize-web-ngx": "C:/work/ontimize web/15.x.x/ontimize-web-ngx/dist/ontimize-web-ngx-15.0.0.tgz",
-    "ontimize-web-ngx-map": "C:/work/ontimize web/15.x.x/ontimize-web-ngx-map/dist/ontimize-web-ngx-map-15.0.0.tgz",
-    "reflect-metadata": "0.1.13",
-    "rxjs": "~6.6.7",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "ontimize-web-ngx": "ontimize-web-ngx-15.0.0-SNAPSHOT-2.tgz",
+    "ontimize-web-ngx-map": "ontimize-web-ngx-map-15.0.0-SNAPSHOT-0.tgz",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.9",
