@@ -1,5 +1,5 @@
 import { Component, forwardRef, Inject, OnDestroy } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { GeocodingService } from '../../services/GeocodingService';
@@ -22,9 +22,9 @@ export class ONavigatorComponent extends ONavigatorDefault implements OnDestroy 
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
 
-  @InputConverter()
+  @BooleanInputConverter()
   public showSidenavButton: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public showSearchInput: boolean = true;
 
   protected _rendered: boolean = false;

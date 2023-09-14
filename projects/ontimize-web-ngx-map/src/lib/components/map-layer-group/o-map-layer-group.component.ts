@@ -1,5 +1,5 @@
 import { Component, forwardRef, Inject, OnInit, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 
 import { OMapLayerGroup } from '../../interfaces/o-map-layer-group.interface';
 import { LayerConfiguration } from '../../models/LayerConfiguration.class';
@@ -32,7 +32,7 @@ export class OMapLayerGroupComponent implements OMapLayerGroup, OnInit {
   idParent: string;
   name: string;
   protected _description: string;
-  @InputConverter()
+  @BooleanInputConverter()
   collapsed: boolean = false;
   refGroup: LayerGroupConfiguration;
 

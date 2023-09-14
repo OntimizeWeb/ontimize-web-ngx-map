@@ -1,6 +1,6 @@
 import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { OMapComponent } from '../map/o-map.component';
@@ -67,7 +67,7 @@ export class OMapDrawControlsComponent implements OnInit, OnDestroy {
   private _editableLayers: L.FeatureGroup;
 
   protected onMapReadySubscription: Subscription;
-  @InputConverter()
+  @BooleanInputConverter()
   protected showControls: boolean = true;
 
   constructor(@Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent) {
