@@ -1,13 +1,11 @@
-@use "ontimize-web-ngx/theming/themes/ontimize.scss"as theme;
-@use 'ontimize-web-ngx/theming/ontimize-theme.scss';
+@use 'ontimize-web-ngx/theming/themes/implatform-fashion-default-theme.scss'as theme;
+@use 'ontimize-web-ngx/theming/implatform-fashion-theme.scss'as theme-styles;
 @use 'ontimize-web-ngx/theme.scss'as ontimize-web-ngx-theme;
-@use "../../app/shared/example/example.theme.scss"as example;
-
-@include ontimize-theme.ontimize-theme-styles(theme.$theme);
+@use '../../app/shared/example/example.theme.scss'as example;
 
 // @use 'ontimize-web-ngx-theming/ontimize-theme-lite.scss';
 // @include ontimize-theme-lite.ontimize-theme-styles-lite(theme.$theme, ontimize-theme-lite.$typography);
 
-@include ontimize-web-ngx-theme.o-material-theme(theme.$theme, ontimize-theme.$typography);
-
+@include ontimize-web-ngx-theme.o-material-theme(theme.$theme, theme-styles.$typography);
+@include theme-styles.implatform-fashion-theme-styles(theme.$theme);
 @include example.example-component-theme(theme.$theme);
