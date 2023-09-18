@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import * as L from 'leaflet';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -70,11 +70,11 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable, O
   sService: string;
 
   // Status of the label
-  @InputConverter()
+  @BooleanInputConverter()
   public selected: boolean = false;
-  @InputConverter()
+  @BooleanInputConverter()
   public visible: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public inWS: boolean = true;
   public inMenu: string;
 
@@ -94,7 +94,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable, O
   protected _icon: string;
   public options: OMapLayerOptions = {};
   protected _contextmenu;
-  @InputConverter()
+  @BooleanInputConverter()
   public queryFeaturesInBounds: boolean;
 
   protected crs: string;

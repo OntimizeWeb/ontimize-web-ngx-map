@@ -1,5 +1,5 @@
 import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { BaseLayer } from '../../interfaces/baselayers/baselayers.interface';
@@ -22,7 +22,7 @@ export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSe
 
   id: string;
 
-  @InputConverter()
+  @BooleanInputConverter()
   active: boolean = false;
 
   protected _name: string;

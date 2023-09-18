@@ -16,7 +16,7 @@ import {
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import * as L from 'leaflet';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { OMapLayerGroup } from '../../interfaces/o-map-layer-group.interface';
@@ -151,13 +151,13 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   set sidenavMode(value: 'over' | 'push' | 'side') {
     this._sidenavMode = value;
   }
-  @InputConverter()
+  @BooleanInputConverter()
   public showBaseLayersMenu: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public showLayersMenu: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public showWorkspaceMenu: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public queryFeaturesInBounds: boolean = true;
 
   mapId: string;
