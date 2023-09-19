@@ -1,17 +1,22 @@
-h5 {
-  margin: 0.1em;
+mat-card {
+  display: flex;
+  flex-direction: column;
 }
 
-.changelog {
-  text-decoration: none;
-  padding: 8px;
-  background-color: transparent;
-  span {
-    line-height: 1.5em;
-    padding-left: 8px;
-  }
+mat-card-header {
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 16px;
+  font-weight: 500;
+  flex-shrink: 0;
 }
-.changelog:hover {
-  background-color: rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
+
+mat-card-content {
+  display: flex;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+mat-card-footer {
+  padding-bottom: 10px;
 }

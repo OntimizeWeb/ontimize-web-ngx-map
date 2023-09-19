@@ -1,7 +1,7 @@
 {
   "APP_TITLE" : "Map",
   "VERSION" : "Version",
-
+  "ABOUT": "About",
   "INTRODUCTION": "Introduction",
   "BASIC" : "Basic usage",
   "LAYERS" : "Layers",
