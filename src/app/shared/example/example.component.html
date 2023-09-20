@@ -2,7 +2,7 @@
 
   <mat-toolbar fxLayout="row" color="primary" class="playground-toolbar">
     <div fxLayout="column" fxFlex>
-      <span>{{ compName | oTranslate }}</span>
+      <span class="comp-title">{{ compName | oTranslate }}</span>
       <span class="comp-description">{{ compDesc | oTranslate }}</span>
     </div>
     <button *ngIf="!collapsed" mat-icon-button aria-label="View Source" (click)="toggleShowSource()">
