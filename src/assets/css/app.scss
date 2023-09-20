@@ -1,11 +1,18 @@
 @use 'ontimize-web-ngx/theming/themes/implatform-fashion-default-theme.scss'as theme;
+@use 'ontimize-web-ngx/theming/ontimize-theme.scss';
 @use 'ontimize-web-ngx/theming/implatform-fashion-theme.scss'as theme-styles;
 @use 'ontimize-web-ngx/theme.scss'as ontimize-web-ngx-theme;
+@use 'ontimize-web-ngx/theming/ontimize-theme-lite.scss';
 @use '../../app/shared/example/example.theme.scss'as example;
 
-// @use 'ontimize-web-ngx-theming/ontimize-theme-lite.scss';
-// @include ontimize-theme-lite.ontimize-theme-styles-lite(theme.$theme, ontimize-theme-lite.$typography);
+//Include ontimize theme styles
+@include ontimize-theme.ontimize-theme-styles(theme.$theme);
+//Include ontimize-lite theme
+@include ontimize-theme-lite.ontimize-theme-styles-lite(theme.$theme);
+// After define theme, it is necessary to transfer color to Ontimize Web framework
+@include ontimize-web-ngx-theme.o-material-theme(theme.$theme, ontimize-theme-lite.$typography);
 
-@include ontimize-web-ngx-theme.o-material-theme(theme.$theme, theme-styles.$typography);
-@include theme-styles.implatform-fashion-theme-styles(theme.$theme);
+//Include implatform-fashion style
+@include theme-styles.implatform-fashion-theme-styles(theme.$theme, ontimize-theme-lite.$typography);
+
 @include example.example-component-theme(theme.$theme);
