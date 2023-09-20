@@ -3,14 +3,15 @@
   "version": "15.0.0-SNAPSHOT-0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 41506",
+    "start": "npm run build:themes && ng serve --port 41506",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "watch": "ng build --watch --configuration development",
     "production": "ng build --base-href /ontimize-web-ngx-map/",
-    "production-aot-server": "ng build --base-href=/ontimizeweb/v15/map/"
+    "production-aot-server": "ng build --base-href=/ontimizeweb/v15/map/",
+    "build:themes": "npx sass --no-source-map --load-path=node_modules/ --error-css ./src/assets/themes:./src/assets/themes"
   },
   "private": true,
   "dependencies": {
@@ -65,6 +66,8 @@
     "ng-packagr": "^15.2.2",
     "sonarqube-scanner": "^2.8.1",
     "ts-node": "~7.0.0",
-    "typescript": "~4.9.5"
+    "typescript": "~4.9.5",
+    "sass": "^1.62.1",
+    "sass-migrator": "^1.7.3"
   }
 }
