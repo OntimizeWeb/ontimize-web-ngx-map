@@ -1,6 +1,6 @@
 <h1 align="center">
   <div style="display:inline-block;vertical-align: middle;">
-    <a name="logo" href="https://ontimizeweb.github.io/docs/v8/map/">
+    <a name="logo" href="https://ontimizeweb.github.io/docs/v15/map/">
       Ontimize Web Map
     </a>
   </div>
