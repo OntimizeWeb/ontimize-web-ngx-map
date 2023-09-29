@@ -12,11 +12,12 @@ import {
   ViewChild,
   ViewChildren,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import * as L from 'leaflet';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { OMapLayerGroup } from '../../interfaces/o-map-layer-group.interface';
@@ -26,11 +27,12 @@ import { GeocodingService } from '../../services/GeocodingService';
 import { MapService } from '../../services/MapService';
 import { TranslateMapService } from '../../services/TranslateMapService';
 import { Util } from '../../utils/util';
-import { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
+import type { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
 import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
 import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-container.component';
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { OMapWSearch } from './o-map-w-search.class';
+import { OMapBase } from './o-map-base.class';
 
 const DEFAULT_INPUTS = [
   'sAttr: attr',
@@ -91,7 +93,7 @@ const DEFAULT_OUTPUTS = [
 
 @Component({
   selector: 'o-map',
-  providers: [MapService, GeocodingService],
+  providers: [MapService, GeocodingService, { provide: OMapBase, useExisting: forwardRef(() => OMapComponent) }],
   inputs: OMapComponent.DEFAULT_INPUTS,
   outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',
@@ -99,11 +101,11 @@ const DEFAULT_OUTPUTS = [
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('navigatorState', [
-      state('collapsed', style({
+      state('closed', style({
         position: 'absolute',
         left: '0px'
       })),
-      state('expanded', style({
+      state('open', style({
         position: 'absolute',
         left: '{{navigatorExpandedPosition}}'
       }), { params: { navigatorExpandedPosition: '0px' } }),
@@ -151,13 +153,13 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   set sidenavMode(value: 'over' | 'push' | 'side') {
     this._sidenavMode = value;
   }
-  @InputConverter()
+  @BooleanInputConverter()
   public showBaseLayersMenu: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public showLayersMenu: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public showWorkspaceMenu: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public queryFeaturesInBounds: boolean = true;
 
   mapId: string;
@@ -354,7 +356,7 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   get navigatorState(): any {
     let value = 'none';
     if (this.sidenavMode === 'over' && this.sideNavCmp) {
-      value = this.sideNavCmp.opened ? 'expanded' : 'collapsed';
+      value = this.sideNavCmp.opened ? 'open' : 'closed';
     }
     return {
       value: value,

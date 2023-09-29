@@ -7,7 +7,7 @@ import { SearcherDefault } from '../../models/Searcher.class';
 import { GeocodingService } from '../../services/GeocodingService';
 import { TranslateMapService } from '../../services/TranslateMapService';
 import { Util } from '../../utils/util';
-import { OMapComponent } from '../map/o-map.component';
+import { OMapBase } from '../map/o-map-base.class';
 import { LocationResult } from './o-navigator-location-result.interface';
 
 export class ONavigatorDefault {
@@ -20,7 +20,7 @@ export class ONavigatorDefault {
   constructor(
     protected geocoder: GeocodingService,
     protected translateMapService: TranslateMapService,
-    protected oMap: OMapComponent
+    protected oMap: OMapBase
   ) {
     // Register location searcher on OMap as first searcher
     oMap.mapSearchers.splice(0, 0, this.locationSearcher);

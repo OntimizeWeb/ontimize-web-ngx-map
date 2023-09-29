@@ -11,12 +11,11 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import * as L from 'leaflet';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { OMapLayerFactory } from './o-map-layer.factory';
-import { OMapComponent } from '../map/o-map.component';
 import { LayerConfigurationContextmenu, LayerConfiguration } from '../../models/LayerConfiguration.class';
 import { OMapLayerOptions } from '../../types/layer-options.type';
 import { ICRSConfiguration, ICRSConfigurationParameter } from '../map-crs/o-map-crs-configuration.class';
@@ -26,6 +25,7 @@ import { TranslateMapService } from '../../services/TranslateMapService';
 import { Util } from '../../utils/util';
 import { Center } from '../../models/Center.class';
 import { ILayerService } from '../../interfaces/ILayerService';
+import { OMapBase } from '../map/o-map-base.class';
 
 @Component({
   selector: 'o-map-layer',
@@ -70,11 +70,11 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable, O
   sService: string;
 
   // Status of the label
-  @InputConverter()
+  @BooleanInputConverter()
   public selected: boolean = false;
-  @InputConverter()
+  @BooleanInputConverter()
   public visible: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public inWS: boolean = true;
   public inMenu: string;
 
@@ -94,7 +94,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable, O
   protected _icon: string;
   public options: OMapLayerOptions = {};
   protected _contextmenu;
-  @InputConverter()
+  @BooleanInputConverter()
   public queryFeaturesInBounds: boolean;
 
   protected crs: string;
@@ -129,7 +129,7 @@ export class OMapLayerComponent implements OnInit, AfterViewInit, OSearchable, O
   protected layerStreamSubscription: Subscription;
 
   constructor(
-    @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent,
+    @Inject(forwardRef(() => OMapBase)) protected oMap: OMapBase,
     protected injector: Injector
   ) {
     this.translateMapService = this.injector.get(TranslateMapService);

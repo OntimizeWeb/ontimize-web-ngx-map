@@ -1,3 +1,8 @@
+## 15.0.0-beta.0 (2023-09-29)
+### Features
+* Migration to Angular 15.
+* Migration to Angular Material 15.
+
 ## 8.0.1 (2020-11-23)
 ### Bug Fixes
 * **o-map-layer**: show custom icon in marker layers

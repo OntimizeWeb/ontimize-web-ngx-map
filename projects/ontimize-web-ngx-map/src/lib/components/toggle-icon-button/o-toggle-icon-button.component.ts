@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 
 import { Util } from '../../utils/index';
 
@@ -17,14 +17,14 @@ import { Util } from '../../utils/index';
   styleUrls: ['./o-toggle-icon-button.component.scss']
 })
 export class OToggleIconButtonComponent implements OnInit {
-  @InputConverter()
+  @BooleanInputConverter()
   public buttonActive: boolean = false;
   protected _iconDark: boolean;
   protected _iconName: string;
   protected bgColor: string;
-  @InputConverter()
+  @BooleanInputConverter()
   public clickable: boolean;
-  @InputConverter()
+  @BooleanInputConverter()
   public noInk: boolean = false;
 
   ngOnInit() {

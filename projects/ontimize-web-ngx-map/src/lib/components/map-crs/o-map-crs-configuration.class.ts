@@ -1,7 +1,7 @@
 import * as L from 'leaflet';
 
-import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
-import { OMapCrsComponent } from './o-map-crs.component';
+import type { OMapLayerComponent } from '../map-layer/o-map-layer.component';
+import type { OMapCrsComponent } from './o-map-crs.component';
 
 export interface ICRSConfiguration {
   epsg: string;

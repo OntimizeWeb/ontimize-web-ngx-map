@@ -1,12 +1,11 @@
 .o-map-layer {
-  > button {
-    .mat-button-focus-overlay {
+  >button {
+    .mdc-button__ripple {
       display: none;
     }
 
     o-toggle-icon-button {
-      .mat-button-focus-overlay,
-      .mat-button-ripple {
+      .mdc-button__ripple {
         display: none;
       }
     }
@@ -21,7 +20,7 @@
     line-height: normal;
     overflow: hidden;
 
-    > span {
+    >span {
       display: flex;
       box-sizing: border-box;
       flex-direction: row;

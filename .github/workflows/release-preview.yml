@@ -8,7 +8,7 @@ concurrency:
 on:
   pull_request:
     types: [labeled, synchronize]
-    branches: ['master']
+    branches: ['main.15.x']
     paths: ['projects/ontimize-web-ngx-map/**']
 
 jobs:
@@ -23,10 +23,10 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Node 12.x
+      - name: Node 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: 12.13.0
+          node-version: 18.10.0
           registry-url: ${{ env.NPM_REGISTRY }}
 
       - name: obtain package.json version
@@ -44,11 +44,11 @@ jobs:
           The release version detected was: $RELEASE_VERSION" >> $GITHUB_ENV
           exit 1
 
-      - name: npm install and npm run build
+      - name: npm install and npm run build-prod
         run: |
           echo "FAILURE_MESSAGE=The build process has failed" >> $GITHUB_ENV
           npm i
-          npm run build
+          npm run build-prod
 
       - name: Add PR comment with release preview
         env:

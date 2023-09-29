@@ -1,9 +1,9 @@
 import { Component, EventEmitter, forwardRef, Inject, ViewEncapsulation } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 
 import { OSearchable, OSearchResult } from '../../interfaces/search/searchable.interface';
 import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
-import { OMapWorkspaceComponent } from '../map-workspace/o-map-workspace.component';
+import { OMapWorkspaceBase } from '../map-workspace/o-map-workspace-base.class';
 
 @Component({
   selector: 'o-map-workspace-layer',
@@ -30,11 +30,11 @@ import { OMapWorkspaceComponent } from '../map-workspace/o-map-workspace.compone
   }
 })
 export class OMapWorkspaceLayerComponent implements OSearchable {
-  @InputConverter()
+  @BooleanInputConverter()
   public selected: boolean = false;
-  @InputConverter()
+  @BooleanInputConverter()
   public visible: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public inWS: boolean = true;
 
   protected _menuLabel: string;
@@ -49,7 +49,7 @@ export class OMapWorkspaceLayerComponent implements OSearchable {
   onToggleInWS: EventEmitter<Object> = new EventEmitter<Object>();
 
   constructor(
-    @Inject(forwardRef(() => OMapWorkspaceComponent)) private refWorkspace: OMapWorkspaceComponent
+    @Inject(forwardRef(() => OMapWorkspaceBase)) private refWorkspace: OMapWorkspaceBase
   ) { }
 
   get oSearchResult(): OSearchResult {

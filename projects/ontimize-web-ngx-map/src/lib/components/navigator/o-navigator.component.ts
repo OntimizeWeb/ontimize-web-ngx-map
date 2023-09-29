@@ -1,11 +1,11 @@
 import { Component, forwardRef, Inject, OnDestroy } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { GeocodingService } from '../../services/GeocodingService';
 import { TranslateMapService } from '../../services/TranslateMapService';
-import { OMapComponent } from '../map/o-map.component';
 import { ONavigatorDefault } from './o-navigator.class';
+import { OMapBase } from '../map/o-map-base.class';
 
 const DEFAULT_INPUTS = [
   'showSidenavButton: show-sidenav-button',
@@ -22,9 +22,9 @@ export class ONavigatorComponent extends ONavigatorDefault implements OnDestroy 
 
   public static DEFAULT_INPUTS = DEFAULT_INPUTS;
 
-  @InputConverter()
+  @BooleanInputConverter()
   public showSidenavButton: boolean = true;
-  @InputConverter()
+  @BooleanInputConverter()
   public showSearchInput: boolean = true;
 
   protected _rendered: boolean = false;
@@ -33,7 +33,7 @@ export class ONavigatorComponent extends ONavigatorDefault implements OnDestroy 
   constructor(
     @Inject(GeocodingService) geocoder: GeocodingService,
     @Inject(TranslateMapService) translateMapService: TranslateMapService,
-    @Inject(forwardRef(() => OMapComponent)) oMap: OMapComponent
+    @Inject(forwardRef(() => OMapBase)) oMap: OMapBase
   ) {
     super(geocoder, translateMapService, oMap);
     this.oMapConfigurationSubscription = this.oMap.onMapConfigured().subscribe(() => {

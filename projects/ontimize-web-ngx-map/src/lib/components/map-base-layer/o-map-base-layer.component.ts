@@ -1,10 +1,10 @@
 import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
-import { InputConverter } from 'ontimize-web-ngx';
+import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
 import { BaseLayer } from '../../interfaces/baselayers/baselayers.interface';
 import { OSearchable, OSearchResult } from '../../interfaces/search/searchable.interface';
-import { OMapComponent } from '../map/o-map.component';
+import { OMapBase } from '../map/o-map-base.class';
 
 @Component({
   selector: 'o-map-base-layer',
@@ -22,7 +22,7 @@ export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSe
 
   id: string;
 
-  @InputConverter()
+  @BooleanInputConverter()
   active: boolean = false;
 
   protected _name: string;
@@ -43,7 +43,7 @@ export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSe
   }
 
   constructor(
-    @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent
+    @Inject(forwardRef(() => OMapBase)) protected oMap: OMapBase
   ) { }
 
   ngOnInit() {
