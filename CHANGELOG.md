@@ -1,3 +1,11 @@
+## 15.0.0-beta.0
+### Features
+> [!NOTE]
+> For the migration process, the guide available at the following URL has been followed:
+https://update.angular.io/?l=3&v=8.2-15.0.
+
+* Migration to Angular 15.
+* Migration to Angular Material 15.
 ## 8.0.1 (2020-11-23)
 ### Bug Fixes
 * **o-map-layer**: show custom icon in marker layers

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { BaseLayer } from '../../interfaces/baselayers/baselayers.interface';
 import { OSearchable, OSearchResult } from '../../interfaces/search/searchable.interface';
-import { OMapComponent } from '../map/o-map.component';
+import { OMapBase } from '../map/o-map-base.class';
 
 @Component({
   selector: 'o-map-base-layer',
@@ -43,7 +43,7 @@ export class OMapBaseLayerComponent implements OnInit, OnDestroy, BaseLayer, OSe
   }
 
   constructor(
-    @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent
+    @Inject(forwardRef(() => OMapBase)) protected oMap: OMapBase
   ) { }
 
   ngOnInit() {

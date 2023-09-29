@@ -1,11 +1,11 @@
 # OntimizeWebNgxMap
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.9.
 
 ## Code scaffolding
 
 Run `ng generate component component-name --project ontimize-web-ngx-map` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ontimize-web-ngx-map`.
-> Note: Don't forget to add `--project ontimize-web-ngx-map` or else it will be added to the default project in your `angular.json` file. 
+> Note: Don't forget to add `--project ontimize-web-ngx-map` or else it will be added to the default project in your `angular.json` file.
 
 ## Build
 

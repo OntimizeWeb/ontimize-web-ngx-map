@@ -6,7 +6,8 @@ import { OMapWorkspace } from '../../interfaces/o-map-workspace.interface';
 import { OSearchable } from '../../interfaces/search/searchable.interface';
 import { OSearcher } from '../../interfaces/search/searcher.interface';
 import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
-import { OMapComponent } from '../map/o-map.component';
+import { OMapBase } from '../map/o-map-base.class';
+import { OMapWorkspaceBase } from './o-map-workspace-base.class';
 
 @Component({
   selector: 'o-map-workspace',
@@ -21,7 +22,10 @@ import { OMapComponent } from '../map/o-map.component';
   encapsulation: ViewEncapsulation.None,
   host: {
     '[class.o-map-workspace]': 'true'
-  }
+  },
+  providers: [
+    { provide: OMapWorkspaceBase, useExisting: forwardRef(() => OMapWorkspaceBase) }
+  ]
 })
 export class OMapWorkspaceComponent implements OSearcher, OMapWorkspace {
 
@@ -41,7 +45,7 @@ export class OMapWorkspaceComponent implements OSearcher, OMapWorkspace {
   onToggleWSLayerInWS: EventEmitter<Object> = new EventEmitter<Object>();
 
   constructor(
-    @Inject(forwardRef(() => OMapComponent)) private map: OMapComponent
+    @Inject(forwardRef(() => OMapBase)) private map: OMapBase
   ) {
   }
 

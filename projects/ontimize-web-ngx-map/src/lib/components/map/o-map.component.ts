@@ -12,6 +12,7 @@ import {
   ViewChild,
   ViewChildren,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
@@ -26,11 +27,12 @@ import { GeocodingService } from '../../services/GeocodingService';
 import { MapService } from '../../services/MapService';
 import { TranslateMapService } from '../../services/TranslateMapService';
 import { Util } from '../../utils/util';
-import { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
+import type { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
 import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
 import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-container.component';
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { OMapWSearch } from './o-map-w-search.class';
+import { OMapBase } from './o-map-base.class';
 
 const DEFAULT_INPUTS = [
   'sAttr: attr',
@@ -91,7 +93,7 @@ const DEFAULT_OUTPUTS = [
 
 @Component({
   selector: 'o-map',
-  providers: [MapService, GeocodingService],
+  providers: [MapService, GeocodingService, { provide: OMapBase, useExisting: forwardRef(() => OMapComponent) }],
   inputs: OMapComponent.DEFAULT_INPUTS,
   outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',

@@ -6,7 +6,8 @@ import { LayerConfiguration } from '../../models/LayerConfiguration.class';
 import { LayerGroupConfiguration } from '../../models/LayerGroupConfiguration.class';
 import { OMapLayerGroupsWarehouse } from '../../models/LayerGroupsWarehouse.class';
 import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
-import { OMapComponent } from '../map/o-map.component';
+import { OMapBase } from '../map/o-map-base.class';
+
 
 @Component({
   selector: 'o-map-layer-group',
@@ -43,7 +44,7 @@ export class OMapLayerGroupComponent implements OMapLayerGroup, OnInit {
   @ViewChildren(forwardRef(() => OMapLayerGroupComponent)) layerGroupChildren: OMapLayerGroupComponent[];
 
   constructor(
-    @Inject(forwardRef(() => OMapComponent)) protected oMap: OMapComponent
+    @Inject(forwardRef(() => OMapBase)) protected oMap: OMapBase
   ) { }
 
   ngOnInit() {
