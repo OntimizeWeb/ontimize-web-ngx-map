@@ -7,7 +7,7 @@
     "build": "ng build && npm run build-styles && npm run copy-files",
     "build-prod": "ng build -c production && npm run build-styles && npm run copy-files",
     "build-styles": "scss-bundle -c scss-bundle-ontimize-map.json",
-    "copy-files": "copyfiles -f node_modules/leaflet/dist/images/layers.png dist/images/ && copyfiles -f node_modules/leaflet/dist/images/layers-2x.png dist/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/marker-icon.png dist/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/marker-icon-2x.png dist/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/spritesheet.png dist/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/spritesheet-2x.png dist/images/ && copyfiles -f node_modules/leaflet-draw/dist/images/spritesheet.svg dist/images/ && copyfiles -f node_modules/leaflet/dist/images/marker-shadow.png dist/images/",
+    "copy-files": "copyfiles -f 'node_modules/leaflet/dist/images/layers.png' dist/images/ && copyfiles -f 'node_modules/leaflet/dist/images/layers-2x.png' dist/images/ && copyfiles -f 'node_modules/leaflet-draw/dist/images/marker-icon.png' dist/images/ && copyfiles -f 'node_modules/leaflet-draw/dist/images/marker-icon-2x.png' dist/images/ && copyfiles -f 'node_modules/leaflet-draw/dist/images/spritesheet.png' dist/images/ && copyfiles -f 'node_modules/leaflet-draw/dist/images/spritesheet-2x.png' dist/images/ && copyfiles -f 'node_modules/leaflet-draw/dist/images/spritesheet.svg' dist/images/ && copyfiles -f 'node_modules/leaflet/dist/images/marker-shadow.png' dist/images/",
     "test": "ng test --code-coverage",
     "test-ci": "ng test --no-watch --code-coverage --browsers ChromeHeadless",
     "lint": "ng lint",
