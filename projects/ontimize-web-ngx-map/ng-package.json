@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist",
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  },
+  "allowedNonPeerDependencies": [
+    "leaflet",
+    "leaflet-contextmenu",
+    "leaflet-draw",
+    "leaflet-providers",
+    "leaflet.heat",
+    "leaflet.markercluster",
+    "proj4"
+  ]
+}
