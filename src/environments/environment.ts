@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   versions: {
-    core: '15.0.0.rc.0',
-    map: '15.0.0.rc.0'
+    core: '15.0.0.beta.0',
+    map: '15.0.0.beta.0'
   }
 };
 
