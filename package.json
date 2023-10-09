@@ -3,15 +3,14 @@
   "version": "15.0.0-SNAPSHOT-0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build:themes && ng serve --port 41506",
+    "start": "ng serve --port 41506",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "watch": "ng build --watch --configuration development",
     "production": "ng build --base-href /ontimize-web-ngx-map/",
-    "production-aot-server": "ng build --base-href=/ontimizeweb/v15/map/",
-    "build:themes": "npx sass --no-source-map --load-path=node_modules/ --error-css ./src/assets/themes:./src/assets/themes"
+    "production-aot-server": "ng build --base-href=/ontimizeweb/v15/map/"
   },
   "private": true,
   "dependencies": {
@@ -33,7 +32,7 @@
     "core-js": "^3.6.4",
     "highlight.js": "^11.7.0",
     "ngx-highlightjs": "^4.1.0-beta",
-    "ontimize-web-ngx": "15.0.0-beta.0",
+    "ontimize-web-ngx": "15.0.0-beta.1",
     "ontimize-web-ngx-map": "15.0.0-beta.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
