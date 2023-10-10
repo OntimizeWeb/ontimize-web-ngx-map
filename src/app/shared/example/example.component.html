@@ -2,7 +2,7 @@
 
   <mat-toolbar fxLayout="row" color="primary" class="playground-toolbar">
     <div fxLayout="column" fxFlex>
-      <span>{{ compName | oTranslate }}</span>
+      <span class="comp-title">{{ compName | oTranslate }}</span>
       <span class="comp-description">{{ compDesc | oTranslate }}</span>
     </div>
     <button *ngIf="!collapsed" mat-icon-button aria-label="View Source" (click)="toggleShowSource()">
@@ -15,7 +15,7 @@
   </mat-toolbar>
 
   <div fxLayout *ngIf="showSource" [style.height]="tabHeight">
-    <mat-tab-group fxFlex class="playground-tabs" fxFill>
+    <mat-tab-group fxFlex class="playground-tabs" fxFill mat-stretch-tabs="false" mat-align-tabs="start">
       <mat-tab label="{{ 'html' | uppercase }}" *ngIf="html">
         <highlight-comp [template-content]="html" template-type="html"></highlight-comp>
       </mat-tab>

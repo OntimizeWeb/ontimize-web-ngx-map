@@ -1,0 +1,16 @@
+<button *ngIf="lightMode" mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>light_mode</mat-icon>
+</button>
+<button *ngIf="!lightMode" mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>dark_mode</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="toggleModeDark(false)">
+    <mat-icon>light_mode</mat-icon>
+    <span>Light</span>
+  </button>
+  <button mat-menu-item (click)="toggleModeDark(true)">
+    <mat-icon>dark_mode</mat-icon>
+    <span>Dark</span>
+  </button>
+</mat-menu>

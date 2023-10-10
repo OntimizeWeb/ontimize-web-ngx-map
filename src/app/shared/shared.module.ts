@@ -8,6 +8,7 @@ import { HighlightComponent } from './highlight/highlight.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { HighlightModule } from 'ngx-highlightjs';
+import { SwitchModeThemeComponent } from './switch-mode-theme/switch-mode-theme.component';
 
 @NgModule({
   imports: [
@@ -19,12 +20,14 @@ import { HighlightModule } from 'ngx-highlightjs';
   ],
   declarations: [
     ExampleComponent,
-    HighlightComponent
+    HighlightComponent,
+    SwitchModeThemeComponent
   ],
   exports: [
     CommonModule,
     ExampleComponent,
-    HighlightComponent
+    HighlightComponent,
+    SwitchModeThemeComponent
   ]
 })
 export class SharedModule { }

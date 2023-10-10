@@ -1,6 +1,19 @@
 .example-comp {
-  & > section {
+  &>section {
     margin: 12px;
+
+    .mat-toolbar{
+      padding: 0;
+    }
+  }
+
+  .comp-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .playground-toolbar.mat-toolbar {
+    margin-bottom: 12px;
   }
 
   .playground-toolbar.mat-toolbar-single-row {
@@ -10,9 +23,8 @@
     white-space: initial;
 
     .comp-description {
-      font-size: .8em;
-      line-height: 1em;
-      padding-bottom: 12px;
+      font-size: 16px;
+      font-weight: 100;
     }
   }
 
@@ -49,7 +61,8 @@
     padding-top: 8px;
   }
 
-  .mat-tab-body-wrapper {
+  .mat-mdc-tab-body-wrapper {
     height: 100%;
+    padding: 8px
   }
 }

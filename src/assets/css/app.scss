@@ -1,14 +1,14 @@
-@use "ontimize-web-ngx-theming/src/themes/ontimize.scss"as theme;
-@use "ontimize-web-ngx-theming/ontimize-theme.scss";
-@use "ontimize-web-ngx/theme.scss"as ontimize-web-ngx-theme;
-@use "../../app/shared/example/example.theme.scss"as example;
+@use 'ontimize-web-ngx/theming/themes/ontimize'as theme;
+@use 'ontimize-web-ngx/theming/ontimize-style.scss';
 
-@include ontimize-theme.ontimize-theme-styles(theme.$theme);
+@use '../../app/shared/example/example.theme.scss'as example;
 
-// @use 'ontimize-web-ngx-theming/ontimize-theme-lite.scss';
-// @include ontimize-theme-lite.ontimize-theme-styles-lite(theme.$theme, ontimize-theme-lite.$typography);
-
-@include ontimize-web-ngx-theme.o-material-theme(theme.$theme, ontimize-theme.$typography);
+//Include ontimize theme styles
+@include ontimize-style.ontimize-theme-styles(theme.$theme);
 
 @include example.example-component-theme(theme.$theme);
 
+//Include dark styles option
+.o-dark {
+  @include ontimize-style.ontimize-theme-all-component-color(theme.$dark-theme);
+}

@@ -1,4 +1,4 @@
-import { ViewEncapsulation, Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { NavigationBarService } from '../shared';
 
@@ -12,13 +12,13 @@ export class MainComponent implements OnInit {
 
   protected sectionTitle = '';
   protected version = 'v1.0.0';
-
-  constructor(protected navigationService: NavigationBarService) { }
+  constructor(protected navigationService: NavigationBarService) {  }
 
   ngOnInit() {
     this.navigationService.onTitleChange((title) => {
       this.sectionTitle = title;
     });
   }
+
 
 }

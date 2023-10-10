@@ -1,8 +1,8 @@
-<section fxFill>
-  <pre class="snippet" fxFill>
-      <button mat-icon-button id="copy-btn" class="copy-btn"[cdkCopyToClipboard]="templateContent" (cdkCopyToClipboardCopied)="showTooltip()">
-        <mat-icon aria-label="Copy to clipboard">file_copy</mat-icon>
-      </button>
+<section fxFill class="snippet">
+  <button mat-icon-button id="copy-btn" class="copy-btn" [cdkCopyToClipboard]="templateContent" (cdkCopyToClipboardCopied)="showTooltip()">
+    <mat-icon aria-label="Copy to clipboard">file_copy</mat-icon>
+  </button>
+  <pre fxFill>
     <code id="code" class="highlight" [highlight]="templateContent" [languages]="templateTypeArray" [lineNumbers]="true"></code>
   </pre>
 </section>
