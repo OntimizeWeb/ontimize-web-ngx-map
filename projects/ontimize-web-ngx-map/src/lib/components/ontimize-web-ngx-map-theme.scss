@@ -2,10 +2,10 @@
 @use '@angular/material'as mat;
 
 @mixin o-map-theme($theme) {
-  $is-dark-theme: map.get($theme, is-dark);
+  $is-dark-theme: map.get($theme, color, is-dark);
 
   @if($is-dark-theme) {
-    .search-panel .mat-mdc-button {
+    .search-panel button.mat-button {
       color: #000;
     }
   }
