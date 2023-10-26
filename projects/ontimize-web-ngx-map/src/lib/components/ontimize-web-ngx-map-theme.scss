@@ -1,0 +1,12 @@
+@use "sass:map";
+@use '@angular/material'as mat;
+
+@mixin o-map-theme($theme) {
+  $is-dark-theme: map.get($theme, is-dark);
+
+  @if($is-dark-theme) {
+    .search-panel .mat-mdc-button {
+      color: #000;
+    }
+  }
+}
