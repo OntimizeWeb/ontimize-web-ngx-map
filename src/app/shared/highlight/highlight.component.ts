@@ -3,6 +3,9 @@ import {
   Component,
   ViewEncapsulation
 } from '@angular/core';
+import { HighlightLoader } from 'ngx-highlightjs';
+import { AppearanceService } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'highlight-comp',
@@ -20,8 +23,20 @@ export class HighlightComponent {
   templateContent: any;
   templateType: any;
   templateTypeArray: Array<string>;
+  private onThemeUpdate: Subscription;
 
-  constructor() {
+  constructor(
+    private hljsLoader: HighlightLoader,
+    private appearanceService: AppearanceService
+  ) {
+    this.loadTheme(this.appearanceService.isDarkMode());
+    this.onThemeUpdate = this.appearanceService.isDarkMode$.subscribe((darkMode: boolean) => {
+      this.loadTheme(darkMode);
+    });
+  }
+
+  loadTheme(darkMode: boolean) {
+    this.hljsLoader.setTheme(darkMode ? 'assets/hightlight/github-dark.css' : 'assets/hightlight/github.css');
   }
 
   ngOnInit(): void {
