@@ -146,21 +146,21 @@ jobs:
         if: ${{ steps.parameters.outputs.isMinor == true }} || ${{ steps.parameters.outputs.isRC == true }} || ${{ steps.parameters.outputs.isBeta == true }}
         run: |
           version=${{ env.RELEASE_VERSION }}
-          git checkout -b release/$version
+          git checkout -b quickstart-release/$version
 
           git add .
-          git commit -m "Prepare release $version"
-          git push origin release/$version
+          git commit -m "Prepare Quickstart release $version"
+          git push origin  quickstart-release/$version
 
       - name: Create hotfix branch
         if: ${{ steps.parameters.outputs.isHotfix == true }}
         run: |
           version=${{ env.RELEASE_VERSION }}
-          git checkout -b hotfix/$version
+          git checkout -b  quickstart-hotfix/$version
 
           git add .
-          git commit -m "Prepare hotfix $version"
-          git push origin hotfix/$version
+          git commit -m "Prepare Quickstart hotfix $version"
+          git push origin  quickstart-hotfix/$version
 
       - name: Create Release pull request
         if: ${{ steps.parameters.outputs.isHotfix == false }}
@@ -168,7 +168,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.OWEB_GH_TOKEN_PUSH }}
         run: |
           version=${{ env.RELEASE_VERSION }}
-          gh pr create -B ${{ env.MAIN_BRANCH }} -H release/$version --title "Release $version" --body "" --draft --label "release"
+          gh pr create -B ${{ env.MAIN_BRANCH }} -H quickstart-release/$version --title "Release $version" --body "" --draft --label "release"
 
       - name: Create Hotfix pull request
         if: ${{ steps.parameters.outputs.isHotfix == true }}
@@ -176,5 +176,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.OWEB_GH_TOKEN_PUSH }}
         run: |
           version=${{ env.RELEASE_VERSION }}
-          gh pr create -B ${{ env.MAIN_BRANCH }} -H hotfix/$version --title "Hotfix $version" --body "" --draft --label "release"
+          gh pr create -B ${{ env.MAIN_BRANCH }} -H quickstart-hotfix/$version --title "Hotfix $version" --body "" --draft --label "release"
 
