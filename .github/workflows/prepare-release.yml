@@ -168,7 +168,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.OWEB_GH_TOKEN_PUSH }}
         run: |
           version=${{ env.RELEASE_VERSION }}
-          gh pr create -B ${{ env.MAIN_BRANCH }} -H quickstart-release/$version --title "Release $version" --body "" --draft --label "release"
+          gh pr create -B ${{ env.MAIN_BRANCH }} -H quickstart-release/$version --title "[Quickstart Map] Release $version" --body "" --draft --label "release"
 
       - name: Create Hotfix pull request
         if: ${{ steps.parameters.outputs.isHotfix == true }}
@@ -176,5 +176,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.OWEB_GH_TOKEN_PUSH }}
         run: |
           version=${{ env.RELEASE_VERSION }}
-          gh pr create -B ${{ env.MAIN_BRANCH }} -H quickstart-hotfix/$version --title "Hotfix $version" --body "" --draft --label "release"
+          gh pr create -B ${{ env.MAIN_BRANCH }} -H quickstart-hotfix/$version --title "[Quickstart Map] Hotfix $version" --body "" --draft --label "release"
 
