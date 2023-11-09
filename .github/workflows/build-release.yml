@@ -98,11 +98,11 @@ jobs:
         uses: ncipollo/release-action@2792aea87063cfd0d27953ac38e3ab45afacc154
         with:
           commit: ${{ env.BASELINE_BRANCH }}
-          tag: ${{ steps.project.outputs.version }}
-          name: ${{ steps.project.outputs.version }}
+          tag: q${{ steps.project.outputs.version }}
+          name: Quickstart Map ${{ steps.project.outputs.version }}
           token: ${{ secrets.OWEB_GH_TOKEN_PUSH }}
           body: |
-            Released version ${{ steps.project.outputs.version }} of Playground
+            Released version ${{ steps.project.outputs.version }} of Quickstart Map
 
       - name: Prepare git information
         run: |
