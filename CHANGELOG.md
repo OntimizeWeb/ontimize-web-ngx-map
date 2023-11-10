@@ -1,3 +1,12 @@
+## 15.0.0-beta.1 (2023-11-10)
+### Features
+* New file `ontimize-web-ngx-map-theme.scss` required for dark mode([39a31a4](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/39a31a4)) Closes [#98](https://github.com/OntimizeWeb/ontimize-web-ngx-map/issues/98)
+
+### Bug Fixes
+* Fixed navigation button styles in dark mode  ([39a31a4](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/39a31a4)) Closes [#98](https://github.com/OntimizeWeb/ontimize-web-ngx-map/issues/98)
+* Resolve circular dependency in DI detected for **OMapWorkspaceBase** ([182b8ba](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/182b8ba)) Closes [#99](https://github.com/OntimizeWeb/ontimize-web-ngx-map/issues/99)
+
+
 ## 15.0.0-beta.0 (2023-09-29)
 ### Features
 * Migration to Angular 15.
