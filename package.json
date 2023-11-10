@@ -32,7 +32,7 @@
     "core-js": "^3.6.4",
     "highlight.js": "^11.7.0",
     "ngx-highlightjs": "^8.0.0",
-    "ontimize-web-ngx": "15.0.0-beta.1",
+    "ontimize-web-ngx": "15.0.0-beta.3",
     "ontimize-web-ngx-map": "15.0.0-beta.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -51,22 +51,18 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
-    "acorn": "5.7.4",
     "eslint": "^8.28.0",
-    "handlebars": "4.7.3",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.2",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "karma-sonarqube-unit-reporter": "0.0.23",
-    "minimist": "1.2.2",
     "moment": "^2.22.2",
     "ng-packagr": "^15.2.2",
     "sonarqube-scanner": "^2.8.1",
     "ts-node": "~7.0.0",
     "typescript": "~4.9.5",
-    "sass": "^1.62.1",
-    "sass-migrator": "^1.7.3"
+    "sass": "^1.62.1"
   }
 }
