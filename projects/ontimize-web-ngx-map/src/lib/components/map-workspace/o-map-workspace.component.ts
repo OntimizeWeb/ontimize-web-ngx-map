@@ -24,7 +24,7 @@ import { OMapWorkspaceBase } from './o-map-workspace-base.class';
     '[class.o-map-workspace]': 'true'
   },
   providers: [
-    { provide: OMapWorkspaceBase, useExisting: forwardRef(() => OMapWorkspaceBase) }
+    { provide: OMapWorkspaceBase, useExisting: forwardRef(() => OMapWorkspaceComponent) }
   ]
 })
 export class OMapWorkspaceComponent implements OSearcher, OMapWorkspace {
