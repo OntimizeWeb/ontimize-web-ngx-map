@@ -32,8 +32,8 @@
     "core-js": "^3.6.4",
     "highlight.js": "^11.7.0",
     "ngx-highlightjs": "^8.0.0",
-    "ontimize-web-ngx": "15.0.0-beta.3",
-    "ontimize-web-ngx-map": "15.0.0-beta.1",
+    "ontimize-web-ngx": "15.0.0",
+    "ontimize-web-ngx-map": "15.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
