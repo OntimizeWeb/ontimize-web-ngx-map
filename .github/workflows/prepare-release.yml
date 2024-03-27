@@ -82,7 +82,7 @@ jobs:
       - name: Update Chart values.yml
         run: |
           version=$(cat ./charts/$REPO_NAME/values.yaml | grep version: | awk '{print $2}')
-          sed -i "s#$version#${{ env.RELEASE_VERSION }}#" ./charts/$REPO_NAME/values.yaml
+          sed -i "s#$version#q${{ env.RELEASE_VERSION }}#" ./charts/$REPO_NAME/values.yaml
 
       - name: Create release branch
         if: ${{ steps.parameters.outputs.isMinor == true }}
