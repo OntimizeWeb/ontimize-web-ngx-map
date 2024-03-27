@@ -39,6 +39,8 @@ jobs:
           tags: |
             # branch event
             type=ref,event=branch
+            # tag event
+            type=ref,event=tag
             # push tag event
             type=semver,pattern={{version}}
             # set latest tag for main branch
