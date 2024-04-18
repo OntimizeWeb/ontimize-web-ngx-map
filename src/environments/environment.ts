@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   versions: {
-    core: '8.5.0',
+    core: '8.14.2',
     map: '8.0.1',
-    theming: '8.1.0'
+    theming: '8.5.2'
   }
 };
 
