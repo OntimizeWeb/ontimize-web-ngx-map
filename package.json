@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map-quickstart",
-  "version": "8.2.0",
+  "version": "8.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4806",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "production": "ng build --prod=true --baseHref=/ontimize-web-ngx-map",
+    "production": "ng build --prod=true --baseHref=/v8/map/",
     "production-aot-server": "ng build --prod=true --baseHref=/ontimizeweb/v8/map/"
   },
   "private": true,
