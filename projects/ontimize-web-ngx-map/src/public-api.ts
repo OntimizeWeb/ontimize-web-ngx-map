@@ -9,3 +9,4 @@ export * from './lib/models/index';
 export * from './lib/services/index';
 export * from './lib/types/index';
 export * from './lib/utils/index';
+export * from './lib/services/providers';
