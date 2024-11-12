@@ -3,12 +3,14 @@ import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 
+import { IGeocodingService } from '../interfaces/IGeocodingService';
 import { Location } from '../models/Location.class';
 
 @Injectable()
-export class GeocodingService {
+export class GeocodingService implements IGeocodingService{
 
-  constructor(@Inject(forwardRef(() => HttpClient)) private httpClient: HttpClient) { }
+  constructor(@Inject(forwardRef(() => HttpClient)) protected httpClient: HttpClient) { }
+
 
   geocode(address: string): Observable<any> {
     return this.httpClient
