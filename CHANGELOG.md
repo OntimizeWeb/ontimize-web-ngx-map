@@ -1,3 +1,7 @@
+## 15.0.1 (2024-11-12)
+### Features
+  * New injection token `O_GEOCODING_SERVICE` for allowing GeocodingService extension ([cb2cb16](https://github.com/OntimizeWeb/ontimize-web-ngx-map/commit/cb2cb16)) Closes [#155](https://github.com/OntimizeWeb/ontimize-web-ngx-map/issues/155)
+
 ## 15.0.0 (2024-02-21)
 ### DEPENDENCY UPDATES
 * **Updated**: ontimize-web-ngx@15.0.0
