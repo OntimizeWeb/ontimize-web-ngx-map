@@ -33,6 +33,8 @@ import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-
 import { OMarkerComponent } from '../marker/o-marker.component';
 import { OMapWSearch } from './o-map-w-search.class';
 import { OMapBase } from './o-map-base.class';
+import { getGeocodingServiceProvider } from '../../services/providers';
+import { HttpClient } from '@angular/common/http';
 
 const DEFAULT_INPUTS = [
   'sAttr: attr',
@@ -93,7 +95,12 @@ const DEFAULT_OUTPUTS = [
 
 @Component({
   selector: 'o-map',
-  providers: [MapService, GeocodingService, { provide: OMapBase, useExisting: forwardRef(() => OMapComponent) }],
+  providers: [
+    MapService, {
+      provide: GeocodingService, useFactory: getGeocodingServiceProvider, deps: [Injector, HttpClient]
+    }, {
+      provide: OMapBase, useExisting: forwardRef(() => OMapComponent)
+    }],
   inputs: OMapComponent.DEFAULT_INPUTS,
   outputs: OMapComponent.DEFAULT_OUTPUTS,
   templateUrl: './o-map.component.html',
