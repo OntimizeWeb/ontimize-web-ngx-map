@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  NEXUS_REGISTRY: http://nexus-jx.34.122.211.64.nip.io/repository/npm-private/
+  NEXUS_REGISTRY: https://nexus.imatia.com/repository/npm/
 
 jobs:
   build:
@@ -39,12 +39,10 @@ jobs:
         run: |
           echo "Version ${{ steps.project.outputs.version }} is not a properly named SNAPSHOT"
           exit 1
-
       - name: npm install and npm run build-prod
         run: |
           npm i
           npm run build-prod
-
       - name: Publish
         run: |
           cd dist
