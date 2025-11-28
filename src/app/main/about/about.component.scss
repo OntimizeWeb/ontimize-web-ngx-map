@@ -16,7 +16,6 @@
     font-size: 14px;
     font-weight: bold;
     padding-bottom: 12px;
-    padding-left: 12px;
   }
 
   img.mat-icon {
@@ -24,7 +23,12 @@
     width: 40px;
   }
 
-  > div {
+  img.mat-icon-ontimize {
+    height: 44px;
+    width: 40px;
+  }
+
+  >div {
     margin: 0 50px;
 
     .dependencies span:not(.info-title) {
