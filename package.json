@@ -1,6 +1,6 @@
 {
   "name": "ontimize-web-ngx-map",
-  "version": "18.0.0-SNAPSHOT-0",
+  "version": "18.0.0-next.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,7 +34,7 @@
     "leaflet-providers": "1.9.1",
     "leaflet.heat": "0.2.0",
     "leaflet.markercluster": "1.5.0",
-    "ontimize-web-ngx": "file:../ontimize-web-ngx/dist/ontimize-web-ngx-18.0.0-SNAPSHOT-0.tgz",
+    "ontimize-web-ngx": "18.0.0-next.0",
     "proj4": "2.6.1",
     "proj4leaflet": "1.0.2",
     "rxjs": "~7.8.0",
@@ -63,7 +63,7 @@
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
     "karma-sonarqube-unit-reporter": "0.0.23",
     "luxon": "^3.4.0",
     "@types/luxon": "^3.4.0",
