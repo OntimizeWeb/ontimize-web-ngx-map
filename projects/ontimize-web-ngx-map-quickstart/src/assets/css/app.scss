@@ -1,16 +1,14 @@
-@use 'ontimize-web-ngx/theming/themes/ontimize'as theme;
-@use 'ontimize-web-ngx/theming/ontimize-style.scss';
-@use 'ontimize-web-ngx-map/ontimize-web-ngx-map-theme.scss'as map-theme;
+@use 'ontimize-web-ngx/theming/themes/ontimize-blue' as theme;
+@use 'ontimize-web-ngx/theming/ontimize-style' as ontimize-style;
 
-@use '../../app/shared/example/example.theme.scss'as example;
+@use '../../app/shared/example/example.theme.scss' as example;
+@use '../../../../ontimize-web-ngx-map/src/lib/components/ontimize-web-ngx-map-theme.scss' as map-theme;
 
-//Include ontimize theme styles
 @include ontimize-style.ontimize-theme-styles(theme.$theme);
 
 @include example.example-component-theme(theme.$theme);
 @include map-theme.o-map-theme(theme.$theme);
 
-//Include dark styles option
 .o-dark {
   @include ontimize-style.ontimize-theme-all-component-color(theme.$dark-theme);
   @include example.example-component-theme(theme.$dark-theme);

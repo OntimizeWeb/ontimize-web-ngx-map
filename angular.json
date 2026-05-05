@@ -46,7 +46,7 @@
             ],
             "styles": [
               "node_modules/ontimize-web-ngx/ontimize.scss",
-              "node_modules/ontimize-web-ngx/theme.scss",
+              "projects/ontimize-web-ngx-map-quickstart/src/assets/css/app.scss",
               "projects/ontimize-web-ngx-map-quickstart/src/styles.scss"
             ],
             "stylePreprocessorOptions": {
