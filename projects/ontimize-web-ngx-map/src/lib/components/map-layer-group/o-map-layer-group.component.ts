@@ -1,4 +1,5 @@
 import { Component, forwardRef, Inject, OnInit, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { BooleanInputConverter } from 'ontimize-web-ngx';
 
 import { OMapLayerGroup } from '../../interfaces/o-map-layer-group.interface';
@@ -7,9 +8,11 @@ import { LayerGroupConfiguration } from '../../models/LayerGroupConfiguration.cl
 import { OMapLayerGroupsWarehouse } from '../../models/LayerGroupsWarehouse.class';
 import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
 import { OMapBase } from '../map/o-map-base.class';
-
+import { OToggleIconButtonComponent } from '../toggle-icon-button/o-toggle-icon-button.component';
 
 @Component({
+  standalone: true,
+  imports: [MatButtonModule, OToggleIconButtonComponent, OMapLayerComponent, forwardRef(() => OMapLayerGroupComponent)],
   selector: 'o-map-layer-group',
   providers: [],
   inputs: [

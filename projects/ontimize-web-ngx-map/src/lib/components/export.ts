@@ -12,7 +12,7 @@ import { ONavigatorItemComponent } from './navigator/o-navigator-item.component'
 import { ONavigatorComponent } from './navigator/o-navigator.component';
 import { OToggleIconButtonComponent } from './toggle-icon-button/o-toggle-icon-button.component';
 
-export const OMAP_COMPONENTS: any[] = [
+export const OMAP_COMPONENTS = [
   OMapComponent,
   OMapBaseLayerComponent,
   OMapDrawControlsComponent,

@@ -12,6 +12,7 @@ const DEFAULT_OUTPUTS = [
 ];
 
 @Component({
+  standalone: true,
   selector: 'o-map-crs',
   templateUrl: './o-map-crs.component.html',
   styleUrls: ['./o-map-crs.component.scss'],

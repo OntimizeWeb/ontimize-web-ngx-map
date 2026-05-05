@@ -4,14 +4,14 @@
     (click)="toggleCollapse()">
     <!--<img class="layer-icon" *ngIf="icon && icon.length>0"[src]= "icon">-->
     <o-toggle-icon-button
-      clickable="no"
-      icon-dark="true"
+      [clickable]="false"
+      [icon-dark]="true"
       icon-name="folder"
       [button-active]="hasChildInWS()">
     </o-toggle-icon-button>
     <span class="o-flex o-flex-row" style="align-items:center; justify-content:flex-start">{{ description }}</span>
     <o-toggle-icon-button
-      clickable="no" icon-dark="true" icon-name="keyboard_arrow_down">
+      [clickable]="false" [icon-dark]="true" icon-name="keyboard_arrow_down">
     </o-toggle-icon-button>
   </button>
 }
@@ -29,7 +29,7 @@
   }
   @for (layerConf of getMapLayers(); track layerConf.layerId) {
     <o-map-layer class="o-flex"
-      [layer-radius]               = "layerConf.radius"
+      [layer-radius]               = "layerConf.radius?.toString()"
       [layer-service]              = "layerConf.service"
       [layer-base-url]             = "layerConf.baseUrl"
       [layer-selected]             = "layerConf.selected"
@@ -42,8 +42,7 @@
       [layer-popup-url]            = "layerConf.popupUrl"
       [layer-menu-label]           = "layerConf.menuLabel"
       [layer-menu-label-secondary] = "layerConf.menuLabelSecondary"
-      [layer-icon]                 = "layerConf.icon"
-      [layer-show-in-menu]         = "layerConf.showInMenu"
+      [layer-in-menu]              = "layerConf.showInMenu"
       [layer-center]               = "getLayerCenter(layerConf)"
       [layer-options]              = "layerConf.options">
     </o-map-layer>

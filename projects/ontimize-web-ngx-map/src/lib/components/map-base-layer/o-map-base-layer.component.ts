@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
@@ -7,6 +8,8 @@ import { OSearchable, OSearchResult } from '../../interfaces/search/searchable.i
 import { OMapBase } from '../map/o-map-base.class';
 
 @Component({
+  standalone: true,
+  imports: [NgStyle],
   selector: 'o-map-base-layer',
   providers: [],
   inputs: [

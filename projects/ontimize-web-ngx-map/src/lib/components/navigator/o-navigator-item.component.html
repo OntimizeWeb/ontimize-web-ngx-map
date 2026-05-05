@@ -12,7 +12,7 @@
   </div>
   @for (button of actions; track button) {
     <o-toggle-icon-button
-      icon-dark="true" clickable="false"
+      [icon-dark]="true" [clickable]="false"
       [icon-name]="getIcon(button)"
       [button-active]="button.status()"
       (click)="button.callback()">

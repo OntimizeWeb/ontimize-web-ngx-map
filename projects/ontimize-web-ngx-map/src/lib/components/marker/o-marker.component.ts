@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { LeafletMouseEvent } from 'leaflet';
 import * as L from 'leaflet';
 
 import { MapService } from '../../services/MapService';
 
 @Component({
+  standalone: true,
+  imports: [MatButtonModule, MatIconModule],
   selector: 'o-marker',
   templateUrl: './o-marker.component.html',
   styleUrls: ['./o-marker.component.scss']

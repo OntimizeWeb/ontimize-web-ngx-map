@@ -10,6 +10,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import * as L from 'leaflet';
 import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { combineLatest, Observable, Subscription } from 'rxjs';
@@ -26,8 +27,11 @@ import { Util } from '../../utils/util';
 import { Center } from '../../models/Center.class';
 import { ILayerService } from '../../interfaces/ILayerService';
 import { OMapBase } from '../map/o-map-base.class';
+import { OToggleIconButtonComponent } from '../toggle-icon-button/o-toggle-icon-button.component';
 
 @Component({
+  standalone: true,
+  imports: [MatButtonModule, OToggleIconButtonComponent],
   selector: 'o-map-layer',
   providers: [MapService],
   inputs: [

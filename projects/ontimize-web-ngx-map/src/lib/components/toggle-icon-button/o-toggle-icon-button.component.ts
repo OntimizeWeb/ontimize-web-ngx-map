@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { BooleanInputConverter } from 'ontimize-web-ngx';
 
 import { Util } from '../../utils/index';
 
 @Component({
+  standalone: true,
+  imports: [MatButtonModule, MatIconModule],
   selector: 'o-toggle-icon-button',
   inputs: [
     'buttonActive: button-active',
