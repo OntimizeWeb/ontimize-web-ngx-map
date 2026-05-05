@@ -1,6 +1,10 @@
 mat-sidenav#layers {
   width: 350px;
 
+  .mat-accordion {
+    padding: 8px;
+  }
+
   .mat-toolbar.mat-toolbar-single-row {
     padding-left: 16px;
     line-height: 40px;

@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+o-map {
+  min-height: 600px;
+}
+
+body {
+  font-size: 14px;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  max-height: max-content;
+  overflow: auto;
+}

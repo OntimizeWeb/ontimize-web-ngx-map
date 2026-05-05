@@ -3,6 +3,100 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ontimize-web-ngx-map-quickstart": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": { "style": "scss" }
+      },
+      "root": "projects/ontimize-web-ngx-map-quickstart",
+      "sourceRoot": "projects/ontimize-web-ngx-map-quickstart/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "moment",
+              "google-libphonenumber",
+              "leaflet",
+              "leaflet.markercluster",
+              "leaflet-providers",
+              "proj4leaflet",
+              "leaflet-contextmenu"
+            ],
+            "outputPath": "dist/ontimize-web-ngx-map-quickstart",
+            "index": "projects/ontimize-web-ngx-map-quickstart/src/index.html",
+            "main": "projects/ontimize-web-ngx-map-quickstart/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/ontimize-web-ngx-map-quickstart/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ontimize-web-ngx-map-quickstart/src/favicon.ico",
+              "projects/ontimize-web-ngx-map-quickstart/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ontimize-web-ngx/assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "node_modules/ontimize-web-ngx/ontimize.scss",
+              "node_modules/ontimize-web-ngx/theme.scss",
+              "projects/ontimize-web-ngx-map-quickstart/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules"]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ontimize-web-ngx-map-quickstart/src/environments/environment.ts",
+                  "with": "projects/ontimize-web-ngx-map-quickstart/src/environments/environment.prod.ts"
+                }
+              ],
+              "budgets": [
+                { "type": "initial", "maximumWarning": "2mb", "maximumError": "5mb" },
+                { "type": "anyComponentStyle", "maximumWarning": "6kb", "maximumError": "10kb" }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "ontimize-web-ngx-map-quickstart:build:production" },
+            "development": { "buildTarget": "ontimize-web-ngx-map-quickstart:build:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ontimize-web-ngx-map-quickstart/src/**/*.ts",
+              "projects/ontimize-web-ngx-map-quickstart/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "ontimize-web-ngx-map": {
       "projectType": "library",
       "root": "projects/ontimize-web-ngx-map",

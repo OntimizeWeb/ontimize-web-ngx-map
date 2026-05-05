@@ -1,0 +1,23 @@
+.snippet {
+
+
+  .hljs {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 0;
+  }
+
+  .copy-btn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 1;
+  }
+
+  code.highlight {
+    bottom: 0;
+
+  }
+}
