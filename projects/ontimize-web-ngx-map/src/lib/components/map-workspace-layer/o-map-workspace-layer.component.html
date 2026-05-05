@@ -1,0 +1,15 @@
+<div class="mat-content" fxLayout="row" fxLayoutAlign="start stretch" [class.selected]="selected" (click)="toggleSelected()">
+
+  <o-toggle-icon-button clickable="no" icon-dark="true" icon-name="drag_handle" class="drag-handle">
+  </o-toggle-icon-button>
+  <!--<img class="layer-icon" *ngIf="icon && icon.length>0" [src]="icon">-->
+  <div fxFlex>{{ menuLabel }}
+    <small *ngIf="menuLabelSecondary">
+      <br>{{ menuLabelSecondary }}</small>
+  </div>
+  <o-toggle-icon-button icon-dark="true" [icon-name]="visible ? 'visibility' : 'visibility_off'" [button-active]="visible"
+    (click)="toggleVisible(undefined, $event)">
+  </o-toggle-icon-button>
+  <o-toggle-icon-button icon-dark="true" icon-name="delete" [button-active]="inWS" (click)="toggleInWS()">
+  </o-toggle-icon-button>
+</div>

@@ -1,0 +1,4 @@
+<button mat-button *ngIf="iconName !== undefined" [class.active]="buttonActive" [class.dark]="iconDark"
+	[class.mat-no-ink]="noInk" (click)="toggle()">
+	<mat-icon>{{ iconName }}</mat-icon>
+</button>

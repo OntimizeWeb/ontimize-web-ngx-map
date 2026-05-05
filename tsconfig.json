@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "jasmine",
+      "node"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "ES2020",
+      "dom"
+    ],
+    "paths": {
+      "ontimize-web-ngx-map": [
+        "dist/ontimize-web-ngx-map"
+      ],
+      "ontimize-web-ngx-map/*": [
+        "dist/ontimize-web-ngx-map/*"
+      ]
+    },
+    "useDefineForClassFields": false
+  }
+}

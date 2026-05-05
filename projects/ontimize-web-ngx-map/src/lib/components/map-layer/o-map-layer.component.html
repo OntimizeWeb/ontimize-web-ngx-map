@@ -1,0 +1,9 @@
+<button mat-button mat-ink #layer class="o-map-layer-item" (click)="toggleInWS()">
+	<!--<img class="layer-icon" *ngIf="icon && icon.length>0" [src]="icon">-->
+	<o-toggle-icon-button icon-dark="true" [icon-name]="icon" [button-active]="inWS">
+	</o-toggle-icon-button>
+	<div fxFlex fxLayout="column" fxLayoutAlign="center start">
+		{{menuLabel || layerId}}
+		<small *ngIf="menuLabelSecondary !== undefined">{{menuLabelSecondary}}</small>
+	</div>
+</button>
