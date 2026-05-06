@@ -1,4 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -14,7 +15,8 @@ import {
   ViewEncapsulation,
   forwardRef,
 } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import * as L from 'leaflet';
 import { BooleanInputConverter } from 'ontimize-web-ngx';
@@ -27,10 +29,13 @@ import { GeocodingService } from '../../services/GeocodingService';
 import { MapService } from '../../services/MapService';
 import { TranslateMapService } from '../../services/TranslateMapService';
 import { Util } from '../../utils/util';
-import type { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
+import { OMapBaseLayerComponent } from '../map-base-layer/o-map-base-layer.component';
 import { OMapCrsComponent } from '../map-crs/o-map-crs.component';
 import { OMapLayerContainerComponent } from '../map-layer-container/o-map-layer-container.component';
+import { OMapLayerGroupComponent } from '../map-layer-group/o-map-layer-group.component';
+import { OMapWorkspaceComponent } from '../map-workspace/o-map-workspace.component';
 import { OMarkerComponent } from '../marker/o-marker.component';
+import { ONavigatorComponent } from '../navigator/o-navigator.component';
 import { OMapWSearch } from './o-map-w-search.class';
 import { OMapBase } from './o-map-base.class';
 import { getGeocodingServiceProvider } from '../../services/providers';
@@ -94,6 +99,17 @@ const DEFAULT_OUTPUTS = [
 ];
 
 @Component({
+  standalone: true,
+  imports: [
+    NgTemplateOutlet,
+    MatSidenavModule,
+    MatExpansionModule,
+    OMapBaseLayerComponent,
+    OMapLayerGroupComponent,
+    OMapWorkspaceComponent,
+    ONavigatorComponent,
+    OMapLayerContainerComponent,
+  ],
   selector: 'o-map',
   providers: [
     MapService, {
@@ -129,10 +145,10 @@ export class OMapComponent extends OMapWSearch implements OnInit, AfterViewInit,
   public static DEFAULT_OUTPUTS = DEFAULT_OUTPUTS;
 
   @ViewChild(OMarkerComponent) markerComponent: OMarkerComponent;
-  @ViewChild('sidenav') sideNavCmp: MatSidenav;
-  @ViewChildren('mainBaseLayerGroup') mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
-  @ViewChild('mainLayerGroup') mapLayerGroup: OMapLayerGroup;
-  @ViewChild('oMapWorkspace') mapWorkspace: OMapWorkspace;
+  @ViewChild('sidenav') declare sideNavCmp: MatSidenav;
+  @ViewChildren('mainBaseLayerGroup') declare mapBaseLayerGroup: Array<OMapBaseLayerComponent>;
+  @ViewChild('mainLayerGroup') declare mapLayerGroup: OMapLayerGroup;
+  @ViewChild('oMapWorkspace') declare mapWorkspace: OMapWorkspace;
   @ViewChild('navigatorContainer') navigatorContainer: ElementRef;
   @ContentChildren(OMapLayerContainerComponent)
   protected mapLayerContainerQueryList: QueryList<OMapLayerContainerComponent>;

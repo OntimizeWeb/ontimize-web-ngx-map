@@ -25,6 +25,7 @@
   ],
   "angularCompilerOptions": {
     "skipMetadataEmit": false,
-    "strictMetadataEmit": true
+    "strictMetadataEmit": true,
+    "compilationMode": "partial"
   }
 }

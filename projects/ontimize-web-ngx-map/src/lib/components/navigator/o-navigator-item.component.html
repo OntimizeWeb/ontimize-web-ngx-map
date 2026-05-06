@@ -1,13 +1,21 @@
-<div class="search-result" fxLayout="row">
-	<i class="material-icons" *ngIf="searchResult.icon">{{ searchResult.icon }}</i>
-	<div fxFlex fxLayout="column" fxLayoutAlign="center start">
-		<span *ngIf="searchResult.label">{{ searchResult.label }}</span>
-		<span class="sub-label" *ngIf="searchResult.sublabel">{{ searchResult.sublabel }}</span>
-	</div>
-	<o-toggle-icon-button *ngFor="let button of actions"
-		icon-dark="true" clickable="false"
-		[icon-name]="getIcon(button)"
-		[button-active]="button.status()"
-		(click)="button.callback()">
-	</o-toggle-icon-button>
+<div class="search-result o-flex-row">
+  @if (searchResult.icon) {
+    <i class="material-icons">{{ searchResult.icon }}</i>
+  }
+  <div class="o-flex o-flex-column" style="align-items:flex-start; justify-content:center">
+    @if (searchResult.label) {
+      <span>{{ searchResult.label }}</span>
+    }
+    @if (searchResult.sublabel) {
+      <span class="sub-label">{{ searchResult.sublabel }}</span>
+    }
+  </div>
+  @for (button of actions; track button) {
+    <o-toggle-icon-button
+      [icon-dark]="true" [clickable]="false"
+      [icon-name]="getIcon(button)"
+      [button-active]="button.status()"
+      (click)="button.callback()">
+    </o-toggle-icon-button>
+  }
 </div>

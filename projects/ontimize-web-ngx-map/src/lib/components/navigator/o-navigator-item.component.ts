@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 
 import { OSearchResult, OSearchResultAction } from '../../interfaces/search/searchable.interface';
+import { OToggleIconButtonComponent } from '../toggle-icon-button/o-toggle-icon-button.component';
 
 @Component({
+  standalone: true,
+  imports: [OToggleIconButtonComponent],
   selector: 'o-navigator-item',
   inputs: [
     'searchResult : search-result'

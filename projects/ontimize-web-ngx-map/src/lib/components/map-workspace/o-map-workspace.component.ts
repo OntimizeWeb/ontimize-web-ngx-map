@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, forwardRef, Inject, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -8,8 +8,11 @@ import { OSearcher } from '../../interfaces/search/searcher.interface';
 import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
 import { OMapBase } from '../map/o-map-base.class';
 import { OMapWorkspaceBase } from './o-map-workspace-base.class';
+import { OMapWorkspaceLayerComponent } from '../map-workspace-layer/o-map-workspace-layer.component';
 
 @Component({
+  standalone: true,
+  imports: [DragDropModule, OMapWorkspaceLayerComponent],
   selector: 'o-map-workspace',
   inputs: [],
   outputs: [

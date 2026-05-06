@@ -25,10 +25,10 @@
     ],
     "paths": {
       "ontimize-web-ngx-map": [
-        "dist/ontimize-web-ngx-map"
+        "projects/ontimize-web-ngx-map/src/public-api.ts"
       ],
       "ontimize-web-ngx-map/*": [
-        "dist/ontimize-web-ngx-map/*"
+        "projects/ontimize-web-ngx-map/src/*"
       ]
     },
     "useDefineForClassFields": false

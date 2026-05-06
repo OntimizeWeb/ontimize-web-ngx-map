@@ -1,0 +1,30 @@
+@mixin example-component-theme($theme) {
+  .example-comp {
+    & > section {
+      background: var(--o-bg-card);
+      box-shadow: none;
+
+      .mat-toolbar {
+        background-color: transparent;
+        color: var(--o-fg-text);
+      }
+
+      .playground-toolbar.mat-toolbar {
+        background-color: transparent;
+        border-bottom: 2px solid var(--o-primary-500);
+      }
+
+      .comp-note {
+        p {
+          mat-icon {
+            color: var(--o-primary-500);
+          }
+        }
+      }
+
+      .playground-tabs {
+        border-bottom: 1px solid var(--o-fg-divider);
+      }
+    }
+  }
+}

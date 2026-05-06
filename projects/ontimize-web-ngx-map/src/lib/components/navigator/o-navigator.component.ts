@@ -1,4 +1,7 @@
 import { Component, forwardRef, Inject, OnDestroy } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 
@@ -6,6 +9,7 @@ import { GeocodingService } from '../../services/GeocodingService';
 import { TranslateMapService } from '../../services/TranslateMapService';
 import { ONavigatorDefault } from './o-navigator.class';
 import { OMapBase } from '../map/o-map-base.class';
+import { ONavigatorItemComponent } from './o-navigator-item.component';
 
 const DEFAULT_INPUTS = [
   'showSidenavButton: show-sidenav-button',
@@ -13,6 +17,8 @@ const DEFAULT_INPUTS = [
 ];
 
 @Component({
+  standalone: true,
+  imports: [FormsModule, MatButtonModule, MatIconModule, ONavigatorItemComponent],
   selector: 'o-navigator',
   templateUrl: './o-navigator.component.html',
   styleUrls: ['./o-navigator.component.scss'],

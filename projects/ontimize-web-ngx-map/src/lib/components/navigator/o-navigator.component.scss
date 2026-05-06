@@ -18,6 +18,8 @@ button.mdc-button.mat-mdc-button {
   width: 54px;
   min-width: 54px;
   height: 48px;
+  // search-panel always has white background, keep button text dark in any theme
+  color: #000;
 
   i {
     line-height: 48px;

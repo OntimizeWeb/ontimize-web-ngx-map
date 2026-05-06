@@ -4,8 +4,11 @@ import { BooleanInputConverter } from 'ontimize-web-ngx';
 import { OSearchable, OSearchResult } from '../../interfaces/search/searchable.interface';
 import { OMapLayerComponent } from '../map-layer/o-map-layer.component';
 import { OMapWorkspaceBase } from '../map-workspace/o-map-workspace-base.class';
+import { OToggleIconButtonComponent } from '../toggle-icon-button/o-toggle-icon-button.component';
 
 @Component({
+  standalone: true,
+  imports: [OToggleIconButtonComponent],
   selector: 'o-map-workspace-layer',
   providers: [],
   inputs: [

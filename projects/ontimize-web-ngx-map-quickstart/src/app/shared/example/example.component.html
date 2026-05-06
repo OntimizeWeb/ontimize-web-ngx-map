@@ -1,0 +1,67 @@
+<section class="mat-elevation-z2 o-flex-column" style="align-items: stretch">
+
+  <mat-toolbar class="o-flex-row playground-toolbar" color="primary">
+    <div class="o-flex-column o-flex-grow">
+      <span class="comp-title">{{ compName | oTranslate }}</span>
+      <span class="comp-description">{{ compDesc | oTranslate }}</span>
+    </div>
+    @if (!collapsed) {
+      <button mat-icon-button aria-label="View Source" (click)="toggleShowSource()">
+        <mat-icon class="mat-24">code</mat-icon>
+      </button>
+    }
+    @if (collapsible) {
+      <button mat-icon-button aria-label="Collapse" (click)="collapsed = !collapsed">
+        @if (!collapsed) {
+          <mat-icon class="mat-24">keyboard_arrow_up</mat-icon>
+        }
+        @if (collapsed) {
+          <mat-icon class="mat-24">keyboard_arrow_down</mat-icon>
+        }
+      </button>
+    }
+  </mat-toolbar>
+
+  @if (showSource) {
+    <div class="o-flex-row" [style.height]="tabHeight">
+      <mat-tab-group class="playground-tabs o-flex-grow o-flex-fill" mat-stretch-tabs="false" mat-align-tabs="start">
+        @if (html) {
+          <mat-tab label="{{ 'html' | uppercase }}">
+            <highlight-comp [template-content]="html" template-type="html"></highlight-comp>
+          </mat-tab>
+        }
+        @if (files.scss && files.scss.data) {
+          <mat-tab label="{{ 'scss' | uppercase }}">
+            <highlight-comp [template-content]="files.scss.data" template-type="scss"></highlight-comp>
+          </mat-tab>
+        }
+        @if (files.typescript && files.typescript.data) {
+          <mat-tab label="{{ 'typescript' | uppercase }}">
+            <highlight-comp [template-content]="files.typescript.data" template-type="typescript"></highlight-comp>
+          </mat-tab>
+        }
+        @for (file of aditionalTabs; track file) {
+          <mat-tab [label]="file.label">
+            <highlight-comp [template-content]="file.data" [template-type]="file.type"></highlight-comp>
+          </mat-tab>
+        }
+      </mat-tab-group>
+    </div>
+  }
+
+  <!-- Live Demos -->
+  <div class="o-flex-grow playground-examples" [class.collapsed]="collapsed" [class.collapsible]="collapsible">
+    <ng-content></ng-content>
+  </div>
+
+  @if (compNote) {
+    <div class="comp-note">
+      <mat-divider></mat-divider>
+      <p class="o-flex-row">
+        <mat-icon>thumb_up</mat-icon>
+        <span [innerHTML]="compNote | oTranslate"> </span>
+      </p>
+    </div>
+  }
+
+</section>

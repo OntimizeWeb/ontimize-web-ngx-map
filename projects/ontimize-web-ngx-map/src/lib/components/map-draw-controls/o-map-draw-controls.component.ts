@@ -26,6 +26,7 @@ const DEFAULT_OUTPUTS = [
 ];
 
 @Component({
+  standalone: true,
   selector: 'o-map-draw-controls',
   templateUrl: './o-map-draw-controls.component.html',
   styleUrls: ['./o-map-draw-controls.component.scss'],

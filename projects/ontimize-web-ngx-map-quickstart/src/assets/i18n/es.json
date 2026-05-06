@@ -1,0 +1,11 @@
+{
+  "APP_TITLE" : "Mapa",
+  "VERSION" : "Versión",
+  "ABOUT": "Sobre",
+  "INTRODUCTION": "Introducción",
+  "BASIC" : "Uso básico",
+  "LAYERS" : "Capas",
+  "MARKER" : "Marcador",
+  "GEOJSON" : "GeoJson",
+  "WMS" : "WMS"
+}
